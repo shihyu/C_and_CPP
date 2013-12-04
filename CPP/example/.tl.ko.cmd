@@ -1,0 +1,1 @@
+cmd_/home/shihyu/cpp/test/tl.ko := ld -r -m elf_x86_64 -T /usr/src/linux-headers-3.5.0-39-generic/scripts/module-common.lds --build-id  -o /home/shihyu/cpp/test/tl.ko /home/shihyu/cpp/test/tl.o /home/shihyu/cpp/test/tl.mod.o

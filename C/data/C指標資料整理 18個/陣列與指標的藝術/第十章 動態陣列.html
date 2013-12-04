@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=big5" http-equiv="content-type">
+  <title>第十章 動態陣列</title>
+</head>
+<body>
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">當寫下這個題目的時候，筆者心裡其實非常犯難。因為從本質上來說，本章想闡述的內容與題目所宣示的概念，其實是不一樣的。在編程中，我們常常要處理一段長度未知的資料，而且，運行程序中長度可能會發生變化，現行的</span><span style="font-family: 'Times New Roman';" lang="EN-US">C/C++</span><span style="font-family: 宋體;">標准沒有提供在堆疊段和資料段記憶體中的實現，只提供堆積中的實現，例如可以象下面程式碼那樣在堆積中配置一段記憶體，以處理一組長度不確定的整數：</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">int *p = ( int* )malloc( n * sizeof( 
+int ) );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">現在我們常常將這段堆積記憶體稱為&ldquo;動態陣列&rdquo;。這正確嗎？陣列是一個高階概念，是</span><span style="font-family: 'Times New Roman';" lang="EN-US">C/C++</span><span style="font-family: 宋體;">物件 模型及型別系統的重要組成。一個物件 欲成為一個陣列，引用此物件 的運算式或標識符必須具有高階的陣列型別，但這段記憶體沒有任何陣列型別的引用，只有一個指向它的指標，因此，這段記憶體不是</span><span style="font-family: 'Times New Roman';" lang="EN-US">C/C++</span><span style="font-family: 宋體;">高階語意 上的陣列。雖然</span><span style="font-family: 'Times New Roman';" lang="EN-US">p</span><span style="font-family: 宋體;">可以使用下標運算符訪問記憶體區塊中的資料，但其實只不過得益於下標運算符的指標性質（如第四章所述）而已。一個真正的動態陣列，不僅長度在執行期內可變，還需要具備陣列型別的抽象，這要求語言規則的支援，這些條件是</span><span style="font-family: 'Times New Roman';" lang="EN-US">p</span><span style="font-family: 宋體;">所不具備的。但是，真正的動態陣列的實現也不容易，往往受到效率等多重因素的制約，即使實現了也可能需要付出很大的代價，得不償失，正因如此，</span><span style="font-family: 'Times New Roman';" lang="EN-US">C/C++</span><span style="font-family: 宋體;">標准都沒有提供對動態陣列的支援。不過，這段堆積記憶體被稱為&ldquo;動態陣列&rdquo;多年來已經習慣成自然了，筆者沒有為其重新命名的技術能力和資歷，也就只有隨波逐資料流，暫且也稱之為動態陣列吧，重要的是明白兩者本質的不同。</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">鑒於動態陣列不是真正的受</span><span style="font-family: 'Times New Roman';" lang="EN-US">C/C++</span><span style="font-family: 宋體;">規則支援的動態陣列，因此需要通過指標對陣列內部各維位址進行構造，整個陣列才能使用下標運算符。這就使動態陣列的內部構造分成兩部分，一部分叫資料儲存區，用來儲存檔案真正的陣列元素，另一部分叫中間位址緩衝區，儲存檔案陣列內部各維的中間位址。</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">根據資料儲存區的空間連續性，可以將動態陣列分成兩大類別，一類別是具有連續儲存空間的動態陣列，另一類別是非連續儲存空間的動態陣列。筆者分別將它們稱為連續動態陣列和離散動態陣列。</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">離散動態陣列是最簡單的動態陣列，因為無須考慮資料在哪裡儲存，只需要動態配置就行了，同時中間位址不需要或只需要簡單計算就可以得出。例如一個二維離散動態陣列可以這樣構造：</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">int **p = ( int** )malloc( m * sizeof( 
+int* ) );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">for( i = 0; i &lt; m; ++i 
+)</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</span>p[i] = ( int* )malloc( n * sizeof( int ) );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">上述程式碼中，</span><span style="font-family: 'Times New Roman';" lang="EN-US">p</span><span style="font-family: 宋體;">指向中間位址緩衝區，儲存檔案第一維各元素的首位址，</span><span style="font-family: 'Times New Roman';" lang="EN-US">p[i]</span><span style="font-family: 宋體;">指向資料儲存區，這個儲存區是不連續的。釋放空間時需要這樣進行：</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">for( i = 0; i &lt; m; ++i 
+)</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</span>free( p[i] );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">free( p );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">離
+散動態陣列是先構造好中間位址緩衝區，再構造資料儲存區，這是造成資料空間不連續的原因，雖然構造程序簡單，但非連續性帶來很多缺點。一是不利於陣列內部
+的直接尋址，例如通過資料區首位址計算元素位址；二是當需要對陣列長度進行改變時，程序復雜；三是空間的釋放需要對中間位址緩衝區重新遍歷。但其實，完全
+可以先構造資料儲存區，再構造中間位址緩衝區，這種方法使連續資料儲存空間有了可能，而且，連續動態陣列不會帶來離散動態陣列那些缺點。下面是構造連續動
+態陣列的示例：</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">int *p = ( int* )malloc( m * n * 
+sizeof( int ) );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">int **q = ( int** )malloc( m * sizeof( 
+int* ) );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">for( i = 0; i &lt; m; ++i 
+)</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</span>q[i] = p + i * n;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">首先</span><span style="font-family: 'Times New Roman';" lang="EN-US">p</span><span style="font-family: 宋體;">配置</span><span style="font-family: 'Times New Roman';" lang="EN-US">m*n</span><span style="font-family: 宋體;">個</span><span style="font-family: 'Times New Roman';" lang="EN-US">int</span><span style="font-family: 宋體;">資料的儲存區，再由</span><span style="font-family: 'Times New Roman';" lang="EN-US">q</span><span style="font-family: 宋體;">根據這段空間構造中間位址。現在，不僅可以通過</span><span style="font-family: 'Times New Roman';" lang="EN-US">q[m][n]</span><span style="font-family: 宋體;">使用這個陣列，還可以直接通過</span><span style="font-family: 'Times New Roman';" lang="EN-US">p</span><span style="font-family: 宋體;">和下標運算符訪問陣列的元素。釋放空間的時候直接釋放</span><span style="font-family: 'Times New Roman';" lang="EN-US">p</span><span style="font-family: 宋體;">和</span><span style="font-family: 'Times New Roman';" lang="EN-US">q</span><span style="font-family: 宋體;">就行了，需要改變陣列長度的話，只須重新配置</span><span style="font-family: 'Times New Roman';" lang="EN-US">p</span><span style="font-family: 宋體;">指向的空間，再重新構造一下中間位址緩衝區，例如將上述</span><span style="font-family: 'Times New Roman';" lang="EN-US">m*n</span><span style="font-family: 宋體;">個</span><span style="font-family: 'Times New Roman';" lang="EN-US">int</span><span style="font-family: 宋體;">元素的陣列改為</span><span style="font-family: 'Times New Roman';" lang="EN-US">k*j</span><span style="font-family: 宋體;">個</span><span style="font-family: 'Times New Roman';" lang="EN-US">int</span><span style="font-family: 宋體;">元素，可以這樣做：</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">int *p = ( int* )realloc( p, k * j * 
+sizeof( int ) );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">int **q = ( int** )realloc( q, k * 
+sizeof( int* ) );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">for( i = 0; i &lt; k; ++i 
+)</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</span>q[i] = p + i * j;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">而離散動態陣列就必須先動態配置好</span><span style="font-family: 'Times New Roman';" lang="EN-US">k*j</span><span style="font-family: 宋體;">個</span><span style="font-family: 'Times New Roman';" lang="EN-US">int</span><span style="font-family: 宋體;">的新空間，然後把舊資料都復制過去，再釋放舊空間，整個程序比連續空間麻煩得多。</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">連續動態陣列不僅可以使用堆積中的空間，還可以在堆疊段和資料段中構造，只要在堆疊或資料段的陣列物件 中重新構造中間位址即可，例如：</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">double a[100];</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">double **p = ( double** )malloc( 5 * 
+sizeof( double* ) );</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">for( i = 0; i &lt; 5; ++i 
+)</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;"><span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+</span>p[i] = a + i * 20;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">這樣就把一維</span><span style="font-family: 'Times New Roman';" lang="EN-US">double</span><span style="font-family: 宋體;">陣列</span><span style="font-family: 'Times New Roman';" lang="EN-US">a</span><span style="font-family: 宋體;">的空間重新在邏輯上改造成了一個二維陣列</span><span style="font-family: 'Times New Roman';" lang="EN-US">p[5][20]</span><span style="font-family: 宋體;">，注意重新構造的動態陣列的長度不能超出</span><span style="font-family: 'Times New Roman';" lang="EN-US">a</span><span style="font-family: 宋體;">的空間，否則結果是不確定的，是危險的。</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">上述例子在一個一維陣列上構造了一個二維陣列，維度發生了變化，這說明連續動態陣列不僅可以方便地改變長度，還可以方便地改變維度。當目的維度可變時，中間位址的構造需要使用遞迴 演算法 。筆者的博客中就提供了一個維度可變的陣列</span><span style="font-family: 'Times New Roman';" lang="EN-US">ADT</span><span style="font-family: 宋體;">的例子。</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">要注意的是，動態陣列的中間位址不具陣列型別。例如上述動態陣列</span><span style="font-family: 'Times New Roman';" lang="EN-US">q[m][n]</span><span style="font-family: 宋體;">的第一維</span><span style="font-family: 'Times New Roman';" lang="EN-US">q[m]</span><span style="font-family: 宋體;">型別依然是</span><span style="font-family: 'Times New Roman';" lang="EN-US">int*</span><span style="font-family: 宋體;">，而一個陣列物件 </span><span style="font-family: 'Times New Roman';" lang="EN-US">int a[m][n]</span><span style="font-family: 宋體;">的第一維</span><span style="font-family: 'Times New Roman';" lang="EN-US">a[m]</span><span style="font-family: 宋體;">的型別是陣列型別</span><span style="font-family: 'Times New Roman';" lang="EN-US">int[n]</span><span style="font-family: 宋體;">。</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-family: 'Times New Roman';" lang="EN-US"><span style="font-size: large;">&nbsp;</span></span></p>
+
+<p style="margin: 0cm 0cm 0pt; text-align: left; text-indent: 24pt;" class="MsoNormal" align="left"><span style="font-size: large;"><span style="font-family: 宋體;">綜合來看，由於連續動態陣列的優點比離散動態陣列多得多，在編程實踐中應優先使用連續動態陣列。</span></span></p>
+</body>
+</html>

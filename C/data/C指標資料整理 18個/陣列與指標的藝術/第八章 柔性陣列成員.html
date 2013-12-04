@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=big5" http-equiv="content-type">
+  <title>第八章 柔性陣列成員</title>
+</head>
+<body>
+在講述柔性陣列成員之前，首先要介紹一下不完整型別（incomplete type）。不完整型別是這樣一種型別，它缺乏足夠的資訊例如長度去描述一個完整的物件 。<br>
+<br>
+&nbsp;<br>
+<br>
+6.2.5 Types<br>
+<br>
+&nbsp;<br>
+<br>
+incomplete types (types that describe objects but lack information needed to determine their sizes).<br>
+<br>
+&nbsp;<br>
+<br>
+C與C++關於不完整型別的語意 是一樣的。<br>
+<br>
+&nbsp;<br>
+<br>
+基本上沒有什麼書介紹過不完整型別，很多人初次遇到這個概念時腦袋會一片空白。事實上我們在實際的工程設計中經常使用不完整型別，只不過不知道有這麼個概念而已。前向宣告就是一種常用的不完整型別：<br>
+<br>
+&nbsp;<br>
+<br>
+class base;<br>
+<br>
+&nbsp;<br>
+<br>
+struct test;<br>
+<br>
+&nbsp;<br>
+<br>
+base和test只給出了宣告，沒有給出定義。不完整型別必須通過某種方式補充完整，才能使用它們進行實體化，否則只能用於定義指標或引用，因為此時實體化的是指標或引用本身，不是base或test物件 。<br>
+<br>
+&nbsp;<br>
+<br>
+一個未知長度的陣列也屬於不完整型別：<br>
+<br>
+&nbsp;<br>
+<br>
+extern int a[];<br>
+<br>
+&nbsp;<br>
+<br>
+extern不能去掉，因為陣列的長度未知，不能作為定義出現。不完整型別的陣列可以通過幾種方式補充完整才能使用，大括號形式的初始化就是其中一種方式：<br>
+<br>
+&nbsp;<br>
+<br>
+int a[] = { 10, 20 };<br>
+<br>
+&nbsp;<br>
+<br>
+柔性陣列成員（flexible array
+member）也叫伸縮性陣列成員，它的出現反映了C程式員對精煉程式碼的極致追求。這種程式碼結構產生於對動態結構體的需求。在日常的編程中，有時候需要在
+結構體中存放一個長度動態的字串，一般的做法，是在結構體中定義一個指標成員，這個指標成員指向該字串所在的動態記憶體空間，例如：<br>
+<br>
+struct test<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int a;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double b;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *p;<br>
+<br>
+};<br>
+<br>
+&nbsp;<br>
+<br>
+p指向字串。這種方法造成字串與結構體是分離的，不利於操作，如果把字串跟結構體直接連在一起，不是更好嗎？於是，可以把程式碼修改為這樣：<br>
+<br>
+&nbsp;<br>
+<br>
+char a[] = &ldquo;hello world&rdquo;;<br>
+<br>
+struct test *PntTest = ( struct test* )malloc( sizeof( struct test ) + strlen( a ) + 1 );<br>
+<br>
+strcpy( PntTest + 1, a );<br>
+<br>
+&nbsp;<br>
+<br>
+這樣一來，( char* )( PntTest + 1 )就是字串&ldquo;hello
+world&rdquo;的位址了。這時候p成了多余的東西，可以去掉。但是，又產生了另外一個問題：老是使用( char* )( PntTest
++ 1
+)不方便。如果能夠找出一種方法，既能直接引用該字串，又不占用結構體的空間，就完美了，符合這種條件的程式碼結構應該是一個非物件 的符號位址，在結構體
+的尾部放置一個0長度的陣列是一個絕妙的解決解決方案 。不過，C/C++標准規定不能定義長度為0的陣列，因此，有些編譯器就把0長度的陣列成員作為自己的非
+標准擴展，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+struct test<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int a;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double b;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char c[0];<br>
+<br>
+};<br>
+<br>
+&nbsp;<br>
+<br>
+c就叫柔性陣列成員，如果把PntTest指向的動態配置記憶體看作一個整體，c就是一個長度可以動態變化的結構體成員，柔性一詞來源於此。c的長度為0，
+因此它不占用test的空間，同時PntTest-&gt;c就是&ldquo;hello world&rdquo;的首位址，不需要再使用(
+char* )( PntTest + 1 )這麼丑陋的語法了。<br>
+<br>
+&nbsp;<br>
+<br>
+鑒於這種程式碼結構所產生的重要作用，C99甚至把它收入了標准中：<br>
+<br>
+&nbsp;<br>
+<br>
+6.7.2.1 Structure and union specifiers<br>
+<br>
+&nbsp;<br>
+<br>
+As a special case, the last element of a structure with more than one
+named member may have an incomplete array type; this is called a
+flexible array member.<br>
+<br>
+&nbsp;<br>
+<br>
+C99使用不完整型別實現柔性陣列成員，標准形式是這樣的：<br>
+<br>
+&nbsp;<br>
+<br>
+struct test<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int a;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double b;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char c[];<br>
+<br>
+};<br>
+<br>
+&nbsp;<br>
+<br>
+c同樣不占用test的空間，只作為一個符號位址存在，而且必須是結構體的最後一個成員。柔性陣列成員不僅可以用於字符陣列，還可以是元素為其它型別的陣列，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+struct test<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int a;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double b;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; float c[];<br>
+<br>
+};<br>
+<br>
+&nbsp;<br>
+<br>
+應當盡量使用標准形式，在非C99的場合，可以使用指標方法。有些人使用char
+a[1]，這是非常不可取的，把這樣的a用作柔性陣列成員會發生越界行為，雖然C/C++標准並沒有規定編譯器應當檢查越界，但也沒有規定不能檢查越界，
+為了一個小小的指標空間而犧牲移植性，是不值得的。<br>
+<br>
+<br>
+本文來自CSDN博客，轉載請標明出處：http://blog.csdn.net/supermegaboy/archive/2009/11/23/4854939.aspx
+</body>
+</html>

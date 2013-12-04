@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=big5" http-equiv="content-type">
+  <title>前 言</title>
+</head>
+<body>
+陣列與指標生來就是雙胞胎，多數人就是從陣列的學習開始指標的旅程的。在學習的程序中，很自然就會經常聽到或見到關於陣列與指標的各種各樣的看法，下面我節選一些在各種論壇和文章裡經常見到的文字：<br>
+<br>
+&nbsp;<br>
+<br>
+&ldquo;一維陣列是一級指標&rdquo;<br>
+<br>
+&ldquo;二維陣列是二級指標&rdquo;<br>
+<br>
+&ldquo;陣列名是一個常數指標&rdquo;<br>
+<br>
+&ldquo;陣列名是一個指標常數&rdquo;<br>
+<br>
+........................<br>
+<br>
+&nbsp;<br>
+<br>
+這些文字看起來非常熟悉吧？類別似的文字還有許多。不過非常遺憾，這些文字都是錯誤的，實際上陣列名永遠都不是指標！這個結論也許會讓你震驚，但它的確是事
+實。但是，在論述這個問題之前，首先需要解決兩個問題：什麼是指標？什麼是陣列？這是本章的主要內容，陣列名是否指標這個問題留在第二章進行討論。看到這
+裡，也許有人心裡就會嘀咕了，這麼簡單的問題還需要說嗎？int *p,
+a[10];不就是指標和陣列嗎？但是，筆者在過往的討論程序中，還真的發現有不少人對這兩個概念遠非清晰，這會妨礙對後面內容的理解，所以還是有必要先
+討論一下。<br>
+<br>
+&nbsp;<br>
+<br>
+什麼是指標？一種普遍存在的理解是，把指標變數理解成就是指標，這種理解是片面的，指標變數只是指標的其中一種形態，但指標並不僅僅只有指標變數。一個指標，套件含了兩方面的涵義：實體（entity）和型別。標准是這樣描述指標型別的：<br>
+<br>
+&nbsp;<br>
+<br>
+6.2.5 Types<br>
+<br>
+&nbsp;<br>
+<br>
+A pointer type may be derived from a function type, an object type, or
+an incomplete type, called the referenced type. A pointer type
+describes an object whose value provides a reference to an entity of
+the referenced type. A pointer type derived from the referenced type T
+is sometimes called &lsquo;&lsquo;pointer to T&rsquo;&rsquo;. The
+construction of a pointer type from a referenced type is called
+&lsquo;&lsquo;pointer type derivation&rsquo;&rsquo;.<br>
+<br>
+&nbsp;<br>
+<br>
+請留意第二句所說的內容：指標型別描述了這樣一個物件 ，其值為對某種型別實體的引用。標准在這裡所用的措詞是指標型別描述了一個物件 。<br>
+<br>
+&nbsp;<br>
+<br>
+再來看看標准關於取址運算符&amp;的規定：<br>
+<br>
+&nbsp;<br>
+<br>
+6.5.3.2 Address and indirection operators<br>
+<br>
+&nbsp;<br>
+<br>
+Semantics<br>
+<br>
+&nbsp;<br>
+<br>
+The unary &amp; operator returns the address of its operand. If the
+operand has type &ldquo;type&rdquo;, the result has type &ldquo;pointer
+to type&rdquo;....... Otherwise, the result is a pointer to the object
+or function designated by its operand.<br>
+<br>
+&nbsp;<br>
+<br>
+這個條款規定，&amp;運算符的結果是一個指標。但問題是，&amp;運算式的結果不是物件 ！標准自相矛盾了嗎？當然不是，這說明的是，指標的實體有物件 與非物件 兩種形態。<br>
+<br>
+&nbsp;<br>
+<br>
+我們常說的指標變數只是指標實體的物件 形態，但物件 與非物件 兩種形態合起來，才是指標的完整涵義，就是說，無論是否物件 ，只要是一個具有指標型別的實體，
+都可以稱之為指標，換言之，指標不一定是物件 ，也不一定是變數。後一種情況，指的是當需要產生一個指標型別的暫時物件 時，例如函式的傳值傳回或者運算式計
+算產生的中間結果，由於是一個無名暫時物件 ，因此不是變數。<br>
+<br>
+&nbsp;<br>
+<br>
+在C++中，由於引入了OOP，增加了一種也稱為&ldquo;指標&rdquo;的實體：類別非靜態成員指標，雖然也叫指標，但它卻不是一般意義上的指標。C++標准是這樣說的：<br>
+<br>
+&nbsp;<br>
+<br>
+3.9.2 Compound types<br>
+<br>
+&nbsp;<br>
+<br>
+....... Except for pointers to static members, text referring to
+&ldquo;pointers&rdquo; does not apply to pointers to members..........<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;<br>
+<br>
+接下來，該談談陣列了。陣列是一種物件 ，其物件 型別就叫陣列型別。但筆者發現有個現象很奇怪，有些人根本沒有陣列型別的意識，不過也的確有些書並沒有將陣列作為一個型別去闡述，也許原因就在於此吧。陣列型別跟指標型別都屬於衍生類別型，標准的條款：<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;<br>
+<br>
+6.2.5 Types<br>
+<br>
+&nbsp;<br>
+<br>
+An array type describes a contiguously allocated nonempty set of
+objects with a particular member object type, called the element type.
+Array types are characterized by their element type and by the number
+of elements in the array. An array type is said to be derived from its
+element type, and if its element type is T, the array type is sometimes
+called &ldquo;array of T&rdquo;. The construction of an array type from
+an element type is called &ldquo;array type derivation&rdquo;.<br>
+<br>
+&nbsp;<br>
+<br>
+陣列型別描述了某種物件 的非空群集   ，不允許0個元素，我們有時候看見某個結構定義內部定義了一個大小為0的陣列成員，這是柔性陣列成員的非標准形式，這個
+留在第八章講述。陣列型別的語法（注意不是陣列物件 的宣告語法）是element type[interger constant]，例如對於<br>
+<br>
+&nbsp;<br>
+<br>
+int a[10];<br>
+<br>
+&nbsp;<br>
+<br>
+a的陣列型別描述就是int[10]。<br>
+<br>
+&nbsp;<br>
+<br>
+陣列名作為陣列物件 的標識符，是一個經過&ldquo;隱式特例化&rdquo;處理的特殊標識符。整數物件 的標識符、浮點數的標識符等等雖然也是標識
+符，但陣列名與之相比卻有重大的區別。計算機語言存在的目的，是為了將人類別的自然語言翻譯為計算機能夠理解的機器語言,讓人類別更加容易地利用和管理各種計
+算機資源，易用是思想，抽象是方法，語言將計算機資源抽象成各色各樣的語言符號和語言規則，陣列、指標、整數、浮點數等等這些東西本質上就是對記憶體操作的
+不同抽象。作為抽象的方法，可以歸納為兩種實現，一是名字代表一段有限空間，其內容稱為值；二是名字是一段有限空間的引用，同時規定空間的長度。第一種方
+法被各種計算機語言普遍使用，在C/C++中稱為從左值到右值的轉換。但陣列不同於一般的整數、浮點數物件 ，它是一個聚集，無法將一個聚集看作一個值，從
+一個聚集中取值，在C/C++的物件 模型看來缺乏合理性，是沒有意義的。在運算式計算的大多數情況中，第一種方法並不適合陣列，使用第二種方法將陣列名轉
+換為某段記憶體空間的引用更適合。<br>
+<br>
+&nbsp;<br>
+<br>
+因此，與一般標識符相比，陣列名既有一般性，也有特殊性。一般性表現在其物件 性質與一般標識符是一樣的，這種情況下的陣列名，代表陣列物件 ，同時由於符合
+C/C++的左值模型，它是一個左值，只不過是不可修改的，不可修改的原因與上一段中敘述的內容相同，通過一個名字試圖修改整個聚集是沒有意義的；而特殊
+性則反映在運算式的計算中，也就是C/C++標准中所描述的陣列與指標轉換條款，在這個條款中，陣列名不被轉換為物件 的值，而是一個符號位址。<br>
+<br>
+&nbsp;<br>
+<br>
+現在來看看標准是如何規定陣列與指標的轉換的：<br>
+<br>
+&nbsp;<br>
+<br>
+C89/90的內容：<br>
+<br>
+&nbsp;<br>
+<br>
+6.2.2.1 Lvalues and function designators<br>
+<br>
+&nbsp;<br>
+<br>
+Except when it is the operand of the sizeof operator or the unary &amp;
+operator, or is a character string literal used to initialize an array
+of character type. or is a wide string literal used to initialize an
+array with element type compatible with wchar-t, an lvalue that has
+type &ldquo;array of type&rdquo; is converted to an expression that has
+type &ldquo;pointer to type&rdquo; that points to the initial element
+of the array object and is not an lvalue.<br>
+<br>
+&nbsp;<br>
+<br>
+C99的內容：<br>
+<br>
+&nbsp;<br>
+<br>
+6.3.2.1 Lvalues, arrays, and function designators<br>
+<br>
+&nbsp;<br>
+<br>
+Except when it is the operand of the sizeof operator or the unary &amp;
+operator, or is a string literal used to initialize an array, an
+expression that has type &ldquo;array of type&rdquo; is converted to an
+expression with type &ldquo;pointer to type&rdquo; that points to the
+initial element of the array object and is not an lvalue. If the array
+object has register storage class, the behavior is undefined.<br>
+<br>
+&nbsp;<br>
+<br>
+陣列型別到指標型別轉換的結果，是一個指向陣列首元素的型別為pointer to
+type的指標，並且從一個左值轉換成一個右值。經過轉換後，陣列名不再代表陣列物件 ，而是一個代表陣列首位址的符號位址，並且不是物件 。特別指出的是，
+陣列到指標的轉換規則只適用於運算式，只在這種條件下陣列名才作為轉換的結果代表陣列的首位址，而當陣列名作為陣列物件 定義的標識符、初始化器及作為
+sizeof、&amp;的運算元時，它才代表陣列物件 本身，並不是位址。<br>
+<br>
+&nbsp;<br>
+<br>
+這種轉換帶來一個好處，對於陣列內部的指標運算非常有利。我們可以用a +
+1這種精煉的形式表示a[1]的位址，無須用&amp;a[1]這種丑陋的程式碼，實際上，&amp;a[1]是一種程式碼冗余，是對程式碼的浪費，因為
+&amp;a[1]等價於&amp;*( a + 1 )，&amp;與*由於作用相反被抵消，實際上就是a + 1，既然這樣我們何不直接使用a +
+1呢？撇開為了照顧人類別閱讀習慣而產生的可讀性而言，&amp;a[1]就是垃圾。<br>
+<br>
+&nbsp;<br>
+<br>
+但是，另一方面，這種異於一般標識符左值轉換的特例化大大增加了陣列與指標的復雜性，困擾初學者無數個日日夜夜的思維風暴從此拉開了帷幕！<br>
+<br>
+&nbsp;<br>
+<br>
+在兩個版本的轉換條款中，有一點需要留意的是，兩個版本關於具有陣列型別的運算式有不同的描述。<br>
+<br>
+&nbsp;<br>
+<br>
+C89/90規定：<br>
+<br>
+&nbsp;<br>
+<br>
+an lvalue that has type &ldquo;array of type&rdquo; is......<br>
+<br>
+&nbsp;<br>
+<br>
+但C99卻規定：<br>
+<br>
+&nbsp;<br>
+<br>
+an expression that has type &ldquo;array of tye&rdquo; is.......<br>
+<br>
+&nbsp;<br>
+<br>
+C99中去掉了lvalue的詞藻，為什麼？我們知道，陣列名是一個不可修改的左值，但實際上，也存在右值陣列。在C中，一個左值是具有物件 型別或非
+void不完整型別的運算式，C的左值運算式排除了函式和函式呼叫，而C++因為增加了引用型別，因此傳回引用的函式呼叫也屬於左值運算式，就是說，非引
+用傳回的函式呼叫都是右值，如果函式非引用傳回中套件含陣列，情況會怎樣？考慮下面的程式碼：<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;<br>
+<br>
+#include &lt;stdio.h&gt;<br>
+<br>
+&nbsp;<br>
+<br>
+struct Test<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp; int a[10];<br>
+<br>
+};<br>
+<br>
+&nbsp;<br>
+<br>
+struct Test fun( struct Test* );<br>
+<br>
+&nbsp;<br>
+<br>
+int main( void )<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp; struct Test T;<br>
+<br>
+&nbsp;&nbsp;&nbsp; int *p = fun( &amp;T
+).a;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/* A */<br>
+<br>
+&nbsp;&nbsp;&nbsp; int (*q)[10] = &amp;fun( &amp;T
+).a;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/* B */<br>
+<br>
+&nbsp;&nbsp;&nbsp; printf( "%d", sizeof( fun( &amp;T ).a ) );&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* C*/<br>
+<br>
+&nbsp;&nbsp;&nbsp; return 0;<br>
+<br>
+}<br>
+<br>
+&nbsp;<br>
+<br>
+struct Test fun( struct Test *T )<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp; return *T;<br>
+<br>
+}<br>
+<br>
+&nbsp;<br>
+<br>
+在這個例子裡，fun( &amp;T )的回返值是一個右值，fun( &amp;T
+).a就是一個右值陣列，是一個右值運算式，但a本身是一個左值運算式，要注意這個區別。在C89/90中，由於規定左值陣列才能進行陣列到指標的轉換，
+因此A中的fun( &amp;T ).a不能在運算式中進行從陣列型別到指標型別的轉換，A中的fun( &amp;T
+).a是非法的，但C99在上述條款中不再限定左值運算式，即對這個轉換不再區分左值還是右值陣列，因此都是合法的；C中的fun( &amp;T
+).a是sizeof運算符的運算元，這種情況下fun( &amp;T
+).a並不進行陣列到指標的轉換，因此C在所有C/C++標准中都是合法的；B初看上去仍然有點詭異，&amp;運算符不是已經作為例外排除了陣列與指標
+的轉換嗎？為什麼還是非法？其實B違反了另一條規定，&amp;的運算元要求是左值，而fun( &amp;T
+).a是右值。C++繼承了C99的觀點，也允許右值陣列的轉換，其條款非常簡單：<br>
+<br>
+&nbsp;<br>
+<br>
+An lvalue or rvalue of type &ldquo;array of N T&rdquo; or &ldquo;array
+of unknown bound of T&rdquo; can be converted to an rvalue of type
+&ldquo;pointer to T.&rdquo; The result is a pointer to the first
+element of the array.<br>
+<br>
+&nbsp;<br>
+<br>
+陣列型別到指標型別的轉換與左值到右值的轉換、函式型別到指標型別的轉換一起是C/C++三條非常重要的轉換規則。C++由於多載解析的需要，把這三條規
+則概念化了，統稱為左值轉換，但C由於無此需要，只提出了規則。符號是語言對計算機的高級抽象，但計算機並不認識符號，它只認識數值，因此一個符號要參加
+運算式計算必須先對其進行數值化，三條轉換規則就是為了這個目的而存在的。<br>
+<br>
+&nbsp;<br>
+<br>
+看到這裡，大概有些初學者已經被上述那些左值右值、物件 非物件 搞得稀裡糊塗了。的確，陣列與指標的復雜性讓人望而生畏，不是一朝一夕就能完全掌握的，需要一段較長的時間慢慢消化。因此筆者才將陣列與指標稱為一門藝術，是的，它就是藝術！<br>
+<br>
+<br>
+本文來自CSDN博客，轉載請標明出處：http://blog.csdn.net/supermegaboy/archive/2009/11/23/4855027.aspx
+</body>
+</html>

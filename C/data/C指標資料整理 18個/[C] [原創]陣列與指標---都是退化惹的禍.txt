@@ -1,0 +1,169 @@
+個人的淺顯認識, 歡迎批評指正.
+
+1. 什麼是數組類型?
+
+下面是C99中原話:
+An array type describes a contiguously allocated nonempty set of objects with a
+particular member object type, called the element type.36) Array types are characterized by their element type and by the number of elements in the array. An array type is said to be derived from its element type, and if its element type is T , the array type is sometimes called 『『array of T 』』. The construction of an array type from an element type is called 『『array type derivation』』. 
+
+很顯然, 數組類型也是一種數據類型, 其本質功能和其他類型無異:定義該類型的數據所佔內存空間的大小以及可以對該類型數據進行的操作(及如何操作).
+
+2. 數組類型定義的數據是什麼?它是變量還是常量?
+char s[10] = "china";
+在這個例子中, 數組類型為 array of 10 chars(姑且這樣寫), 定義的數據顯然是一個數組s.
+
+下面是C99中原話:
+  An lvalue is an expression with an object type or an incomplete type other than void; if an lvalue does not designate an object when it is evaluated, the behavior is undefined. When an object is said to have a particular type, the type is specified by the lvalue used to designate the object. A modifiable lvalue is an lvalue that does not have array type, does not have an incomplete type, does not have a const-qualified type, and if it is a structure or union, does not have any member (including, recursively, any member or element of all contained aggregates or unions) with a const-qualified type.
+
+看了上面的定義, 大家應該明白了modifiable lvalue和lvalue的區別, 大家也應該注意到array type定義的是lvalue而不是modifiable lvalue.所以說s是lvalue.
+
+s指代的是整個數組, s的內容顯然是指整個數組中的數據, 它是china\0****(這裡*表示任意別的字符).s的內容是可以改變的, 從這個意義上來說, s顯然是個變量.
+
+3. 數組什麼時候會"退化"
+
+下面是C99中原話:
+Except when it is the operand of the sizeof operator or the unary & operator, or is a string literal used to initialize an array, an expression that has type 『『array of type』』 is converted to an expression with type 『『pointer to type』』 that points to the initial element of the array object and is not an lvalue.
+
+上面這句話說的很清楚了, 數組在除了3種情況外, 其他時候都要"退化"成指向首元素的指針.
+比如對 char s[10] = "china";
+這3中例外情況是:
+(1) sizeof(s)
+(2) &s;
+(3) 用來初始化s的"china";
+
+除了上述3種情況外,s都會退化成&s[0], 這就是數組變量的操作方式
+
+4. 數組與指針有什麼不同?
+4.1 初始化的不同
+char s[] = "china";
+char *p = "china";
+
+在第一句中,以&s[0]開始的連續6個字節內存分別被賦值為:
+'c', 'h', 'i', 'n', 'a', '\0'
+
+第二句中,p被初始化為程序data段的某個地址,該地址是字符串"china"的首地址
+
+4.2 sizeof的不同
+
+sizeof就是要求一種數據(類型)所佔內存的字節數. 對於4.1中的s和p
+sizeof(s)應為6, 而sizeof(p)應為一個"指針"的大小.
+
+這個結果可以從1中對於數組類型的定義和3中數組什麼時候不會"退化"中得出來.
+
+4.3 &操作符
+
+對於&操作符, 數組同樣不會退化.
+4.1中的s和p分別取地址後,其意義為:
+&s的類型為pointer to array of 6 chars.
+&p的類型為pointer to pointer to char.
+
+4.4 s退化後為什麼不可修改
+
+除3種情況外,數組s在表達式中都會退化為"指向數組首元素的指針", 既&s[0]
+
+舉個例子
+int a;
+(&a)++; //你想對誰++? 這顯然是不對的
+
+對(&s[0])++操作猶如(&a)++, 同樣是不對的,這就導致退化後的s變成不可修改的了.
+
+4.5 二維數組與二級指針
+
+char s[10];與char *p;
+char s2[10][8];與char **p2;
+
+s與p的關係,s2與p2的關係,兩者相同嗎?
+緊扣定義的時候又到了.
+除3種情況外,數組在表達式中都會退化為"指向數組首元素的指針".
+
+s退化後稱為&s[0], 類型為pointer to char, 與p相同
+s2退化後稱為&s2[0], 類型為pointer to array of 8 chars, 與p2不同
+
+4.6 數組作為函數參數
+
+毫無疑問, 數組還是會退化.
+
+void func(char s[10]); <===> void func(char *s);
+
+void func(char s[10][8]); <===> void func(char (*s)[8]);
+
+4.7 在一個文件中定義char s[8], 在另外一個文件中聲明extern char *s. 這樣可以嗎?
+
+---------file1.c---------
+char s[8];
+
+---------file2.c---------
+extern char *s;
+
+
+答案是不可以. 一般來說,在file2.c中使用*s會引起core dump, 這是為什麼呢?
+
+先考慮int的例子.
+---------file1.c---------
+int a;
+
+---------file2.c---------
+extern int a;
+
+file1.c和file2.c經過編譯後, 在file2.o的符號表中, a的地址是尚未解析的
+file1.o和file2.o在鏈接後, file2.o中a的地址被確定.假設此地址為0xbf8eafae
+
+file2.o中對該地址的使用,完全是按照聲明extern int a;進行的,即0xbf8eafae會被認為是整形a的地址
+比如 a = 2; 其偽代碼會對應為 *((int *)0xbf8eafae) = 2;
+
+現在再看原來的例子.
+
+---------file1.c---------
+char s[8];
+
+---------file2.c---------
+extern char *s;
+
+同樣, file1.c和file2.c經過編譯後, 在file2.o的符號表中, s的地址是尚未解析的
+file1.o和file2.o在鏈接後, file2.o中s的地址被確定.假設此地址為0xbf8eafae
+
+file2.o中對該地址的使用,完全是按照聲明extern char *s;進行的,即0xbf8eafae會被認為是指針s的地址
+比如 *s = 2; 其偽代碼會對應為 *(*((char **)0xbf8eafae)) = 2;
+
+*((char **)0xbf8eafae)會是什麼結果呢?
+這個操作的意思是:將0xbf8eafae做為一個二級字符指針, 將0xbf8eafae為始址的4個字節(32位機)作為一級字符指針
+也就是將file1.o中的s[0], s[1], s[2], s[3]拼接成一個字符指針.
+
+
+那麼*(*((char **)0xbf8eafae)) = 2;的結果就是對file1.o中s[0], s[1], s[2], s[3]拼接成的這個地址對應
+的內存賦值為2.
+這樣怎麼會正確呢?
+
+
+下面看看正確的寫法:
+
+---------file1.c---------
+char s[8];
+
+---------file2.c---------
+extern char s[];
+
+
+同樣, file1.c和file2.c經過編譯後, 在file2.o的符號表中, s的地址是尚未解析的
+file1.o和file2.o在鏈接後, file2.o中s的地址被確定.假設此地址為0xbf8eafae
+
+file2.o中對該地址的使用,完全是按照聲明extern char s[];進行的,即0xbf8eafae會被認為是數組s的地址
+比如 *s = 2; 其偽代碼會對應為 *(*((char (*)[])0xbf8eafae)) = 2;
+
+*((char (*)[])0xbf8eafae)會是什麼結果呢?
+這個操作的意思是:將0xbf8eafae做為一個指向字符數組的指針, 然後對該指針進行*操作.
+這就用到了數組的一個重要性質: 
+對於數組 char aaa[10];來說, &aaa[0], &aaa, *(&aaa)在數值上是相同的(其實, *(&aaa)之所以在程序中
+會在值上等於&aaa[0], 這也是退化的結果: *(&aaa)就是數組名aaa, aaa退化為&aaa[0]).
+所以, *((char (*)[])0xbf8eafae)的結果在值上還是0xbf8eafae, 在類型上退化成"指向數組首元素的指針"
+
+
+那麼*(*((char (*)[])0xbf8eafae)) = 2;
+其偽代碼就成為*((char *)0xbf8eafae) = 2; 即將數組s的第一個元素設為2
+
+
+5. 小結論
+
+(a). 數組類型是一種特殊類型, 它定義的是數組變量, 是lvalue但不是modifiable lvalue
+(b). 除了3種情況外(sizeof, &, 用做數組初始化的字符串數組), 數組會退化成"指向數組首元素的指針"
+(c). 不要將數組名簡單的看作不可修改的相應的指針, 它們還是有很多不同的

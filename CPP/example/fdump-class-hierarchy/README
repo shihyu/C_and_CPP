@@ -1,0 +1,1 @@
+g++ -fdump-class-hierarchy -o vtable_example vtable_example.cpp

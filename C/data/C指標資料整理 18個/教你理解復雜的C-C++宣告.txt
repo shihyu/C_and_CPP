@@ -1,0 +1,237 @@
+介紹  
+
+曾經碰到過讓你迷惑不解、類別似於int * (* (*fp1) (int) ) [10];這樣的變數宣告嗎？本文將由易到難，一步一步教會你如何理解這種復雜的 
+
+C/C++宣告：我們將從每天都能碰到的較簡單的宣告入手，然後逐步加入const飾詞和typedef，還有函式指標，最後介紹一個能夠讓你准確地 理解任何C/C++宣告的“右左法則”。需要強調一下的是，復雜的C/C++宣告並不是好的編程風格；我這裡僅僅是教你如何去理解這些宣告。注 意：為了保證能夠在同一行上顯示程式碼和相關注釋，本文最好在至少1024x768解析度的顯示器上閱讀。  
+
+基礎  
+
+讓我們從一個非常簡單的例子開始，如下：  
+
+int n;  
+
+這個應該被理解為“declare n as an int”（n是一個int型的變數）。  
+
+接下去來看一下指標變數，如下：  
+
+int *p;  
+
+這個應該被理解為“declare p as an int *”（p是一個int *型的變數），或者說p是一個指向一個int型變數的指標。我想在這裡展開討論一下：我覺得在宣告一個指標（或引用）型別的變數時，最好將*（或&）寫在緊靠變數之前，而不是緊跟基本型別之後。這樣可以避免一些理解 
+
+上的誤區，例如：  
+
+int*  p,q;  
+
+第一眼看去，好像是p和q都是int*型別的，但事實上，只有p是一個指標，而q是一個最簡單的int型變數。  
+
+我們還是繼續我們前面的話題，再來看一個指標的指標的例子：  
+
+char **argv;  
+
+理論上，對於指標的級數沒有限制，你可以定義一個浮點型別變數的指標的指標的指標的指標...  
+
+再來看如下的宣告：  
+
+int RollNum[30][4];  
+int (*p)[4]=RollNum;  
+int *q[5];  
+
+這裡，p被宣告為一個指向一個4元素（int型別）陣列的指標，而q被宣告為一個套件含5個元素（int型別的指標）的陣列。  
+
+另外，我們還可以在同一個宣告中混合實用*和&，如下：  
+
+int **p1; // p1 is a pointer  to a pointer  to an int.  
+int *&p2; // p2 is a reference to a pointer  to an int.  
+int &*p3; // ERROR: Pointer  to a reference is illegal.  
+int &&p4; // ERROR: Reference to a reference is illegal.  
+
+注：p1是一個int型別的指標的指標；p2是一個int型別的指標的引用；p3是一個int型別引用的指標（不合法！）；p4是一個int型別引用的引 
+
+用（不合法！）。  
+
+const飾詞  
+當你想阻止一個變數被改變，可能會用到const關鍵字。在你給一個變數加上const飾詞的同時，通常需要對它進行初始化，因為以後的任何 
+
+時候你將沒有機會再去改變它。例如：  
+
+const int n=5;  
+int const m=10;  
+
+上述兩個變數n和m其實是同一種型別的--都是const int（整形恆量）。因為C++標准規定，const關鍵字放在型別或變數名之前等價的。我個人 
+
+更喜歡第一種宣告方式，因為它更突出了const飾詞的作用。  
+
+當const與指標一起使用時，容易讓人感到迷惑。例如，我們來看一下下面的p和q的宣告：  
+
+const int *p;  
+int const *q;  
+
+他們當中哪一個代表const int型別的指標（const直接修飾int），哪一個代表int型別的const指標（const直接修飾指標）？實際上，p和q都 
+
+被宣告為const int型別的指標。而int型別的const指標應該這樣宣告：  
+
+int * const r= &n; // n has been declared as an int  
+
+這裡，p和q都是指向const int型別的指標，也就是說，你在以後的程式裡不能改變*p的值。而r是一個const指標，它在宣告的時候被初始化指 
+
+向變數n（即r=&n;）之後，r的值將不再允許被改變（但*r的值可以改變）。  
+
+組合上述兩種const修飾的情況，我們來宣告一個指向const int型別的const指標，如下：  
+
+const int * const p=&n // n has been declared as const int  
+//------------------------------------------------------------------------ 
+下面給出的一些關於const的宣告，將 說明你徹底理清const的用法。不過請注意，下面的一些宣告是不能被編譯通過的，因為他們需要在宣告 
+
+的同時進行初始化。為了簡潔起見，我忽略了初始化部分；因為加入初始化程式碼的話，下面每個宣告都將增加兩行程式碼。  
+
+char ** p1;          //    pointer to    pointer to    char  
+const char **p2;        //    pointer to    pointer to const char  
+char * const * p3;       //    pointer to const pointer to    char  
+const char * const * p4;    //    pointer to const pointer to const char  
+char ** const p5;       // const pointer to    pointer to    char  
+const char ** const p6;    // const pointer to    pointer to const char  
+char * const * const p7;    // const pointer to const pointer to    char  
+const char * const * const p8; // const pointer to const pointer to const char  
+
+注： 
+p1是指向char型別的指標的指標； 
+p2是指向const char型別的指標的指標； 
+p3是指向char型別的const指標； 
+p4是指向const char型別的const指標； 
+p5是指向char型別的指標的const指標； 
+p6是指向const char型別的指標的const指標； 
+p7是指向char型別const指標的const指標； 
+p8是指向const char型別的const指標的const指標。  
+//------------------------------------------------------------------------ 
+typedef的妙用  
+typedef給你一種方式來克服“*只適合於變數而不適合於型別”的弊端。你可以如下使用typedef：  
+
+typedef char * PCHAR;  
+PCHAR p,q;  
+
+這裡的p和q都被宣告為指標。（如果不使用typedef，q將被宣告為一個char變數，這跟我們的第一眼感覺不太一致！）下面有一些使用typedef 
+
+的宣告，並且給出了解釋：  
+
+typedef char * a; // a is a pointer to a char  
+
+typedef a b();   // b is a function that returns  
+          // a pointer to a char  
+
+typedef b *c;   // c is a pointer to a function  
+          // that returns a pointer to a char  
+
+typedef c d();   // d is a function returning  
+          // a pointer to a function  
+          // that returns a pointer to a char  
+
+typedef d *e;   // e is a pointer to a function  
+          // returning a pointer to a  
+          // function that returns a  
+          // pointer to a char  
+
+e var[10];     // var is an array of 10 pointers to  
+          // functions returning pointers to  
+          // functions returning pointers to chars.  
+
+typedef經常用在一個結構宣告之前，如下。這樣，當生成結構變數的時候，允許你不使用關鍵字struct（在C中，生成結構變數時要求使用str 
+
+uct關鍵字，如struct tagPOINT a；而在C++中，struct可以忽略，如tagPOINT b）。  
+
+typedef struct tagPOINT  
+{  
+  int x;  
+  int y;  
+}POINT;  
+
+POINT p; /* Valid C code */  
+//------------------------------------------------------------------------ 
+函式指標  
+
+函式指標可能是最容易引起理解上的困惑的宣告。函式指標在DOS時代寫TSR程式時用得最多；在Win32和X-Windows時代，他們被用在需要回呼 函式的場合。當然，還有其它很多地方需要用到函式指標：虛擬函式表，STL中的一些模板，Win NT/2K/XP系統服務等。讓我們來看一個函式指標的簡單例子：  
+
+int (*p)(char);  
+
+這裡p被宣告為一個函式指標，這個函式帶一個char型別的引數，並且有一個int型別的回返值。另外，帶有兩個float型別引數、回返值是char型別的指標的指標的函式指標可以宣告如下：  
+
+char ** (*p)(float, float);  
+
+那麼，帶兩個char型別的const指標引數、無回返值的函式指標又該如何宣告呢？參考如下：  
+
+void * (*a[5])(char * const, char * const);  
+
+“右左法則”[重要！！！]  
+
+The right-left rule: Start reading the declaration from the innermost parentheses, go right, and then go left. When you encounter parentheses, the direction should be reversed. Once everything in the parentheses has been parsed, jump out of it. Continue till the whole declaration has been parsed.  
+
+這是一個簡單的法則，但能讓你准確理解所有的宣告。這個法則運用如下：從最內部的括號開始閱讀宣告，向右看，然後向左看。當你碰到一個括號時就調轉閱讀的方向。括號內的所有內容都分析完畢就跳出括號的范圍。這樣繼續，直到整個宣告都被分析完畢。  
+
+對上述“右左法則”做一個小小的修正：當你第一次開始閱讀宣告的時候，你必須從變數名開始，而不是從最內部的括號。  
+
+下面結合例子來演示一下“右左法則”的使用。  
+
+int * (* (*fp1) (int) ) [10];  
+
+閱讀步驟：  
+1. 從變數名開始 -------------------------------------------- fp1  
+2. 往右看，什麼也沒有，碰到了)，因此往左看，碰到一個* ------ 一個指標  
+3. 跳出括號，碰到了(int) ----------------------------------- 一個帶一個int引數的函式  
+4. 向左看，發現一個* --------------------------------------- （函式）傳回一個指標  
+5. 跳出括號，向右看，碰到[10] ------------------------------ 一個10元素的陣列  
+6. 向左看，發現一個* --------------------------------------- 指標  
+7. 向左看，發現int ----------------------------------------- int型別  
+
+
+總結：fp1被宣告成為一個函式的指標,該函式傳回指向指標陣列的指標.  
+
+
+再來看一個例子：  
+
+int *( *( *arr[5])())();  
+
+閱讀步驟：  
+1. 從變數名開始 -------------------------------------------- arr  
+2. 往右看，發現是一個陣列 ---------------------------------- 一個5元素的陣列  
+3. 向左看，發現一個* --------------------------------------- 指標  
+4. 跳出括號，向右看，發現() -------------------------------- 不帶引數的函式  
+5. 向左看，碰到* ------------------------------------------- （函式）傳回一個指標  
+6. 跳出括號，向右發現() ------------------------------------ 不帶引數的函式  
+7. 向左，發現* --------------------------------------------- （函式）傳回一個指標  
+8. 繼續向左，發現int --------------------------------------- int型別  
+
+總結：arr被宣告成為一個函式的陣列指標，該函式傳回指向函式指標的指標。？？  
+
+
+還有更多的例子：  
+
+float ( * ( *b()) [] )();       
+		// b is a function that returns a  
+                            // pointer to an array of pointers  
+                            // to functions returning floats.  
+
+void * ( *c) ( char, int (*)());        
+		// c is a pointer to a function that takes  
+                                // two parameters:  
+                                //   a char and a pointer to a  
+                                //   function that takes no  
+                                //   parameters and returns  
+                                //   an int  
+                                // and returns a pointer to void.  
+
+void ** (*d) (int &,  char **(*)(char *, char **));   
+		// d is a pointer to a function that takes  
+                            // two parameters:  
+                            //   a reference to an int and a pointer  
+                            //   to a function that takes two parameters:  
+                            //    a pointer to a char and a pointer  
+                            //    to a pointer to a char  
+                            //   and returns a pointer to a pointer  
+                            //   to a char  
+                            // and returns a pointer to a pointer to void  
+
+float ( * ( * e[10]) (int &) ) [5];              
+		// e is an array of 10 pointers to  
+                            // functions that take a single  
+                            // reference to an int as an argument  
+                            // and return pointers to  
+                            // an array of 5 floats.   

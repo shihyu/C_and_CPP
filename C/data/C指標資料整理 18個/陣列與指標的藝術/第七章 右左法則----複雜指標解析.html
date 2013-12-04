@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=big5" http-equiv="content-type">
+  <title>第七章 右左法則----複雜指標解析</title>
+</head>
+<body>
+首先看看如下一個宣告：<br>
+<br>
+&nbsp;<br>
+<br>
+int* ( *( *fun )( int* ) )[10];<br>
+<br>
+&nbsp;<br>
+<br>
+這是一個會讓初學者感到頭暈目眩、感到恐懼的函式指標宣告。在熟練掌握C/C++的宣告語法之前，不學習一定的規則，想理解好這類別復雜宣告是比較困難的。<br>
+<br>
+&nbsp;<br>
+<br>
+C/C++所有復雜的宣告結構，都是由各種宣告嵌套構成的。如何解讀復雜指標宣告？右左法則是一個很著名、很有效的方法。不過，右左法則其實並不是C/C
+++標准裡面的內容，它是從C/C++標准的宣告規定中歸納出來的方法。C/C++標准的宣告規則，是用來解決如何生成宣告的，而右左法則是用來解決如何
+辯識一個宣告的，從嵌套的角度看，兩者可以說是一個相反的程序。右左法則的英文原文是這樣說的：<br>
+<br>
+&nbsp;<br>
+<br>
+The right-left rule: Start reading the declaration from the innermost
+parentheses, go right, and then go left. When you encounter
+parentheses, the direction should be reversed. Once everything in the
+parentheses has been parsed, jump out of it. Continue till the whole
+declaration has been parsed. <br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;<br>
+<br>
+這段英文的翻譯如下：<br>
+<br>
+&nbsp;<br>
+<br>
+右左法則：首先從最裡面的小括弧看起，然後往右看，再往左看。每當遇到小括弧時，就應該掉轉閱讀方向。一旦解析完小括弧裡面所有的東西，就跳出小括弧。重復這個程序直到整個宣告解析完畢。<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp; 筆者要對這個法則進行一個小小的修正，應該是從未定義的標識符開始閱讀，而不是從括號讀起，之所以是未定義的標識符，是因為一個宣告裡面可能有多個標識符，但未定義的標識符只會有一個。<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp; 現在通過一些例子來討論右左法則的應用，先從最簡單的開始，逐步加深：<br>
+<br>
+&nbsp;<br>
+<br>
+int (*func)(int *p);<br>
+<br>
+&nbsp;<br>
+<br>
+首先找到那個未定義的標識符，就是func，它的外面有一對小括弧，而且左邊是一個*號，這說明func是一個指標，然後跳出這個小括弧，先看右邊，也是
+一個小括弧，這說明(*func)是一個函式，而func是一個指向這類別函式的指標，就是一個函式指標，這類別函式具有int*型別的形參，回返值型別是
+int。<br>
+<br>
+&nbsp;<br>
+<br>
+int (*func)(int *p, int (*f)(int*));<br>
+<br>
+&nbsp;<br>
+<br>
+func被一對括號套件含，且左邊有一個*號，說明func是一個指標，跳出括號，右邊也有個括號，那麼func是一個指向函式的指標，這類別函式具有int
+*和int (*)(int*)這樣的形參，回返值為int型別。再來看一看func的形參int
+(*f)(int*)，類別似前面的解釋，f也是一個函式指標，指向的函式具有int*型別的形參，回返值為int。<br>
+<br>
+&nbsp;<br>
+<br>
+int (*func[5])(int *p);<br>
+<br>
+&nbsp;<br>
+<br>
+func右邊是一個[]運算符，說明func是一個具有5個元素的陣列，func的左邊有一個*，說明func的元素是指標，要注意這裡的*不是修飾
+func的，而是修飾func[5]的，原因是[]運算符優先級比*高，func先跟[]結合，因此*修飾的是func[5]。跳出這個括號，看右邊，也
+是一對小括弧，說明func陣列的元素是函式型別的指標，它所指向的函式具有int*型別的形參，回返值型別為int。<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;<br>
+<br>
+int (*(*func)[5])(int *p);<br>
+<br>
+&nbsp;<br>
+<br>
+func被一個小括弧套件含，左邊又有一個*，那麼func是一個指標，跳出括號，右邊是一個[]運算符號，說明func是一個指向陣列的指標，現在往左
+看，左邊有一個*號，說明這個陣列的元素是指標，再跳出括號，右邊又有一個括號，說明這個陣列的元素是指向函式的指標。總結一下，就是：func是一個指
+向陣列的指標，這個陣列的元素是函式指標，這些指標指向具有int*形參，回返值為int型別的函式。<br>
+<br>
+&nbsp;<br>
+<br>
+int (*(*func)(int *p))[5];<br>
+<br>
+&nbsp;<br>
+<br>
+func是一個函式指標，這類別函式具有int*型別的形參，回返值是指向陣列的指標，所指向的陣列的元素是具有5個int元素的陣列。<br>
+<br>
+&nbsp;<br>
+<br>
+要注意有些復雜指標宣告是非法的，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+int func(void) [5];<br>
+<br>
+&nbsp;<br>
+<br>
+func是一個回返值為具有5個int元素的陣列的函式。但C語言的函式回返值不能為陣列，這是因為如果允許函式回返值為陣列，那麼接收這個陣列的內容的
+東西，也必須是一個陣列，但C/C++語言的陣列名是一個不可修改的左值，它不能直接被另一個陣列的內容修改，因此函式回返值不能為陣列。<br>
+<br>
+&nbsp;<br>
+<br>
+int func[5](void);<br>
+<br>
+&nbsp;<br>
+<br>
+func是一個具有5個元素的陣列，這個陣列的元素都是函式。這也是非法的，因為陣列的元素必須是物件 ，但函式不是物件 ，不能作為陣列的元素。<br>
+<br>
+&nbsp;<br>
+<br>
+實際編程當中，需要宣告一個復雜指標時，如果把整個宣告寫成上面所示這些形式，將對可讀性帶來一定的損害，應該用typedef來對宣告逐層分解，增強可讀性。<br>
+<br>
+&nbsp;<br>
+<br>
+typedef是一種宣告，但它宣告的不是變數，也沒有生成新型別，而是某種型別的別名。typedef有很大的用途，對一個復雜宣告進行分解以增強可讀性是其作用之一。例如對於宣告：<br>
+<br>
+&nbsp;<br>
+<br>
+int (*(*func)(int *p))[5];<br>
+<br>
+&nbsp;<br>
+<br>
+可以這樣分解：<br>
+<br>
+&nbsp;<br>
+<br>
+typedef&nbsp; int (*PARA)[5];<br>
+<br>
+typedef PARA (*func)(int *);<br>
+<br>
+&nbsp;<br>
+<br>
+這樣就容易看得多了。<br>
+<br>
+&nbsp;<br>
+<br>
+typedef的另一個作用，是作為基於物件 編程的高階抽象手段。在ADT中，它可以用來在C/C++和現實世界的物件間建立關聯，將這些物件抽象成C/C++的型別系統。在設計ADT的時候，我們常常宣告某個指標的別名，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+typedef struct node * list;<br>
+<br>
+&nbsp;<br>
+<br>
+從ADT的角度看，這個宣告是再自然不過的事情，可以用list來定義一個串列（linked-list）。但從C/C++語法的角度來看，它其實是不符合C/C++宣告語法的邏輯的，它暴力地將指標宣告符從指標宣告器中分離出來，這會造成一些異於人們閱讀習慣的現象，考慮下面程式碼：<br>
+<br>
+&nbsp;<br>
+<br>
+const struct node *p1;<br>
+<br>
+typedef struct node *list;<br>
+<br>
+const list p2;<br>
+<br>
+&nbsp;<br>
+<br>
+p1型別是const struct
+node*，那麼p2呢？如果你以為就是把list簡單&ldquo;代入&rdquo;p2，然後得出p2型別也是const struct
+node*的結果，就大錯特錯了。p2的型別其實是struct node * const
+p2，那個const限定的是p2，不是node。造成這一奇異現象的原因是指標宣告器被分割，標准中規定：<br>
+<br>
+&nbsp;<br>
+<br>
+6.7.5.1 Pointer declarators<br>
+<br>
+&nbsp;<br>
+<br>
+Semantics<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;If in the declaration &lsquo;&lsquo;T D1&rsquo;&rsquo;, D1 has the form<br>
+<br>
+&nbsp;<br>
+<br>
+* type-qualifier-listopt D<br>
+<br>
+&nbsp;<br>
+<br>
+and the type specified for ident in the declaration &lsquo;&lsquo;T D&rsquo;&rsquo; is <br>
+<br>
+&nbsp;<br>
+<br>
+&lsquo;&lsquo;derived-declarator-type-list T&rsquo;&rsquo;<br>
+<br>
+&nbsp;<br>
+<br>
+then the type specified for ident is<br>
+<br>
+&nbsp;<br>
+<br>
+&lsquo;&lsquo;derived-declarator-type-list type-qualifier-list pointer to T&rsquo;&rsquo;<br>
+<br>
+&nbsp;<br>
+<br>
+For each type qualifier in the list, ident is a so-qualified pointer.<br>
+<br>
+&nbsp;<br>
+<br>
+指標的宣告器由指標宣告符*、可選的型別限定詞type-qualifier-listopt和標識符D組成，這三者在邏輯上是一個整體，構成一個完整的指標宣告器。這也是多個變數同列定義時指標宣告符必須緊跟標識符的原因，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+int *p, q, *k;<br>
+<br>
+&nbsp;<br>
+<br>
+p和k都是指標，但q不是，這是因為*p、*k是一個整體指標宣告器，以表示宣告的是一個指標。編譯器會把指標宣告符左邊的型別套件括其限定詞作為指標指向
+的實體的型別，右邊的限定詞限定被宣告的標識符。但現在typedef struct node
+*list硬生生把*從整個指標宣告器中分離出來，編譯器找不到*，會認為const list
+p2中的const是限定p2的，正因如此，p2的型別是node * const而不是const node*。<br>
+<br>
+&nbsp;<br>
+<br>
+雖然typedef struct node*
+list不符合宣告語法的邏輯，但基於typedef在ADT中的重要作用以及資訊隱藏的要求，我們應該讓用戶這樣使用list A，而不是list
+*A，因此在ADT的設計中仍應使用上述typedef語法，但需要注意其帶來的不利影響。<br>
+<br>
+<br>
+本文來自CSDN博客，轉載請標明出處：http://blog.csdn.net/supermegaboy/archive/2009/11/23/4854965.aspx
+</body>
+</html>

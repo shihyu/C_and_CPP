@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=big5" http-equiv="content-type">
+  <title>第九章 C99可變長陣列VLA詳解</title>
+</head>
+<body>
+C90及C++的陣列物件 定義是靜態聯編的，在編譯期就必須給定物件 的完整資訊。但在程式設計程序中，我們常常遇到需要根據 背景關係環境來定義陣列的情況，
+在執行期才能確知陣列的長度。對於這種情況，C90及C++沒有什麼很好的辦法去解決（STL的方法除外），只能在堆積中生成一個記憶體映像與需求陣列一樣的
+替代品，這種替代品不具有陣列型別，這是一個遺憾。C99的可變長陣列為這個問題提供了一個部分解決解決方案 。<br>
+<br>
+&nbsp;<br>
+<br>
+可變長陣列（variable length array，簡稱VLA）中的可變長指的是編譯期可變，陣列定義時其長度可為整數型別的運算式，不再象C90/C++那樣必須是整數常數運算式。在C99中可如下定義陣列：<br>
+<br>
+&nbsp;<br>
+<br>
+int n = 10, m = 20;<br>
+<br>
+char a[n];<br>
+<br>
+int b[m][n];<br>
+<br>
+&nbsp;<br>
+<br>
+a的型別為char[n]，等效指標型別是char*，b的型別為int[m][n]，等效指標型別是int(*)[n]。int(*)[n]是一個指向VLA的指標，是由int[n]派生而來的指標型別。<br>
+<br>
+&nbsp;<br>
+<br>
+由此，C99引入了一個新概念：可變改型別（variably modified
+type，簡稱VM）。一個含有源自VLA派生的完整宣告器被稱為可變改的。VM套件含了VLA和指向VLA的指標，注意VM型別並沒有生成新的型別種類別，
+VLA和指向VLA的指標仍然屬於陣列型別和指標型別，是陣列型別和指標型別的擴展。<br>
+<br>
+&nbsp;<br>
+<br>
+一個VM實體的宣告或定義，必須符合如下三個條件：<br>
+<br>
+&nbsp;<br>
+<br>
+1。代表該物件 的標識符屬於一般標識符（ordinary identifier）；<br>
+<br>
+2。具有程式碼區塊作用域或函式原型作用域；<br>
+<br>
+3。無串鏈接性。<br>
+<br>
+&nbsp;<br>
+<br>
+Ordinary identifier指的是除下列三種情況之外的標識符：<br>
+<br>
+&nbsp;<br>
+<br>
+1。標簽（label）；<br>
+<br>
+2。結構、聯合和列舉旗標（struct tag、uion tag、enum tag）；<br>
+<br>
+3。結構、聯合成員標識符。<br>
+<br>
+&nbsp;<br>
+<br>
+這意味著VM型別的實體不能作為結構、聯合的成員。第二個條件限制了VM不能具有檔案作用域，儲存連續性只能為auto，這是因為編譯器通常把全域物件 存放於資料段，物件 的完整資訊必須在編譯期內確定。<br>
+<br>
+&nbsp;<br>
+<br>
+VLA不能具有靜態儲存周期，但指向VLA的指標可以。<br>
+<br>
+&nbsp;<br>
+<br>
+兩個VLA陣列的相容性，除了滿足要具有相容的元素型別外，決定兩個陣列大小的運算式的值也要相等，否則行為是未定義的。<br>
+<br>
+&nbsp;<br>
+<br>
+下面舉些實體來對數種VM型別的合法性進行說明：<br>
+<br>
+&nbsp;<br>
+<br>
+#include &lt;stdio.h&gt;<br>
+<br>
+&nbsp;<br>
+<br>
+int n = 10;<br>
+<br>
+int a[n];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*非法，VM型別不能具有檔案作用域*/<br>
+<br>
+int (*p)[n];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*非法，VM型別不能具有檔案作用域*/<br>
+<br>
+struct test<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int k;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int a[n];&nbsp;&nbsp;&nbsp;&nbsp; /*非法，a不是一般標識符*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*p)[n];&nbsp;&nbsp; /*非法，p不是一般標識符*/<br>
+<br>
+};<br>
+<br>
+&nbsp;<br>
+<br>
+int main( void )<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int m = 20;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct test1<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int k;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+int a[n];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/*非法，a不是一般標識符*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+int (*p)[n];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*非法，a不是一般標識符*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; extern int a[n];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*非法，VLA不能具有串鏈接性*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static int b[n];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*非法，VLA不能具有靜態儲存周期*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int
+c[n];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/*合法，自動VLA*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int d[m][n];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*合法，自動VLA*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static int (*p1)[n] = d;&nbsp; /*合法，靜態VM指標*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n = 20;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static int (*p2)[n] = d;&nbsp; /*未定義行為*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+<br>
+}<br>
+<br>
+&nbsp;<br>
+<br>
+一個VLA物件 的大小在其生存期內不可改變，即使決定其大小的運算式的值在物件 定義之後發生了改變。有些人看見可變長幾個字就聯想到VLA陣列在生存期內
+可自由改變大小，這是誤解。VLA只是編譯期可變，一旦定義就不能改變，不是執行期可變，執行期可變的陣列叫動態陣列，動態陣列在理論上是可以實現的，但
+付出的代價可能太大，得不償失。考慮如下程式碼：<br>
+<br>
+&nbsp;<br>
+<br>
+#include &lt;stdio.h&gt;<br>
+<br>
+&nbsp;<br>
+<br>
+int main( void )<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int n = 10, m = 20;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char a[m][n];<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char (*p)[n] = a;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf( &ldquo;%u %u&rdquo;, sizeof( a ), sizeof( *p ) );<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n = 20;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m = 30;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf( &ldquo;\n&rdquo; );<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf( &ldquo;%u %u&rdquo;, sizeof( a ), sizeof( *p ) );<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+<br>
+}<br>
+<br>
+&nbsp;<br>
+<br>
+雖然n和m的值在隨後的程式碼中被改變，但a和p所指向物件 的大小不會發生變化。<br>
+<br>
+&nbsp;<br>
+<br>
+上述程式碼使用了運算符sizeof，在C90/C++中，sizeof從運算元的型別去推演結果，不對運算元進行實際的計算，運算符的結果為整數常數。當
+sizeof的運算元是VLA時，情形就不同了。sizeof必須對VLA進行計算才能得出VLA的大小，運算結果為整數，不是整數常數。<br>
+<br>
+&nbsp;<br>
+<br>
+VM除了可以作為自動物件 外，還可以作為函式的形參。作為形參的VLA，與非VLA陣列一樣，會調整為與之等效的指標，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+void func( int a[m][n] ); 等效於void func( int (*a)[n] );<br>
+<br>
+&nbsp;<br>
+<br>
+在函式原型宣告中，VLA形參可以使用*旗標，*用於[]中，表示此處宣告的是一個VLA物件 。如果函式原型宣告中的VLA使用的是長度運算式，該運算式會被忽略，就像使用了*旗標一樣，下面幾個函式原型宣告是一樣的：<br>
+<br>
+&nbsp;<br>
+<br>
+void func( int a[m][n] );<br>
+<br>
+void func( int a[*][n] );<br>
+<br>
+void func( int a[ ][n] );<br>
+<br>
+void func( int a[*][*] );<br>
+<br>
+void func( int a[ ][*] );<br>
+<br>
+void func( int (*a)[*] );<br>
+<br>
+&nbsp;<br>
+<br>
+*旗標只能用在函式原型宣告中。再舉個例：<br>
+<br>
+&nbsp;<br>
+<br>
+#include&lt;stdio.h&gt;<br>
+<br>
+&nbsp;<br>
+<br>
+void func( int, int, int a[*][*] );<br>
+<br>
+&nbsp;<br>
+<br>
+int main(void)<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int m = 10, n = 20;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int a[m][n];<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int b[m][m*n];<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; func( m, n, a );&nbsp;&nbsp;&nbsp;&nbsp; /*未定義行為*/<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; func( m, n, b );&nbsp;&nbsp;&nbsp; &nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp; return 0;<br>
+<br>
+}<br>
+<br>
+&nbsp;<br>
+<br>
+void func( int m, int n, int a[m][m*n] )<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf( "%u\n", sizeof( *a ) );<br>
+<br>
+}<br>
+<br>
+&nbsp;<br>
+<br>
+除了*旗標外，形參中的陣列還可以使用型別限定詞const、volatile、restrict和static關鍵字。由於形參中的VLA被自動調整為等效的指標，因此這些型別限定詞實際上限定的是一個指標，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+void func( int, int, int a[const][*] );<br>
+<br>
+&nbsp;<br>
+<br>
+等效於<br>
+<br>
+&nbsp;<br>
+<br>
+void func( int, int, int ( *const a )[*] );<br>
+<br>
+&nbsp;<br>
+<br>
+它指出a是一個const物件 ，不能在func內部直接通過a修改其代表的物件 。例如：<br>
+<br>
+&nbsp;<br>
+<br>
+void func( int, int, int a[const][*] );<br>
+<br>
+&hellip;&hellip;..<br>
+<br>
+void func( int m, int n, int a[const m][n] )<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int b[m][n];<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a = b;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*錯誤，不能通過a修改其代表的物件 */<br>
+<br>
+}<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static表示傳入的引數的值至少要跟其所修飾的長度運算式的值一樣大。例如：<br>
+<br>
+&nbsp;<br>
+<br>
+void func( int, int, int a[const static 20][*] );<br>
+<br>
+&hellip;&hellip;<br>
+<br>
+int m = 20, n = 10;<br>
+<br>
+int a[m][n];<br>
+<br>
+int b[n][m];<br>
+<br>
+func( m, n, a ); <br>
+<br>
+func( m, n, b );&nbsp;&nbsp;&nbsp;&nbsp; /*錯誤，b的第一維長度小於static 20*/<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 型別限定詞和static關鍵字只能用於具有陣列型別的函式形參的第一維中。這裡的用詞是陣列型別，意味著它們不僅能用於VLA，也能用於一般陣列形參。<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 總的來說，VLA雖然定義時長度可變，但還不是動態陣列，在執行期內不能再改變，受制於其它因素，它只是提供了一個部分解決解決方案 。<br>
+<br>
+<br>
+本文來自CSDN博客，轉載請標明出處：http://blog.csdn.net/supermegaboy/archive/2009/11/23/4854921.aspx
+</body>
+</html>

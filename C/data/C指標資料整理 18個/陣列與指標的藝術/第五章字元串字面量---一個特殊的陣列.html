@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=big5" http-equiv="content-type">
+  <title>第五章字元串字面量---一個特殊的陣列</title>
+</head>
+<body>
+字串字面量（string literal）是一段雙引號括起來的多位元組字符序列，C/C++將其實現為具有靜態儲存連續性的字符陣列。初學者（套件括不少書籍）常將其稱為字串常數，但這說法只在C++成立，C中不成立。C中的常數只套件括下列四種：<br>
+<br>
+&nbsp;<br>
+<br>
+6.4.4 Constants<br>
+<br>
+&nbsp;<br>
+<br>
+Syntax<br>
+<br>
+&nbsp;constant:<br>
+<br>
+integer-constant<br>
+<br>
+floating-constant<br>
+<br>
+enumeration-constant<br>
+<br>
+character-constant<br>
+<br>
+&nbsp;<br>
+<br>
+分別是整數常數、浮點常數、列舉常數和字符常數，並不套件括字串字面量。但由於字串字面量具有靜態儲存連續性陣列型別，並且在運算式中它會根據陣列到指
+針的隱式轉換規則轉換為一個代表陣列首位址的右值指標，因此C中的字串字面量的首位址及各元素的位址都是位址常數運算式，但字串字面量本身不是常數，
+也不是常數運算式。<br>
+<br>
+&nbsp;<br>
+<br>
+而C++的情形有所不同，C++將字串字面量歸入了常數當中：<br>
+<br>
+&nbsp;<br>
+<br>
+2.13 Literals<br>
+<br>
+&nbsp;<br>
+<br>
+There are several kinds of literals.21)<br>
+<br>
+&nbsp;<br>
+<br>
+literal:<br>
+<br>
+integer-literal<br>
+<br>
+character-literal<br>
+<br>
+floating-literal<br>
+<br>
+string-literal<br>
+<br>
+boolean-literal<br>
+<br>
+&nbsp;<br>
+<br>
+21) The term &ldquo;literal&rdquo; generally designates, in this
+International Standard, those tokens that are called
+&ldquo;constants&rdquo; in ISO C.<br>
+<br>
+&nbsp;<br>
+<br>
+因此C++中的字串字面量才可稱為字串常數，而且首位址及各元素位址跟C一樣，都是位址常數運算式。<br>
+<br>
+&nbsp;<br>
+<br>
+字串字面量在C中具有陣列型別char[N]，在C++中則為const
+char[N]，在運算式中當發生陣列到指標的轉換時，對應的等效指標型別分別是char*和const char*，因此，在C中，char *p
+= &ldquo;ABCDEF&rdquo;是合法的，但讓人驚奇的是，上述語句在C++中也是合法的！看起來一個pointer to const
+char指標被賦予了pointer to char指標，似乎違反了C++中指標轉換的more
+cv-qualified原則。其實字串字面量在C++中存在兩種轉換，一種轉換依據當前 背景關係環境，另一種遵循陣列到指標的轉換，C++標准的內容：<br>
+<br>
+&nbsp;<br>
+<br>
+2.13.4 String literals<br>
+<br>
+&nbsp;<br>
+<br>
+&hellip;&hellip;..An ordinary string literal has type &ldquo;array of n
+const char&rdquo; and static storage duration (3.7), where n is the
+size of the string as defined below, and is initialized with the given
+characters.<br>
+<br>
+&nbsp;<br>
+<br>
+4.2 Array-to-pointer conversion<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp; A string literal (2.13.4) that is not a wide string
+literal can be converted to an rvalue of type &ldquo;pointer to
+char&rdquo;; a wide string literal can be converted to an rvalue of
+type &ldquo;pointer to wchar_t&rdquo;. In either case, the result is a
+pointer to the first element of the array. This conversion is
+considered only when there is an explicit appropriate pointer target
+type, and not when there is a general need to convert from an lvalue to
+an rvalue. [Note: this conversion is deprecated. See Annex D. ] For the
+purpose of ranking in overload resolution (13.3.3.1.1), this conversion
+is considered an array-to-pointer conversion followed by a
+qualification conversion (4.4). [Example: "abc" is converted to
+&ldquo;pointer to const char&rdquo; as an array-to-pointer conversion,<br>
+<br>
+and then to &ldquo;pointer to char&rdquo; as a qualification conversion. ]<br>
+<br>
+&nbsp;<br>
+<br>
+在具有顯而易見的合適指標目的型別的情況下，例如上述char *p =
+&ldquo;ABCDEF&rdquo;，字串字面量被轉換為char*而不是const
+char*型別的指標，這個轉換實際上是對舊有程式碼的 相容  ，是一個特例，而且被指定為deprecated的，將在未來的版本中予以廢棄，有些編譯器會產
+生一條提示這是廢棄轉換的警告。而在函式多載解析中，字串字面量遵循陣列到指標的轉換，同時後跟一個限定修飾的轉換。<br>
+<br>
+&nbsp;<br>
+<br>
+雖然字串字面量在C中型別為char[N]，在C++中型別為const
+char[N]，但並不說明C中的字串字面量可以修改，C++的不可以。字串字面量是否可以修改與實現陣列的型別無關，C之所以沒有規定為const
+char[N]，還是出於對舊程式碼的 相容  ，而C++規定為const
+char[N]的原因之一是比C更嚴格的型別安全。無論C與C++都規定對字串字面量的修改是未定義的，編譯器可以自行處理，也的確存在一些允許修改字
+符串字面量的編譯器，例如老一代的編譯器TC，編譯器不管是否允許修改字串字面量，都沒有違反標准。<br>
+<br>
+&nbsp;<br>
+<br>
+對於那些允許修改字串字面量的編譯器，必須考慮這樣一個問題，當程式碼在不同的 背景關係中引用了同一個字串字面量時，如果其中一處修改了該字面量，就會影
+響其它地方的引用。解決方法是允許同一個字面量的多個實體，這樣不同 背景關係之間不會互相干擾，標准把這個問題的決定權留給了編譯器：<br>
+<br>
+&nbsp;<br>
+<br>
+6.4.5 String literals<br>
+<br>
+&nbsp;<br>
+<br>
+It is unspecified whether these arrays are distinct provided their elements have the appropriate values.<br>
+<br>
+&nbsp;<br>
+<br>
+在C中，由於字串字面量不是常數，而且const限定的變數不是常數運算式（C中的常數運算式必須是編譯期的），因此所有的常數和常數運算式都是右值。
+但C++將字串字面量歸入常數，將const限定的變數歸入常數運算式，這意味著在C++中存在左值常數和左值常數運算式。<br>
+<br>
+&nbsp;<br>
+<br>
+C與C++在這方面的差異反映出兩者對待常數的不同視角。C認為常數是不應該擁有儲存空間的，這是非常傳統的觀點；而C++把常數的概念延伸到了物件 模
+型，是對物件 概念的有益擴展，但同時也帶來了一些問題，一個具有物件 性質的實體，難以避免存在某些合法或不合法的手段去修改其內容，這種行為常常令常數對
+象的常數性質處於尷尬的境地，由此也催生了常數折疊這一類別巧妙的折中。<br>
+<br>
+<br>
+本文來自CSDN博客，轉載請標明出處：http://blog.csdn.net/supermegaboy/archive/2009/11/23/4854987.aspx
+</body>
+</html>

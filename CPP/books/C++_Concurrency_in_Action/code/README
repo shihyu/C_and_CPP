@@ -1,0 +1,2 @@
+#compile command
+g++ -std=c++0x -pthread xxxx.cpp

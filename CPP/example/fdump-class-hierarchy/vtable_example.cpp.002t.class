@@ -1,0 +1,28 @@
+Vtable for BaseClass
+BaseClass::_ZTV9BaseClass: 4u entries
+0     (int (*)(...))0
+8     (int (*)(...))(& _ZTI9BaseClass)
+16    BaseClass::call_me1
+24    BaseClass::call_me2
+
+Class BaseClass
+   size=8 align=8
+   base size=8 base align=8
+BaseClass (0x7f5494393af0) 0 nearly-empty
+    vptr=((& BaseClass::_ZTV9BaseClass) + 16u)
+
+Vtable for ChildClass
+ChildClass::_ZTV10ChildClass: 4u entries
+0     (int (*)(...))0
+8     (int (*)(...))(& _ZTI10ChildClass)
+16    ChildClass::call_me1
+24    ChildClass::call_me2
+
+Class ChildClass
+   size=8 align=8
+   base size=8 base align=8
+ChildClass (0x7f54930ca0e0) 0 nearly-empty
+    vptr=((& ChildClass::_ZTV10ChildClass) + 16u)
+  BaseClass (0x7f54930ca150) 0 nearly-empty
+      primary-for ChildClass (0x7f54930ca0e0)
+

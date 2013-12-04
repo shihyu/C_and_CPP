@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=big5" http-equiv="content-type">
+  <title>前 言</title>
+</head>
+<body>
+陣列名是一個指標常數這種觀點來源於陣列名在運算式計算中與指標的結果等效性。例如下面的程式碼：<br>
+<br>
+&nbsp;<br>
+<br>
+int a[10], *p = a, *q;<br>
+<br>
+q = a + 1;<br>
+<br>
+q = p + 1;<br>
+<br>
+&nbsp;<br>
+<br>
+在效果上看，a + 1與 p + 1是相同的，這很容易給人一種a就是p的假象，但，這僅僅是假象。鑒於指標常數套件含了指標和常數兩類別概念，我們可以把這個問題分開兩部分進行討論。<br>
+<br>
+&nbsp;<br>
+<br>
+一、陣列名是指標嗎？<br>
+<br>
+&nbsp;<br>
+<br>
+在《Ｃ與指標》一書中，作者用一個著名的例子闡述了陣列名與指標的不同。在一個檔案中定義：int a[10];然後在另一個檔案中宣告：extern
+int *a;
+筆者不在這裡重復其中的原理，書中的作者試圖從底層操作上闡述陣列名與指標的不同點，但筆者認為這個例子存在一些不足，a在運算式中會轉換為一個非物件 的
+符號位址，而指標a卻是一個物件 ，用一個非物件 去跟一個物件 比較，有&ldquo;偷跑&rdquo;的嫌疑，這個例子只是說明了陣列名的非物件 性質，只
+能證明物件 與非物件 實體在底層操作上的不同，事實上，如上一章所述，指標也有非物件 形態。筆者認為，無須從底層的角度上花費那麼多唇舌，僅僅從字面上的語
+義就可以推翻陣列名是一個指標的觀點。<br>
+<br>
+&nbsp;<br>
+<br>
+首先，在Ｃ／Ｃ＋＋中，陣列型別跟指標型別是兩種不同的衍生類別型，陣列名跟指標是兩種不同型別的實體，把陣列型別的實體說成&ldquo;是&rdquo;另一個型別的實體，本身就是荒謬的；<br>
+<br>
+&nbsp;<br>
+<br>
+其次，a + 1在效果上之所以等同於p + 1，是因為a進行了陣列到指標的隱式轉換，這是一個轉換的程序，是converted to而不是is
+a的程序。如果是兩個相同的事物，又怎會有轉換的程序呢？當把a放在a +
+1運算式中時，a已經從一個陣列名轉換為一個指標，a是作為指標而不是陣列名參與運算的；<br>
+<br>
+&nbsp;<br>
+<br>
+第三，a + 1與p + 1是等效關系，不是等價關系。等價是相同事物的不同表現形式，而等效是不同事物的相同效果。把陣列名說成是指標實際上把等效關系誤解為等價關系。<br>
+<br>
+&nbsp;<br>
+<br>
+因此，陣列名不是指標，永遠也不是，但在一定條件下，陣列名可以轉換為指標。<br>
+<br>
+&nbsp;<br>
+<br>
+二、陣列名是一個常數嗎？<br>
+<br>
+&nbsp;<br>
+<br>
+看見這句話有人會覺得奇怪，陣列定義之後就不能改變了，陣列名不就是個常數嗎？在運算式中，陣列名的確可以轉換為一個不變的符號位址，但在Ｃ中，不變的實
+體不一定是常數！而且，C/C++有常數與常數運算式之分，常數與常數運算式是兩種不同的實體，但常數運算式可以作為常數使用。C/C++中的常數雖然有
+所不同，但都不套件括陣列或陣列名，而且陣列名也不一定是常數運算式。<br>
+<br>
+&nbsp;<br>
+<br>
+請在C90的編譯器中編譯如下程式碼，注意不能是C99和C++的，因為C99和C++不再規定陣列的初始化器必須是常數運算式，會看不到效果：<br>
+<br>
+&nbsp;<br>
+<br>
+int main( void )<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp; static int a[10], b[10];<br>
+<br>
+&nbsp;&nbsp;&nbsp; int c[10], d[10];<br>
+<br>
+&nbsp;&nbsp;&nbsp; int* e[] = { a, b };&nbsp;&nbsp;&nbsp;&nbsp; /* A */<br>
+<br>
+&nbsp;&nbsp;&nbsp; int* f[] = { c, d };&nbsp;&nbsp;&nbsp;&nbsp; /* B */<br>
+<br>
+&nbsp;&nbsp;&nbsp; return 0;<br>
+<br>
+}<br>
+<br>
+&nbsp;<br>
+<br>
+B為什麼不能通過編譯？是由於自動陣列名並不是常數運算式。在C中，常數運算式必須是編譯期的，只在執行期不變的實體不是常數運算式，請看標准的摘錄：<br>
+<br>
+&nbsp;<br>
+<br>
+6.6 Constant expressions<br>
+<br>
+&nbsp;<br>
+<br>
+A constant expression can be evaluated during translation rather than
+runtime, and accordingly may be used in any place that a constant may
+be.<br>
+<br>
+&nbsp;<br>
+<br>
+c和d是自動陣列，首位址在編譯期是不可知的，因為這樣的物件 在編譯期還不存在；a和b是靜態陣列，靜態物件 從程式開始時就已存在，因此a和b的首位址在編譯期是已知的，它們都屬於常數運算式中的位址常數運算式。<br>
+<br>
+&nbsp;<br>
+<br>
+所以，C/C++中的陣列名，都不是常數。C中的陣列名，是否常數運算式要視其儲存連續性而定，全域陣列、靜態陣列名都是常數運算式，而自動陣列名不是。在C＋＋中，由於不再規定常數運算式必須是編譯期的，因此C＋＋的陣列名都是常數運算式。<br>
+<br>
+<br>
+本文來自CSDN博客，轉載請標明出處：http://blog.csdn.net/supermegaboy/archive/2009/11/23/4855018.aspx
+</body>
+</html>

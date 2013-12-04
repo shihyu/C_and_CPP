@@ -1,0 +1,446 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <title>關於指標與函數的幾點小結</title>
+</head>
+<body>
+心血來潮, 想對函數指針的幾個用法小結一下, 都是平常容易見到的, 如果還有其它不覺的用法也請朋友們不吝賜教.<br>
+<br>
+若有錯誤之處,還請指正.<br>
+<br>
+1. 首先,在C語言中函數是一種function-to-pointer的方式,即對於一個函數,會將其自動轉換成指針的類型.如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+<br>
+void fun()<br>
+{<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+printf("%p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %p\n", &amp;fun, fun, *fun);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+這三個值的結果是一樣的. 其實對於最後的那個*fun, 即使前面加上很多個*號, 其結果也不變, 即**fun, ***fun的結果都是一樣的. 對於這個問題, 因為之前講過函數是一種<br>
+function-to-pointer方式, 其會自動轉換成指針的類型, &amp;fun是該函數的地址, 為指針類型, fun是一個函數,
+會轉換成其指針類型, 而對於*fun, 由於fun已經變成了指針類型, 指向這個函數, 所以*fun就是取這個地址的函數,
+而又根據function-to-pointer, 該函數也轉變成了一個指針, 所以以此類推, 這三個值的結果是相同的.<br>
+<br>
+2. 如何調用一個地址上的函數<br>
+&nbsp; 如果知道了一個函數所在的地址, 可以將其強制轉化成某一種類型的函數指針, 然後再根據這個指針去調用這個地址的函數. 如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+<br>
+void f(int i)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("i = %d\n", i);<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long add;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add = (unsigned long)f;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((void (*)(int))add)(10);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*(void (*)(int))add)(20);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+使用(void (*)(int))的方式可以將一個地址轉換成一個帶int參數且沒有返回值的函數的指針類型, 然後再去調用,
+由於第1點中講的function-to-pointer, 所以最後兩條語句中加與不加那個*號效果都是一樣的. 在嵌入式方面經常用到這種方式.<br>
+<br>
+3. 函數指針數組的用法.<br>
+有時候需要定義一個數組, 其內容為一系列的函數指針, 然後對其進行調用, 如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+int max(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 &gt; v2 ? v1 : v2);<br>
+}<br>
+<br>
+int min(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 &lt; v2 ? v1 : v2);<br>
+}<br>
+<br>
+int sum(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 + v2);<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*p[3])(int, int);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p[0] = max;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p[1] = min;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p[2] = sum;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("p[0] = %d\n", (p[0])(3, 5));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("p[1] = %d\n", (p[1])(4, 6));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("p[2] = %d\n", (p[2])(1, 2));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+雖然感覺這種方法有點累贅, 但是也算是一種使用的方式, 所以介紹一下.<br>
+<br>
+4.返回一個指向數組的指針的方式<br>
+可以讓函數返回一個指向數組的一個指針, 如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+#include&lt;stdlib.h&gt;<br>
+int (*p())[10]<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*m)[10];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m = (int (*)[10])malloc(10 * sizeof(int));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (m == NULL)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("malloc error\n");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exit(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt; 10; i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *(*m+i) = i+1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return m;<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*a)[10];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a = p();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt; 10; i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("%d ", *(*a+i));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("\ndone\n");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+這種方式中,int (*a)[10]是一個指向一維數組的一個指針, 而p()也是返回一個指向一維數組的一個指針.<br>
+<br>
+5.返回一個函數指針的指針<br>
+對這個問題, signal()函數是最好的例子,<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+void (*signal (int signo, void (*func)(int)))(int);<br>
+<br>
+很多朋友剛開始看這個函數定義的時候是不太懂, 其實可以一步一步地慢慢看, 我以前是這樣分析的, 希望能對大家有用. <br>
+int (*p)();<br>
+這是一個函數指針, p所指向的函數是一個不帶任何參數, 並且返回值為int的一個函數.<br>
+int (*fun())();<br>
+這個式子與上面式子的區別在於用fun()代替了p,而fun()是一個函數,所以說就可以看成是fun()這個函數執行之後,它的返回值是一個函數指針,這個函數指針(其實就是上面的p)所指向的函數是一個不帶任何參數,並且返回值為int的一個函數.所以說對於<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+void (*signal(int signo, void (*fun)(int)))(int);<br>
+<br>
+就可以看成是signal()函數(它自己是帶兩個參數,一個為整型,一個為函數指針的函數), 而這個signal()函數的返回值也為一個函數指針,這個函數指針指向一個帶一個整型參數,並且返回值為void的一個函數.<br>
+signal函數返回的其實是指向以前的信號處理程序的指針, 所以舉一個例子來說明返回指向函數的指針的用法,如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;signal.h&gt;<br>
+#include&lt;stdlib.h&gt;<br>
+#include&lt;stdio.h&gt;<br>
+<br>
+void sig_fun2(int signo)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("in sig_fun2:%d\n", signo);<br>
+}<br>
+<br>
+void sig_fun1(int signo)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("in sig_fun1:%d\n", signo);<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (signal(SIGUSR1, sig_fun1) == SIG_ERR)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("signal fun1 error\n");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exit(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (signal(SIGUSR1, sig_fun2))(30);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("done\n");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+6. 使用函數指針作為參數的情況<br>
+在函數的參數中, 可能會帶有一個函數指針, 這在signal()函數中是出現了的, 另外再寫個例子如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+<br>
+int max(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 &gt; v2 ? v1 : v2);<br>
+}<br>
+<br>
+int min(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 &lt; v2 ? v1 : v2);<br>
+}<br>
+<br>
+int sum(int v1, int v2)心血來潮, 想對函數指針的幾個用法小結一下, 都是平常容易見到的, 如果還有其它不覺的用法也請朋友們不吝賜教.<br>
+<br>
+若有錯誤之處,還請指正.<br>
+<br>
+1. 首先,在C語言中函數是一種function-to-pointer的方式,即對於一個函數,會將其自動轉換成指針的類型.如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+<br>
+void fun()<br>
+{<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+printf("%p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+%p&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; %p\n", &amp;fun, fun, *fun);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+這三個值的結果是一樣的. 其實對於最後的那個*fun, 即使前面加上很多個*號, 其結果也不變, 即**fun, ***fun的結果都是一樣的. 對於這個問題, 因為之前講過函數是一種<br>
+function-to-pointer方式, 其會自動轉換成指針的類型, &amp;fun是該函數的地址, 為指針類型, fun是一個函數,
+會轉換成其指針類型, 而對於*fun, 由於fun已經變成了指針類型, 指向這個函數, 所以*fun就是取這個地址的函數,
+而又根據function-to-pointer, 該函數也轉變成了一個指針, 所以以此類推, 這三個值的結果是相同的.<br>
+<br>
+2. 如何調用一個地址上的函數<br>
+&nbsp; 如果知道了一個函數所在的地址, 可以將其強制轉化成某一種類型的函數指針, 然後再根據這個指針去調用這個地址的函數. 如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+<br>
+void f(int i)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("i = %d\n", i);<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long add;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; add = (unsigned long)f;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((void (*)(int))add)(10);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*(void (*)(int))add)(20);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+使用(void (*)(int))的方式可以將一個地址轉換成一個帶int參數且沒有返回值的函數的指針類型, 然後再去調用,
+由於第1點中講的function-to-pointer, 所以最後兩條語句中加與不加那個*號效果都是一樣的. 在嵌入式方面經常用到這種方式.<br>
+<br>
+3. 函數指針數組的用法.<br>
+有時候需要定義一個數組, 其內容為一系列的函數指針, 然後對其進行調用, 如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+int max(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 &gt; v2 ? v1 : v2);<br>
+}<br>
+<br>
+int min(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 &lt; v2 ? v1 : v2);<br>
+}<br>
+<br>
+int sum(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 + v2);<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*p[3])(int, int);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p[0] = max;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p[1] = min;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p[2] = sum;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("p[0] = %d\n", (p[0])(3, 5));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("p[1] = %d\n", (p[1])(4, 6));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("p[2] = %d\n", (p[2])(1, 2));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+雖然感覺這種方法有點累贅, 但是也算是一種使用的方式, 所以介紹一下.<br>
+<br>
+4.返回一個指向數組的指針的方式<br>
+可以讓函數返回一個指向數組的一個指針, 如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+#include&lt;stdlib.h&gt;<br>
+int (*p())[10]<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*m)[10];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m = (int (*)[10])malloc(10 * sizeof(int));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (m == NULL)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("malloc error\n");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exit(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt; 10; i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *(*m+i) = i+1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return m;<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*a)[10];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a = p();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt; 10; i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("%d ", *(*a+i));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("\ndone\n");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+這種方式中,int (*a)[10]是一個指向一維數組的一個指針, 而p()也是返回一個指向一維數組的一個指針.<br>
+<br>
+5.返回一個函數指針的指針<br>
+對這個問題, signal()函數是最好的例子,<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+void (*signal (int signo, void (*func)(int)))(int);<br>
+<br>
+很多朋友剛開始看這個函數定義的時候是不太懂, 其實可以一步一步地慢慢看, 我以前是這樣分析的, 希望能對大家有用. <br>
+int (*p)();<br>
+這是一個函數指針, p所指向的函數是一個不帶任何參數, 並且返回值為int的一個函數.<br>
+int (*fun())();<br>
+這個式子與上面式子的區別在於用fun()代替了p,而fun()是一個函數,所以說就可以看成是fun()這個函數執行之後,它的返回值是一個函數指針,這個函數指針(其實就是上面的p)所指向的函數是一個不帶任何參數,並且返回值為int的一個函數.所以說對於<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+void (*signal(int signo, void (*fun)(int)))(int);<br>
+<br>
+就可以看成是signal()函數(它自己是帶兩個參數,一個為整型,一個為函數指針的函數), 而這個signal()函數的返回值也為一個函數指針,這個函數指針指向一個帶一個整型參數,並且返回值為void的一個函數.<br>
+signal函數返回的其實是指向以前的信號處理程序的指針, 所以舉一個例子來說明返回指向函數的指針的用法,如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;signal.h&gt;<br>
+#include&lt;stdlib.h&gt;<br>
+#include&lt;stdio.h&gt;<br>
+<br>
+void sig_fun2(int signo)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("in sig_fun2:%d\n", signo);<br>
+}<br>
+<br>
+void sig_fun1(int signo)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("in sig_fun1:%d\n", signo);<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long i;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (signal(SIGUSR1, sig_fun1) == SIG_ERR)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("signal fun1 error\n");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; exit(1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (signal(SIGUSR1, sig_fun2))(30);<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("done\n");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+6. 使用函數指針作為參數的情況<br>
+在函數的參數中, 可能會帶有一個函數指針, 這在signal()函數中是出現了的, 另外再寫個例子如:<br>
+<br>
+<br>
+[Copy to clipboard] [ - ]<br>
+CODE:<br>
+#include&lt;stdio.h&gt;<br>
+<br>
+int max(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 &gt; v2 ? v1 : v2);<br>
+}<br>
+<br>
+int min(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 &lt; v2 ? v1 : v2);<br>
+}<br>
+<br>
+int sum(int v1, int v2)<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 + v2);<br>
+}<br>
+<br>
+int fun(int a, int b, int (*call)(int, int))<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (call(a, b));<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("max=%d\n", fun(1, 2, max));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("min=%d\n", fun(3, 4, min));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("sum=%d\n", fun(5, 6, sum));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+其實在很多排序函數中就是使用的這個參數為函數指針的方式來進行調用的.<br>
+<br>
+草草地總結了一下, 希望能有一些用<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (v1 + v2);<br>
+}<br>
+<br>
+int fun(int a, int b, int (*call)(int, int))<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (call(a, b));<br>
+}<br>
+<br>
+int main()<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("max=%d\n", fun(1, 2, max));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("min=%d\n", fun(3, 4, min));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf("sum=%d\n", fun(5, 6, sum));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+}<br>
+<br>
+其實在很多排序函數中就是使用的這個參數為函數指針的方式來進行調用的.<br>
+<br>
+草草地總結了一下, 希望能有一些用&nbsp;
+</body>
+</html>

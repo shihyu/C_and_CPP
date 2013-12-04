@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=big5" http-equiv="content-type">
+  <title>前 言</title>
+</head>
+<body>
+下標運算符[]一直被作為陣列的專有運算符來介紹，經過長年的應用，人們也早已對這個用法習以為常，視為跟每天的午餐一樣稀松平常的事情。當你很遐意地寫下a[0]運算式的時候，如果抽空回過頭來看看標准中關於下標運算符的條款，你很可能會大吃一驚：<br>
+<br>
+&nbsp;<br>
+<br>
+6.5.2.1 Array subscripting<br>
+<br>
+&nbsp;<br>
+<br>
+Constraints<br>
+<br>
+One of the expressions shall have type &lsquo;&lsquo;pointer to object
+type&rsquo;&rsquo;, the other expression shall have integer type, and
+the result has type &lsquo;&lsquo;type&rsquo;&rsquo;.<br>
+<br>
+&nbsp;<br>
+<br>
+其中一個運算式具有指標型別，而不是陣列型別！為什麼會這樣呢？如果規定為陣列型別，由於運算式中的陣列型別會隱式轉換為指標型別，兩個條款就會產生矛
+盾，當然，可以將下標運算符也作為轉換規則的例外，但直接規定為指標型別顯然能帶來更多的好處，而且，既然陣列型別能夠轉換為指標型別，卻不讓指標使用下
+標運算符，會顯得無可理喻。從條款的角度來講，下標運算符其實是指標運算符。<br>
+<br>
+&nbsp;<br>
+<br>
+&nbsp; &nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp; 另一個運算式的型別是integer，這意味著運算式的值可以是負數，這是由於指標運算裡套件含了減法的緣故，但是要注意不應該發生越界的行為。<br>
+<br>
+&nbsp;<br>
+<br>
+在條款的 背景關係中，並沒有規定[]運算符兩個運算元的順序，這意味著即使調換兩個運算元的位元置，也沒有違反標准。這現象還可以從另一個角度進行分析，在表
+達式中，D[N]會轉換為等價運算式*( D + N )，把D和N的位元置調換，就成了*( N + D )，就是N[D]了。<br>
+<br>
+&nbsp;<br>
+<br>
+考慮如下程式碼：<br>
+<br>
+&nbsp;<br>
+<br>
+int a[10]，*p = a;<br>
+<br>
+p[0] = 10;<br>
+<br>
+( p + 1 )[0] = 20;<br>
+<br>
+0[p + 1] = 10;<br>
+<br>
+( &amp;a )[0][0] = 20;<br>
+<br>
+0[&amp;a][0] = 30;<br>
+<br>
+0[0[&amp;a]] = 40;<br>
+<br>
+a[0] = &ldquo;0123456789ABCDEF&rdquo;[0];<br>
+<br>
+&nbsp;<br>
+<br>
+下面對各個運算式進行解釋：<br>
+<br>
+&nbsp;<br>
+<br>
+p[0]：就是a[0]；<br>
+<br>
+( p + 1 )[0]：p移動一個int的距離，就是a[1]；<br>
+<br>
+0[p + 1]：就是( p + 1 )[0]；<br>
+<br>
+( &amp;a )[0][0]：這個運算式有點古怪，a的型別是int[10]，&amp;a就是int( *
+)[10]，是一個指向具有10個int元素的一維陣列的指標，( &amp;a
+)[0]就是&amp;a指向的第0個元素，型別為int[10]，因此( &amp;a )[0][0]就是( &amp;a )[0]的第0個元素。<br>
+<br>
+0[&amp;a][0]：把( &amp;a )[0][0]第一維的0與&amp;a調換一下，就是0[&amp;a][0]；<br>
+<br>
+0[0[&amp;a]]：再調換0[&amp;a]與第二維[0]中的0，就成了0[0[&amp;a]]，跟( &amp;a )[0][0]等價。<br>
+<br>
+&nbsp;<br>
+<br>
+最後一個運算式&rdquo;0123456789ABCDEF&rdquo;[0]是一個常用的技巧，它可以快速將一個數字轉換為16進制字符。
+&rdquo;0123456789ABCDEF&rdquo;是一個字串字面量，型別是char[17]（在C中）或者const
+char[17]（在C++中），轉換後的指標型別分別為char*和const
+char*，因此&rdquo;0123456789ABCDEF&rdquo;[0]就是第0個元素&rsquo;0&rsquo;。這個技巧常常用在
+進制轉換中，以下程式碼將一個長整數的記憶體映像轉換為16進制表示：<br>
+<br>
+&nbsp;<br>
+<br>
+char* convert( unsigned long Value )<br>
+<br>
+{<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static char Buffer[sizeof( unsigned long ) * 2 + 1];<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for( i = sizeof( unsigned long ) * 2 - 1; i &gt;= 0; --i )<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Buffer[i] = "0123456789ABCDEF"[Value % 16];<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Value /= 16;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return Buffer;<br>
+<br>
+}<br>
+<br>
+&nbsp;<br>
+<br>
+當然，筆者在這裡介紹這些古怪的運算式僅僅為了對下標運算符進行一些探討，並非鼓勵人們編寫這樣的程式碼。但在某些情況下，形如"0123456789ABCDEF"[Value%16]這樣的運算式仍然是一個很好的選擇，與下面的程式碼相比：<br>
+<br>
+&nbsp;<br>
+<br>
+Remainder = Value % 16;<br>
+<br>
+if( Remainder &gt;= 10 ) Buffer[i] = 'A' + Remainder - 10;<br>
+<br>
+else Buffer[i] = '0' + Remainder;<br>
+<br>
+&nbsp;<br>
+<br>
+前者顯然更加簡明、精練，更容易閱讀，所以，應根據不同的情況進行取捨。程式碼中使用了除法和求余運算，有些人很喜歡把這些運算直接用移位元代替，以追求極
+速。但現代編譯器對程式碼的優化已經非常出色，乘除運算與直接移位元之間的效率差別已經小到幾乎可以忽略不計的程度，除非在需要進行大量數學運算或對效率極其
+敏感的場合，否則所提高的那麼一點微末的速度是無法彌補可讀性的損失的。在可讀性、空間及效率之間應進行均衡的選擇，而不是盲目追求極端。<br>
+<br>
+<br>
+本文來自CSDN博客，轉載請標明出處：http://blog.csdn.net/supermegaboy/archive/2009/11/23/4855000.aspx
+</body>
+</html>

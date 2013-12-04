@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=big5" http-equiv="content-type">
+  <title>第六章 指標與const</title>
+</head>
+<body>
+const一詞在字面上來源於常數constant，const對像在C/C++中是有不同解析的，如第二章所述，在C中常數運算式必須是編譯期，執行期的不是常數運算式，因此C中的const不是常數運算式；但在C++中，由於去掉了編譯期的限定，因此是常數運算式。<br>
+<br>
+&nbsp;<br>
+<br>
+對於一個指向const物件 的指標pointer to const T，由於把const視作常數運算式，常常存在如下兩種觀點：<br>
+<br>
+&nbsp;<br>
+<br>
+1。這是一個指向常數的指標，簡稱常數指標；<br>
+<br>
+2。這個指標指向的內容不可改變。<br>
+<br>
+&nbsp;<br>
+<br>
+這是比較粗糙的理解。雖然這個指標的型別是pointer to const T，但不代表它指向的物件 真的是一個常數或者不可改變，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+int i = 10;<br>
+<br>
+const int *p = &amp;i;<br>
+<br>
+i = 20;<br>
+<br>
+&nbsp;<br>
+<br>
+p指向的物件 i明顯不是常數，雖然p指向i，但i的值依然可以改變。對於這個現象，C++標準有明確的論述：<br>
+<br>
+&nbsp;<br>
+<br>
+7.1.5.1 The cv-qualifiers<br>
+<br>
+&nbsp;<br>
+<br>
+a pointer or reference to a cv-qualified type need not actually point
+or refer to a cv-qualified object, but it is treated as if it does;<br>
+<br>
+&nbsp;<br>
+<br>
+其中cv指的是const和volatile，const和volatile叫type qualifier，型別限定詞。const
+T只是型別假定，並非指出該物件 是什麼，這個物件 也許是const限定的，也許不是。既然上述兩種看法都是不恰當的，pointer to const
+T又應如何看待呢？一種比較好的理解是，將其視作一條訪問路徑。對一個對像進行取值或者修改操作，可以有很多種方法，每種方法都相當於一條能夠對對像進行
+訪問的路徑，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+int i = 10, k;<br>
+<br>
+const int *p = &amp;i;<br>
+<br>
+int *q = &amp;i;<br>
+<br>
+i = 20;<br>
+<br>
+*q = 30;<br>
+<br>
+k = *p;<br>
+<br>
+&nbsp;<br>
+<br>
+通過*q、*p和標識符i都能訪問i所代表的整數物件 ，它們可以視作三條路徑，i和*q能夠修改該整數物件 的值，這兩條路徑是可寫可讀的；但*p不能寫，
+因為p指向的物件 被假定為const，從p的角度看來，*p是只讀的，不能通過p修改它指向的物件 。因此，一個pointer to const
+T指標的確切意義，不是指向常數或者指向的物件 不可改變，而是指不能通過這個指標去修改其指向的物件 ，無論這個物件 是否const，它只指出一條到該物件 
+的只讀路徑，但存在其它路徑可以修改該物件 。這種理解，在標準中是有根據的：<br>
+<br>
+&nbsp;<br>
+<br>
+7.1.5.1 The cv-qualifiers<br>
+<br>
+&nbsp;<br>
+<br>
+a const-qualified access path cannot be used to modify an object even
+if the object referenced is a non-const object and can be modified
+through some other access path.<br>
+<br>
+&nbsp;<br>
+<br>
+上述條款對訪問路徑進行了一個清晰的描述。<br>
+<br>
+&nbsp;<br>
+<br>
+一個pointer to T型別的指標，可以賦值給一個pointer to const
+T型別的指標，這是眾所周知的語法規則。筆者曾經一度認為，兩者之所以可以賦值，是基於指標的相容性原理，以為兩者是相容的，後來翻閱了C/C++的標
+準，才認識到這種解釋其實是錯誤的，從相容性原理來說，兩者恰恰是不相容的。C標準關於指標的相容性是這樣規定的：<br>
+<br>
+&nbsp;<br>
+<br>
+6.7.5.1 Pointer declarators<br>
+<br>
+&nbsp;<br>
+<br>
+For two pointer types to be compatible, both shall be identically qualified and both shall be pointers to compatible types.<br>
+<br>
+&nbsp;<br>
+<br>
+兩個相容的指標，既要有同一的限定修飾詞，所指向的型別也要相容的。而兩個相容的型別要符合如下規定：<br>
+<br>
+&nbsp;<br>
+<br>
+6.2.7 Compatible type and composite type<br>
+<br>
+&nbsp;<br>
+<br>
+Two types have compatible type if their types are the same.<br>
+<br>
+&nbsp;<br>
+<br>
+兩個相同的型別才具有相容性，那麼cont T和T是否兩種相同的型別呢？再看如下條款：<br>
+<br>
+&nbsp;<br>
+<br>
+6.2.5 Types<br>
+<br>
+&nbsp;<br>
+<br>
+The qualified or unqualified versions of a type are distinct types that
+belong to the same type category and have the same representation and
+alignment requirements.<br>
+<br>
+&nbsp;<br>
+<br>
+一個型別的限定和非限定版本是同一種類別型別的具有同一表示範圍及對齊需求的不同型別。這就是說，const
+T和T不是相同的型別，兩者不相容，於是，雖然pointer to const T與pointer to
+T具有同一的限定修飾（都沒有限定詞），但所指向的物件 型別不是相容的型別，因此pointer to const T與pointer to
+T是不相容的指標型別。<br>
+<br>
+&nbsp;<br>
+<br>
+既然兩者不相容，又是什麼原因導致它們可以賦值呢？再查閱C標準關於賦值運算符的規定，發現有這麼個條款：<br>
+<br>
+&nbsp;<br>
+<br>
+6.5.16.1 Simple assignment<br>
+<br>
+&nbsp;<br>
+<br>
+Constraints<br>
+<br>
+&nbsp;<br>
+<br>
+One of the following shall hold:<br>
+<br>
+&hellip;&hellip;&hellip;<br>
+<br>
+&mdash; both operands are pointers to qualified or unqualified versions of compatible types,<br>
+<br>
+and the type pointed to by the left has all the qualifiers of the type pointed to by the<br>
+<br>
+right;<br>
+<br>
+&nbsp;<br>
+<br>
+噢，其實原因在這裡！左運算元所指向的型別要套件含右運算元所指向型別的所有限定詞。pointer to const T比pointer to
+T多一個const，因此可以將pointer to T賦值給pointer to const
+T，但反過來不行。通俗一點說，就是左運算元要比右運算元更嚴格。C++中的規定與C有點不同，C++標準去掉了這一條款，代之以more
+cv-qualified的概念，一個pointer to cv1 T的指標，要轉換為一個pointer to cv2
+T的指標，條件是cv2比cv1要更cv限定化。<br>
+<br>
+&nbsp;<br>
+<br>
+要注意的一點是，這條賦值運算符的規則只適用於pointer to qualified or unqualified
+type，不能延伸到pointer to pointer to qualified or unqualified
+type及更高層次的指標型別，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+int i = 10;<br>
+<br>
+const int *p = &amp;i;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* A */<br>
+<br>
+int *q = &amp;i;<br>
+<br>
+const int **p1 = &amp;q;&nbsp;&nbsp;&nbsp;&nbsp; /* B */<br>
+<br>
+&nbsp;<br>
+<br>
+A合法，但B不合法。雖然p1與&amp;q都是unqualified的，但p1指向的物件 型別為pointer to const
+int，&amp;q指向的型別為pointer to int，如前所述，兩者是不相容型別，不符合兩運算元必須指向相容型別的規定，因此賦值非法。<br>
+<br>
+&nbsp;<br>
+<br>
+根據上述規則，一個pointer to const T不能賦予pointer to T，但是，一個const pointer卻能賦予non-const pointer，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+int i;<br>
+<br>
+int * const p = &amp;i;<br>
+<br>
+int *q;<br>
+<br>
+q = p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* A */<br>
+<br>
+&nbsp;<br>
+<br>
+A合法，這種情況並不屬於賦值運算符的規則之內，它遵循的是另一個條款：左值轉換。一個被限定修飾的左值，在進行左值轉換之後，右值具有左值的非限定修飾型別：<br>
+<br>
+&nbsp;<br>
+<br>
+6.3.2 Other operands<br>
+<br>
+6.3.2.1 Lvalues, arrays, and function designators<br>
+<br>
+&nbsp;<br>
+<br>
+Except when it is the operand of the sizeof operator, the unary &amp;
+operator, the ++ operator, the -- operator, or the left operand of the
+. operator or an assignment operator, an lvalue that does not have
+array type is converted to the value stored in the designated object
+(and is no longer an lvalue). If the lvalue has qualified type, the
+value has the unqualified version of the type of the lvalue; otherwise,
+the value has the type of the lvalue.<br>
+<br>
+&nbsp;<br>
+<br>
+p的值具有p的非限定修飾型別int*，與q型別相容，因此賦值合法。對於C++，基本上與C相同，但有一個例外，就是右值類別物件 ，由於右值類別對像仍然是一個物件 ，C++規定右值類別對像具有與左值相同的限定修飾詞。<br>
+<br>
+&nbsp;<br>
+<br>
+指標與const的結合能夠產生一些比較複雜的宣告，例如：<br>
+<br>
+&nbsp;<br>
+<br>
+const int * const *** const ** const p;<br>
+<br>
+&nbsp;<br>
+<br>
+這是一個較為複雜的指標宣告符與const限定修飾詞的組合，宣告符部分嵌套了六次，中間還帶有兩個const，如何辨認哪一級是const，哪一級不是
+呢？一旦明白了其中的原理，其實是非常簡單的。第一和最後一個const大家都已經很熟悉的了。對於藏在一堆積*號中的const，有一個非常簡單的原則：
+const與左邊最後一個宣告說明符之間有多少個*號，那麼就是多少級指標是const的。例如從右數起第二個const，它與int之間有4個*號，那
+麼p的四級部分就是const的，下面的賦值運算式是非法的：<br>
+<br>
+&nbsp;<br>
+<br>
+**p = (int *const***)10;<br>
+<br>
+&nbsp;<br>
+<br>
+但下面的賦值是允許的：<br>
+<br>
+&nbsp;<br>
+<br>
+***p=(int*const**)10;<br>
+<br>
+&nbsp;<br>
+<br>
+從左邊數起第二個const，它與int之間有1個*，那麼p的一級部分是const的，也就是*****p = (int*const***const*)10;是非法的<br>
+<br>
+<br>
+本文來自CSDN博客，轉載請標明出處：http://blog.csdn.net/supermegaboy/archive/2009/11/23/4854974.aspx
+</body>
+</html>
