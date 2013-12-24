@@ -1,0 +1,5 @@
+cpp2dot (0.1SVN-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Julien PILLON <jpillon@lesalternatives.org>  Wed, 19 Jan 2011 01:27:40 +0100

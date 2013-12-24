@@ -1,0 +1,21 @@
+This software is distributed under the GNU GPLv3 license. 
+It requires the Qt4 SDK. (http://qt.nokia.com/downloads). 
+
+Developped by Julien PILLON (jpillon@lesalternatives.org)
+
+To build : 
+	cd /path/to/sources
+	qmake cpp2dot.pro
+	make
+Make install is not yet available. The executable is in the bin directory. 
+on an unix-like OS : 
+	To use it on a file : 
+		cpp2dot file.h | dot -Tpng > file.png
+	For multiple files : 
+		cat /path/to/headers/*.h | ./bin/cpp2dot | dot -Tpng > file.png
+on Windows : 
+	To use it on a file : 
+		cpp2dot.exe file.h -o file.dot
+		dot.exe file.dot -Tpng -o file.png
+	For multiple files, concatenate header files into one and do the same thing as with one file. 
+

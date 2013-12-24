@@ -1,0 +1,15 @@
+Source: cpp2dot
+Section: unknown
+Priority: extra
+Maintainer: Julien PILLON <jpillon@lesalternatives.org>
+Build-Depends: debhelper (>= 7.0.50~), qt4-dev-tools
+Standards-Version: 3.8.4
+Homepage: http://cpp2dot.sourceforge.net/
+#Vcs-Git: git://git.debian.org/collab-maint/cpp2dot.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/cpp2dot.git;a=summary
+
+Package: cpp2dot
+Architecture: i386
+Depends: ${shlibs:Depends}, ${misc:Depends}, libqtcore4
+Description: Generates dot file from C++ header files. 
+ 

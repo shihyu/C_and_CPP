@@ -1,0 +1,3 @@
+gcc -c mcount.c
+gcc -c main.c -pg
+gcc mcount.o main.o -o test
