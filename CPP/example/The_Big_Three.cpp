@@ -89,5 +89,9 @@ main(int argc, char** argv) {
     ClassA C;
     // 開始執行 ClassA& operator=(const ClassA& clone)
     C = A;
+    
+    cout << "classA D +" << endl;
+    ClassA D = ClassA(BUFFER_SIZE);
+
     return 0;
 }
