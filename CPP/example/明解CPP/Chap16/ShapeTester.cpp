@@ -1,4 +1,4 @@
-// ¹Ï§ÎÃþ§OShapeªº¨Ï¥Î½d¨Ò
+// åœ–å½¢é¡žåˆ¥Shapeçš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Shape.h"
@@ -8,14 +8,14 @@ int main()
 { 
 	Shape* v[5];
 
-	v[0] = new Point();				// ÂI
-	v[1] = new HLine(4);			// ¤ô¥­ª½½u
-	v[2] = new VLine(2);			// ««ª½ª½½u
-	v[3] = new RectAngle(4, 3);		// ªø¤è§Î
-	v[4] = new Triangle(5);			// µ¥Ãä¤T¨¤§Î
+	v[0] = new Point();				// é»ž
+	v[1] = new HLine(4);			// æ°´å¹³ç›´ç·š
+	v[2] = new VLine(2);			// åž‚ç›´ç›´ç·š
+	v[3] = new RectAngle(4, 3);		// é•·æ–¹å½¢
+	v[4] = new Triangle(5);			// ç­‰é‚Šä¸‰è§’å½¢
 
 	for (int i = 0; i < 5; i++)
-		v[i]->draw();		                // µe¥X©Ò¦³¹Ï§Î
+		v[i]->draw();		                // ç•«å‡ºæ‰€æœ‰åœ–å½¢
 
 	return 0;
 }

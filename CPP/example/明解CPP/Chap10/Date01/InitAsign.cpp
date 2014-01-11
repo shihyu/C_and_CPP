@@ -1,4 +1,4 @@
-// ¨Ï¥Î¤é´ÁÃş§ODate¡]²Ä¢°ª©¡^¨Ó¶i¦æªì©l¤Æ»P«ü©w
+// ä½¿ç”¨æ—¥æœŸé¡åˆ¥Dateï¼ˆç¬¬ï¼‘ç‰ˆï¼‰ä¾†é€²è¡Œåˆå§‹åŒ–èˆ‡æŒ‡å®š
 
 #include <iostream>
 #include "Date.h"
@@ -6,21 +6,21 @@ using namespace std;
 
 int main()
 {
-	Date x(2010, 11, 25);				// ªì©l¤Æ
-	Date y = x;							// ªì©l¤Æ
-	Date z = Date(2052, 10, 12);		// ªì©l¤Æ
+	Date x(2010, 11, 25);				// åˆå§‹åŒ–
+	Date y = x;							// åˆå§‹åŒ–
+	Date z = Date(2052, 10, 12);		// åˆå§‹åŒ–
 
-	z = x;								// «ü©w
-	y = Date(2107, 3, 6);				// «ü©w
+	z = x;								// æŒ‡å®š
+	y = Date(2107, 3, 6);				// æŒ‡å®š
 
 	cout << "X = "
-		 << x.Year() << "¦~" << x.Month() << "¤ë" << x.Day() << "¤é\n";
+		 << x.Year() << "å¹´" << x.Month() << "æœˆ" << x.Day() << "æ—¥\n";
 
 	cout << "y = "
-		 << y.Year() << "¦~" << y.Month() << "¤ë" << y.Day() << "¤é\n";
+		 << y.Year() << "å¹´" << y.Month() << "æœˆ" << y.Day() << "æ—¥\n";
 
 	cout << "z = "
-		 << z.Year() << "¦~" << z.Month() << "¤ë" << z.Day() << "¤é\n";
+		 << z.Year() << "å¹´" << z.Month() << "æœˆ" << z.Day() << "æ—¥\n";
 
 	return 0;
 }

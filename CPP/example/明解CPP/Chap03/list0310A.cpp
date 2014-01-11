@@ -1,4 +1,4 @@
-// ¥HÅª¤Jªº­Ó¼Æ¨ÓÅã¥Ü*
+// ä»¥è®€å…¥çš„å€‹æ•¸ä¾†é¡¯ç¤º*
 
 #include <iostream>
 using namespace std;
@@ -6,7 +6,7 @@ using namespace std;
 int main ()
 {
 	int n;
-	cout << "­nÅã¥Ü´X­Ó*¡G";
+	cout << "è¦é¡¯ç¤ºå¹¾å€‹*ï¼š";
 	cin >> n;
 
 	for (int i = 1; i <= n; i++)

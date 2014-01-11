@@ -1,33 +1,33 @@
-// ¤é´ÁÃş§ODate¡]¥[¤W¦¨­û¨ç¼Æ©I¥s¦¸¼Æªº­pºâ¡^
+// æ—¥æœŸé¡åˆ¥Dateï¼ˆåŠ ä¸Šæˆå“¡å‡½æ•¸å‘¼å«æ¬¡æ•¸çš„è¨ˆç®—ï¼‰
 
 #include <iostream>
 using namespace std;
 
 class Date {
-	int	year;			// ¦è¤¸¦~
-	int	month;			// ¤ë
-	int	day;			// ¤é
-	mutable int count;	// ¦¨­û¨ç¼Æ³Q©I¥s¥X¨ÓªºÁ`­p¦¸¼Æ
+	int	year;			// è¥¿å…ƒå¹´
+	int	month;			// æœˆ
+	int	day;			// æ—¥
+	mutable int count;	// æˆå“¡å‡½æ•¸è¢«å‘¼å«å‡ºä¾†çš„ç¸½è¨ˆæ¬¡æ•¸
 
 public:
-	Date(int y, int m, int d) {				// «Øºc¤l
+	Date(int y, int m, int d) {				// å»ºæ§‹å­
 		year = y; month = m; day = d; count = 0;
 	}
-	int Year()  const { count++; return year; }			// ¶Ç¦^¦~
-	int Month() const { count++; return month; }		// ¶Ç¦^¤ë
-	int Day()	const { count++; return day; }			// ¶Ç¦^¤é
-	int Count()	const { return count; }			// °O¼Æ
+	int Year()  const { count++; return year; }			// å‚³å›å¹´
+	int Month() const { count++; return month; }		// å‚³å›æœˆ
+	int Day()	const { count++; return day; }			// å‚³å›æ—¥
+	int Count()	const { return count; }			// è¨˜æ•¸
 };
 
 int main()
 {
-	const Date birthday(1963, 11, 18);		// ¥Í¤é
+	const Date birthday(1963, 11, 18);		// ç”Ÿæ—¥
 
-	cout << "birthday = " << birthday.Year()  << "¦~"
-						  << birthday.Month() << "¤ë"
-						  << birthday.Day()	  << "¤é\n";
-	cout << "birthdayªº¦¨­û¨ç¼Æ¤@¦@³Q©I¥s¤F" << birthday.Count() << 
-			"¦¸¡C\n";
+	cout << "birthday = " << birthday.Year()  << "å¹´"
+						  << birthday.Month() << "æœˆ"
+						  << birthday.Day()	  << "æ—¥\n";
+	cout << "birthdayçš„æˆå“¡å‡½æ•¸ä¸€å…±è¢«å‘¼å«äº†" << birthday.Count() << 
+			"æ¬¡ã€‚\n";
 
 	return 0;
 }

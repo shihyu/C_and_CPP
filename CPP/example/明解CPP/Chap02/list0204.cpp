@@ -1,4 +1,4 @@
-// Åª¤Jªº¾ã¼Æ­È¬O§_¬°0
+// è®€å…¥çš„æ•´æ•¸å€¼æ˜¯å¦ç‚º0
 
 #include <iostream>
 using namespace std;
@@ -7,13 +7,13 @@ int main()
 {
 	int n;
 
-	cout << "¾ã¼Æ­È¡G";
+	cout << "æ•´æ•¸å€¼ï¼š";
 	cin >> n;
 
 	if (!n)
-		cout << "¸Ó­È¬O0¡C\n";
+		cout << "è©²å€¼æ˜¯0ã€‚\n";
 	else
-		cout << "¸Ó­È¤£¬O0¡C\n";
+		cout << "è©²å€¼ä¸æ˜¯0ã€‚\n";
 
 	return 0;
 }

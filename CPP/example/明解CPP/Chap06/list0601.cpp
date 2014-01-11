@@ -1,4 +1,4 @@
-// Åã¥Üª«¥óªº¦ì§}
+// é¡¯ç¤ºç‰©ä»¶çš„ä½å€
 
 #include <iostream>
 using namespace std;
@@ -8,8 +8,8 @@ int main()
 	int    x;
 	double y;
 
-	cout << "xªº¦ì§}¡G" << &x << '\n';
-	cout << "yªº¦ì§}¡G" << &y << '\n';
+	cout << "xçš„ä½å€ï¼š" << &x << '\n';
+	cout << "yçš„ä½å€ï¼š" << &y << '\n';
 
 	return 0;
 }

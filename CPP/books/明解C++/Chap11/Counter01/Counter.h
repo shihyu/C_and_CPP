@@ -1,4 +1,4 @@
-// °O¼ÆÃş§OCounter¡]²Ä¢°ª©¡^
+// è¨˜æ•¸é¡åˆ¥Counterï¼ˆç¬¬ï¼‘ç‰ˆï¼‰
 
 #if !defined(___Class_Counter)
 	#define  ___Class_Counter
@@ -6,16 +6,16 @@
 #include <climits>
 using namespace std;
 
-//===== °O¼ÆÃş§O =====//
+//===== è¨˜æ•¸é¡åˆ¥ =====//
 class Counter {
-	unsigned cnt;					// °O¼Æ
+	unsigned cnt;					// è¨˜æ•¸
 
 public:
-	Counter() : cnt(0) { }			// «Øºc¤l
+	Counter() : cnt(0) { }			// å»ºæ§‹å­
 
-	void Increment() { if (cnt < UINT_MAX) cnt++; }		// ¦¸¼Æ¼W¥[
-	void Decrement() { if (cnt > 0) cnt--; }			// ¦¸¼Æ´î¤Ö
-	unsigned Value() { return cnt; }			// ¶Ç¦^¦¸¼Æ
+	void Increment() { if (cnt < UINT_MAX) cnt++; }		// æ¬¡æ•¸å¢åŠ 
+	void Decrement() { if (cnt > 0) cnt--; }			// æ¬¡æ•¸æ¸›å°‘
+	unsigned Value() { return cnt; }			// å‚³å›æ¬¡æ•¸
 };
 
 #endif

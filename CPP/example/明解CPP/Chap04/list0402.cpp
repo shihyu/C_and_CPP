@@ -1,4 +1,4 @@
-// Åã¥Ü¾ã¼Æ«¬ºA©Ò¯àªí²{ªº­È
+// é¡¯ç¤ºæ•´æ•¸å‹æ…‹æ‰€èƒ½è¡¨ç¾çš„å€¼
 
 #include <climits>
 #include <iostream>
@@ -6,19 +6,19 @@ using namespace std;
 
 int main()
 {
-	cout << "¦¹³B²z¾¹ªº¾ã¼Æ«¬ºA©Ò¯àªí²{ªº­È¡C\n";
+	cout << "æ­¤è™•ç†å™¨çš„æ•´æ•¸å‹æ…‹æ‰€èƒ½è¡¨ç¾çš„å€¼ã€‚\n";
 
-	cout << "char         ¡G" << CHAR_MIN  << "¡ã" << CHAR_MAX  << '\n';
-	cout << "signed char  ¡G" << SCHAR_MIN << "¡ã" << SCHAR_MAX << '\n';
-	cout << "unsigned char¡G" << 0         << "¡ã" << UCHAR_MAX << '\n';
+	cout << "char         ï¼š" << CHAR_MIN  << "âˆ¼" << CHAR_MAX  << '\n';
+	cout << "signed char  ï¼š" << SCHAR_MIN << "âˆ¼" << SCHAR_MAX << '\n';
+	cout << "unsigned charï¼š" << 0         << "âˆ¼" << UCHAR_MAX << '\n';
 
-	cout << "short int¡G" << SHRT_MIN << "¡ã" << SHRT_MAX << '\n';
-	cout << "int      ¡G" << INT_MIN  << "¡ã" << INT_MAX  << '\n';
-	cout << "long int ¡G" << LONG_MIN << "¡ã" << LONG_MAX << '\n';
+	cout << "short intï¼š" << SHRT_MIN << "âˆ¼" << SHRT_MAX << '\n';
+	cout << "int      ï¼š" << INT_MIN  << "âˆ¼" << INT_MAX  << '\n';
+	cout << "long int ï¼š" << LONG_MIN << "âˆ¼" << LONG_MAX << '\n';
 
-	cout << "unsigned short int¡G" << 0 << "¡ã" << USHRT_MAX << '\n';
-	cout << "unsigned int      ¡G" << 0 << "¡ã" << UINT_MAX  << '\n';
-	cout << "unsigned long int ¡G" << 0 << "¡ã" << ULONG_MAX << '\n';
+	cout << "unsigned short intï¼š" << 0 << "âˆ¼" << USHRT_MAX << '\n';
+	cout << "unsigned int      ï¼š" << 0 << "âˆ¼" << UINT_MAX  << '\n';
+	cout << "unsigned long int ï¼š" << 0 << "âˆ¼" << ULONG_MAX << '\n';
 
 	return 0;
 }

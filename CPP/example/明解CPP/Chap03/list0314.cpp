@@ -1,24 +1,24 @@
-// ±NÅª¤Jªº¾ã¼Æ¥[Á` (¿é¤J0´Nµ²§ô)
+// å°‡è®€å…¥çš„æ•´æ•¸åŠ ç¸½ (è¼¸å…¥0å°±çµæŸ)
 
 #include <iostream>
 using namespace std;
 
 int main ()
 {
-	int n;			// ¥[Á`ªº­Ó¼Æ
-	cout << "±N¾ã¼Æ¥[Á`¡C\n";
-	cout << "­n¥[Á`´X­Ó¾ã¼Æ¡G";
+	int n;			// åŠ ç¸½çš„å€‹æ•¸
+	cout << "å°‡æ•´æ•¸åŠ ç¸½ã€‚\n";
+	cout << "è¦åŠ ç¸½å¹¾å€‹æ•´æ•¸ï¼š";
 	cin >> n;
 
-	int sum = 0;		// Á`©M
+	int sum = 0;		// ç¸½å’Œ
 	for (int i = 0; i < n; i++) {
 		int t;
-		cout << "¾ã¼Æ (¿é¤J0´Nµ²§ô)¡G";
+		cout << "æ•´æ•¸ (è¼¸å…¥0å°±çµæŸ)ï¼š";
 		cin >> t;
-		if (t == 0) break;		// ¸õ¥Xfor±Ô­z
+		if (t == 0) break;		// è·³å‡ºforæ•˜è¿°
 		sum += t;
 	}
-	cout << "Á`©M¬°" << sum << "¡C\n";
+	cout << "ç¸½å’Œç‚º" << sum << "ã€‚\n";
 
 	return 0;
 }

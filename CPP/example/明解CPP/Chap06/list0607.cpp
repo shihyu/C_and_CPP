@@ -1,9 +1,9 @@
-// ¨D¨ú³Ì°ªªº¤Hªº¨­°ª»P³Ì­Dªº¤HªºÅé­«
+// æ±‚å–æœ€é«˜çš„äººçš„èº«é«˜èˆ‡æœ€èƒ–çš„äººçš„é«”é‡
 
 #include <iostream>
 using namespace std;
 
-//--- ¶Ç¦^¤¸¯À¼Ænªº°}¦Ca¤§³Ì¤j­È ---//
+//--- å‚³å›å…ƒç´ æ•¸nçš„é™£åˆ—aä¹‹æœ€å¤§å€¼ ---//
 int maxof(const int a[], int n)
 {
 	int max = a[0];
@@ -15,21 +15,21 @@ int maxof(const int a[], int n)
 
 int main()
 {
-	const int ninzu = 5;				// ¤H¼Æ
-	int height[ninzu], weight[ninzu];	// ¨­°ª¡BÅé­«
+	const int ninzu = 5;				// äººæ•¸
+	int height[ninzu], weight[ninzu];	// èº«é«˜ã€é«”é‡
 
-	cout << "½Ğ¿é¤J" << ninzu << "­Ó¤Hªº¨­°ª©MÅé­«¡C\n";
+	cout << "è«‹è¼¸å…¥" << ninzu << "å€‹äººçš„èº«é«˜å’Œé«”é‡ã€‚\n";
 	for (int i = 0; i < ninzu; i++) {
-		cout << i + 1 << "¸¹ªº¨­°ª¡G";
+		cout << i + 1 << "è™Ÿçš„èº«é«˜ï¼š";
 		cin >> height[i];
-		cout << i + 1 << "¸¹ªºÅé­«¡G";
+		cout << i + 1 << "è™Ÿçš„é«”é‡ï¼š";
 		cin >> weight[i];
 	}
-	int hmax = maxof(height, ninzu);	// ¨­°ªªº³Ì¤j­È
-	int wmax = maxof(weight, ninzu);	// Åé­«ªº³Ì¤j­È
+	int hmax = maxof(height, ninzu);	// èº«é«˜çš„æœ€å¤§å€¼
+	int wmax = maxof(weight, ninzu);	// é«”é‡çš„æœ€å¤§å€¼
 
-	cout << "³Ì°ªªº¤Hªº¨­°ª¡G" << hmax << "cm\n";
-	cout << "³Ì­Dªº¤HªºÅé­«¡G" << wmax << "kg\n";
+	cout << "æœ€é«˜çš„äººçš„èº«é«˜ï¼š" << hmax << "cm\n";
+	cout << "æœ€èƒ–çš„äººçš„é«”é‡ï¼š" << wmax << "kg\n";
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-// ¹Ï§ÎÃþ§OShape
+// åœ–å½¢é¡žåˆ¥Shape
 
 #if !defined(___Class_Shape)
 	#define	 ___Class_Shape
@@ -6,60 +6,60 @@
 #include <iostream>
 using namespace std;
 
-//=====¹Ï§ÎÃþ§O¡]©â¶HÃþ§O¡^ =====//
+//=====åœ–å½¢é¡žåˆ¥ï¼ˆæŠ½è±¡é¡žåˆ¥ï¼‰ =====//
 class Shape {
 public:
-	virtual void draw() = 0;		// Ã¸¹Ï¡]¯ÂµêÀÀ¨ç¼Æ¡^
+	virtual void draw() = 0;		// ç¹ªåœ–ï¼ˆç´”è™›æ“¬å‡½æ•¸ï¼‰
 };
 
-//===== ÂI =====//
+//===== é»ž =====//
 class Point : public Shape {
 public:
 	void draw() {
-		cout << "ÂI\n"; 
+		cout << "é»ž\n"; 
 		cout << "*\n";
 	}
 };
 
-//===== ¤ô¥­ª½½u =====//
+//===== æ°´å¹³ç›´ç·š =====//
 class HLine : public Shape {
-	int length;			// ªø«×
+	int length;			// é•·åº¦
 
 public:
 	HLine(int s) : length(s) { }
 
 	void draw() {
-		cout << "¤ô¥­ª½½u¡]ªø«×¡G" << length << "¡^\n"; 
+		cout << "æ°´å¹³ç›´ç·šï¼ˆé•·åº¦ï¼š" << length << "ï¼‰\n"; 
 		for (int i = 1; i <= length; i++)
 			cout << '*';
 		cout << '\n';
 	}
 };
 
-//===== ««ª½ª½½u =====//
+//===== åž‚ç›´ç›´ç·š =====//
 class VLine : public Shape {
-	int length;			// ªø«×
+	int length;			// é•·åº¦
 
 public:
 	VLine(int s) : length(s) { }
 
 	void draw() {
-		cout << "««ª½ª½½u¡]ªø«×¡G" << length << "¡^\n"; 
+		cout << "åž‚ç›´ç›´ç·šï¼ˆé•·åº¦ï¼š" << length << "ï¼‰\n"; 
 		for (int i = 1; i <= length; i++)
 			cout << "*\n";
 	}
 };
 
-//===== ªø¤è§Î =====//
+//===== é•·æ–¹å½¢ =====//
 class RectAngle : public Shape {
-	int width;			// ¼e«×
-	int height;			// °ª«×
+	int width;			// å¯¬åº¦
+	int height;			// é«˜åº¦
 
 public:
 	RectAngle(int w, int h) : width(w), height(h) { }
 
 	void draw() {
-		cout << "ªø¤è§Î¡]¼e«×¡G" << width << "¡@°ª«×¡G" << height << "¡^\n"; 
+		cout << "é•·æ–¹å½¢ï¼ˆå¯¬åº¦ï¼š" << width << "ã€€é«˜åº¦ï¼š" << height << "ï¼‰\n"; 
 		for (int i = 1; i <= height; i++) {
 			for (int j = 1; j <= width; j++)
 				cout << '*';
@@ -68,15 +68,15 @@ public:
 	}
 };
 
-//===== ¥ª¤U¬°ª½¨¤ªºµ¥Ãä¤T¨¤§Î =====//
+//===== å·¦ä¸‹ç‚ºç›´è§’çš„ç­‰é‚Šä¸‰è§’å½¢ =====//
 class Triangle : public Shape {
-	int length;			// ¬Ûµ¥¤§¨âÃäªºªø«×
+	int length;			// ç›¸ç­‰ä¹‹å…©é‚Šçš„é•·åº¦
 
 public:
 	Triangle(int s) : length(s) { }
 
 	void draw() {
-		cout << "µ¥Ãä¤T¨¤§Î¡]ªø«×¡G" << length << "¡^\n"; 
+		cout << "ç­‰é‚Šä¸‰è§’å½¢ï¼ˆé•·åº¦ï¼š" << length << "ï¼‰\n"; 
 		for (int i = 1; i <= length; i++) {
 			for (int j = 1; j <= i; j++)
 				cout << '*';

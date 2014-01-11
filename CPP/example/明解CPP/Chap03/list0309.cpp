@@ -1,4 +1,4 @@
-// ¨D¨ú±q1¨ìnªºÁ`©M
+// æ±‚å–å¾1åˆ°nçš„ç¸½å’Œ
 
 #include <iostream>
 using namespace std;
@@ -7,19 +7,19 @@ int main ()
 {
 	int n;
 
-	cout << "¨D¨ú±q1¨ìnªºÁ`©M¡C\n";
+	cout << "æ±‚å–å¾1åˆ°nçš„ç¸½å’Œã€‚\n";
 	do {
-		cout << "nªº­È¡G";
+		cout << "nçš„å€¼ï¼š";
 		cin >> n;
 	} while (n <= 0);
 
-	int sum = 0;				// ¦X­p
+	int sum = 0;				// åˆè¨ˆ
 	int i = 1;
 	while (i <= n) {
-		sum += i;				// ±Ni¥[¨ìsum
-		i++;					// »¼¼Wi
+		sum += i;				// å°‡iåŠ åˆ°sum
+		i++;					// éå¢i
 	}
-	cout << "±q1¨ì" << n << "¬°¤îªºÁ`©M¬O" << sum << "¡C\n";
+	cout << "å¾1åˆ°" << n << "ç‚ºæ­¢çš„ç¸½å’Œæ˜¯" << sum << "ã€‚\n";
 
 	return 0;
 }

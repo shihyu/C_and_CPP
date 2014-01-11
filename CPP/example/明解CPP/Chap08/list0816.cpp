@@ -1,35 +1,35 @@
-// ¼Ğ¥Ü²Å¦X±ø¥óªº¤¸¯À
+// æ¨™ç¤ºç¬¦åˆæ¢ä»¶çš„å…ƒç´ 
 
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
 using namespace std;
 
-//--- ­È¬°30 ~ 60 ---//
+//--- å€¼ç‚º30 ~ 60 ---//
 bool f(int x)
 {
 	return (x >= 30 && x <= 60);
 }
 
-//--- ¼Ğ¥Ü°}¦Ca ¤§¤¤¨ç¼Æf(x)¬°¯uªº¤¸¯À ---//
+//--- æ¨™ç¤ºé™£åˆ—a ä¹‹ä¸­å‡½æ•¸f(x)ç‚ºçœŸçš„å…ƒç´  ---//
 void ary_disp(int a[], int n)
 {
 	for (int i = 0; i < n; i++) {
 		if (f(a[i]))
-			cout << "¡¹";
+			cout << "â˜…";
 		else
-			cout << "¡¸";
+			cout << "â˜†";
 		cout << "a[" << i << "] = " << a[i] << '\n';
 	}
 }
 
 int main()
 {
-	srand(time(NULL));			// ±N¶Ã¼ÆªººØªì©l¤Æ
-	int a[10];					// ¤¸¯À«¬ºA¬°int «¬ºA¥B¤¸¯À¼Æ¬°10ªº°}¦C
+	srand(time(NULL));			// å°‡äº‚æ•¸çš„ç¨®åˆå§‹åŒ–
+	int a[10];					// å…ƒç´ å‹æ…‹ç‚ºint å‹æ…‹ä¸”å…ƒç´ æ•¸ç‚º10çš„é™£åˆ—
 
 	for (int i = 0; i < 10; i++)
-		a[i] = rand() % 100;	// «ü©w0 ~ 99ªº¶Ã¼Æ
+		a[i] = rand() % 100;	// æŒ‡å®š0 ~ 99çš„äº‚æ•¸
 
 	ary_disp(a, 10);
 

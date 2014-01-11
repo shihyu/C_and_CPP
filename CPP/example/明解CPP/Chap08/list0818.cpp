@@ -1,30 +1,30 @@
-// ¼Ð¥Ü²Å¦X±ø¥óªº¤¸¯À («ü¦V¨ç¼Æ¤§«ü¼Ð)
+// æ¨™ç¤ºç¬¦åˆæ¢ä»¶çš„å…ƒç´  (æŒ‡å‘å‡½æ•¸ä¹‹æŒ‡æ¨™)
 
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
 using namespace std;
 
-//--- ­È¬°30 ~ 60 ---//
+//--- å€¼ç‚º30 ~ 60 ---//
 bool f(int x)
 {
 	return (x >= 30 && x <= 60);
 }
 
-//--- ­È¬°10¥H¤W30¥H¤U©Î¬O70¥H¤W80¥H¤U ---//
+//--- å€¼ç‚º10ä»¥ä¸Š30ä»¥ä¸‹æˆ–æ˜¯70ä»¥ä¸Š80ä»¥ä¸‹ ---//
 bool g(int x)
 {
 	return (x >= 10 && x <= 30) || (x >= 70 && x <= 80);
 }
 
-//--- ¼Ð¥Ü°}¦Ca¤§¤¤¨ç¼Æf(x)¬°¯uªº¤¸¯À ---//
+//--- æ¨™ç¤ºé™£åˆ—aä¹‹ä¸­å‡½æ•¸f(x)ç‚ºçœŸçš„å…ƒç´  ---//
 void ary_disp(int a[], int n, bool func(int x))
 {
 	for (int i = 0; i < n; i++) {
 		if (func(a[i]))
-			cout << "¡¹";
+			cout << "â˜…";
 		else
-			cout << "¡¸";
+			cout << "â˜†";
 		cout << "a[" << i << "] = " << a[i] << '\n';
 	}
 }
@@ -32,11 +32,11 @@ void ary_disp(int a[], int n, bool func(int x))
 
 int main()
 {
-	srand(time(NULL));			// ±N¶Ã¼ÆªººØªì©l¤Æ
-	int a[10];					// ¤¸¯À«¬ºA¬°int «¬ºA¥B¤¸¯À¼Æ¬°10ªº°}¦C
+	srand(time(NULL));			// å°‡äº‚æ•¸çš„ç¨®åˆå§‹åŒ–
+	int a[10];					// å…ƒç´ åž‹æ…‹ç‚ºint åž‹æ…‹ä¸”å…ƒç´ æ•¸ç‚º10çš„é™£åˆ—
 
 	for (int i = 0; i < 10; i++)
-		a[i] = rand() % 100;	// «ü©w0 ~ 99ªº¶Ã¼Æ
+		a[i] = rand() % 100;	// æŒ‡å®š0 ~ 99çš„äº‚æ•¸
 
 	ary_disp(a, 10, f);
 

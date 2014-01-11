@@ -1,4 +1,4 @@
-// ¸ß°İ¦W¦r¨Ã¥´©Û©I (¦r¦êªºÅª¤J©MÅã¥Ü)
+// è©¢å•åå­—ä¸¦æ‰“æ‹›å‘¼ (å­—ä¸²çš„è®€å…¥å’Œé¡¯ç¤º)
 
 #include <iostream>
 using namespace std;
@@ -7,10 +7,10 @@ int main()
 {
 	char name[40];
 
-	cout << "±zªº¦W¦r¬O¡G";
+	cout << "æ‚¨çš„åå­—æ˜¯ï¼š";
 	cin >> name;
 
-	cout << "±z¦n!" << name << "¥ı¥Í!!\n";
+	cout << "æ‚¨å¥½!" << name << "å…ˆç”Ÿ!!\n";
 
 	return 0;
 }

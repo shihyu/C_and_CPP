@@ -1,19 +1,19 @@
-// ¨D¨úxªº¤T¦¸¤è»Pyªº¤G¦¸¤è¤§Á`©M
+// æ±‚å–xçš„ä¸‰æ¬¡æ–¹èˆ‡yçš„äºŒæ¬¡æ–¹ä¹‹ç¸½å’Œ
 
 #include <iostream>
 using namespace std;
 
-//--- ¶Ç¦^xªºn¦¸¤è ---//
+//--- å‚³å›xçš„næ¬¡æ–¹ ---//
 double power(double x, int n)
 {
 	double tmp = 1.0;
 
 	while (n-- > 0)
-		tmp *= x;	//±Nx´£¥æ¨ìtmp 
+		tmp *= x;	//å°‡xæäº¤åˆ°tmp 
 	return tmp;
 }
 
-//--- ¶Ç¦^xªº¤T¦¸¤è»Pyªº¤G¦¸¤è¤§Á`©M ---//
+//--- å‚³å›xçš„ä¸‰æ¬¡æ–¹èˆ‡yçš„äºŒæ¬¡æ–¹ä¹‹ç¸½å’Œ ---//
 double cubx_plus_sqry(double x, double y)
 {
 	return power(x, 3) + power(y, 2);
@@ -24,10 +24,10 @@ int main()
 	double x;
 	double y;
 
-	cout << "¨D¨úxªº¤T¦¸¤è»Pyªº¤G¦¸¤è¤§Á`©M¡C\n";
-	cout << "xªº­È¡G";	cin >> x;
-	cout << "yªº­È¡G";	cin >> y;
-	cout << "xªº¤T¦¸¤è»Pyªº¤G¦¸¤è¤§Á`©M¬O" << cubx_plus_sqry(x, y) << "¡C\n";
+	cout << "æ±‚å–xçš„ä¸‰æ¬¡æ–¹èˆ‡yçš„äºŒæ¬¡æ–¹ä¹‹ç¸½å’Œã€‚\n";
+	cout << "xçš„å€¼ï¼š";	cin >> x;
+	cout << "yçš„å€¼ï¼š";	cin >> y;
+	cout << "xçš„ä¸‰æ¬¡æ–¹èˆ‡yçš„äºŒæ¬¡æ–¹ä¹‹ç¸½å’Œæ˜¯" << cubx_plus_sqry(x, y) << "ã€‚\n";
 
 	return 0;
 }

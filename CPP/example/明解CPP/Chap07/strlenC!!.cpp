@@ -1,4 +1,4 @@
-//--- strlenªº¹ê§@½d¨Ò¢Ñ ---//
+//--- strlençš„å¯¦ä½œç¯„ä¾‹ï¼£ ---//
 size_t strlen(const char* s)
 {
 	size_t len = 0;

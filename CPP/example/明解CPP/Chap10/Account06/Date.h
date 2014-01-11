@@ -1,4 +1,4 @@
-// ¤é´ÁÃş§ODate (²Ä3ª©¡G¤¶­±³¡¥÷)
+// æ—¥æœŸé¡åˆ¥Date (ç¬¬3ç‰ˆï¼šä»‹é¢éƒ¨ä»½)
 
 #if !defined(___Class_Date)
 	#define	 ___Class_Date
@@ -7,23 +7,23 @@
 #include <iostream>
 using namespace std;
 
-//===== ¤é´ÁÃş§O =====//
+//===== æ—¥æœŸé¡åˆ¥ =====//
 class Date {
-	int	year;		// ¦è¤¸¦~
-	int	month;		// ¤ë
-	int	day;		// ¤é
+	int	year;		// è¥¿å…ƒå¹´
+	int	month;		// æœˆ
+	int	day;		// æ—¥
 
 public:
-	Date();					// ¹w³]«Øºc¤l
-	Date(int y, int m = 1, int d = 1);		// «Øºc¤l
+	Date();					// é è¨­å»ºæ§‹å­
+	Date(int y, int m = 1, int d = 1);		// å»ºæ§‹å­
 
-	int Year()  const { return year; }		// ¶Ç¦^¦~
-	int Month() const { return month; }		// ¶Ç¦^¤ë
-	int Day()   const { return day; }		// ¶Ç¦^¤é
-	int DayOfWeek() const;			     	// ¶Ç¦^¬P´Á
-	string to_string() const;				// ¥H¦r¦ê¶Ç¦^
+	int Year()  const { return year; }		// å‚³å›å¹´
+	int Month() const { return month; }		// å‚³å›æœˆ
+	int Day()   const { return day; }		// å‚³å›æ—¥
+	int DayOfWeek() const;			     	// å‚³å›æ˜ŸæœŸ
+	string to_string() const;				// ä»¥å­—ä¸²å‚³å›
 };
 
-ostream& operator<<(ostream& s, const Date& x);		// ´¡¤J¹Bºâ¤l
+ostream& operator<<(ostream& s, const Date& x);		// æ’å…¥é‹ç®—å­
 
 #endif

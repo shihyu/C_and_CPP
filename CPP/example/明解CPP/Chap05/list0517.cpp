@@ -1,4 +1,4 @@
-// Åã¥Ü±NµL²Å¸¹¾ã¼Æ«¬ºA¥ª¥k¦ì²¾¤§«áªº­È
+// é¡¯ç¤ºå°‡ç„¡ç¬¦è™Ÿæ•´æ•¸å‹æ…‹å·¦å³ä½ç§»ä¹‹å¾Œçš„å€¼
 
 #include <iostream>
 using namespace std;
@@ -25,12 +25,12 @@ int main()
 {
 	unsigned x, n;
 
-	cout << "«D­t¼Æªº¾ã¼Æ¡G";			cin >> x;
-	cout << "¦ì²¾ªº¦ì¤¸¼Æ¡G";	cin >> n;
+	cout << "éè² æ•¸çš„æ•´æ•¸ï¼š";			cin >> x;
+	cout << "ä½ç§»çš„ä½å…ƒæ•¸ï¼š";	cin >> n;
 
-	cout << "¾ã¼Æ¡@ = ";  print_bits(x);		 cout << '\n';
-	cout << "¥ª¦ì²¾ = ";  print_bits(x << n);	 cout << '\n';
-	cout << "¥k¦ì²¾ = ";  print_bits(x >> n);	 cout << '\n';
+	cout << "æ•´æ•¸ã€€ = ";  print_bits(x);		 cout << '\n';
+	cout << "å·¦ä½ç§» = ";  print_bits(x << n);	 cout << '\n';
+	cout << "å³ä½ç§» = ";  print_bits(x >> n);	 cout << '\n';
 
 	return 0;
 }

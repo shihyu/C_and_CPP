@@ -1,16 +1,16 @@
-// ¥»®Ñ©Ò°²³]ªº<climits>ªº¤@³¡¥÷
+// æœ¬æ›¸æ‰€å‡è¨­çš„<climits>çš„ä¸€éƒ¨ä»½
 
-#define UCHAR_MAX	255U			// unsigned charªº³Ì¤j­È
-#define SCHAR_MIN	-128			    // signed charªº³Ì¤p­È
-#define SCHAR_MAX	+127			// signed charªº³Ì¤j­È
-#define CHAR_MIN	0				// charªº³Ì¤p­È
-#define CHAR_MAX	UCHAR_MAX	// charªº³Ì¤j­È(©Munsigned char¬Û¦P)
-#define SHRT_MIN	-32768			// short intªº³Ì¤p­È
-#define SHRT_MAX	+32767			// short intªº³Ì¤j­È
-#define USHRT_MAX	65535U			// unsigned short intªº³Ì¤j­È
-#define INT_MIN		-32768			// intªº³Ì¤p­È
-#define INT_MAX		+32767			// intªº³Ì¤j­È
-#define UINT_MAX	65535U			// unsigned intªº³Ì¤j­È
-#define LONG_MIN	-2147483648L	    // long intªº³Ì¤p­È
-#define LONG_MAX	+2147483647L	// long intªº³Ì¤j­È
-#define ULONG_MAX	4294967295UL	// unsigned long intªº³Ì¤j­È
+#define UCHAR_MAX	255U			// unsigned charçš„æœ€å¤§å€¼
+#define SCHAR_MIN	-128			    // signed charçš„æœ€å°å€¼
+#define SCHAR_MAX	+127			// signed charçš„æœ€å¤§å€¼
+#define CHAR_MIN	0				// charçš„æœ€å°å€¼
+#define CHAR_MAX	UCHAR_MAX	// charçš„æœ€å¤§å€¼(å’Œunsigned charç›¸åŒ)
+#define SHRT_MIN	-32768			// short intçš„æœ€å°å€¼
+#define SHRT_MAX	+32767			// short intçš„æœ€å¤§å€¼
+#define USHRT_MAX	65535U			// unsigned short intçš„æœ€å¤§å€¼
+#define INT_MIN		-32768			// intçš„æœ€å°å€¼
+#define INT_MAX		+32767			// intçš„æœ€å¤§å€¼
+#define UINT_MAX	65535U			// unsigned intçš„æœ€å¤§å€¼
+#define LONG_MIN	-2147483648L	    // long intçš„æœ€å°å€¼
+#define LONG_MAX	+2147483647L	// long intçš„æœ€å¤§å€¼
+#define ULONG_MAX	4294967295UL	// unsigned long intçš„æœ€å¤§å€¼

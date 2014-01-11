@@ -1,26 +1,26 @@
-//  »È¦æ±b¤áÃş§O (²Ä5ª©¡G¹ê§@³¡¤À)
+//  éŠ€è¡Œå¸³æˆ¶é¡åˆ¥ (ç¬¬5ç‰ˆï¼šå¯¦ä½œéƒ¨åˆ†)
 
 #include <string>
 #include <iostream>
 #include "Account.h"
 using namespace std;
 
-//--- «Øºc¤l ---//
+//--- å»ºæ§‹å­ ---//
 Account::Account(string n, string num, long z, int y, int m, int d)
 														 : open(y, m, d)
 {
-	name = n;			// ±b¤á¦W
-	no = num;	        // ±b¸¹
-	balance = z;		// ¦s´Ú¾lÃB
+	name = n;			// å¸³æˆ¶å
+	no = num;	        // å¸³è™Ÿ
+	balance = z;		// å­˜æ¬¾é¤˜é¡
 }
 
-//--- ¦s´Ú ---//
+//--- å­˜æ¬¾ ---//
 void Account::Deposit(long k)
 {
 	balance += k;
 }
 
-//--- ´£´Ú ---//
+//--- ææ¬¾ ---//
 void Account::Withdraw(long k)
 {
 	balance -= k;

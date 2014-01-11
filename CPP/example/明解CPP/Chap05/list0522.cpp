@@ -1,15 +1,15 @@
-// ¶Ç¦^°}¦C¤¸¯À¤§°Ñ·Óªº¨ç¼Æ
+// å‚³å›é™£åˆ—å…ƒç´ ä¹‹åƒç…§çš„å‡½æ•¸
 
 #include <iostream>
 using namespace std;
 
-const int a_size = 5;		// °}¦Caªº¤¸¯À¼Æ
+const int a_size = 5;		// é™£åˆ—açš„å…ƒç´ æ•¸
 int a[a_size];
 
-//--- ¶Ç¦^a[idx]ªº°Ñ·Ó---//
+//--- å‚³å›a[idx]çš„åƒç…§---//
 int& r(int idx)
 {
-	return a[idx];			// ¶Ç¦^«ü¦Va[idx]ªº°Ñ·Ó
+	return a[idx];			// å‚³å›æŒ‡å‘a[idx]çš„åƒç…§
 }
 
 int main()

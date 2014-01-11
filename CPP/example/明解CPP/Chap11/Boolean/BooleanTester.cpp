@@ -1,10 +1,10 @@
-// ¥¬ªL­ÈÃş§OBooleanªº¨Ï¥Î½d¨Ò
+// å¸ƒæ—å€¼é¡åˆ¥Booleançš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Boolean.h"
 using namespace std;
 
-//---¾ã¼Æx»Py¬O§_¬Ûµ¥ ---//
+//---æ•´æ•¸xèˆ‡yæ˜¯å¦ç›¸ç­‰ ---//
 Boolean int_eq(int x, int y)
 {
 	return x == y;
@@ -12,20 +12,20 @@ Boolean int_eq(int x, int y)
 
 int main()
 {
-	Boolean a;				// a ¡ö False
-	Boolean b = 100;		// b ¡ö True¡GBoolean(100)
+	Boolean a;				// a â† False
+	Boolean b = 100;		// b â† Trueï¼šBoolean(100)
 	int     c;
-	Boolean x[8];			// x[0]¡ãx[7] ¡ö False
+	Boolean x[8];			// x[0]âˆ¼x[7] â† False
 
-	cout << "¾ã¼Æ­È¡G";
+	cout << "æ•´æ•¸å€¼ï¼š";
 	cin >> c;
 	x[0] = int_eq(c, 5);	// x[0]
-	x[1] = (c != 3);		// x[1] ¡ö Boolean(c != 3)
-	x[2] = Boolean::False;	// x[2] ¡ö False
-	x[3] = 1000;			// x[3] ¡ö True¡GBoolean(1000)
+	x[1] = (c != 3);		// x[1] â† Boolean(c != 3)
+	x[2] = Boolean::False;	// x[2] â† False
+	x[3] = 1000;			// x[3] â† Trueï¼šBoolean(1000)
 
-	cout << "aªº­È¡G" << int(a) << '\n';
-	cout << "bªº­È¡G" << (const char*)b << '\n';
+	cout << "açš„å€¼ï¼š" << int(a) << '\n';
+	cout << "bçš„å€¼ï¼š" << (const char*)b << '\n';
 
 	for (int i = 0; i < 8; i++)
 		cout << "x[" << i << "] = " << x[i] << '\n';

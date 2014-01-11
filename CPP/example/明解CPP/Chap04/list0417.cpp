@@ -1,23 +1,23 @@
-// Åª¤J¤»­Ó¤Hªº¤À¼Æ¨ÃÅã¥ÜÁ`¤À»P¥­§¡
+// è®€å…¥å…­å€‹äººçš„åˆ†æ•¸ä¸¦é¡¯ç¤ºç¸½åˆ†èˆ‡å¹³å‡
 
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	int yamane, takada, kawakami, koga, tozuka, saegusa;// ¤À¼Æ
-	int sum = 0;										// Á`©M
+	int yamane, takada, kawakami, koga, tozuka, saegusa;// åˆ†æ•¸
+	int sum = 0;										// ç¸½å’Œ
 
-	cout << "¨D¨ú¤»­Ó¤Hªº¤À¼Æ¤§Á`¤À»P¥­§¡¡C\n";
-	cout << "1¸¹ªº¤À¼Æ¡G";   cin >> yamane;	  sum += yamane;
-	cout << "2¸¹ªº¤À¼Æ¡G";   cin >> takada;	  sum += takada;
-	cout << "3¸¹ªº¤À¼Æ¡G";   cin >> kawakami; sum += kawakami;
-	cout << "4¸¹ªº¤À¼Æ¡G";   cin >> koga;	  sum += koga;
-	cout << "5¸¹ªº¤À¼Æ¡G";   cin >> tozuka;	  sum += tozuka;
-	cout << "6¸¹ªº¤À¼Æ¡G";   cin >> saegusa;  sum += saegusa;
+	cout << "æ±‚å–å…­å€‹äººçš„åˆ†æ•¸ä¹‹ç¸½åˆ†èˆ‡å¹³å‡ã€‚\n";
+	cout << "1è™Ÿçš„åˆ†æ•¸ï¼š";   cin >> yamane;	  sum += yamane;
+	cout << "2è™Ÿçš„åˆ†æ•¸ï¼š";   cin >> takada;	  sum += takada;
+	cout << "3è™Ÿçš„åˆ†æ•¸ï¼š";   cin >> kawakami; sum += kawakami;
+	cout << "4è™Ÿçš„åˆ†æ•¸ï¼š";   cin >> koga;	  sum += koga;
+	cout << "5è™Ÿçš„åˆ†æ•¸ï¼š";   cin >> tozuka;	  sum += tozuka;
+	cout << "6è™Ÿçš„åˆ†æ•¸ï¼š";   cin >> saegusa;  sum += saegusa;
 
-	cout << "Á`¤À¬O" << sum << "¤À¡C\n";
-	cout << "¥­§¡¬O" << double(sum) / 6 << "¤À¡C\n";
+	cout << "ç¸½åˆ†æ˜¯" << sum << "åˆ†ã€‚\n";
+	cout << "å¹³å‡æ˜¯" << double(sum) / 6 << "åˆ†ã€‚\n";
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-// ±q¦r¦ê¤¤¨ú¥X
+// å¾å­—ä¸²ä¸­å–å‡º
 
 #include <sstream>
 #include <iostream>
@@ -11,6 +11,6 @@ int main()
 	int y, m, d;
 	char ch;
 	is >> y >> ch >> m >> ch >> d;
-	cout << y << "¦~" << m << "¤ë" << d << "¤é\n";
+	cout << y << "å¹´" << m << "æœˆ" << d << "æ—¥\n";
 	return 0;
 }

@@ -1,4 +1,4 @@
-// ¨D¨ú¨ÃÅã¥Ü¨â­Ó¾ã¼Æ­È¤§¤¤ªº¸û¤p­È©M¸û¤j­È
+// æ±‚å–ä¸¦é¡¯ç¤ºå…©å€‹æ•´æ•¸å€¼ä¹‹ä¸­çš„è¼ƒå°å€¼å’Œè¼ƒå¤§å€¼
 
 #include <iostream>
 using namespace std;
@@ -7,21 +7,21 @@ int main()
 {
 	int a, b;
 
-	cout << "¾ã¼Æa¡G";   cin >> a;
-	cout << "¾ã¼Æb¡G";   cin >> b;
+	cout << "æ•´æ•¸aï¼š";   cin >> a;
+	cout << "æ•´æ•¸bï¼š";   cin >> b;
 
-	int min, max;		// ¸û¤p­È / ¸û¤j­È
+	int min, max;		// è¼ƒå°å€¼ / è¼ƒå¤§å€¼
 
-	if (a < b) {		// ­Ya¤ñb¤pªº¸Ü
+	if (a < b) {		// è‹¥aæ¯”bå°çš„è©±
 		min = a;
 		max = b;
-	} else {			// §_«hªº¸Ü
+	} else {			// å¦å‰‡çš„è©±
 		min = b;
 		max = a;
 	}
 
-	cout << "¸û¤p­È¬O" << min << "¡C\n";
-	cout << "¸û¤j­È¬O" << max << "¡C\n";
+	cout << "è¼ƒå°å€¼æ˜¯" << min << "ã€‚\n";
+	cout << "è¼ƒå¤§å€¼æ˜¯" << max << "ã€‚\n";
 
 	return 0;
 }

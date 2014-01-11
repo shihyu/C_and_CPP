@@ -1,4 +1,4 @@
-// Åã¥Ü°}¦Cªº«¬ºA©M¤¸¯Àªº«¬ºA
+// é¡¯ç¤ºé™£åˆ—çš„åž‹æ…‹å’Œå…ƒç´ çš„åž‹æ…‹
 
 #include <iostream>
 #include <typeinfo>
@@ -9,10 +9,10 @@ int main()
 	int a[5];
 	double b[7];
 
-	cout << "°}¦Caªº«¬ºA¡G" << typeid(a).name()    << '\n';
-	cout << "aªº¤¸¯À«¬ºA¡G" << typeid(a[0]).name() << '\n';
-	cout << "°}¦Cbªº«¬ºA¡G" << typeid(b).name()    << '\n';
-	cout << "bªº¤¸¯À«¬ºA¡G" << typeid(b[0]).name() << '\n';
+	cout << "é™£åˆ—açš„åž‹æ…‹ï¼š" << typeid(a).name()    << '\n';
+	cout << "açš„å…ƒç´ åž‹æ…‹ï¼š" << typeid(a[0]).name() << '\n';
+	cout << "é™£åˆ—bçš„åž‹æ…‹ï¼š" << typeid(b).name()    << '\n';
+	cout << "bçš„å…ƒç´ åž‹æ…‹ï¼š" << typeid(b[0]).name() << '\n';
 
 	return 0;
 }

@@ -1,28 +1,28 @@
-// ªì©l¤Æ»P«ü©w/¶Ç­È»P¶Ç§}ªºÅçÃÒ
+// åˆå§‹åŒ–èˆ‡æŒ‡å®š/å‚³å€¼èˆ‡å‚³å€çš„é©—è­‰
 
 #include <iostream>
 using namespace std;
 
-//===== ¥Î¨ÓÅçÃÒªºÃş§O =====//
+//===== ç”¨ä¾†é©—è­‰çš„é¡åˆ¥ =====//
 class Test {
 public:
-	Test() {					      	// ¹w³]«Øºc¤l
-		 cout << "ªì©l¤Æ¡GTest()\n";
+	Test() {					      	// é è¨­å»ºæ§‹å­
+		 cout << "åˆå§‹åŒ–ï¼šTest()\n";
 	}
 
-	Test(const Test& t) {				// ½Æ»s«Øºc¤l
-		cout << "ªì©l¤Æ¡GTest(const Test&)\n";
+	Test(const Test& t) {				// è¤‡è£½å»ºæ§‹å­
+		cout << "åˆå§‹åŒ–ï¼šTest(const Test&)\n";
 	}
 
-	Test& operator=(const Test& t) {	// «ü©w¹Bºâ¤l
-		cout << "«ü©w¡GTest = Test\n"; return *this;
+	Test& operator=(const Test& t) {	// æŒ‡å®šé‹ç®—å­
+		cout << "æŒ‡å®šï¼šTest = Test\n"; return *this;
 	}
 };
 
-//--- ¶Ç­È ---//
+//--- å‚³å€¼ ---//
 void value(Test a) { }
 
-//--- ¶Ç§} ---//
+//--- å‚³å€ ---//
 void reference(Test& a)  { }
 
 int main()

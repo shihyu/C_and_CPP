@@ -1,4 +1,4 @@
-// ¦WºÙªÅ¶¡»Pusing «Å§i
+// åç¨±ç©ºé–“èˆ‡using å®£å‘Š
 
 #include <iostream>
 using namespace std;
@@ -19,7 +19,7 @@ namespace Japanese {
 
 	void hello()
 	{
-		cout << "¦­¦w¡I\n";
+		cout << "æ—©å®‰ï¼\n";
 	} 
 }
 
@@ -31,7 +31,7 @@ int main()
 	cout << "Japanese::x = " << Japanese::x << '\n';
 
 	English::hello();
-	hello();				// ¤£»İ­nJapanese::
+	hello();				// ä¸éœ€è¦Japanese::
 
 	return 0;
 }

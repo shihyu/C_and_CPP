@@ -1,18 +1,18 @@
-// °ÊºA²£¥Í¾ã¼Æª«¥ó
+// å‹•æ…‹ç”¢ç”Ÿæ•´æ•¸ç‰©ä»¶
 
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	int* x = new int;			// ²£¥Í (½T«O°O¾Ğ°Ï°ì)
+	int* x = new int;			// ç”¢ç”Ÿ (ç¢ºä¿è¨˜æ†¶å€åŸŸ)
 
-	cout << "¾ã¼Æ¡G";
+	cout << "æ•´æ•¸ï¼š";
 	cin >> *x;
 
 	cout << "*x = " << *x << '\n';
 
-	delete x;					// ¥á±ó (ÄÀ©ñ°O¾Ğ°Ï°ì)
+	delete x;					// ä¸Ÿæ£„ (é‡‹æ”¾è¨˜æ†¶å€åŸŸ)
 
 	return 0;
 }

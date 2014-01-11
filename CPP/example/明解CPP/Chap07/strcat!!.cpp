@@ -1,4 +1,4 @@
-//--- strcatªº¹ê§@½d¨Ò ---//
+//--- strcatçš„å¯¦ä½œç¯„ä¾‹ ---//
 char* strcat(char* s1, const char* s2)
 {
 	char* p = s1;

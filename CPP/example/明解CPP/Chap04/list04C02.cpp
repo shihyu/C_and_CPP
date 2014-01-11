@@ -1,4 +1,4 @@
-// §PÂ_³æ¯Â¦r¤¸«¬ºA¬O¦³²Å¸¹ÁÙ¬OµL²Å¸¹
+// åˆ¤æ–·å–®ç´”å­—å…ƒåž‹æ…‹æ˜¯æœ‰ç¬¦è™Ÿé‚„æ˜¯ç„¡ç¬¦è™Ÿ
 
 #include <limits>
 #include <iostream>
@@ -6,9 +6,9 @@ using namespace std;
 
 int main()
 {
-	cout << "¦¹³B²z¾¹ªº³æ¯Â¦r¤¸«¬ºA¬O"
-		 <<	(numeric_limits<char>::is_signed ? "¦³²Å¸¹" : "µL²Å¸¹")
-		 <<	"¦r¤¸«¬ºA¡C\n";
+	cout << "æ­¤è™•ç†å™¨çš„å–®ç´”å­—å…ƒåž‹æ…‹æ˜¯"
+		 <<	(numeric_limits<char>::is_signed ? "æœ‰ç¬¦è™Ÿ" : "ç„¡ç¬¦è™Ÿ")
+		 <<	"å­—å…ƒåž‹æ…‹ã€‚\n";
 
 	return 0;
 }

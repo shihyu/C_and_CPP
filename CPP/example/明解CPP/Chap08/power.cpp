@@ -1,12 +1,12 @@
-// ¶Ç¦^¦¸¤è¹Bºâ¤§­Èªº¨ç¼Æ
+// å‚³å›žæ¬¡æ–¹é‹ç®—ä¹‹å€¼çš„å‡½æ•¸
 
-//--- ¶Ç¦^xªºn¤è  ---//
+//--- å‚³å›žxçš„næ–¹  ---//
 double power(double x, int n)
 {
 	double tmp = 1.0;
 
 	while (n-- > 0)
-		tmp *= x;	// ±Ntmp­¼¥Hx
+		tmp *= x;	// å°‡tmpä¹˜ä»¥x
 	return tmp;
 }
 

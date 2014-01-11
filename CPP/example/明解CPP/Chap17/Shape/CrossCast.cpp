@@ -1,4 +1,4 @@
-// ¥æ¤eÂà«¬
+// äº¤å‰è½‰å‹
 
 #include <iostream>
 #include "ShapeWindow.h"
@@ -6,22 +6,22 @@ using namespace std;
 
 int main()
 {
-	Shape* s = new HLine(5);				// ¤ô¥­ª½½u
+	Shape* s = new HLine(5);				// æ°´å¹³ç›´ç·š
 
-	if (Window* w = dynamic_cast<Window*>(s))		// ¤£¬Oµøµ¡
-		cout << "­±¿n¬°" << w->area() << "¡C\n";	// µLªk¨D±o­±¿n
-
-
-	Shape* r = new RectAngle(3, 5);				// ªø¤è§Î
-
-	if (Window* w = dynamic_cast<Window*>(r))		// ¦]¬°¬Oµøµ¡
-		cout << "­±¿n¬°" << w->area() << "¡C\n";	               								// ¥i¨D±o­±¿n
+	if (Window* w = dynamic_cast<Window*>(s))		// ä¸æ˜¯è¦–çª—
+		cout << "é¢ç©ç‚º" << w->area() << "ã€‚\n";	// ç„¡æ³•æ±‚å¾—é¢ç©
 
 
-	Window* t = new Triangle(4);				// µ¥Ãä¤T¨¤§Î
+	Shape* r = new RectAngle(3, 5);				// é•·æ–¹å½¢
 
-	if (Shape* s = dynamic_cast<Shape*>(t))			// ¦]¬°¬O¹Ï§Î
-		s->draw();															// ¥i¥HÃ¸¹Ï
+	if (Window* w = dynamic_cast<Window*>(r))		// å› ç‚ºæ˜¯è¦–çª—
+		cout << "é¢ç©ç‚º" << w->area() << "ã€‚\n";	               								// å¯æ±‚å¾—é¢ç©
+
+
+	Window* t = new Triangle(4);				// ç­‰é‚Šä¸‰è§’å½¢
+
+	if (Shape* s = dynamic_cast<Shape*>(t))			// å› ç‚ºæ˜¯åœ–å½¢
+		s->draw();															// å¯ä»¥ç¹ªåœ–
 
 	delete s;
 	delete r;

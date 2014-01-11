@@ -1,9 +1,9 @@
-// ±N¤T­Ó¾ã¼Æ­Èª@¾­±Æ§Ç
+// å°‡ä¸‰å€‹æ•´æ•¸å€¼æ˜‡å†ªæ’åº
 
 #include <iostream>
 using namespace std;
 
-//--- ¥æ´«¤Ş¼Æx©Myªº­È ---//
+//--- äº¤æ›å¼•æ•¸xå’Œyçš„å€¼ ---//
 void swap(int& x, int& y)
 {
 	int t = x;
@@ -11,7 +11,7 @@ void swap(int& x, int& y)
 	y = t;
 }
 
-//--- ±N¤Ş¼Æa, b, cª@¾­±Æ§Ç ---//
+//--- å°‡å¼•æ•¸a, b, cæ˜‡å†ªæ’åº ---//
 void sort(int& a, int& b, int& c)
 {
 	if (a > b) swap(a, b);
@@ -23,16 +23,16 @@ int main()
 {
 	int a, b, c;
 
-	cout << "ÅÜ¼Æa¡G";   cin >> a;
-	cout << "ÅÜ¼Æb¡G";   cin >> b;
-	cout << "ÅÜ¼Æc¡G";   cin >> c;
+	cout << "è®Šæ•¸aï¼š";   cin >> a;
+	cout << "è®Šæ•¸bï¼š";   cin >> b;
+	cout << "è®Šæ•¸cï¼š";   cin >> c;
 
-	sort(a, b, c);			// ±Na, b, cª@¾­±Æ§Ç
+	sort(a, b, c);			// å°‡a, b, cæ˜‡å†ªæ’åº
 
-	cout << "±N¾ã¼Æa, b, cª@¾­±Æ§Ç¡C\n";
-	cout << "ÅÜ¼Æaªº­È¬O" << a << "¡C\n";
-	cout << "ÅÜ¼Æbªº­È¬O" << b << "¡C\n";
-	cout << "ÅÜ¼Æcªº­È¬O" << c << "¡C\n";
+	cout << "å°‡æ•´æ•¸a, b, cæ˜‡å†ªæ’åºã€‚\n";
+	cout << "è®Šæ•¸açš„å€¼æ˜¯" << a << "ã€‚\n";
+	cout << "è®Šæ•¸bçš„å€¼æ˜¯" << b << "ã€‚\n";
+	cout << "è®Šæ•¸cçš„å€¼æ˜¯" << c << "ã€‚\n";
 
 	return 0;
 }

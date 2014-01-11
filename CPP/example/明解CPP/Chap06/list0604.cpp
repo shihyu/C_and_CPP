@@ -1,9 +1,9 @@
-// §Q¥Î¨ç¼Æ¨Ó¨D¨ú¨â­Ó¾ã¼Æ­ÈªºÁ`©M»P­¼¿n (¿ù»~)
+// åˆ©ç”¨å‡½æ•¸ä¾†æ±‚å–å…©å€‹æ•´æ•¸å€¼çš„ç¸½å’Œèˆ‡ä¹˜ç© (éŒ¯èª¤)
 
 #include <iostream>
 using namespace std;
 
-//--- ¨D¨úx©MyªºÁ`©M¨Ã«ü©wµ¹sum¡A¦Ó­¼¿n«h«ü©wµ¹mul (¿ù»~)---//
+//--- æ±‚å–xå’Œyçš„ç¸½å’Œä¸¦æŒ‡å®šçµ¦sumï¼Œè€Œä¹˜ç©å‰‡æŒ‡å®šçµ¦mul (éŒ¯èª¤)---//
 void sum_mul(int x, int y, int sum, int mul)
 {
 	sum = x + y;
@@ -15,13 +15,13 @@ int main()
 	int a, b;
 	int wa = 0, seki = 0;
 
-	cout << "¾ã¼Æa¡G";   cin >> a;
-	cout << "¾ã¼Æb¡G";   cin >> b;
+	cout << "æ•´æ•¸aï¼š";   cin >> a;
+	cout << "æ•´æ•¸bï¼š";   cin >> b;
 
 	sum_mul(a, b, wa, seki);
 
-	cout << "Á`©M¬O" << wa << "\n";
-	cout << "­¼¿n¬O" << seki << "\n";
+	cout << "ç¸½å’Œæ˜¯" << wa << "\n";
+	cout << "ä¹˜ç©æ˜¯" << seki << "\n";
 
 	return 0;
 }

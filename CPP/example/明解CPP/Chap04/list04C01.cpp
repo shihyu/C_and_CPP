@@ -1,4 +1,4 @@
-// Åã¥Ü¾ã¼Æ«¬ºA©Ò¯àªí²{ªº¼Æ­È
+// é¡¯ç¤ºæ•´æ•¸å‹æ…‹æ‰€èƒ½è¡¨ç¾çš„æ•¸å€¼
 
 #include <limits>
 #include <iostream>
@@ -6,33 +6,33 @@ using namespace std;
 
 int main()
 {
-	cout << "¦¹³B²z¾¹ªº¾ã¼Æ«¬ºA©Ò¯àªí²{ªº­È¡C\n";
+	cout << "æ­¤è™•ç†å™¨çš„æ•´æ•¸å‹æ…‹æ‰€èƒ½è¡¨ç¾çš„å€¼ã€‚\n";
 
-	cout << "char      ¡G"
-					  << int(numeric_limits<char>::min()) << "¡ã" 
+	cout << "char      ï¼š"
+					  << int(numeric_limits<char>::min()) << "âˆ¼" 
 					  << int(numeric_limits<char>::max()) << '\n';
-	cout << "signed char¡G"
-					  << int(numeric_limits<signed char>::min()) << "¡ã" 
+	cout << "signed charï¼š"
+					  << int(numeric_limits<signed char>::min()) << "âˆ¼" 
 					  << int(numeric_limits<signed char>::max()) << '\n';
-	cout << "unsigned char¡G"
-					  << int(numeric_limits<unsigned char>::min()) << "¡ã" 
+	cout << "unsigned charï¼š"
+					  << int(numeric_limits<unsigned char>::min()) << "âˆ¼" 
 					  << int(numeric_limits<unsigned char>::max()) << '\n';
 
-	cout << "short int¡G" << numeric_limits<short>::min() << "¡ã" 
+	cout << "short intï¼š" << numeric_limits<short>::min() << "âˆ¼" 
 					  << numeric_limits<short>::max() << '\n';
-	cout << "int     ¡G" << numeric_limits<int>::min()   << "¡ã" 
+	cout << "int     ï¼š" << numeric_limits<int>::min()   << "âˆ¼" 
 					  << numeric_limits<int>::max()   << '\n';
-	cout << "long int ¡G" << numeric_limits<long>::min()  << "¡ã" 
+	cout << "long int ï¼š" << numeric_limits<long>::min()  << "âˆ¼" 
 					  << numeric_limits<long>::max()  << '\n';
 
-	cout << "unsigned short int¡G"
-					  << numeric_limits<unsigned short>::min() << "¡ã" 
+	cout << "unsigned short intï¼š"
+					  << numeric_limits<unsigned short>::min() << "âˆ¼" 
 					  << numeric_limits<unsigned short>::max() << '\n';
-	cout << "unsigned int   ¡G"
-					  << numeric_limits<unsigned>::min() << "¡ã" 
+	cout << "unsigned int   ï¼š"
+					  << numeric_limits<unsigned>::min() << "âˆ¼" 
 					  << numeric_limits<unsigned>::max() << '\n';
-	cout << "unsigned long int ¡G"
-					  << numeric_limits<unsigned long>::min() << "¡ã" 
+	cout << "unsigned long int ï¼š"
+					  << numeric_limits<unsigned long>::min() << "âˆ¼" 
 					  << numeric_limits<unsigned long>::max() << '\n';
 	return 0;
 }

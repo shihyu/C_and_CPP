@@ -1,13 +1,13 @@
-// ¤é´ÁÃş§ODate¡]²Ä¢°ª©¡G¤¶­±³¡¤À¡^
+// æ—¥æœŸé¡åˆ¥Dateï¼ˆç¬¬ï¼‘ç‰ˆï¼šä»‹é¢éƒ¨åˆ†ï¼‰
 
 class Date {
-	int	year;		// ¦è¤¸¦~
-	int	month;		// ¤ë
-	int	day;		// ¤é
+	int	year;		// è¥¿å…ƒå¹´
+	int	month;		// æœˆ
+	int	day;		// æ—¥
 
 public:
-	Date(int y, int m, int d);				// «Øºc¤l
-	int Year()	{ return year; }			// ¶Ç¦^¦~
-	int Month() { return month; }			// ¶Ç¦^¤ë
-	int Day()	{ return day; }				// ¶Ç¦^¤é
+	Date(int y, int m, int d);				// å»ºæ§‹å­
+	int Year()	{ return year; }			// å‚³å›å¹´
+	int Month() { return month; }			// å‚³å›æœˆ
+	int Day()	{ return day; }				// å‚³å›æ—¥
 };

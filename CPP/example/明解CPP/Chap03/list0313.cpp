@@ -1,4 +1,4 @@
-// Åã¥Ü¥ª¤U°¼¬°ª½¨¤ªºª½¨¤¤T¨¤§Î
+// é¡¯ç¤ºå·¦ä¸‹å´ç‚ºç›´è§’çš„ç›´è§’ä¸‰è§’å½¢
 
 #include <iostream>
 using namespace std;
@@ -6,12 +6,12 @@ using namespace std;
 int main ()
 {
 	int n;
-	cout << "Åã¥Ü¥ª¤U°¼¬°ª½¨¤ªºª½¨¤¤T¨¤§Î¡C\n";
-	cout << "¼h¼Æ¡G";
+	cout << "é¡¯ç¤ºå·¦ä¸‹å´ç‚ºç›´è§’çš„ç›´è§’ä¸‰è§’å½¢ã€‚\n";
+	cout << "å±¤æ•¸ï¼š";
 	cin >> n;
 
 	for (int i = 1; i <= n; i++) {
-		for (int j = 1; j <= i; j++)		// Åã¥Üi­Ó'*'
+		for (int j = 1; j <= i; j++)		// é¡¯ç¤ºiå€‹'*'
 			cout << '*';
 		cout << '\n';
 	}

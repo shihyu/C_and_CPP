@@ -1,4 +1,4 @@
-// ²q¼Æ¦r¹CÀ¸ (²Ä2ª©¡G¹CÀ¸³¡¥÷)
+// çŒœæ•¸å­—éŠæˆ² (ç¬¬2ç‰ˆï¼šéŠæˆ²éƒ¨ä»½)
 
 #include <ctime>
 #include <cstdlib>
@@ -7,27 +7,27 @@ using namespace std;
 
 static int kotae = 0;
 
-//--- ªì©l¤Æ ---//
+//--- åˆå§‹åŒ– ---//
 void initialize()
 {
 	srand(time(NULL));
 }
 
-//--- ²£¥Í­n²qªºµª®× ---//
+//--- ç”¢ç”Ÿè¦çŒœçš„ç­”æ¡ˆ ---//
 void gen_no()
 {
 	kotae = rand() % (max_no + 1);
 }
 
-//--- §PÂ_  ---//
+//--- åˆ¤æ–·  ---//
 int judge(int cand)
 {
 	int diff = cand - kotae;
 
-	if (diff == 0)		                 // ¥¿½Tµª®×
+	if (diff == 0)		                 // æ­£ç¢ºç­”æ¡ˆ
 		return 0;
-	else if (diff > 0)	                                 // ¤Ó¤j¤F
+	else if (diff > 0)	                                 // å¤ªå¤§äº†
 		return 1;
-	else				 // ¤Ó¤p¤F
+	else				 // å¤ªå°äº†
 		return -1;
 }

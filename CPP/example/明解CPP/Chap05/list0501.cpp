@@ -1,39 +1,39 @@
-// ¨D¨ú¤T­Ó¤Hªº¨­°ª¡BÅé­«©M¦~ÄÖ¤§³Ì¤j­È¨ÃÅã¥Ü
+// æ±‚å–ä¸‰å€‹äººçš„èº«é«˜ã€é«”é‡å’Œå¹´é½¡ä¹‹æœ€å¤§å€¼ä¸¦é¡¯ç¤º
 
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	int height[3];					// ¨­°ª
-	int weight[3];					// Åé­«
-	int age[3];					// ¦~ÄÖ
+	int height[3];					// èº«é«˜
+	int weight[3];					// é«”é‡
+	int age[3];					// å¹´é½¡
 
-	for (int i = 0; i < 3; i++) {		// Åª¤J
+	for (int i = 0; i < 3; i++) {		// è®€å…¥
 		cout << "[" << i + 1 << "] ";
-		cout << "¨­°ª¡G";	cin >> height[i];
-		cout << "Åé­«¡G";	cin >> weight[i];
-		cout << "¦~ÄÖ¡G";	cin >> age[i];
+		cout << "èº«é«˜ï¼š";	cin >> height[i];
+		cout << "é«”é‡ï¼š";	cin >> weight[i];
+		cout << "å¹´é½¡ï¼š";	cin >> age[i];
 	}
 
-	int max_height = height[0];						// ¨­°ª¤§³Ì¤j­È
+	int max_height = height[0];						// èº«é«˜ä¹‹æœ€å¤§å€¼
 
 	if (height[1] > max_height) max_height = height[1];
 	if (height[2] > max_height) max_height = height[2];
 
-	int max_weight = weight[0];						// Åé­«¤§³Ì¤j­È
+	int max_weight = weight[0];						// é«”é‡ä¹‹æœ€å¤§å€¼
 
 	if (weight[1] > max_weight) max_weight = weight[1];
 	if (weight[2] > max_weight) max_weight = weight[2];
 
-	int max_age = age[0];							// ¦~ÄÖ¤§³Ì¤j­È
+	int max_age = age[0];							// å¹´é½¡ä¹‹æœ€å¤§å€¼
 
 	if (age[1] > max_age) max_age = age[1];
 	if (age[2] > max_age) max_age = age[2];
 
-	cout << "¨­°ª¤§³Ì¤j­È¬O" << max_height << "¡C\n";
-	cout << "Åé­«¤§³Ì¤j­È¬O" << max_weight << "¡C\n";
-	cout << "¦~ÄÖ¤§³Ì¤j­È¬O" << max_age << "¡C\n";
+	cout << "èº«é«˜ä¹‹æœ€å¤§å€¼æ˜¯" << max_height << "ã€‚\n";
+	cout << "é«”é‡ä¹‹æœ€å¤§å€¼æ˜¯" << max_weight << "ã€‚\n";
+	cout << "å¹´é½¡ä¹‹æœ€å¤§å€¼æ˜¯" << max_age << "ã€‚\n";
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-// ½T»{switch±Ô­z©Mbreak±Ô­zªº§@¥Î¤§µ{¦¡
+// ç¢ºèªswitchæ•˜è¿°å’Œbreakæ•˜è¿°çš„ä½œç”¨ä¹‹ç¨‹å¼
 
 #include <iostream>
 using namespace std;
@@ -7,7 +7,7 @@ int main()
 {
 	int n;
 
-	cout << "¿é¤J¾ã¼Æ¡G";
+	cout << "è¼¸å…¥æ•´æ•¸ï¼š";
 	cin >> n;
 
 	switch (n) {

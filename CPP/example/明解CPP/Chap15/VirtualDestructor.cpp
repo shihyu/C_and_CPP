@@ -1,28 +1,28 @@
-// Ä~©Ó»P¸Ñºc¤l
+// ç¹¼æ‰¿èˆ‡è§£æ§‹å­
 
 #include <iostream>
 using namespace std;
 
-//--- ¾Ö¦³µêÀÀ¸Ñºc¤lªº°ò©³Ãş§O ---//
+//--- æ“æœ‰è™›æ“¬è§£æ§‹å­çš„åŸºåº•é¡åˆ¥ ---//
 class Base {
 public:
-	Base()          { cout << "Baseªº«Øºc¤l\n"; }
-	virtual ~Base() { cout << "Baseªº¸Ñºc¤l\n"; }
+	Base()          { cout << "Baseçš„å»ºæ§‹å­\n"; }
+	virtual ~Base() { cout << "Baseçš„è§£æ§‹å­\n"; }
 };
 
-//--- ­l¥ÍÃş§O ---//
+//--- è¡ç”Ÿé¡åˆ¥ ---//
 class Derived : public Base {
     int* a;
 public:
-   Derived() {	a = new int[10]; cout << "«Ø¥ß°}¦C¡C\n"; } // «Øºc¤l
-   ~Derived() { delete[] a; 	 cout << "¸Ñ©ñ°}¦C¡C\n"; } // ¸Ñºc¤l
+   Derived() {	a = new int[10]; cout << "å»ºç«‹é™£åˆ—ã€‚\n"; } // å»ºæ§‹å­
+   ~Derived() { delete[] a; 	 cout << "è§£æ”¾é™£åˆ—ã€‚\n"; } // è§£æ§‹å­
 };
 
 int main()
 {
-	Base* ptr = new Derived();		// «Ø¥ßDerived
+	Base* ptr = new Derived();		// å»ºç«‹Derived
 
-	delete ptr;						// §R°£Base
+	delete ptr;						// åˆªé™¤Base
 
 	return 0;
 }

@@ -1,46 +1,46 @@
-// Ä~©Óª©Ãdª«½u«¬²M³æÃş§OPetList¡]¹ê§@³¡¥÷¡^
+// ç¹¼æ‰¿ç‰ˆå¯µç‰©ç·šå‹æ¸…å–®é¡åˆ¥PetListï¼ˆå¯¦ä½œéƒ¨ä»½ï¼‰
 
 #include <iostream>
 #include "Petlist.h"
 using namespace std;
 
-//--- «Øºc¤l ---//
+//--- å»ºæ§‹å­ ---//
 PetList::PetList()
 {
-	top = dummy = new PetNode(NULL, NULL);		// «Ø¥ß°²¸`ÂI
+	top = dummy = new PetNode(NULL, NULL);		// å»ºç«‹å‡ç¯€é»
 }
 
-//--- ¸Ñºc¤l ---//
+//--- è§£æ§‹å­ ---//
 PetList::~PetList()
 {
 	Clear();
-	delete top;					// ÄÀ©ñ°²¸`ÂI
+	delete top;					// é‡‹æ”¾å‡ç¯€é»
 }
 
-//--- ·j´M§Àºİªº¸`ÂI ---//
+//--- æœå°‹å°¾ç«¯çš„ç¯€é» ---//
 PetNode* PetList::Bottom()
 {
-	if (top == dummy)					// ²M³æ¬°ªÅ¥Õ
+	if (top == dummy)					// æ¸…å–®ç‚ºç©ºç™½
 		return NULL;
-	PetNode* ptr = top;					// §ä¨ì°²¸`ÂI¬°¤î
-	while (ptr->next != dummy)				// ¨«³X©Ò¦³¸`ÂI
+	PetNode* ptr = top;					// æ‰¾åˆ°å‡ç¯€é»ç‚ºæ­¢
+	while (ptr->next != dummy)				// èµ°è¨ªæ‰€æœ‰ç¯€é»
 		ptr = ptr->next;
 	return ptr;
 }
 
-//--- ±N¸`ÂI´¡¨ì«e­± ---//
+//--- å°‡ç¯€é»æ’åˆ°å‰é¢ ---//
 PetList& PetList::AddFirst(Pet* x)
 {
-	PetNode* ptr = top;					// ´¡¤J¤§«eªº«eºİ¸`ÂI
+	PetNode* ptr = top;					// æ’å…¥ä¹‹å‰çš„å‰ç«¯ç¯€é»
 	top = new PetNode(x, ptr);
 	return *this;
 }
 
-//--- ±N¸`ÂI´¡¨ì§Àºİ ---//
+//--- å°‡ç¯€é»æ’åˆ°å°¾ç«¯ ---//
 PetList& PetList::AddLast(Pet* x)
 {
-	if (top == dummy)					// ­Y²M³æ¬°ªÅ¥Õªº¸Ü
-		AddFirst(x);				// ¥HAddFirst¨Ó´¡¨ì«eºİ
+	if (top == dummy)					// è‹¥æ¸…å–®ç‚ºç©ºç™½çš„è©±
+		AddFirst(x);				// ä»¥AddFirstä¾†æ’åˆ°å‰ç«¯
 	else {
 		PetNode* ptr = Bottom();
 		ptr->next = new PetNode(x, dummy);
@@ -48,38 +48,38 @@ PetList& PetList::AddLast(Pet* x)
 	return *this;
 }
 
-//--- §R°£«eºİªº¸`ÂI ---//
+//--- åˆªé™¤å‰ç«¯çš„ç¯€é» ---//
 PetList& PetList::RemoveFirst()
 {
 	if (top != dummy) {
-		PetNode* ptr = top->next;			// «e­±ºâ°_ªº²Ä2­Ó¸`ÂI
+		PetNode* ptr = top->next;			// å‰é¢ç®—èµ·çš„ç¬¬2å€‹ç¯€é»
 		delete top;
 		top = ptr;
 	}
 	return *this;
 }
 
-//--- §R°£§Àºİ¸`ÂI -----//
+//--- åˆªé™¤å°¾ç«¯ç¯€é» -----//
 PetList& PetList::RemoveLast()
 {
-	if (top == dummy)					// ­Y²M³æ¬°ªÅ¥Õªº¸Ü
+	if (top == dummy)					// è‹¥æ¸…å–®ç‚ºç©ºç™½çš„è©±
 		;									
-	else if (top->next == dummy)			                // ¦pªG¸`ÂI¤£¬O¥u¦³¤@­Ó
-		RemoveFirst();				// ´N¥HRemoveFirst§R°£«eºİ¸`ÂI
+	else if (top->next == dummy)			                // å¦‚æœç¯€é»ä¸æ˜¯åªæœ‰ä¸€å€‹
+		RemoveFirst();				// å°±ä»¥RemoveFirståˆªé™¤å‰ç«¯ç¯€é»
 	else {
-		PetNode* ptr = top;				// ¥Ø«e¸`ÂI
-		PetNode* pre;				// ¥Ø«e¸`ÂIªº¤U¤@­Ó¸`ÂI
+		PetNode* ptr = top;				// ç›®å‰ç¯€é»
+		PetNode* pre;				// ç›®å‰ç¯€é»çš„ä¸‹ä¸€å€‹ç¯€é»
 		while (ptr->next != dummy) {
 			pre = ptr;
 			ptr = ptr->next;
 		}
-		pre->next = dummy;			// pre¬O§R°£«áªº§Àºİ¸`ÂI
+		pre->next = dummy;			// preæ˜¯åˆªé™¤å¾Œçš„å°¾ç«¯ç¯€é»
 		delete ptr;
 	}
 	return *this;
 }
 
-//--- §R°£©Ò¦³¸`ÂI ---//
+//--- åˆªé™¤æ‰€æœ‰ç¯€é» ---//
 PetList& PetList::Clear()
 {
 	PetNode* ptr = top;
@@ -92,11 +92,11 @@ PetList& PetList::Clear()
 	return *this;
 }
 
-//--- ¥ş­ûªº¦Û§Ú¤¶²Ğ ---//
+//--- å…¨å“¡çš„è‡ªæˆ‘ä»‹ç´¹ ---//
 PetList& PetList::Introduce()
 {
 	PetNode* ptr = top;
-	cout << "<<---------------- ¦Û§Ú¤¶²Ğ ---------------->>\n";
+	cout << "<<---------------- è‡ªæˆ‘ä»‹ç´¹ ---------------->>\n";
 	while (ptr != dummy) {
 		ptr->pet->Sintro();
 		ptr = ptr->next;
@@ -105,7 +105,7 @@ PetList& PetList::Introduce()
 	return *this;
 }
 
-//--- ´¡¤J¹Bºâ¤l ---//
+//--- æ’å…¥é‹ç®—å­ ---//
 ostream& operator<<(ostream& s, const PetList& x)
 {
 	PetNode* ptr = x.top;

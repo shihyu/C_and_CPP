@@ -1,20 +1,20 @@
-//  »È¦æ±b¤áÃş§O (²Ä4ª©¡G¤¶­±³¡¤À)
+//  éŠ€è¡Œå¸³æˆ¶é¡åˆ¥ (ç¬¬4ç‰ˆï¼šä»‹é¢éƒ¨åˆ†)
 
 #include <string>
 using namespace std;
 
 class Account {
-	string name;			// ±b¤á¦W
-	string no;				// ±b¸¹
-	long balance;			// ¦s´Ú¾lÃB
+	string name;			// å¸³æˆ¶å
+	string no;				// å¸³è™Ÿ
+	long balance;			// å­˜æ¬¾é¤˜é¡
 
 public:
-	Account(string n, string num, long z);		// «Øºc¤l
+	Account(string n, string num, long z);		// å»ºæ§‹å­
 
-	string GetName()    { return name; }		// ¬d¸ß±b¤á¦W
-	string GetNo()      { return no; }			// ¬d¸ß±b¸¹
-	long CheckBalance() { return balance; }		// ¬d¸ß¦s´Ú¾lÃB
+	string GetName()    { return name; }		// æŸ¥è©¢å¸³æˆ¶å
+	string GetNo()      { return no; }			// æŸ¥è©¢å¸³è™Ÿ
+	long CheckBalance() { return balance; }		// æŸ¥è©¢å­˜æ¬¾é¤˜é¡
 
-	void Deposit(long k);						// ¦s´Ú
-	void Withdraw(long k);						// ´£´Ú
+	void Deposit(long k);						// å­˜æ¬¾
+	void Withdraw(long k);						// ææ¬¾
 };

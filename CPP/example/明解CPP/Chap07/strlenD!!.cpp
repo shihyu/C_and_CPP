@@ -1,4 +1,4 @@
-//--- strlenªº¹ê§@½d¨Ò¢Ò ---//
+//--- strlençš„å¯¦ä½œç¯„ä¾‹ï¼¤ ---//
 size_t strlen(const char* s)
 {
 	const char* p = s;

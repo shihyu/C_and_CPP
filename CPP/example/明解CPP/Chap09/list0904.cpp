@@ -1,50 +1,50 @@
-//  »È¦æ±b¤áÃş§O (²Ä3ª©¡G±N¨ç¼Æªº©w¸q¤À¶})
+//  éŠ€è¡Œå¸³æˆ¶é¡åˆ¥ (ç¬¬3ç‰ˆï¼šå°‡å‡½æ•¸çš„å®šç¾©åˆ†é–‹)
 
 #include <string>
 #include <iostream>
 using namespace std;
 
 class Account {
-	string name;			// ±b¤á¦W
-	string no;				// ±b¸¹
-	long balance;			// ¦s´Ú¾lÃB
+	string name;			// å¸³æˆ¶å
+	string no;				// å¸³è™Ÿ
+	long balance;			// å­˜æ¬¾é¤˜é¡
 
 public:
-	Account(string n, string num, long z);		// «Øºc¤l
-	string GetName();							// ¬d¸ß±b¤á¦W
-	string GetNo();							// ¬d¸ß±b¸¹
-	long CheckBalance();						// ¬d¸ß¦s´Ú¾lÃB
-	void Deposit(long k);						// ¦s´Ú
-	void Withdraw(long k);						// ´£´Ú
+	Account(string n, string num, long z);		// å»ºæ§‹å­
+	string GetName();							// æŸ¥è©¢å¸³æˆ¶å
+	string GetNo();							// æŸ¥è©¢å¸³è™Ÿ
+	long CheckBalance();						// æŸ¥è©¢å­˜æ¬¾é¤˜é¡
+	void Deposit(long k);						// å­˜æ¬¾
+	void Withdraw(long k);						// ææ¬¾
 };
 
-//--- «Øºc¤l ---//
+//--- å»ºæ§‹å­ ---//
 Account::Account(string n, string num, long z)
 {
-	name = n;			// ±b¤á¦W
-	no = num;			// ±b¸¹
-	balance = z;		// ¦s´Ú¾lÃB
+	name = n;			// å¸³æˆ¶å
+	no = num;			// å¸³è™Ÿ
+	balance = z;		// å­˜æ¬¾é¤˜é¡
 }
 
-//--- ¬d¸ß±b¤á¦W ---//
+//--- æŸ¥è©¢å¸³æˆ¶å ---//
 string Account::GetName()
 { return name; }
 
-//--- ¬d¸ß±b¸¹ ---//
+//--- æŸ¥è©¢å¸³è™Ÿ ---//
 string Account::GetNo()
 { return no; }
 
-//--- ¬d¸ß¦s´Ú¾lÃB ---//
+//--- æŸ¥è©¢å­˜æ¬¾é¤˜é¡ ---//
 long Account::CheckBalance()
 { return balance; }
 
-//--- ¦s´Ú ---//
+//--- å­˜æ¬¾ ---//
 void Account::Deposit(long k)
 {
 	balance += k;
 }
 
-//--- ´£´Ú ---//
+//--- ææ¬¾ ---//
 void Account::Withdraw(long k)
 {
 	balance -= k;
@@ -52,17 +52,17 @@ void Account::Withdraw(long k)
 
 int main()
 {
-	Account adachi("¨¬¥ß©¯¤@", "12345678", 1000);		// ¨¬¥ß¥ı¥Íªº±b¤á
-	Account nakata("¥ò¥Ğ¯u¤G", "87654321",  200);		// ¥ò¥Ğ¥ı¥Íªº±b¤á
+	Account adachi("è¶³ç«‹å¹¸ä¸€", "12345678", 1000);		// è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶
+	Account nakata("ä»²ç”°çœŸäºŒ", "87654321",  200);		// ä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶
 
-	adachi.Withdraw(200);			// ¨¬¥ß¥ı¥Í»â¤F200¤¸
-	nakata.Deposit(100);			// ¥ò¥Ğ¥ı¥Í¦s¤F100¤¸
+	adachi.Withdraw(200);			// è¶³ç«‹å…ˆç”Ÿé ˜äº†200å…ƒ
+	nakata.Deposit(100);			// ä»²ç”°å…ˆç”Ÿå­˜äº†100å…ƒ
 
-	cout << "¡½¨¬¥ß¥ı¥Íªº±b¤á¡G\"" << adachi.GetName() << "\" ("
-		 << adachi.GetNo() << ") " << adachi.CheckBalance() << "¤¸\n";
+	cout << "â– è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶ï¼š\"" << adachi.GetName() << "\" ("
+		 << adachi.GetNo() << ") " << adachi.CheckBalance() << "å…ƒ\n";
 
-	cout << "¡½¥ò¥Ğ¥ı¥Íªº±b¤á¡G\"" << nakata.GetName() << "\" ("
-		 << nakata.GetNo() << ") " << nakata.CheckBalance() << "¤¸\n";
+	cout << "â– ä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶ï¼š\"" << nakata.GetName() << "\" ("
+		 << nakata.GetNo() << ") " << nakata.CheckBalance() << "å…ƒ\n";
 
 	return 0;
 }

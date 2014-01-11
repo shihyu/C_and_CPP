@@ -1,28 +1,28 @@
-// ¥Î¨Ó½T»{°ò©³Ãş§O»P¦¨­ûªºªì©l¤ÆªºÃş§O¸s
+// ç”¨ä¾†ç¢ºèªåŸºåº•é¡åˆ¥èˆ‡æˆå“¡çš„åˆå§‹åŒ–çš„é¡åˆ¥ç¾¤
 
 #include <iostream>
 using namespace std;
 
-//--- Derivedªº°ò©³Ãş§O ---//
+//--- Derivedçš„åŸºåº•é¡åˆ¥ ---//
 class Base {
 	int x;
 public:
-	Base(int a = 0) : x(a) { cout << "±NBase::x¥H" << x << "¨Óªì©l¤Æ¡C\n"; }
+	Base(int a = 0) : x(a) { cout << "å°‡Base::xä»¥" << x << "ä¾†åˆå§‹åŒ–ã€‚\n"; }
 };
 
-//--- ¥]§t¦bDerived¤§¤¤ªºÃş§O ---//
+//--- åŒ…å«åœ¨Derivedä¹‹ä¸­çš„é¡åˆ¥ ---//
 class Memb {
 	int x;
 public:
-	Memb(int a = 0) : x(a) { cout << "±NMemb::x¥H" << x << "¨Óªì©l¤Æ¡C\n"; }
+	Memb(int a = 0) : x(a) { cout << "å°‡Memb::xä»¥" << x << "ä¾†åˆå§‹åŒ–ã€‚\n"; }
 };
 
-//--- Derived·|±qBase¶}©lpublic­l¥Í ---//
+//--- Derivedæœƒå¾Baseé–‹å§‹publicè¡ç”Ÿ ---//
 class Derived : public Base {
 	int y;
 	Memb m1;
 	Memb m2;
-	void say() { y = 0; cout << "±NDerived::y¥H" << y << "¨Óªì©l¤Æ¡C\n"; }
+	void say() { y = 0; cout << "å°‡Derived::yä»¥" << y << "ä¾†åˆå§‹åŒ–ã€‚\n"; }
 
 public:
 	Derived()	                                                              { say(); }

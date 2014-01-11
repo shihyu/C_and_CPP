@@ -1,4 +1,4 @@
-// ¥Î¾Ş§@¤l«ü©w®æ¦¡
+// ç”¨æ“ä½œå­æŒ‡å®šæ ¼å¼
 
 #include <iomanip>
 #include <iostream>
@@ -6,14 +6,14 @@ using namespace std;
 
 int main ()
 {
-	cout << oct << 1234 << '\n';		// 8¶i¦ì
-	cout << dec << 1234 << '\n';		// 10¶i¦ì
-	cout << hex << 1234 << '\n';		// 16¶i¦ì
+	cout << oct << 1234 << '\n';		// 8é€²ä½
+	cout << dec << 1234 << '\n';		// 10é€²ä½
+	cout << hex << 1234 << '\n';		// 16é€²ä½
 
 	cout << showbase;
-	cout << oct << 1234 << '\n';		// 8¶i¦ì
-	cout << dec << 1234 << '\n';		// 10¶i¦ì
-	cout << hex << 1234 << '\n';		// 16¶i¦ì
+	cout << oct << 1234 << '\n';		// 8é€²ä½
+	cout << dec << 1234 << '\n';		// 10é€²ä½
+	cout << hex << 1234 << '\n';		// 16é€²ä½
 
 	cout << setw (10) << internal << "abc\n";
 	cout << setw (10) << left	 << "abc\n";

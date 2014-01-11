@@ -1,4 +1,4 @@
-// °ïÅ| Ãş§O½d¥»Stackªº¨Ï¥Î½d¨Ò¡]¤ÏÂà¦r¦ê¡^
+// å †ç–Š é¡åˆ¥ç¯„æœ¬Stackçš„ä½¿ç”¨ç¯„ä¾‹ï¼ˆåè½‰å­—ä¸²ï¼‰
 
 #include <string>
 #include <iostream>
@@ -9,28 +9,28 @@ int main()
 {
 	string x;
 
-	cout << "¦r¦ê¡G";
+	cout << "å­—ä¸²ï¼š";
 	cin >> x;
 
-	Stack<char> s(x.length());		// °ïÅ|sªº®e¶q¬°¦r¦êxªºªø«×
+	Stack<char> s(x.length());		// å †ç–Šsçš„å®¹é‡ç‚ºå­—ä¸²xçš„é•·åº¦
 
 	try {
-		for (int i = 0; i < x.length(); i++) // ±q¶}ÀY¤å¦r¶}©l¨Ì§Ç±À¤J
+		for (int i = 0; i < x.length(); i++) // å¾é–‹é ­æ–‡å­—é–‹å§‹ä¾åºæ¨å…¥
 			s.Push(x[i]);
 
 		for (int i = 0; i < x.length(); i++)  {
-			char c = s.Pop();	           	 // ¼u¥X¡]¥i¥H°f¦V±o¨ì¡^
+			char c = s.Pop();	           	 // å½ˆå‡ºï¼ˆå¯ä»¥é€†å‘å¾—åˆ°ï¼‰
 			cout << c;
 		}
 		cout << '\n';
 	}
 	catch (Stack<char>::OverflowErr x) {
-		cout << "\a·Q­n¹ï¤wº¡ªº<char>°ïÅ|[" << x.vec()
-			 << "]¶i¦æ±À¤J¡C\n";
+		cout << "\aæƒ³è¦å°å·²æ»¿çš„<char>å †ç–Š[" << x.vec()
+			 << "]é€²è¡Œæ¨å…¥ã€‚\n";
 	}
 	catch (Stack<char>::EmptyErr x) {
-		cout << "\a·Q­n±qªÅªº<char>°ïÅ|[" << x.vec()
-			 << "]¶i¦æ¼u¥X¡C\n";
+		cout << "\aæƒ³è¦å¾ç©ºçš„<char>å †ç–Š[" << x.vec()
+			 << "]é€²è¡Œå½ˆå‡ºã€‚\n";
 	}
 
 	return 0;

@@ -1,22 +1,22 @@
-// ½Æ»s°}¦Cªº©Ò¦³¤¸¯À¨ÃÅã¥Ü
+// è¤‡è£½é™£åˆ—çš„æ‰€æœ‰å…ƒç´ ä¸¦é¡¯ç¤º
 
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	const int n = 5;		// °}¦Ca©Mbªº¤¸¯À¼Æ
-	int a[n], b[n] = {0};		// ¥H0ªì©l¤Æ°}¦Cbªº©Ò¦³¤¸¯À
+	const int n = 5;		// é™£åˆ—aå’Œbçš„å…ƒç´ æ•¸
+	int a[n], b[n] = {0};		// ä»¥0åˆå§‹åŒ–é™£åˆ—bçš„æ‰€æœ‰å…ƒç´ 
 
-	for (int i = 0; i < n; i++) {	// ±N­ÈÅª¤J¨ì°}¦Ca
+	for (int i = 0; i < n; i++) {	// å°‡å€¼è®€å…¥åˆ°é™£åˆ—a
 		cout << "a[" << i << "] : ";
 		cin >> a[i];
 	}
 
-	for (int i = 0; i < n; i++)		// ½Æ»s°}¦Caªº©Ò¦³¤¸¯À¨ì°}¦Cb
+	for (int i = 0; i < n; i++)		// è¤‡è£½é™£åˆ—açš„æ‰€æœ‰å…ƒç´ åˆ°é™£åˆ—b
 		b[i] = a[i];
 
-	for (int i = 0; i < n; i++)		// Åã¥Ü°}¦Cb
+	for (int i = 0; i < n; i++)		// é¡¯ç¤ºé™£åˆ—b
 		cout << "b[" << i << "] = " << b[i] << '\n';
 
 	return 0;

@@ -1,4 +1,4 @@
-// ¤é´ÁÃş§ODate¡]²Ä3ª©B¡G¤¶­±³¡¤À)
+// æ—¥æœŸé¡åˆ¥Dateï¼ˆç¬¬3ç‰ˆBï¼šä»‹é¢éƒ¨åˆ†)
 
 #if !defined(___Class_Date)
 	#define	 ___Class_Date
@@ -7,27 +7,27 @@
 #include <iostream>
 using namespace std;
 
-//===== ¤é´ÁÃş§O =====//
+//===== æ—¥æœŸé¡åˆ¥ =====//
 class Date {
-	int	year;		// ¦è¤¸¦~
-	int	month;		// ¤ë
-	int	day;		// ¤é
+	int	year;		// è¥¿å…ƒå¹´
+	int	month;		// æœˆ
+	int	day;		// æ—¥
 
 public:
-	Date();					// ¹w³]«Øºc¤l
-	Date(int y, int m = 1, int d = 1);		// «Øºc¤l
+	Date();					// é è¨­å»ºæ§‹å­
+	Date(int y, int m = 1, int d = 1);		// å»ºæ§‹å­
 
-	int Year()	const { return year; }		// ¶Ç¦^¦~
-	int Month()	const { return month; }	// ¶Ç¦^¤ë
-	int Day()	const { return day; }		                // ¶Ç¦^¤é
-	int DayOfWeek() const;			// ¶Ç¦^¬P´Á 
-	string to_string() const;			// ¥H¦r¦ê¶Ç¦^
+	int Year()	const { return year; }		// å‚³å›å¹´
+	int Month()	const { return month; }	// å‚³å›æœˆ
+	int Day()	const { return day; }		                // å‚³å›æ—¥
+	int DayOfWeek() const;			// å‚³å›æ˜ŸæœŸ 
+	string to_string() const;			// ä»¥å­—ä¸²å‚³å›
 
-	int CompY(int y) const { return y - year;  }	// ¶Ç¦^¦~ªº®t
-	int CompM(int m) const { return m - month; }	// ¶Ç¦^¤ëªº®t
-	int CompD(int d) const { return d - day;   }	// ¶Ç¦^¤éªº®t
+	int CompY(int y) const { return y - year;  }	// å‚³å›å¹´çš„å·®
+	int CompM(int m) const { return m - month; }	// å‚³å›æœˆçš„å·®
+	int CompD(int d) const { return d - day;   }	// å‚³å›æ—¥çš„å·®
 };
 
-ostream& operator<<(ostream& s, const Date& x);		// ´¡¤J¤l
+ostream& operator<<(ostream& s, const Date& x);		// æ’å…¥å­
 
 #endif

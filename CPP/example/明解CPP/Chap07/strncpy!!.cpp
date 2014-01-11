@@ -1,4 +1,4 @@
-//--- strncpyªº¹ê§@½d¨Ò ---//
+//--- strncpyçš„å¯¦ä½œç¯„ä¾‹ ---//
 char* strncpy(char* s1, const char* s2,size_t n) 
 {
 	char* p = s1;

@@ -1,4 +1,4 @@
-// Åã¥Ü¦UºØ¾ã¼Æ«¬ºA©MÅÜ¼Æªº¤j¤p
+// é¡¯ç¤ºå„ç¨®æ•´æ•¸å‹æ…‹å’Œè®Šæ•¸çš„å¤§å°
 
 #include <iostream>
 using namespace std;
@@ -6,20 +6,20 @@ using namespace std;
 int main()
 {
 	char c;
-	cout << "char«¬ºAªº¤j¤p¡G" << sizeof(char) << '\n';
-	cout << "ÅÜ¼Æcªº¤j¤p¡G" << sizeof(c)    << '\n';
+	cout << "charå‹æ…‹çš„å¤§å°ï¼š" << sizeof(char) << '\n';
+	cout << "è®Šæ•¸cçš„å¤§å°ï¼š" << sizeof(c)    << '\n';
 
 	short h;
-	cout << "short«¬ºAªº¤j¤p¡G" << sizeof(short) << '\n';
-	cout << "ÅÜ¼Æhªº¤j¤p  ¡G" << sizeof(h)     << '\n';
+	cout << "shortå‹æ…‹çš„å¤§å°ï¼š" << sizeof(short) << '\n';
+	cout << "è®Šæ•¸hçš„å¤§å°  ï¼š" << sizeof(h)     << '\n';
 
 	int i;
-	cout << "int«¬ºAªº¤j¤p ¡G" << sizeof(int) << '\n';
-	cout << "ÅÜ¼Æiªº¤j¤p  ¡G" << sizeof(i)   << '\n';
+	cout << "intå‹æ…‹çš„å¤§å° ï¼š" << sizeof(int) << '\n';
+	cout << "è®Šæ•¸içš„å¤§å°  ï¼š" << sizeof(i)   << '\n';
 
 	long l;
-	cout << "long«¬ºAªº¤j¤p ¡G" << sizeof(long) << '\n';
-	cout << "ÅÜ¼Ælªº¤j¤p  ¡G" << sizeof(l)    << '\n';
+	cout << "longå‹æ…‹çš„å¤§å° ï¼š" << sizeof(long) << '\n';
+	cout << "è®Šæ•¸lçš„å¤§å°  ï¼š" << sizeof(l)    << '\n';
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-//  »È¦æ±b¤áÃþ§O (²Ä6ª©¡G¨Ï¥Î½d¨Ò)
+//  éŠ€è¡Œå¸³æˆ¶é¡žåˆ¥ (ç¬¬6ç‰ˆï¼šä½¿ç”¨ç¯„ä¾‹)
 
 #include <iostream>
 #include "Date.h"
@@ -7,16 +7,16 @@ using namespace std;
 
 int main()
 {
-	// ¨¬¥ß¥ý¥Íªº±b¤á
-	Account adachi("¨¬¥ß©¯¤@", "12345678", 1000, Date(2005, 1, 10));
-	string dw[] = {"¤é", "¤@", "¤G", "¤T", "¥|", "¤­", "¤»"};
+	// è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶
+	Account adachi("è¶³ç«‹å¹¸ä¸€", "12345678", 1000, Date(2005, 1, 10));
+	string dw[] = {"æ—¥", "ä¸€", "äºŒ", "ä¸‰", "å››", "äº”", "å…­"};
 
-	cout << "¨¬¥ß¥ý¥Íªº±b¤á\n";
-	cout << "±b¤á¦W¡×" << adachi.GetName() << '\n';
-	cout << "±b¸¹¡×" << adachi.GetNo() << '\n';
-	cout << "¦s´Ú¾lÃB¡×" << adachi.CheckBalance() << "¤¸\n";
-	cout << "¶}¤á¤é¡×" << adachi.OpeningDate();
-	cout << "¡]" << dw[adachi.OpeningDate().DayOfWeek()] << "¡^\n";
+	cout << "è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶\n";
+	cout << "å¸³æˆ¶åï¼" << adachi.GetName() << '\n';
+	cout << "å¸³è™Ÿï¼" << adachi.GetNo() << '\n';
+	cout << "å­˜æ¬¾é¤˜é¡ï¼" << adachi.CheckBalance() << "å…ƒ\n";
+	cout << "é–‹æˆ¶æ—¥ï¼" << adachi.OpeningDate();
+	cout << "ï¼ˆ" << dw[adachi.OpeningDate().DayOfWeek()] << "ï¼‰\n";
 
 	return 0;
 }

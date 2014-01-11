@@ -1,9 +1,9 @@
-// µo¥XÄµ§iªº¨ç¼Æ (¹w³]¤Ş¼Æ)
+// ç™¼å‡ºè­¦å‘Šçš„å‡½æ•¸ (é è¨­å¼•æ•¸)
 
 #include <iostream>
 using namespace std;
 
-//--- µo¥Xn¦¸ªºÄµ§i ---//
+//--- ç™¼å‡ºnæ¬¡çš„è­¦å‘Š ---//
 void alerts(int n = 3)
 {
 	for (int i = 0; i < n; i++)
@@ -13,10 +13,10 @@ void alerts(int n = 3)
 int main()
 {
 	alerts();
-	cout << "Äµ§i¡I\n";
+	cout << "è­¦å‘Šï¼\n";
 
 	alerts(5);
-	cout << "¦A¦¸Äµ§i¡I\n";
+	cout << "å†æ¬¡è­¦å‘Šï¼\n";
 
 	return 0;
 }

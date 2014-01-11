@@ -1,4 +1,4 @@
-// °ÊºA²£¥Í¾ã¼Æ°}¦Cª«¥ó (¨Ò¥~³B²z)
+// å‹•æ…‹ç”¢ç”Ÿæ•´æ•¸é™£åˆ—ç‰©ä»¶ (ä¾‹å¤–è™•ç†)
 
 #include <new>
 #include <iostream>
@@ -6,16 +6,16 @@ using namespace std;
 
 int main()
 {
-	int asize;				// °}¦Cªº¤¸¯À¼Æ
-	cout << "¤¸¯À¼Æ¡G";
+	int asize;				// é™£åˆ—çš„å…ƒç´ æ•¸
+	cout << "å…ƒç´ æ•¸ï¼š";
 	cin >> asize;
 
 	int* a;
 	try {
-		a = new int[asize];		// ²£¥Í
+		a = new int[asize];		// ç”¢ç”Ÿ
 	}
 	catch (bad_alloc) {
-		cout << "¦]¬°²£¥Í°}¦C¥¢±Ñ¤F¡A©Ò¥H¤¤¤îµ{¦¡¡C\n";
+		cout << "å› ç‚ºç”¢ç”Ÿé™£åˆ—å¤±æ•—äº†ï¼Œæ‰€ä»¥ä¸­æ­¢ç¨‹å¼ã€‚\n";
 		return 1;
 	}
 
@@ -25,7 +25,7 @@ int main()
 	for (int i = 0; i < asize; i++)
 		cout << "a[" << i << "] = " << a[i] << '\n';
 
-	delete[] a;				// ¥á±ó
+	delete[] a;				// ä¸Ÿæ£„
 
 	return 0;
 }

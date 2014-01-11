@@ -1,4 +1,4 @@
-// ¦~¸¹ª©¤é´ÁÃþ§ODateªº¨Ï¥Î½d¨Ò
+// å¹´è™Ÿç‰ˆæ—¥æœŸé¡žåˆ¥Dateçš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Date.h"
@@ -7,28 +7,28 @@ using namespace std;
 int main()
 {
 	int y, m, d;
-	cout << "½Ð¿é¤J¥Í¤é¡C\n";
-	cout << "¦~¡G";	  cin >> y;
-	cout << "¤ë¡G";	  cin >> m;
-	cout << "¤é¡G";	  cin >> d;
+	cout << "è«‹è¼¸å…¥ç”Ÿæ—¥ã€‚\n";
+	cout << "å¹´ï¼š";	  cin >> y;
+	cout << "æœˆï¼š";	  cin >> m;
+	cout << "æ—¥ï¼š";	  cin >> d;
 	Date birthday(y, m, d);
-	cout << "¸Ó¤é¬°" << birthday << '\n';
-	cout << "¸Ó¦~" 
-		 << (birthday.IsLeap() ? "¬O¶|¦~¡C\n" : "¤£¬O¶|¦~¡C\n"); 
+	cout << "è©²æ—¥ç‚º" << birthday << '\n';
+	cout << "è©²å¹´" 
+		 << (birthday.IsLeap() ? "æ˜¯é–å¹´ã€‚\n" : "ä¸æ˜¯é–å¹´ã€‚\n"); 
 
-	Date today;						// ¤µ¤Ñªº¤é´Á
-	cout << "¤µ¤Ñ¬O" << today.Year()  << "¦~"
-					 << today.Month() << "¤ë"
-					 << today.Day()	  << "¤é¡C\n";
-	Date meiji( Date::Meiji,  1,  9,  8);	// ©úªvªº²Ä¤@¤Ñ
-	Date taisho(Date::Taisho, 1,  7, 30);	// ¤j¥¿ªº²Ä¤@¤Ñ
-	Date showa( Date::Showa,  1, 12, 25);	// ¬L©Mªº²Ä¤@¤Ñ
-	Date heisei(Date::Heisei, 1,  1,  8);	// ¥­¦¨ªº²Ä¤@¤Ñ
+	Date today;						// ä»Šå¤©çš„æ—¥æœŸ
+	cout << "ä»Šå¤©æ˜¯" << today.Year()  << "å¹´"
+					 << today.Month() << "æœˆ"
+					 << today.Day()	  << "æ—¥ã€‚\n";
+	Date meiji( Date::Meiji,  1,  9,  8);	// æ˜Žæ²»çš„ç¬¬ä¸€å¤©
+	Date taisho(Date::Taisho, 1,  7, 30);	// å¤§æ­£çš„ç¬¬ä¸€å¤©
+	Date showa( Date::Showa,  1, 12, 25);	// æ˜­å’Œçš„ç¬¬ä¸€å¤©
+	Date heisei(Date::Heisei, 1,  1,  8);	// å¹³æˆçš„ç¬¬ä¸€å¤©
 
-	cout << "¥H¦r¦êªí¥Ü©úªvªº²Ä¤@¤Ñ¡G\"" << meiji.to_string()  << "\"\n";
-	cout << "¥H¦r¦êªí¥Ü¤j¥¿ªº²Ä¤@¤Ñ¡G\"" << taisho.to_string() << "\"\n";
-	cout << "¥H¦r¦êªí¥Ü¬L©Mªº²Ä¤@¤Ñ¡G\"" << showa.to_string()  << "\"\n";
-	cout << "¥H¦r¦êªí¥Ü¥­¦¨ªº²Ä¤@¤Ñ¡G\"" << heisei.to_string() << "\"\n";
+	cout << "ä»¥å­—ä¸²è¡¨ç¤ºæ˜Žæ²»çš„ç¬¬ä¸€å¤©ï¼š\"" << meiji.to_string()  << "\"\n";
+	cout << "ä»¥å­—ä¸²è¡¨ç¤ºå¤§æ­£çš„ç¬¬ä¸€å¤©ï¼š\"" << taisho.to_string() << "\"\n";
+	cout << "ä»¥å­—ä¸²è¡¨ç¤ºæ˜­å’Œçš„ç¬¬ä¸€å¤©ï¼š\"" << showa.to_string()  << "\"\n";
+	cout << "ä»¥å­—ä¸²è¡¨ç¤ºå¹³æˆçš„ç¬¬ä¸€å¤©ï¼š\"" << heisei.to_string() << "\"\n";
 
 	return 0;
 }

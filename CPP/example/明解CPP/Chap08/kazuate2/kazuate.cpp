@@ -1,15 +1,15 @@
-// ²q¼Æ¦r¹CÀ¸ (²Ä2ª©¡G¥D­n³¡¥÷)
+// çŒœæ•¸å­—éŠæˆ² (ç¬¬2ç‰ˆï¼šä¸»è¦éƒ¨ä»½)
 
 #include <iostream>
 #include "kazuate.h"
 using namespace std;
 
-int max_no = 9;				// µª®×ªº³Ì¤j­È
+int max_no = 9;				// ç­”æ¡ˆçš„æœ€å¤§å€¼
 
 int main()
 {
 	initialize();
-	cout << "²q¼Æ¦r¹CÀ¸¶}©l¡I\n";
+	cout << "çŒœæ•¸å­—éŠæˆ²é–‹å§‹ï¼\n";
 
 	do {
 		gen_no();
@@ -17,11 +17,11 @@ int main()
 		do {
 			hantei = judge(input());
 			if (hantei > 0)
-				cout << "\aÁÙ­n§ó¤p¼Ú¡C\n";
+				cout << "\aé‚„è¦æ›´å°æ­ã€‚\n";
 			else if (hantei < 0)
-				cout << "\aÁÙ­n§ó¤j¼Ú¡C\n";
+				cout << "\aé‚„è¦æ›´å¤§æ­ã€‚\n";
 		} while (hantei != 0);
-		cout << "¥¿½Tµª®×¡C\n";
+		cout << "æ­£ç¢ºç­”æ¡ˆã€‚\n";
 	} while (confirm_retry());
 
 	return 0;

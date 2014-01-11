@@ -1,24 +1,24 @@
-// ¾ã¼Æ°}¦CÃş§OIntArray¡]²Ä3ª©¡G¹ê§@³¡¤À¡^
+// æ•´æ•¸é™£åˆ—é¡åˆ¥IntArrayï¼ˆç¬¬3ç‰ˆï¼šå¯¦ä½œéƒ¨åˆ†ï¼‰
 
 #include "IntArray.h"
 
-//--- ½Æ»s«Øºc¤l ---//
+//--- è¤‡è£½å»ºæ§‹å­ ---//
 IntArray::IntArray(const IntArray& x)
 {
-	size = x.size;			       // ±N¤¸¯À¼Æ³]¬°»Px¬Û¦Pªº­È
-	vec = new int[size];			// ½T«O°}¦C¥DÅé
-	for (int i = 0; i < size; i++)	// ½Æ»s©Ò¦³¤¸¯À
+	size = x.size;			       // å°‡å…ƒç´ æ•¸è¨­ç‚ºèˆ‡xç›¸åŒçš„å€¼
+	vec = new int[size];			// ç¢ºä¿é™£åˆ—ä¸»é«”
+	for (int i = 0; i < size; i++)	// è¤‡è£½æ‰€æœ‰å…ƒç´ 
 		vec[i] = x.vec[i];
 }
 
-//--- «ü©w¹Bºâ¤l ---//
+//--- æŒ‡å®šé‹ç®—å­ ---//
 IntArray& IntArray::operator=(const IntArray& x)
 {
-	if (&x != this) {					// ¦pªG¤£¬O«ü©w¦Û¤v¥»¨­ªº¸Ü¡K
-		delete[] vec;				    // ¸Ñ©ñ­ì¥»½T«Oªº°O¾ĞÅé°Ï°ì
-		size = x.size;				    // ·sªº¤¸¯À¼Æ
-		vec = new int[size];			// ½T«O·sªº°O¾ĞÅé°Ï°ì
-		for (int i = 0; i < size; i++)	// ½Æ»s©Ò¦³¤¸¯À
+	if (&x != this) {					// å¦‚æœä¸æ˜¯æŒ‡å®šè‡ªå·±æœ¬èº«çš„è©±â€¦
+		delete[] vec;				    // è§£æ”¾åŸæœ¬ç¢ºä¿çš„è¨˜æ†¶é«”å€åŸŸ
+		size = x.size;				    // æ–°çš„å…ƒç´ æ•¸
+		vec = new int[size];			// ç¢ºä¿æ–°çš„è¨˜æ†¶é«”å€åŸŸ
+		for (int i = 0; i < size; i++)	// è¤‡è£½æ‰€æœ‰å…ƒç´ 
 			vec[i] = x.vec[i];
 	}
 	return *this;

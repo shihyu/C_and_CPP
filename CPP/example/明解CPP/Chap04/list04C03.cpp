@@ -1,4 +1,4 @@
-// Åã¥Üdouble«¬ºAªº¯S©Ê
+// é¡¯ç¤ºdoubleåž‹æ…‹çš„ç‰¹æ€§
 
 #include <limits>
 #include <iostream>
@@ -6,25 +6,25 @@ using namespace std;
 
 int main()
 {
-	cout << "³Ì¤p­È¡G" << numeric_limits<double>::min() << '\n';
-	cout << "³Ì¤j­È¡G" << numeric_limits<double>::max() << '\n';
-	cout << "°²¼Æ³¡¥÷¡G" << numeric_limits<double>::radix  << "¶i¦ì¼Æ¬O"
-					   << numeric_limits<double>::digits << "¦ì¼Æ\n";
-	cout << "¦ì¼Æ¡G" << numeric_limits<double>::digits10 << '\n';
-	cout << "¾÷±ñ£`¡G" << numeric_limits<double>::epsilon()<< '\n';
-	cout << "³Ì¤jªº±Ë¥h»~®t" << numeric_limits<double>::round_error() << '\n';
-	cout << "±Ë¥h§Î¦¡¡G";
+	cout << "æœ€å°å€¼ï¼š" << numeric_limits<double>::min() << '\n';
+	cout << "æœ€å¤§å€¼ï¼š" << numeric_limits<double>::max() << '\n';
+	cout << "å‡æ•¸éƒ¨ä»½ï¼š" << numeric_limits<double>::radix  << "é€²ä½æ•¸æ˜¯"
+					   << numeric_limits<double>::digits << "ä½æ•¸\n";
+	cout << "ä½æ•¸ï¼š" << numeric_limits<double>::digits10 << '\n';
+	cout << "æ©Ÿæ¢°Îµï¼š" << numeric_limits<double>::epsilon()<< '\n';
+	cout << "æœ€å¤§çš„æ¨åŽ»èª¤å·®" << numeric_limits<double>::round_error() << '\n';
+	cout << "æ¨åŽ»å½¢å¼ï¼š";
 		switch (numeric_limits<double>::round_style) {
 		 case round_indeterminate:
-							cout << "µLªk¨M©w¡C\n"; break;
+							cout << "ç„¡æ³•æ±ºå®šã€‚\n"; break;
 		 case round_toward_zero:
-							cout << "ÁÍªñ©ó0±Ë¥h¡C\n"; break;
+							cout << "è¶¨è¿‘æ–¼0æ¨åŽ»ã€‚\n"; break;
 		 case round_to_nearest:
-							cout << "¥H¥iªí²{ªº³Ì±µªñ­È±Ë¥h¡C\n"; break;
+							cout << "ä»¥å¯è¡¨ç¾çš„æœ€æŽ¥è¿‘å€¼æ¨åŽ»ã€‚\n"; break;
 		 case round_toward_infinity:
-							cout << "ÁÍªñ©óµL­­¤j±Ë¥h¡C\n"; break;
+							cout << "è¶¨è¿‘æ–¼ç„¡é™å¤§æ¨åŽ»ã€‚\n"; break;
 		 case round_toward_neg_infinity:
-							cout << "ÁÍªñ©ó­tªºµL­­¤j±Ë¥h¡C\n"; break;
+							cout << "è¶¨è¿‘æ–¼è² çš„ç„¡é™å¤§æ¨åŽ»ã€‚\n"; break;
 		}
 
 	return 0;

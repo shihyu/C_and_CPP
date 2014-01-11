@@ -1,14 +1,14 @@
-// °ÊºAÂà«¬»P¥¢±Ñ®Éªº¦æ°Ê
+// å‹•æ…‹è½‰å‹èˆ‡å¤±æ•—æ™‚çš„è¡Œå‹•
 
 #include <iostream>
 using namespace std;
 
-//===== °ò©³Ãş§O =====//
+//===== åŸºåº•é¡åˆ¥ =====//
 class Base {
-	virtual void f() { }	// µêÀÀ¨ç¼Æ
+	virtual void f() { }	// è™›æ“¬å‡½æ•¸
 };
 
-//===== ­l¥ÍÃş§O =====//
+//===== è¡ç”Ÿé¡åˆ¥ =====//
 class Derived : public Base {
 
 };
@@ -18,22 +18,22 @@ int main()
 	Base base;
 	Derived derived;
 
-	Derived* p1 = dynamic_cast<Derived*>(&base);	         // ¥¢±Ñ¡GÅÜ¬°ªÅ«ü¼Ğ
-	Derived* p2 = dynamic_cast<Derived*>(&derived);          // ¦¨¥\
+	Derived* p1 = dynamic_cast<Derived*>(&base);	         // å¤±æ•—ï¼šè®Šç‚ºç©ºæŒ‡æ¨™
+	Derived* p2 = dynamic_cast<Derived*>(&derived);          // æˆåŠŸ
 
 	cout << "p1 = " << p1 << '\n';
 	cout << "p2 = " << p2 << '\n';
 
 	try {
-		Derived& r1 = dynamic_cast<Derived&>(base);	    // ¥¢±Ñ¡G°e¥Xbad_cast
+		Derived& r1 = dynamic_cast<Derived&>(base);	    // å¤±æ•—ï¼šé€å‡ºbad_cast
 	} catch (bad_cast) {
-		cout << "r1ªº±j¨îÂà«¬¥¢±Ñ\n";
+		cout << "r1çš„å¼·åˆ¶è½‰å‹å¤±æ•—\n";
 	}
 
 	try {
-		Derived& r2 = dynamic_cast<Derived&>(derived);	// ¦¨¥\
+		Derived& r2 = dynamic_cast<Derived&>(derived);	// æˆåŠŸ
 	} catch (bad_cast) {
-		cout << "r2ªº±j¨îÂà«¬¥¢±Ñ\n";		            // ¤£·|°õ¦æ
+		cout << "r2çš„å¼·åˆ¶è½‰å‹å¤±æ•—\n";		            // ä¸æœƒåŸ·è¡Œ
 	}
 
 	return 0;

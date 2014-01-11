@@ -1,16 +1,16 @@
-//  ¨D¨ú¨â­È¤§³Ì¤j­Èªº¨ç¼Æ½d¥»
+//  æ±‚å–å…©å€¼ä¹‹æœ€å¤§å€¼çš„å‡½æ•¸ç¯„æœ¬
 
 #include <cstring>
 #include <iostream>
 using namespace std;
 
-//--- ¨D¨úa, bªº¸û¤j¤@¤èªº­È ---//	 
+//--- æ±‚å–a, bçš„è¼ƒå¤§ä¸€æ–¹çš„å€¼ ---//	 
 template <class Type> Type maxof(Type a, Type b)
 {
 	return a > b ? a : b;
 }
 
-//--- ¨D¨úa, bªº¸û¤j¤@¤èªº­È ( const char*«¬ºAªº¯S®í¤Æ )
+//--- æ±‚å–a, bçš„è¼ƒå¤§ä¸€æ–¹çš„å€¼ ( const char*å‹æ…‹çš„ç‰¹æ®ŠåŒ– )
 template <> const char* maxof<const char*>(const char* a, const char* b)
 {
 	return strcmp(a, b) > 0 ? a : b;
@@ -22,15 +22,15 @@ int main()
 	double x;
 	char s[100], t[100];
 
-	cout << "¾ã¼Æa¡G";	  cin >> a;
-	cout << "¾ã¼Æb¡G";	  cin >> b;
-	cout << "¹ê¼Æx¡G";	  cin >> x;
-	cout << "¦r¦ês¡G";            cin >> s;
-	cout << "¦r¦êt¡G";             cin >> t;
+	cout << "æ•´æ•¸aï¼š";	  cin >> a;
+	cout << "æ•´æ•¸bï¼š";	  cin >> b;
+	cout << "å¯¦æ•¸xï¼š";	  cin >> x;
+	cout << "å­—ä¸²sï¼š";            cin >> s;
+	cout << "å­—ä¸²tï¼š";             cin >> t;
 
-	cout << "a»Pbªº¸û¤j¤@¤èªº­È¬°" << maxof(a, b)              << "¡C\n";
-	cout << "a»Pxªº¸û¤j¤@¤èªº­È¬°" << maxof<double>(a, x)      << "¡C\n";
-	cout << "s»Ptªº¸û¤j¤@¤èªº­È¬°" << maxof<const char*>(s, t) << "¡C\n";
+	cout << "aèˆ‡bçš„è¼ƒå¤§ä¸€æ–¹çš„å€¼ç‚º" << maxof(a, b)              << "ã€‚\n";
+	cout << "aèˆ‡xçš„è¼ƒå¤§ä¸€æ–¹çš„å€¼ç‚º" << maxof<double>(a, x)      << "ã€‚\n";
+	cout << "sèˆ‡tçš„è¼ƒå¤§ä¸€æ–¹çš„å€¼ç‚º" << maxof<const char*>(s, t) << "ã€‚\n";
 
 	return 0;
 }

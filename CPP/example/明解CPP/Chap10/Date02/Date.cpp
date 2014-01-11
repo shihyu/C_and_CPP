@@ -1,4 +1,4 @@
-// ¤é´ÁÃş§ODate¡]²Ä2ª©¡G¹ê§@³¡¤À¡^
+// æ—¥æœŸé¡åˆ¥Dateï¼ˆç¬¬2ç‰ˆï¼šå¯¦ä½œéƒ¨åˆ†ï¼‰
 
 #include <ctime>
 #include <sstream>
@@ -6,18 +6,18 @@
 #include "Date.h"
 using namespace std;
 
-//--- Dateªº¹w³]«Øºc¤l¡]¤µ¤Ñªº¤é´Á¡^---//
+//--- Dateçš„é è¨­å»ºæ§‹å­ï¼ˆä»Šå¤©çš„æ—¥æœŸï¼‰---//
 Date::Date()
 {
-	time_t current = time(NULL);		        // ¨ú±o²{¦bªº¼Ğ·Ç®É¶¡
-	struct tm* local = localtime(&current);		// Âà´«¬°¦U¤¸¯Àªº®É¶¡
+	time_t current = time(NULL);		        // å–å¾—ç¾åœ¨çš„æ¨™æº–æ™‚é–“
+	struct tm* local = localtime(&current);		// è½‰æ›ç‚ºå„å…ƒç´ çš„æ™‚é–“
 
-	year  = local->tm_year + 1900;		// ¦~¡Gtm_year¬O¦~-1900
-	month = local->tm_mon + 1;			// ¤ë¡Gtm_mon¬O0¡ã11
+	year  = local->tm_year + 1900;		// å¹´ï¼štm_yearæ˜¯å¹´-1900
+	month = local->tm_mon + 1;			// æœˆï¼štm_monæ˜¯0âˆ¼11
 	day	  = local->tm_mday;
 }
 
-//--- Dateªº«Øºc¤l¡]«ü©w¦nªº¦~¤ë¤é¡^---//
+//--- Dateçš„å»ºæ§‹å­ï¼ˆæŒ‡å®šå¥½çš„å¹´æœˆæ—¥ï¼‰---//
 Date::Date(int y, int m, int d)
 {
 	year  = y;
@@ -25,15 +25,15 @@ Date::Date(int y, int m, int d)
 	day	  = d;
 }
 
-//--- ¥H¦r¦ê¶Ç¦^ ---//
+//--- ä»¥å­—ä¸²å‚³å› ---//
 string Date::to_string() const
 {
 	ostringstream s;
-	s << year << "¦~" << month << "¤ë" << day << "¤é";
+	s << year << "å¹´" << month << "æœˆ" << day << "æ—¥";
 	return s.str();
 }
 
-//--- ¦b¿é¥X¦ê¬ys¤¤´¡¤Jx ---//
+//--- åœ¨è¼¸å‡ºä¸²æµsä¸­æ’å…¥x ---//
 ostream& operator<<(ostream& s, const Date& x)
 {
 	return s << x.to_string();

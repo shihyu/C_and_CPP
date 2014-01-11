@@ -1,15 +1,15 @@
-// °Ñ·Óª«¥ó
+// åƒç…§ç‰©ä»¶
 
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	double	   d = 1.0;		// d¬Odouble«¬ºA¡]­È¬°1.0¡^
-	const int& p = d;		// p°Ñ·Ódouble«¬ºA
-	const int& q = 5;		// q°Ñ·Ó±`¼Æ
+	double	   d = 1.0;		// dæ˜¯doubleå‹æ…‹ï¼ˆå€¼ç‚º1.0ï¼‰
+	const int& p = d;		// påƒç…§doubleå‹æ…‹
+	const int& q = 5;		// qåƒç…§å¸¸æ•¸
 
-	const_cast<int&>(p) = 3.14;	// 3.14ªº«ü©w¥Ø¼Ğ¬OintÁÙ¬Odouble
+	const_cast<int&>(p) = 3.14;	// 3.14çš„æŒ‡å®šç›®æ¨™æ˜¯inté‚„æ˜¯double
 
 	cout << "d = " << d << '\n';
 	cout << "p = " << p << '\n';

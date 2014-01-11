@@ -1,4 +1,4 @@
-// ©â¶H°ïÅ|Ãş§O
+// æŠ½è±¡å †ç–Šé¡åˆ¥
 
 #if !defined(___Class_Stack)
 #define ___Class_Stack
@@ -7,64 +7,64 @@
 #include <cstdlib>
 using namespace std;
 
-//===== ©â¶H°ïÅ|Ãş§O =====//
+//===== æŠ½è±¡å †ç–Šé¡åˆ¥ =====//
 template <class Type> class Stack {
 public:
-	class EmptyErr { };				          // ¨Ò¥~¡G°ïÅ|¬°ªÅªº
+	class EmptyErr { };				          // ä¾‹å¤–ï¼šå †ç–Šç‚ºç©ºçš„
 
-	virtual ~Stack() { }				      // µêÀÀ¸Ñºc¤l
-	virtual void Push(const Type) = 0;		  // ±À¤J
-	virtual Type Pop() = 0;				      // ¼u¥X
+	virtual ~Stack() { }				      // è™›æ“¬è§£æ§‹å­
+	virtual void Push(const Type) = 0;		  // æ¨å…¥
+	virtual Type Pop() = 0;				      // å½ˆå‡º
 };
 
-//===== ¦V¶qª©°ïÅ|Ãş§O =====//
+//===== å‘é‡ç‰ˆå †ç–Šé¡åˆ¥ =====//
 template <class Type> class VecStack : public Stack<Type> {
-	vector<Type> stk;				          // ¦V¶q
+	vector<Type> stk;				          // å‘é‡
 
-	VecStack(const VecStack&);			      // Åı½Æ»s«Øºc¤lµL®Ä¤Æ
-	VecStack& operator=(const VecStack&);	  // Åı«ü©w¹Bºâ¤lµL®Ä¤Æ
+	VecStack(const VecStack&);			      // è®“è¤‡è£½å»ºæ§‹å­ç„¡æ•ˆåŒ–
+	VecStack& operator=(const VecStack&);	  // è®“æŒ‡å®šé‹ç®—å­ç„¡æ•ˆåŒ–
 
 public:
-	VecStack() { }					// «Øºc¤l
+	VecStack() { }					// å»ºæ§‹å­
 
-	~VecStack() { }					// ¸Ñºc¤l
+	~VecStack() { }					// è§£æ§‹å­
 
-	void Push(const Type x) {			// ±À¤J
-		stk.push_back(x);				// ´¡¤J¨ì§Àºİ
+	void Push(const Type x) {			// æ¨å…¥
+		stk.push_back(x);				// æ’å…¥åˆ°å°¾ç«¯
 	}
 
-	Type Pop() {						// ¼u¥X
+	Type Pop() {						// å½ˆå‡º
 		if (stk.size() <= 0)
-			throw EmptyErr();			// °ïÅ|¬°ªÅªº
-		Type x = stk.back();			// ½Õ¬d§Àºİªº­È
-		stk.pop_back();					// §R°£§Àºİ¤¸¯À
+			throw EmptyErr();			// å †ç–Šç‚ºç©ºçš„
+		Type x = stk.back();			// èª¿æŸ¥å°¾ç«¯çš„å€¼
+		stk.pop_back();					// åˆªé™¤å°¾ç«¯å…ƒç´ 
 		return x;
 	}
 };
 
-//===== ½u§Î²M³æª©°ïÅ|Ãş§O =====//
+//===== ç·šå½¢æ¸…å–®ç‰ˆå †ç–Šé¡åˆ¥ =====//
 template <class Type> class ListStack : public Stack<Type> {
 
 	template <class Type> class Node {
 		friend class ListStack<Type>;
-		Type* data;		// ¸ê®Æ
-		Node* next;		// «áÄò«ü¼Ğ («ü¦V«áÄò¸`ÂIªº«ü¼Ğ)
+		Type* data;		// è³‡æ–™
+		Node* next;		// å¾ŒçºŒæŒ‡æ¨™ (æŒ‡å‘å¾ŒçºŒç¯€é»çš„æŒ‡æ¨™)
 	public:
 		Node(Type* d, Node* n) : data(d), next(n) { }
 	};
 
-	Node<Type>* top;				// «ü¦V«eºİ¸`ÂIªº«ü¼Ğ
-	Node<Type>* dummy;				// «ü¦V°²¸`ÂIªº«ü¼Ğ
+	Node<Type>* top;				// æŒ‡å‘å‰ç«¯ç¯€é»çš„æŒ‡æ¨™
+	Node<Type>* dummy;				// æŒ‡å‘å‡ç¯€é»çš„æŒ‡æ¨™
 
-	ListStack(const ListStack&);			// Åı½Æ»s«Øºc¤lµL®Ä¤Æ
-	ListStack& operator=(const ListStack&); // Åı«ü©w¹Bºâ¤lµL®Ä¤Æ
+	ListStack(const ListStack&);			// è®“è¤‡è£½å»ºæ§‹å­ç„¡æ•ˆåŒ–
+	ListStack& operator=(const ListStack&); // è®“æŒ‡å®šé‹ç®—å­ç„¡æ•ˆåŒ–
 
 public:
-	ListStack() {						// «Øºc¤l
+	ListStack() {						// å»ºæ§‹å­
 		top = dummy = new Node<Type>(NULL, NULL);
 	}
 
-	~ListStack() {						// ¸Ñºc¤l
+	~ListStack() {						// è§£æ§‹å­
 		Node<Type>* ptr = top;
 		while (ptr != dummy) {
 			Node<Type>* next = ptr->next;
@@ -75,14 +75,14 @@ public:
 		delete dummy;
 	}
 
-	void Push(const Type x) {		     // ±À¤J
+	void Push(const Type x) {		     // æ¨å…¥
 		Node<Type>* ptr = top;
 		top = new Node<Type>(new Type(x), ptr);
 	}
 
-	Type Pop() {						// ¼u¥X
+	Type Pop() {						// å½ˆå‡º
 		if (top == dummy)
-			throw EmptyErr();			// °ïÅ|¬°ªÅªº
+			throw EmptyErr();			// å †ç–Šç‚ºç©ºçš„
 		else {
 			Node<Type>* ptr = top->next;
 			Type temp = *(top->data);

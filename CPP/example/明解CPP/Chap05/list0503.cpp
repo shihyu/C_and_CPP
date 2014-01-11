@@ -1,9 +1,9 @@
-// ¨D¨ú¤T­Ó¾ã¼Æ­Èªº³Ì¤j­È (¨ç¼Æª©)
+// æ±‚å–ä¸‰å€‹æ•´æ•¸å€¼çš„æœ€å¤§å€¼ (å‡½æ•¸ç‰ˆ)
 
 #include <iostream>
 using namespace std;
 
-//---¶Ç¦^a, b, cªº³Ì¤j­È---//
+//---å‚³å›a, b, cçš„æœ€å¤§å€¼---//
 int max(int a, int b, int c)
 {
 	int max = a;
@@ -16,11 +16,11 @@ int main()
 {
 	int a, b, c;
 
-	cout << "¾ã¼Æa¡G";   cin >> a;
-	cout << "¾ã¼Æb¡G";   cin >> b;
-	cout << "¾ã¼Æc¡G";   cin >> c;
+	cout << "æ•´æ•¸aï¼š";   cin >> a;
+	cout << "æ•´æ•¸bï¼š";   cin >> b;
+	cout << "æ•´æ•¸cï¼š";   cin >> c;
 
-	cout << "³Ì¤j­È¬O" << max(a, b, c) << "¡C\n";
+	cout << "æœ€å¤§å€¼æ˜¯" << max(a, b, c) << "ã€‚\n";
 
 	return 0;
 }

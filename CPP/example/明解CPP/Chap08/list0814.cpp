@@ -1,4 +1,4 @@
-// ¦WºÙªÅ¶¡
+// åç¨±ç©ºé–“
 
 #include <iostream>
 using namespace std;
@@ -19,7 +19,7 @@ namespace Japanese {
 
 	void hello()
 	{
-		cout << "¦­¦w¡I\n";
+		cout << "æ—©å®‰ï¼\n";
 	}
 }
 

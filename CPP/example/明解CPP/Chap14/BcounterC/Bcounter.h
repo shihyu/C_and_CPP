@@ -1,4 +1,4 @@
-// °¸¼Æ°O¼ÆÃş§OBcounter
+// å¶æ•¸è¨˜æ•¸é¡åˆ¥Bcounter
 
 #if !defined(___Class_Bcounter)
 	#define	 ___Class_Bcounter
@@ -8,11 +8,11 @@
 class Bcounter : private Counter {
 
 public:
-	Bcounter() { }					// «Øºc¤l
+	Bcounter() { }					// å»ºæ§‹å­
 
-	Counter::Value;					// ¦s¨ú«Å§i
+	Counter::Value;					// å­˜å–å®£å‘Š
 
-	void Increment() {				// »¼¼W ¡K ­«·s©w¸q
+	void Increment() {				// éå¢ â€¦ é‡æ–°å®šç¾©
 		if (Value() < UINT_MAX - 1) {
 			Counter::Increment();
 			Counter::Increment();

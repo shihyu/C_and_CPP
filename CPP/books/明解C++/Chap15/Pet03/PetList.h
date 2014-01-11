@@ -1,4 +1,4 @@
-// Ä~©Óª©Ãdª«½u«¬²M³æÃş§OPetList¡]¤¶­±³¡¥÷¡^
+// ç¹¼æ‰¿ç‰ˆå¯µç‰©ç·šå‹æ¸…å–®é¡åˆ¥PetListï¼ˆä»‹é¢éƒ¨ä»½ï¼‰
 
 #if !defined(___Class_PetList)
 	#define	 ___Class_PetList
@@ -7,45 +7,45 @@
 #include "Pet.h"
 using namespace std;
 
-//===== Ãdª«¸`ÂIÃş§O =====//
+//===== å¯µç‰©ç¯€é»é¡åˆ¥ =====//
 class PetNode {
 	friend class PetList;
 
-	Pet*	 pet;			// ¸ê®Æ
-	PetNode* next;			// «áÄò«ü¼Ğ¡]«ü¦V«áÄò¸`ÂIªº«ü¼Ğ¡^
+	Pet*	 pet;			// è³‡æ–™
+	PetNode* next;			// å¾ŒçºŒæŒ‡æ¨™ï¼ˆæŒ‡å‘å¾ŒçºŒç¯€é»çš„æŒ‡æ¨™ï¼‰
 
 public:
-	PetNode(Pet* p, PetNode* n = NULL) : pet(p), next(n) { } // «Øºc¤l
-   ~PetNode()		{ delete pet; }		// ¸Ñºc¤l
+	PetNode(Pet* p, PetNode* n = NULL) : pet(p), next(n) { } // å»ºæ§‹å­
+   ~PetNode()		{ delete pet; }		// è§£æ§‹å­
 
-	PetNode* Next()	{ return next; }	// «áÄò¸`ÂI
-	operator Pet*()	{ return pet;  }	// Âà´«¨ç¼Æ
+	PetNode* Next()	{ return next; }	// å¾ŒçºŒç¯€é»
+	operator Pet*()	{ return pet;  }	// è½‰æ›å‡½æ•¸
 };
 
-//===== Ãdª«½u«¬²M³æÃş§O¡]PetNodeªºfriendÃş§O¡^ =====//
+//===== å¯µç‰©ç·šå‹æ¸…å–®é¡åˆ¥ï¼ˆPetNodeçš„friendé¡åˆ¥ï¼‰ =====//
 class PetList {
 	friend ostream& operator<<(ostream& s, const PetList& x);
 
-	PetNode* top;			// «ü¦V«eºİ¸`ÂIªº«ü¼Ğ
-	PetNode* dummy;			// «ü¦V°²¸`ÂIªº«ü¼Ğ
+	PetNode* top;			// æŒ‡å‘å‰ç«¯ç¯€é»çš„æŒ‡æ¨™
+	PetNode* dummy;			// æŒ‡å‘å‡ç¯€é»çš„æŒ‡æ¨™
 
-	PetList(const PetList&);			// Åı½Æ»s«Øºc¤lµL®Ä¤Æ
-	PetList& operator=(const PetList&);	// Åı«ü©w¹Bºâ¤lµL®Ä¤Æ
+	PetList(const PetList&);			// è®“è¤‡è£½å»ºæ§‹å­ç„¡æ•ˆåŒ–
+	PetList& operator=(const PetList&);	// è®“æŒ‡å®šé‹ç®—å­ç„¡æ•ˆåŒ–
 
 public:
-	PetList();					// «Øºc¤l
-                ~PetList();				// ¸Ñºc¤l
+	PetList();					// å»ºæ§‹å­
+                ~PetList();				// è§£æ§‹å­
 
-	PetNode* Top() { return (top == dummy) ? NULL : top; }	// «eºİ¸`ÂI
-	PetNode* Bottom();					// §Àºİ¸`ÂI
+	PetNode* Top() { return (top == dummy) ? NULL : top; }	// å‰ç«¯ç¯€é»
+	PetNode* Bottom();					// å°¾ç«¯ç¯€é»
 
-	PetList& AddFirst(Pet*);		// ±N¸`ÂI´¡¨ì«eºİ
-	PetList& AddLast(Pet*);			// ±N¸`ÂI´¡¨ì§Àºİ
-	PetList& RemoveFirst();			// §R°£«eºİ¸`ÂI
-	PetList& RemoveLast();			// §R°£§Àºİ¸`ÂI
-	PetList& Clear();				// §R°£©Ò¦³¸`ÂI
+	PetList& AddFirst(Pet*);		// å°‡ç¯€é»æ’åˆ°å‰ç«¯
+	PetList& AddLast(Pet*);			// å°‡ç¯€é»æ’åˆ°å°¾ç«¯
+	PetList& RemoveFirst();			// åˆªé™¤å‰ç«¯ç¯€é»
+	PetList& RemoveLast();			// åˆªé™¤å°¾ç«¯ç¯€é»
+	PetList& Clear();				// åˆªé™¤æ‰€æœ‰ç¯€é»
 
-	PetList& Introduce();			// ¦Û§Ú¤¶²Ğ
+	PetList& Introduce();			// è‡ªæˆ‘ä»‹ç´¹
 };
 
 ostream& operator<<(ostream&, const PetList&);

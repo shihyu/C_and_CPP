@@ -1,31 +1,31 @@
-// µêÀÀ°ò©³Ãş§O»P«DµêÀÀ°ò©³Ãş§Oªºªì©l¤Æ
+// è™›æ“¬åŸºåº•é¡åˆ¥èˆ‡éè™›æ“¬åŸºåº•é¡åˆ¥çš„åˆå§‹åŒ–
 
 #include <iostream>
 using namespace std;
 
 class V1 {
 public:
-	V1() { cout << "±NV1ªì©l¤Æ\n"; }
+	V1() { cout << "å°‡V1åˆå§‹åŒ–\n"; }
 };
 
 class V2 {
 public:
-	V2() { cout << "±NV2ªì©l¤Æ\n"; }
+	V2() { cout << "å°‡V2åˆå§‹åŒ–\n"; }
 };
 
 class X : public virtual V1, public virtual V2 {
 public:
-	X() { cout << "±N¢æªì©l¤Æ\n"; }
+	X() { cout << "å°‡ï¼¸åˆå§‹åŒ–\n"; }
 };
 
 class Y : public virtual V2, public virtual V1 {
 public:
-	Y() { cout << "±N¢çªì©l¤Æ\n"; }
+	Y() { cout << "å°‡ï¼¹åˆå§‹åŒ–\n"; }
 };
 
 class Z : public X, public Y {
 public:
-	Z() { cout << "±N¢èªì©l¤Æ\n"; }
+	Z() { cout << "å°‡ï¼ºåˆå§‹åŒ–\n"; }
 };
 
 int main()

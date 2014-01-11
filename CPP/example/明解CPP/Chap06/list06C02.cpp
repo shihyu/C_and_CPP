@@ -1,4 +1,4 @@
-// «ü¼Ğ ->¾ã¼Æªº«¬ºAÂà´«
+// æŒ‡æ¨™ ->æ•´æ•¸çš„å‹æ…‹è½‰æ›
 
 #include <iostream>
 using namespace std;
@@ -6,6 +6,6 @@ using namespace std;
 int main()
 {
 	int n;
-	cout << "nªº¦ì§}¡G" << hex << reinterpret_cast<unsigned long>(&n) << '\n';
+	cout << "nçš„ä½å€ï¼š" << hex << reinterpret_cast<unsigned long>(&n) << '\n';
 	return 0;
 }

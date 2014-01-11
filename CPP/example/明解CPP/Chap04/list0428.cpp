@@ -1,4 +1,4 @@
-// ±N¤G¦C¤T¦æªº¯x°}¬Û¥[
+// å°‡äºŒåˆ—ä¸‰è¡Œçš„çŸ©é™£ç›¸åŠ 
 
 #include <iomanip>
 #include <iostream>
@@ -14,21 +14,21 @@ int main()
 		for (int j = 0; j < 3; j++)
 			c[i][j] = a[i][j] + b[i][j];
 
-	cout << "¯x°}a\n";					// Åã¥Ü¯x°}aªº¤¸¯Àªº­È
+	cout << "çŸ©é™£a\n";					// é¡¯ç¤ºçŸ©é™£açš„å…ƒç´ çš„å€¼
 	for (int i = 0; i < 2; i++) {
 		for (int j = 0; j < 3; j++)
 			cout << setw(3) << a[i][j];
 		cout << '\n';
 	}
 
-	cout << "¯x°}b\n";					// Åã¥Ü¯x°}bªº¤¸¯Àªº­È
+	cout << "çŸ©é™£b\n";					// é¡¯ç¤ºçŸ©é™£bçš„å…ƒç´ çš„å€¼
 	for (int i = 0; i < 2; i++) {
 		for (int j = 0; j < 3; j++)
 			cout << setw(3) << b[i][j];
 		cout << '\n';
 	}
 
-	cout << "¯x°}c\n";					// Åã¥Ü¯x°}cªº¤¸¯Àªº­È
+	cout << "çŸ©é™£c\n";					// é¡¯ç¤ºçŸ©é™£cçš„å…ƒç´ çš„å€¼
 	for (int i = 0; i < 2; i++) {
 		for (int j = 0; j < 3; j++)
 			cout << setw(3) << c[i][j];

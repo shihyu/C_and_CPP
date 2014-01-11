@@ -1,4 +1,4 @@
-// °¸¼Æ¼W¥[¦¸¼ÆÃş§OBcounterªº¨Ï¥Î½d¨Ò
+// å¶æ•¸å¢åŠ æ¬¡æ•¸é¡åˆ¥Bcounterçš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Bcounter.h"
@@ -9,7 +9,7 @@ int main()
 	int n;
 	Bcounter cnt;
 
-	cout << "¼W¥[¤F¦h¤Ö¦¸©O¡G";
+	cout << "å¢åŠ äº†å¤šå°‘æ¬¡å‘¢ï¼š";
 	cin >> n;
 	for (int i = 0; i < n; i++) {
 		cnt.Increment();

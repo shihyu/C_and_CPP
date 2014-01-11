@@ -1,4 +1,4 @@
-// °O¼ÆÃş§OCounter (²Ä2ª©)
+// è¨˜æ•¸é¡åˆ¥Counter (ç¬¬2ç‰ˆ)
 
 #if !defined(___Class_Counter)
 	#define  ___Class_Counter
@@ -6,34 +6,34 @@
 #include <climits>
 using namespace std;
 
-//===== °O¼ÆÃş§O =====//
+//===== è¨˜æ•¸é¡åˆ¥ =====//
 class Counter {
-	unsigned cnt;					// °O¼Æ
+	unsigned cnt;					// è¨˜æ•¸
 
 public:
-	Counter() : cnt(0) { }				// «Øºc¤l
+	Counter() : cnt(0) { }				// å»ºæ§‹å­
 
-	operator unsigned() { return cnt; }		// Âà´«¨ç¼Æ unsigned(op)
+	operator unsigned() { return cnt; }		// è½‰æ›å‡½æ•¸ unsigned(op)
 
-	bool operator!() { return cnt == 0; }	// ÅŞ¿è§_©w¹Bºâ¤l !op
+	bool operator!() { return cnt == 0; }	// é‚è¼¯å¦å®šé‹ç®—å­ !op
 
-	Counter& operator++() {				// «e¸m»¼¼W¹Bºâ¤l ++op
+	Counter& operator++() {				// å‰ç½®éå¢é‹ç®—å­ ++op
 		if (cnt < UINT_MAX) cnt++;
 		return *this;
 	}
 
-	Counter operator++(int) {			// «á¸m»¼¼W¹Bºâ¤l op++
+	Counter operator++(int) {			// å¾Œç½®éå¢é‹ç®—å­ op++
 		Counter x = *this;
 		if (cnt < UINT_MAX) cnt++;
 		return x;
 	}
 
-	Counter& operator--() {				// «e¸m»¼´î¹Bºâ¤l --op
+	Counter& operator--() {				// å‰ç½®éæ¸›é‹ç®—å­ --op
 		if (cnt > 0) cnt--;
 		return *this;
 	}
 
-	Counter operator--(int) {			// «á¸m»¼´î¹Bºâ¤l op--
+	Counter operator--(int) {			// å¾Œç½®éæ¸›é‹ç®—å­ op--
 		Counter x = *this;
 		if (cnt > 0) cnt--;
 		return x;

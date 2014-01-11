@@ -1,22 +1,22 @@
-// ¨Ï¥Îdynamic_cast¹Bºâ¤l¨Ó¦V¤UÂà«¬ªº½d¨Ò
+// ä½¿ç”¨dynamic_casté‹ç®—å­ä¾†å‘ä¸‹è½‰å‹çš„ç¯„ä¾‹
 
 #include <iostream>
 #include "Pet.h"
 using namespace std;
 
-//--- ¥uÅı¤pª¯§@¦Û§Ú¤¶²Ğ ---//
+//--- åªè®“å°ç‹—ä½œè‡ªæˆ‘ä»‹ç´¹ ---//
 void dog_intro(Pet* p)
 {
 	Pdog* d = dynamic_cast<Pdog*>(p);
 
-	if (d)				// ¥u¦bÂà«¬¦¨¥\ªº®É­Ô
-		d->Sintro();		// ¦Û§Ú¤¶²Ğ
+	if (d)				// åªåœ¨è½‰å‹æˆåŠŸçš„æ™‚å€™
+		d->Sintro();		// è‡ªæˆ‘ä»‹ç´¹
 }
 
 int main()
 {
-	Pet* p1 = new Pdog("Spank", "®ã¤ü");			// ª¯
-	Pet* p2 = new Pcat("Michael");			// ¿ß
+	Pet* p1 = new Pdog("Spank", "æŸ´çŠ¬");			// ç‹—
+	Pet* p2 = new Pcat("Michael");			// è²“
 
 	dog_intro(p1);
 	dog_intro(p2);

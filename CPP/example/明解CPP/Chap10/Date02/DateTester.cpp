@@ -1,4 +1,4 @@
-// ¤é´ÁÃþ§ODate¡]²Ä2ª©¡^ªº¨Ï¥Î½d¨Ò
+// æ—¥æœŸé¡žåˆ¥Dateï¼ˆç¬¬2ç‰ˆï¼‰çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Date.h"
@@ -6,12 +6,12 @@ using namespace std;
 
 int main()
 {
-	Date today;							// ¤µ¤Ñªº¤é´Á
-	Date birthday(1963, 11, 18);		// ¥Í¤é
-	Date day[3];						// °}¦C¡]¤µ¤Ñªº¤é´Á¡^
+	Date today;							// ä»Šå¤©çš„æ—¥æœŸ
+	Date birthday(1963, 11, 18);		// ç”Ÿæ—¥
+	Date day[3];						// é™£åˆ—ï¼ˆä»Šå¤©çš„æ—¥æœŸï¼‰
 
 	cout << "today   = " << today << '\n';
-	cout << "todayªº¦r¦êÅã¥Ü¡G\"" << today.to_string() << "\"\n"; 
+	cout << "todayçš„å­—ä¸²é¡¯ç¤ºï¼š\"" << today.to_string() << "\"\n"; 
 	cout << "birthday = " << birthday << '\n';
 	for (int i = 0; i < 3; i++)
 		cout << "day[" << i << "] = " << day[i] << '\n';

@@ -1,10 +1,10 @@
-// ¦~¸¹ª©¤é´ÁÃþ§ODate¡]¹ê§@³¡¤À)¡^
+// å¹´è™Ÿç‰ˆæ—¥æœŸé¡žåˆ¥Dateï¼ˆå¯¦ä½œéƒ¨åˆ†)ï¼‰
 
 #include <sstream>
 #include "GenDate.h"
 using namespace std;
 
-//--- ¥H¦r¦ê¶Ç¦^ ---//
+//--- ä»¥å­—ä¸²å‚³å›ž ---//
 string GenDate::to_string() const
 {
 	unsigned long idate = year * 10000UL + month * 100UL + day;
@@ -13,19 +13,19 @@ string GenDate::to_string() const
 	if (idate < 18680908UL)
 		s << year;
 	else if (idate < 19120730UL)
-		s << "©úªv" << (year - 1867);
+		s << "æ˜Žæ²»" << (year - 1867);
 	else if (idate < 19261225UL)
-		s << "¤j¥¿" << (year - 1911);
+		s << "å¤§æ­£" << (year - 1911);
 	else if (idate < 19890108UL)
-		s << "¬L©M" << (year - 1925);
+		s << "æ˜­å’Œ" << (year - 1925);
 	else
-		s << "¥­¦¨" << (year - 1988);
-	s << "¦~" << month << "¤ë" << day << "¤é";
+		s << "å¹³æˆ" << (year - 1988);
+	s << "å¹´" << month << "æœˆ" << day << "æ—¥";
 
 	return s.str();
 }
 
-//--- ´¡¤J¨ìostream ---//
+//--- æ’å…¥åˆ°ostream ---//
 ostream& operator<<(ostream& s, const GenDate& x)
 {
 	return s << x.to_string();

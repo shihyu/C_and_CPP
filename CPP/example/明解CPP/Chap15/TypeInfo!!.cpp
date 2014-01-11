@@ -1,4 +1,4 @@
-// type_infoÃş§Oªº©w¸q½d¨Ò
+// type_infoé¡åˆ¥çš„å®šç¾©ç¯„ä¾‹
 
 class type_info {
 public:
@@ -9,6 +9,6 @@ public:
 	const char* name() const;
 
 private:
-	type_info(const type_info&);		// Åı½Æ»s«Øºc¤lµL®Ä¤Æ
-	type_info& operator=(const type_info&);	// Åı«ü©w¹Bºâ¤lµL®Ä¤Æ
+	type_info(const type_info&);		// è®“è¤‡è£½å»ºæ§‹å­ç„¡æ•ˆåŒ–
+	type_info& operator=(const type_info&);	// è®“æŒ‡å®šé‹ç®—å­ç„¡æ•ˆåŒ–
 };

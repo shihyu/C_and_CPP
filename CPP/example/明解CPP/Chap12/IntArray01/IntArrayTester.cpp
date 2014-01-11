@@ -1,4 +1,4 @@
-// ¾ã¼Æ°}¦CÃþ§OIntArray¡]²Ä¢°ª©¡^ªº¨Ï¥Î½d¨Ò
+// æ•´æ•¸é™£åˆ—é¡žåˆ¥IntArrayï¼ˆç¬¬ï¼‘ç‰ˆï¼‰çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "IntArray.h"
@@ -8,15 +8,15 @@ int main()
 {
 	int n;
 
-	cout << "½Ð¿é¤J¤¸¯À¼Æ¡G";
+	cout << "è«‹è¼¸å…¥å…ƒç´ æ•¸ï¼š";
 	cin >> n;
 
-	IntArray x(n);	// ¤¸¯À¼Æ¬°nªº°}¦C
+	IntArray x(n);	// å…ƒç´ æ•¸ç‚ºnçš„é™£åˆ—
 
-	for (int i = 0; i < x.Size(); i++)			// ±N­È«ü©wµ¹¦U¤¸¯À
+	for (int i = 0; i < x.Size(); i++)			// å°‡å€¼æŒ‡å®šçµ¦å„å…ƒç´ 
 		x[i] = i;
 
-	for (int i = 0; i < x.Size(); i++)			// Åã¥Ü¦U¤¸¯Àªº­È
+	for (int i = 0; i < x.Size(); i++)			// é¡¯ç¤ºå„å…ƒç´ çš„å€¼
 		cout << "x[" << i << "] = " << x[i] << '\n';
 
 	return 0;

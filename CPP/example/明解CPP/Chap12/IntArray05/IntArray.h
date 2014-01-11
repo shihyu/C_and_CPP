@@ -1,18 +1,18 @@
-// ¾ã¼Æ°}¦CÃş§OIntArray¡]²Ä5ª©¡G¤¶­±³¡¤À¡^
+// æ•´æ•¸é™£åˆ—é¡åˆ¥IntArrayï¼ˆç¬¬5ç‰ˆï¼šä»‹é¢éƒ¨åˆ†ï¼‰
 
 #if !defined(___Class_IntArray)
 	#define  ___Class_IntArray
 
 class IntArray {
-	static int counter;			// ³o­ÓÃş§O«¬ºAªºª«¥ó¤@¦@¦s¦b´X­Ó©O
-	static void CountUp();		// ¼W¥[¦¸¼Æ
-	static void CountDown();	// ´î¤Ö¦¸¼Æ
+	static int counter;			// é€™å€‹é¡åˆ¥å‹æ…‹çš„ç‰©ä»¶ä¸€å…±å­˜åœ¨å¹¾å€‹å‘¢
+	static void CountUp();		// å¢åŠ æ¬¡æ•¸
+	static void CountDown();	// æ¸›å°‘æ¬¡æ•¸
 
-	int size;			// °}¦Cªº¤¸¯À¼Æ
-	int* vec;			// «ü¦V¶}ÀY¤¸¯Àªº«ü¼Ğ
+	int size;			// é™£åˆ—çš„å…ƒç´ æ•¸
+	int* vec;			// æŒ‡å‘é–‹é ­å…ƒç´ çš„æŒ‡æ¨™
 
 public:
-	//----- ¯Á¤Ş½d³ò¿ù»~ -----//
+	//----- ç´¢å¼•ç¯„åœéŒ¯èª¤ -----//
 	class IdxRngErr {
 		IntArray* ident;
 		int	index;
@@ -21,19 +21,19 @@ public:
 		int Index() { return index; }
 	};
 
-	static int GetCount();			            // ¶Ç¦^¦¸¼Æ
+	static int GetCount();			            // å‚³å›æ¬¡æ•¸
 
-	// ©ú½Tªº«Øºc¤l
+	// æ˜ç¢ºçš„å»ºæ§‹å­
 	explicit IntArray(int sz) : size(sz) { vec = new int[size]; CountUp(); }
-	IntArray(const IntArray& x);				// ½Æ»s«Øºc¤l
-   ~IntArray() { delete[] vec;  CountDown(); }  // ¸Ñºc¤l
+	IntArray(const IntArray& x);				// è¤‡è£½å»ºæ§‹å­
+   ~IntArray() { delete[] vec;  CountDown(); }  // è§£æ§‹å­
 
-	int Size() { return size; }					// ¶Ç¦^¤¸¯À¼Æ
-	IntArray& operator=(const IntArray& x);		// «ü©w¹Bºâ¤l
+	int Size() { return size; }					// å‚³å›å…ƒç´ æ•¸
+	IntArray& operator=(const IntArray& x);		// æŒ‡å®šé‹ç®—å­
 
-	int& operator[](int i) {					// ¯Á¤Ş¹Bºâ¤l
+	int& operator[](int i) {					// ç´¢å¼•é‹ç®—å­
 		if (i < 0 || i >= size)
-			throw IdxRngErr(this, i);			// °e¥X¯Á¤Ş½d³òªº¿ù»~
+			throw IdxRngErr(this, i);			// é€å‡ºç´¢å¼•ç¯„åœçš„éŒ¯èª¤
 		return vec[i];
 	}
 };

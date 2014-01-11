@@ -1,20 +1,20 @@
-// ²q¼Æ¦r¹CÀ¸ (²Ä1ª©¡G¥D­n³¡¥÷)
+// çŒœæ•¸å­—éŠæˆ² (ç¬¬1ç‰ˆï¼šä¸»è¦éƒ¨ä»½)
 
 #include <iostream>
 using namespace std;
 
-void initialize();	                             		// [ªì©l¤Æ]  °ò©ó²{¦b®É¶¡¨Ó³]©w¶Ã¼ÆªººØ
-void gen_no();				// [»s§@°İÃD]  ¥H¶Ã¼Æ²£¥Í0 ~ max_no ªº­È
-int judge(int cand);		                                // [§PÂ_µª®×]  §PÂ_cand ¬O§_¬°¥¿½Tµª®×
-int input();				// [¿é¤Jµª®×]  Åıª±®a¿é¤Jmax_no ªº­È
-bool confirm_retry();	                   	// [½T»{¬O§_Ä~Äò]  ½T»{¬O§_¦A¦¸¶i¦æ¹CÀ¸
+void initialize();	                             		// [åˆå§‹åŒ–]  åŸºæ–¼ç¾åœ¨æ™‚é–“ä¾†è¨­å®šäº‚æ•¸çš„ç¨®
+void gen_no();				// [è£½ä½œå•é¡Œ]  ä»¥äº‚æ•¸ç”¢ç”Ÿ0 ~ max_no çš„å€¼
+int judge(int cand);		                                // [åˆ¤æ–·ç­”æ¡ˆ]  åˆ¤æ–·cand æ˜¯å¦ç‚ºæ­£ç¢ºç­”æ¡ˆ
+int input();				// [è¼¸å…¥ç­”æ¡ˆ]  è®“ç©å®¶è¼¸å…¥max_no çš„å€¼
+bool confirm_retry();	                   	// [ç¢ºèªæ˜¯å¦ç¹¼çºŒ]  ç¢ºèªæ˜¯å¦å†æ¬¡é€²è¡ŒéŠæˆ²
 
-int max_no = 9;				// µª®×ªº³Ì¤j­È
+int max_no = 9;				// ç­”æ¡ˆçš„æœ€å¤§å€¼
 
 int main()
 {
 	initialize();
-	cout << "²q¼Æ¦r¹CÀ¸¶}©l¡I\n";
+	cout << "çŒœæ•¸å­—éŠæˆ²é–‹å§‹ï¼\n";
 
 	do {
 		gen_no();
@@ -22,11 +22,11 @@ int main()
 		do {
 			hantei = judge(input());
 			if (hantei > 0)
-				cout << "\aÁÙ­n§ó¤p¼Ú¡C\n";
+				cout << "\aé‚„è¦æ›´å°æ­ã€‚\n";
 			else if (hantei < 0)
-				cout << "\aÁÙ­n§ó¤j¼Ú¡C\n";
+				cout << "\aé‚„è¦æ›´å¤§æ­ã€‚\n";
 		} while (hantei != 0);
-		cout << "¥¿½Tµª®×¡C\n";
+		cout << "æ­£ç¢ºç­”æ¡ˆã€‚\n";
 	} while (confirm_retry());
 
 	return 0;

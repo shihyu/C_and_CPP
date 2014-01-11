@@ -1,9 +1,9 @@
-// ±N°}¦Cªº¤¸¯À°f¦V±Æ¦C
+// å°‡é™£åˆ—çš„å…ƒç´ é€†å‘æ’åˆ—
 
 #include <iostream>
 using namespace std;
 
-//--- ±N¤¸¯À¼Æ¬°nªº°}¦Ca°f¦V±Æ¦C ---//
+//--- å°‡å…ƒç´ æ•¸ç‚ºnçš„é™£åˆ—aé€†å‘æ’åˆ— ---//
 void reverse(int a[], int n)
 {
 	for (int i = 0; i < n /2; i++) {
@@ -18,14 +18,14 @@ int main()
 	const int n = 5;
 	int c[n];
 
-	for (int i = 0; i < n; i++) {		// Åª¤J¨ì°}¦Cc
+	for (int i = 0; i < n; i++) {		// è®€å…¥åˆ°é™£åˆ—c
 		cout << "c[" << i << "] : ";
 		cin >> c[i];
 	}
-	reverse(c, n);					// ±N°}¦Cc°f¦V±Æ¦C
+	reverse(c, n);					// å°‡é™£åˆ—cé€†å‘æ’åˆ—
 
-	cout << "±N¤¸¯À°f¦V±Æ¦C¡C\n";
-	for (int i = 0; i < n; i++)			// Åã¥Ü°}¦Cc
+	cout << "å°‡å…ƒç´ é€†å‘æ’åˆ—ã€‚\n";
+	for (int i = 0; i < n; i++)			// é¡¯ç¤ºé™£åˆ—c
 		cout << "c[" << i << "] = " << c[i] << '\n';
 
 	return 0;

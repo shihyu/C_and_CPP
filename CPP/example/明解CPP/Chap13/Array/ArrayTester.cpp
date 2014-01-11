@@ -1,4 +1,4 @@
-// °}¦CÃþ§O½d¥»Arrayªº¨Ï¥Î½d¨Ò
+// é™£åˆ—é¡žåˆ¥ç¯„æœ¬Arrayçš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <new>
 #include <iomanip>
@@ -10,10 +10,10 @@ int main()
 {
 	try {
 		int no;
-		Array<int>	  x(5);		// ¤¸¯À«¬ºA¬°int¥B¤¸¯À¼Æ¬°5
-		Array<double> y(8);		// ¤¸¯À«¬ºA¬°double¥B¤¸¯À¼Æ¬°8
+		Array<int>	  x(5);		// å…ƒç´ åž‹æ…‹ç‚ºintä¸”å…ƒç´ æ•¸ç‚º5
+		Array<double> y(8);		// å…ƒç´ åž‹æ…‹ç‚ºdoubleä¸”å…ƒç´ æ•¸ç‚º8
 
-		cout << "¸ê®Æ¼Æ¡G";
+		cout << "è³‡æ–™æ•¸ï¼š";
 		cin >> no;
 
 		for (int i = 0; i < no; i++) {
@@ -24,15 +24,15 @@ int main()
 		}
 	}
 	catch (bad_alloc) {
-		cout << "°O¾ÐÅéªº½T«O¥¢±Ñ¤F¡C\n";
-		return 1;					         // ±j¨îµ²§ô
+		cout << "è¨˜æ†¶é«”çš„ç¢ºä¿å¤±æ•—äº†ã€‚\n";
+		return 1;					         // å¼·åˆ¶çµæŸ
 	}
 	catch (Array<int>::IdxRngErr x) {
-		cout << "¯Á¤Þ·¸¦ì Array<int>¡G" << x.Index() << '\n';
+		cout << "ç´¢å¼•æº¢ä½ Array<int>ï¼š" << x.Index() << '\n';
 		return 1;
 	}
 	catch (Array<double>::IdxRngErr x) {
-		cout << "¯Á¤Þ·¸¦ì Array<double>¡G" << x.Index() << '\n';
+		cout << "ç´¢å¼•æº¢ä½ Array<double>ï¼š" << x.Index() << '\n';
 		return 1;
 	}
 

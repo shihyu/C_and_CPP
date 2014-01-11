@@ -1,4 +1,4 @@
-// «ü¼Ğªº°ò¥» (¦ì§}¹Bºâ¤l©M¶¡±µ°Ñ·Ó¹Bºâ¤l)
+// æŒ‡æ¨™çš„åŸºæœ¬ (ä½å€é‹ç®—å­å’Œé–“æ¥åƒç…§é‹ç®—å­)
 
 #include <iostream>
 using namespace std;
@@ -6,12 +6,12 @@ using namespace std;
 int main()
 {
 	int x = 135;
-	cout << "x   ¡G" <<  x << '\n';
-	cout << "&x  ¡G" << &x << "¦ì§}\n";
+	cout << "x   ï¼š" <<  x << '\n';
+	cout << "&x  ï¼š" << &x << "ä½å€\n";
 
-	int* ptr = &x;		// ptr«ü¦Vx
-	cout << "ptr ¡G" <<	 ptr << "¦ì§}\n";
-	cout << "*ptr¡G" << *ptr << '\n';
+	int* ptr = &x;		// ptræŒ‡å‘x
+	cout << "ptr ï¼š" <<	 ptr << "ä½å€\n";
+	cout << "*ptrï¼š" << *ptr << '\n';
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-// ¤é´ÁÃþ§ODate¡]²Ä¢°ª©¡^ªº¨Ï¥Î½d¨Ò
+// æ—¥æœŸé¡žåˆ¥Dateï¼ˆç¬¬ï¼‘ç‰ˆï¼‰çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Date.h"
@@ -6,11 +6,11 @@ using namespace std;
 
 int main()
 {
-	Date birthday(1963, 11, 18);		// ¥Í¤é
+	Date birthday(1963, 11, 18);		// ç”Ÿæ—¥
 
-	cout << "birthday = " << birthday.Year()  << "¦~"
-						  << birthday.Month() << "¤ë"
-						  << birthday.Day()	  << "¤é\n";
+	cout << "birthday = " << birthday.Year()  << "å¹´"
+						  << birthday.Month() << "æœˆ"
+						  << birthday.Day()	  << "æ—¥\n";
 
 	return 0;
 }

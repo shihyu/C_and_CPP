@@ -1,4 +1,4 @@
-//  »È¦æ±b¤áÃş§O (²Ä2ª©)
+//  éŠ€è¡Œå¸³æˆ¶é¡åˆ¥ (ç¬¬2ç‰ˆ)
 
 #include <string>
 #include <iostream>
@@ -6,51 +6,51 @@ using namespace std;
 
 class Account {
 private:
-	string name;			// ±b¤á¦W
-	string no;				// ±b¸¹
-	long balance;			// ¦s´Ú¾lÃB
+	string name;			// å¸³æˆ¶å
+	string no;				// å¸³è™Ÿ
+	long balance;			// å­˜æ¬¾é¤˜é¡
 
 public:
-	Account(string n, string num, long z) {		// «Øºc¤l
-		name = n;			// ±b¤á¦W
-		no = num;			// ±b¸¹
-		balance = z;		// ¦s´Ú¾lÃB
+	Account(string n, string num, long z) {		// å»ºæ§‹å­
+		name = n;			// å¸³æˆ¶å
+		no = num;			// å¸³è™Ÿ
+		balance = z;		// å­˜æ¬¾é¤˜é¡
 	}
 
-	string GetName() {			// ¬d¸ß±b¤á¦W
+	string GetName() {			// æŸ¥è©¢å¸³æˆ¶å
 		return name;
 	}
 
-	string GetNo() {			// ¬d¸ß±b¸¹
+	string GetNo() {			// æŸ¥è©¢å¸³è™Ÿ
 		return no;
 	}
 
-	long CheckBalance() {		// ¬d¸ß¦s´Ú¾lÃB
+	long CheckBalance() {		// æŸ¥è©¢å­˜æ¬¾é¤˜é¡
 		return balance;
 	}
 
-	void Deposit(long k) {		// ¦s´Ú
+	void Deposit(long k) {		// å­˜æ¬¾
 		balance += k;
 	}
 
-	void Withdraw(long k) {		// ´£´Ú
+	void Withdraw(long k) {		// ææ¬¾
 		balance -= k;
 	}
 };
 
 int main()
 {
-	Account adachi("¨¬¥ß©¯¤@", "12345678", 1000);		// ¨¬¥ß¥ı¥Íªº±b¤á
-	Account nakata("¥ò¥Ğ¯u¤G", "87654321",  200);		// ¥ò¥Ğ¥ı¥Íªº±b¤á
+	Account adachi("è¶³ç«‹å¹¸ä¸€", "12345678", 1000);		// è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶
+	Account nakata("ä»²ç”°çœŸäºŒ", "87654321",  200);		// ä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶
 
-	adachi.Withdraw(200);			// ¨¬¥ß¥ı¥Í»â¤F200¤¸
-	nakata.Deposit(100);			// ¥ò¥Ğ¥ı¥Í¦s¤F100¤¸
+	adachi.Withdraw(200);			// è¶³ç«‹å…ˆç”Ÿé ˜äº†200å…ƒ
+	nakata.Deposit(100);			// ä»²ç”°å…ˆç”Ÿå­˜äº†100å…ƒ
 
-	cout << "¡½¨¬¥ß¥ı¥Íªº±b¤á¡G\"" << adachi.GetName() << "\" ("
-		 << adachi.GetNo() << ") " << adachi.CheckBalance() << "¤¸\n";
+	cout << "â– è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶ï¼š\"" << adachi.GetName() << "\" ("
+		 << adachi.GetNo() << ") " << adachi.CheckBalance() << "å…ƒ\n";
 
-	cout << "¡½¥ò¥Ğ¥ı¥Íªº±b¤á¡G\"" << nakata.GetName() << "\" ("
-		 << nakata.GetNo() << ") " << nakata.CheckBalance() << "¤¸\n";
+	cout << "â– ä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶ï¼š\"" << nakata.GetName() << "\" ("
+		 << nakata.GetNo() << ") " << nakata.CheckBalance() << "å…ƒ\n";
 
 	return 0;
 }

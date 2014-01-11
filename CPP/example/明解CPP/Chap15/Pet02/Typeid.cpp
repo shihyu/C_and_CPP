@@ -1,4 +1,4 @@
-// Åã¥Ü«ü¦V°ò©³Ãş§O¤§«ü¼Ğ©Ò«üªºª«¥ó¤§«¬ºA
+// é¡¯ç¤ºæŒ‡å‘åŸºåº•é¡åˆ¥ä¹‹æŒ‡æ¨™æ‰€æŒ‡çš„ç‰©ä»¶ä¹‹å‹æ…‹
 
 #include <iostream>
 #include <typeinfo>
@@ -7,19 +7,19 @@ using namespace std;
 
 int main()
 {
-	Pdog d;			// ª¯
-	Pcat c;			// ¿ß
-	Pmonkey m;		// µU
-	Pet* p;			// «ü¦V°Êª«Ãş§O¡]°ò©³Ãş§O¡^ªº«ü¼Ğ
+	Pdog d;			// ç‹—
+	Pcat c;			// è²“
+	Pmonkey m;		// çŒ´
+	Pet* p;			// æŒ‡å‘å‹•ç‰©é¡åˆ¥ï¼ˆåŸºåº•é¡åˆ¥ï¼‰çš„æŒ‡æ¨™
 
 	p = &d;
-	cout << "p©Ò«üªº¬O" << typeid(*p).name() << "«¬ºAªºª«¥ó¡C\n";
+	cout << "pæ‰€æŒ‡çš„æ˜¯" << typeid(*p).name() << "å‹æ…‹çš„ç‰©ä»¶ã€‚\n";
 
 	p = &c;
-	cout << "p©Ò«üªº¬O" << typeid(*p).name() << "«¬ºAªºª«¥ó¡C\n";
+	cout << "pæ‰€æŒ‡çš„æ˜¯" << typeid(*p).name() << "å‹æ…‹çš„ç‰©ä»¶ã€‚\n";
 
 	p = &m;
-	cout << "p©Ò«üªº¬O" << typeid(*p).name() << "«¬ºAªºª«¥ó¡C\n";
+	cout << "pæ‰€æŒ‡çš„æ˜¯" << typeid(*p).name() << "å‹æ…‹çš„ç‰©ä»¶ã€‚\n";
 
 	return 0;
 }

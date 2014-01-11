@@ -1,21 +1,21 @@
-// ¾ã¼Æ°}¦CÃş§OIntArray¡]²Ä3ª©¡G¤¶­±³¡¤À¡^
+// æ•´æ•¸é™£åˆ—é¡åˆ¥IntArrayï¼ˆç¬¬3ç‰ˆï¼šä»‹é¢éƒ¨åˆ†ï¼‰
 
 #if !defined(___Class_IntArray)
 #define ___Class_IntArray
 
-//===== ¾ã¼Æ°}¦CÃş§O ======//
+//===== æ•´æ•¸é™£åˆ—é¡åˆ¥ ======//
 class IntArray {
-	int	size;		// °}¦Cªº¤¸¯À¼Æ
-	int* vec;		                // «ü¦V¶}ÀY¤¸¯Àªº«ü¼Ğ
+	int	size;		// é™£åˆ—çš„å…ƒç´ æ•¸
+	int* vec;		                // æŒ‡å‘é–‹é ­å…ƒç´ çš„æŒ‡æ¨™
 
 public:
-	// ©ú½Tªº«Øºc¤l
+	// æ˜ç¢ºçš„å»ºæ§‹å­
 	explicit IntArray(int sz) : size(sz) { vec = new int[size]; }
-	IntArray(const IntArray& x);					// ½Æ»s«Øºc¤l
-   ~IntArray() { delete[] vec; }					// ¸Ñºc¤l
-	int Size() { return size; }						// ¶Ç¦^¤¸¯À¼Æ
-	IntArray& operator=(const IntArray& x);			// «ü©w¹Bºâ¤l=
-	int& operator[](int i) { return vec[i]; }		// ¯Á¤Ş¹Bºâ¤l[]
+	IntArray(const IntArray& x);					// è¤‡è£½å»ºæ§‹å­
+   ~IntArray() { delete[] vec; }					// è§£æ§‹å­
+	int Size() { return size; }						// å‚³å›å…ƒç´ æ•¸
+	IntArray& operator=(const IntArray& x);			// æŒ‡å®šé‹ç®—å­=
+	int& operator[](int i) { return vec[i]; }		// ç´¢å¼•é‹ç®—å­[]
 };
 
 #endif

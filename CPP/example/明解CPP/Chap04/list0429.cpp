@@ -1,4 +1,4 @@
-// Åã¥Ü©Ò¿ï¾Ü¤§°Êª«ªº¥sÁn
+// é¡¯ç¤ºæ‰€é¸æ“‡ä¹‹å‹•ç‰©çš„å«è²
 
 #include <iostream>
 using namespace std;
@@ -9,16 +9,16 @@ int main()
 
 	int type;
 	do {
-		cout << "0¡Kª¯ 1¡K¿ß 2¡KµU 3¡Kµ²§ô¡G";
+		cout << "0â€¦ç‹— 1â€¦è²“ 2â€¦çŒ´ 3â€¦çµæŸï¼š";
 		cin >> type;
 	} while (type < Dog	|| type > Invalid);
 
 	if (type != Invalid) {
 		animal selected = animal(type);
 		switch (selected) {
-		 case Dog	 : cout << "¨L¨L!!\n";	break;
-		 case Cat	 : cout << "ØpØp!!\n";	break;
-		 case Monkey : cout << "§s§s!!\n";	break;
+		 case Dog	 : cout << "æ±ªæ±ª!!\n";	break;
+		 case Cat	 : cout << "å–µå–µ!!\n";	break;
+		 case Monkey : cout << "å±å±!!\n";	break;
 		}
 	}
 

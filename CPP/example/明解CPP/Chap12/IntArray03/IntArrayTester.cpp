@@ -1,4 +1,4 @@
-// ¾ã¼Æ°}¦CÃþ§OIntArray¡]²Ä3ª©¡^ªº¨Ï¥Î½d¨Ò
+// æ•´æ•¸é™£åˆ—é¡žåˆ¥IntArrayï¼ˆç¬¬3ç‰ˆï¼‰çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iomanip>
 #include <iostream>
@@ -8,19 +8,19 @@ using namespace std;
 int main()
 {
 	int n;
-	cout << "aªº¤¸¯À¼Æ¡G";
+	cout << "açš„å…ƒç´ æ•¸ï¼š";
 	cin >> n;
 
-	IntArray a(n);				// ¤¸¯À¼Æ¬°n­Ó
+	IntArray a(n);				// å…ƒç´ æ•¸ç‚ºnå€‹
 	for (int i = 0; i < a.Size(); i++)
 		a[i] = i;
 
 	IntArray b(1000);
-	cout << "bªº¤¸¯À¼Æ±q" << b.Size();
-	b = a;						// «ü©w
-	cout << "ÅÜ¦¨" << b.Size() << "¤F¡C\n";
+	cout << "bçš„å…ƒç´ æ•¸å¾ž" << b.Size();
+	b = a;						// æŒ‡å®š
+	cout << "è®Šæˆ" << b.Size() << "äº†ã€‚\n";
 
-	IntArray c = b;				// ªì©l¤Æ
+	IntArray c = b;				// åˆå§‹åŒ–
 
 	cout << "    a    b    c\n";
 	cout << "---------------\n";

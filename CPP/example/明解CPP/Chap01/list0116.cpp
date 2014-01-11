@@ -1,4 +1,4 @@
-// ¦r¦êªºªì©l¤Æ©M«ü©w
+// å­—ä¸²çš„åˆå§‹åŒ–å’ŒæŒ‡å®š
 
 #include <string>
 #include <iostream>
@@ -6,12 +6,12 @@ using namespace std;
 
 int main()
 {
-	string s1 = "ABC";		// ªì©l¤Æ
-	string s2 = "XYZ";		// ªì©l¤Æ
-	s1 = "FBI";				// «ü©w (±N­È§ï¼g)
+	string s1 = "ABC";		// åˆå§‹åŒ–
+	string s2 = "XYZ";		// åˆå§‹åŒ–
+	s1 = "FBI";				// æŒ‡å®š (å°‡å€¼æ”¹å¯«)
 
-	cout << "¦r¦ês1¬O" << s1 << "\n";		// Åã¥Ü
-	cout << "¦r¦ês2¬O" << s2 << "\n";		// Åã¥Ü
+	cout << "å­—ä¸²s1æ˜¯" << s1 << "\n";		// é¡¯ç¤º
+	cout << "å­—ä¸²s2æ˜¯" << s2 << "\n";		// é¡¯ç¤º
 
 	return 0;
 }

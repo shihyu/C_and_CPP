@@ -1,4 +1,4 @@
-// °ÊºA²£¥Í¾ã¼Æ°}¦Cª«¥ó (§í¨î¨Ò¥~)
+// å‹•æ…‹ç”¢ç”Ÿæ•´æ•¸é™£åˆ—ç‰©ä»¶ (æŠ‘åˆ¶ä¾‹å¤–)
 
 #include <cstddef>
 #include <iostream>
@@ -6,14 +6,14 @@ using namespace std;
 
 int main()
 {
-	int asize;			//°}¦Cªº¤¸¯À¼Æ
-	cout << "¤¸¯À¼Æ¡G";
+	int asize;			//é™£åˆ—çš„å…ƒç´ æ•¸
+	cout << "å…ƒç´ æ•¸ï¼š";
 	cin >> asize;
 
-	int* a = new(nothrow) int[asize];		// ²£¥Í (§í¨î¨Ò¥~)
+	int* a = new(nothrow) int[asize];		// ç”¢ç”Ÿ (æŠ‘åˆ¶ä¾‹å¤–)
 
 	if (a == NULL) {
-		cout << "¦]¬°²£¥Í°}¦C¥¢±Ñ¤F¡A©Ò¥H¤¤¤îµ{¦¡¡C\n";
+		cout << "å› ç‚ºç”¢ç”Ÿé™£åˆ—å¤±æ•—äº†ï¼Œæ‰€ä»¥ä¸­æ­¢ç¨‹å¼ã€‚\n";
 		return 1;
 	}
 
@@ -23,7 +23,7 @@ int main()
 	for (int i = 0; i < asize; i++)
 		cout << "a[" << i << "] = " << a[i] << '\n';
 
-	delete[] a;							// ¥á±ó
+	delete[] a;							// ä¸Ÿæ£„
 
 	return 0;
 }

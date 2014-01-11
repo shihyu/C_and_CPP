@@ -1,4 +1,4 @@
-// Åª¤J¨â­Ó¾ã¼Æ­È¨ÃÅã¥Ü¨ä¤¤¤§¸û¤p­È
+// è®€å…¥å…©å€‹æ•´æ•¸å€¼ä¸¦é¡¯ç¤ºå…¶ä¸­ä¹‹è¼ƒå°å€¼
 
 #include <iostream>
 using namespace std;
@@ -7,12 +7,12 @@ int main()
 {
 	int a, b;
 
-	cout << "¾ã¼Æa¡G";   cin >> a;
-	cout << "¾ã¼Æb¡G";   cin >> b;
+	cout << "æ•´æ•¸aï¼š";   cin >> a;
+	cout << "æ•´æ•¸bï¼š";   cin >> b;
 
-	int min = a < b ? a : b;		//¸û¤pªº­È
+	int min = a < b ? a : b;		//è¼ƒå°çš„å€¼
 
-	cout << "¸û¤pªº­È¬O" << min << "¡C\n";
+	cout << "è¼ƒå°çš„å€¼æ˜¯" << min << "ã€‚\n";
 
 	return 0;
 }

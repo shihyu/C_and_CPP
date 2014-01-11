@@ -1,43 +1,43 @@
-// ¦h­«Ä~©Ó¡]°ò©³Ãş§Oªºªì©l¤Æ¡BÅçÃÒ¼Ò½k©Êªº±±¨î¡^
+// å¤šé‡ç¹¼æ‰¿ï¼ˆåŸºåº•é¡åˆ¥çš„åˆå§‹åŒ–ã€é©—è­‰æ¨¡ç³Šæ€§çš„æ§åˆ¶ï¼‰
 
 #include <iostream>
 using namespace std;
 
-//===== °ò©³Ãş§O¢° =====//
+//===== åŸºåº•é¡åˆ¥ï¼‘ =====//
 class Base1 {
 public:
 	int x;
 
-	Base1(int a = 0) : x(a) {				// «Øºc¤l
-		cout << "±NBase1::x¥H" << x << "¨Óªì©l¤Æ¡C\n";
+	Base1(int a = 0) : x(a) {				// å»ºæ§‹å­
+		cout << "å°‡Base1::xä»¥" << x << "ä¾†åˆå§‹åŒ–ã€‚\n";
 	}
 
-	void Print() { cout << "³o¬OBase1Ãş§O¡Gx = " << x << '\n'; }
+	void Print() { cout << "é€™æ˜¯Base1é¡åˆ¥ï¼šx = " << x << '\n'; }
 };
 
-//===== °ò©³Ãş§O¢± =====//
+//===== åŸºåº•é¡åˆ¥ï¼’ =====//
 class Base2 {
 public:
 	int x;
 
-	Base2(int a = 0) : x(a) {				// «Øºc¤l
-		cout << "±NBase2::x¥H" << x << "¨Óªì©l¤Æ¡C\n";
+	Base2(int a = 0) : x(a) {				// å»ºæ§‹å­
+		cout << "å°‡Base2::xä»¥" << x << "ä¾†åˆå§‹åŒ–ã€‚\n";
 	}
 
-	void Print() { cout << "³o¬OBase2Ãş§O¡Gx = " << x << '\n'; }
+	void Print() { cout << "é€™æ˜¯Base2é¡åˆ¥ï¼šx = " << x << '\n'; }
 };
 
-//===== ­l¥ÍÃş§O =====//
+//===== è¡ç”Ÿé¡åˆ¥ =====//
 class Derived : public Base1, public Base2 {
 	int y;
 
 public:
-	Derived(int a, int b, int c) : y(c), Base2(a), Base1(b) {   // «Øºc¤l
-		cout << "±NDerived::y¥H" << y << "¨Óªì©l¤Æ¡C\n";
+	Derived(int a, int b, int c) : y(c), Base2(a), Base1(b) {   // å»ºæ§‹å­
+		cout << "å°‡Derived::yä»¥" << y << "ä¾†åˆå§‹åŒ–ã€‚\n";
 	}
 
  	void func(int a, int b) {
-	//	x = 1;					// ¿ù»~¡G¼Ò½k
+	//	x = 1;					// éŒ¯èª¤ï¼šæ¨¡ç³Š
 		Base1::x = a;
 		Base2::x = b;
 	}
@@ -48,7 +48,7 @@ int main()
 	Derived z(1, 2, 3);
 
 	z.func(1, 2);
-//	z.Print();					// ¿ù»~¡G¼Ò½k
+//	z.Print();					// éŒ¯èª¤ï¼šæ¨¡ç³Š
 	z.Base1::Print();
 	z.Base2::Print();
 

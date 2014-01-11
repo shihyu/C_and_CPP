@@ -1,10 +1,10 @@
-// °ïÅ|©â¶HÃş§O½d¥»Stackªº¨Ï¥Î½d¨Ò¡]¨ä2¡^
+// å †ç–ŠæŠ½è±¡é¡åˆ¥ç¯„æœ¬Stackçš„ä½¿ç”¨ç¯„ä¾‹ï¼ˆå…¶2ï¼‰
 
 #include <iostream>
 #include "Stack.h"
 using namespace std;
 
-//--- ¼u¥X©Ò¦³¸ê®Æ¨ÃÅã¥Ü ---//
+//--- å½ˆå‡ºæ‰€æœ‰è³‡æ–™ä¸¦é¡¯ç¤º ---//
 void PopAll(Stack<int>& s)
 {
 	try {
@@ -17,8 +17,8 @@ void PopAll(Stack<int>& s)
 
 int main()
 {
-	VecStack<int>  x;		// ¦V¶qª©°ïÅ|
-	ListStack<int> y;		// ½u§Î²M³æª©°ïÅ|
+	VecStack<int>  x;		// å‘é‡ç‰ˆå †ç–Š
+	ListStack<int> y;		// ç·šå½¢æ¸…å–®ç‰ˆå †ç–Š
 
 	x.Push(10);
 	x.Push(11);
@@ -29,10 +29,10 @@ int main()
 	y.Push(21);
 	y.Push(22);
 
-	cout << "°ïÅ|x\n";
+	cout << "å †ç–Šx\n";
 	PopAll(x);
 
-	cout << "°ïÅ|y\n";
+	cout << "å †ç–Šy\n";
 	PopAll(y);
 
 	return 0;

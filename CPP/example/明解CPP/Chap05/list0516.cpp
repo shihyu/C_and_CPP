@@ -1,9 +1,9 @@
-// Åã¥ÜµL²Å¸¹¾ã¼ÆªºÅŞ¿è¿n¡BÅŞ¿è©M¡BÅŞ¿è®t (¤¬¥¸ªºÅŞ¿è©M)¡B1ªº¸É¼Æ
+// é¡¯ç¤ºç„¡ç¬¦è™Ÿæ•´æ•¸çš„é‚è¼¯ç©ã€é‚è¼¯å’Œã€é‚è¼¯å·® (äº’æ–¥çš„é‚è¼¯å’Œ)ã€1çš„è£œæ•¸
 
 #include <iostream>
 using namespace std;
 
-//--- ¨D¨ú¾ã¼Æx¤¤ªº"1 "ªº¦ì¤¸¼Æ ---//
+//--- æ±‚å–æ•´æ•¸xä¸­çš„"1 "çš„ä½å…ƒæ•¸ ---//
 int count_bits(unsigned x)
 {
 	int bits = 0;
@@ -14,13 +14,13 @@ int count_bits(unsigned x)
 	return bits;
 }
 
-//--- ¨D¨úunsigned«¬ºAªº¦ì¤¸¼Æ ---//
+//--- æ±‚å–unsignedå‹æ…‹çš„ä½å…ƒæ•¸ ---//
 int int_bits()
 {
 	return count_bits(~0U);
 }
 
-//--- Åã¥Üunsigned«¬ºAªº¦ì¤¸µ²ºc ---//
+//--- é¡¯ç¤ºunsignedå‹æ…‹çš„ä½å…ƒçµæ§‹ ---//
 void print_bits(unsigned x)
 {
 	for (int i = int_bits() - 1; i >= 0; i--)
@@ -31,17 +31,17 @@ int main()
 {
 	unsigned a, b;
 
-	cout << "¿é¤J¨â­Ó«D­t¼Æªº¾ã¼Æ¡C\n";
-	cout << "a¡G";	  cin >> a;
-	cout << "b¡G";	  cin >> b;
+	cout << "è¼¸å…¥å…©å€‹éè² æ•¸çš„æ•´æ•¸ã€‚\n";
+	cout << "aï¼š";	  cin >> a;
+	cout << "bï¼š";	  cin >> b;
 
-	cout << "a   ¡@= ";  print_bits(a);		cout << '\n';
-	cout << "b   ¡@= ";  print_bits(b);		cout << '\n';
-	cout << "a & b = ";  print_bits(a & b);	cout << '\n';	//ÅŞ¿è¿n
-	cout << "a | b = ";  print_bits(a | b);	cout << '\n';	//ÅŞ¿è©M
-	cout << "a ^ b = ";  print_bits(a ^ b);	cout << '\n';	//ÅŞ¿è®t
-	cout << "~a¡@  = ";  print_bits(~a);	cout << '\n';	//1ªº¸É¼Æ 
-	cout << "~b¡@  = ";  print_bits(~b);	cout << '\n';	//1ªº¸É¼Æ
+	cout << "a   ã€€= ";  print_bits(a);		cout << '\n';
+	cout << "b   ã€€= ";  print_bits(b);		cout << '\n';
+	cout << "a & b = ";  print_bits(a & b);	cout << '\n';	//é‚è¼¯ç©
+	cout << "a | b = ";  print_bits(a | b);	cout << '\n';	//é‚è¼¯å’Œ
+	cout << "a ^ b = ";  print_bits(a ^ b);	cout << '\n';	//é‚è¼¯å·®
+	cout << "~aã€€  = ";  print_bits(~a);	cout << '\n';	//1çš„è£œæ•¸ 
+	cout << "~bã€€  = ";  print_bits(~b);	cout << '\n';	//1çš„è£œæ•¸
 
 	return 0;
 }

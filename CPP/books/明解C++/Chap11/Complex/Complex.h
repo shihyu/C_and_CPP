@@ -1,4 +1,4 @@
-// ½Æ¼ÆÃş§OComplex
+// è¤‡æ•¸é¡åˆ¥Complex
 
 #if !defined(___Class_Complex)
 	#define  ___Class_Complex
@@ -6,39 +6,39 @@
 #include <iostream>
 using namespace std;
 
-//===== ½Æ¼ÆÃş§O =====//
+//===== è¤‡æ•¸é¡åˆ¥ =====//
 class Complex {
-	double re;		// ¹êªº³¡¤À
-	double im;		// µêªº³¡¤À
+	double re;		// å¯¦çš„éƒ¨åˆ†
+	double im;		// è™›çš„éƒ¨åˆ†
 
 public:
-	Complex(double r = 0, double i = 0) : re(r), im(i) { }	// «Øºc¤l
+	Complex(double r = 0, double i = 0) : re(r), im(i) { }	// å»ºæ§‹å­
 
-	double Real() const { return re; }	// ¶Ç¦^¹êªº³¡¤À
-	double Imag() const { return im; }	// ¶Ç¦^µêªº³¡¤À
+	double Real() const { return re; }	// å‚³å›å¯¦çš„éƒ¨åˆ†
+	double Imag() const { return im; }	// å‚³å›è™›çš„éƒ¨åˆ†
 
-	Complex operator+() { return *this; }				// ¤@¤¸¹Bºâ¤l+
-	Complex operator-() { return Complex(-re, -im); }	// ¤@¤¸¹Bºâ¤l-
+	Complex operator+() { return *this; }				// ä¸€å…ƒé‹ç®—å­+
+	Complex operator-() { return Complex(-re, -im); }	// ä¸€å…ƒé‹ç®—å­-
 
-	// +=¹Bºâ¤l
+	// +=é‹ç®—å­
 	Complex& operator+=(const Complex& x) {
 		re += x.re;
 		im += x.im;
 		return *this;
 	}
 
-	// -=¹Bºâ¤l
+	// -=é‹ç®—å­
 	Complex& operator-=(const Complex& x) {
 		re -= x.re;
 		im -= x.im;
 		return *this;
 	}
 
-	friend bool operator==(const Complex& x, const Complex& y) {  // ==¹Bºâ¤l
+	friend bool operator==(const Complex& x, const Complex& y) {  // ==é‹ç®—å­
 		return x.re == y.re && x.im == y.im;
 	}
 
-	friend bool operator!=(const Complex& x, const Complex& y) {  // !=¹Bºâ¤l
+	friend bool operator!=(const Complex& x, const Complex& y) {  // !=é‹ç®—å­
 		return !(x == y);
 	}
 

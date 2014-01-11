@@ -1,4 +1,4 @@
-// ²q¼Æ¦r¹CÀ¸ (²q0~99)
+// çŒœæ•¸å­—éŠæˆ² (çŒœ0~99)
 
 #include <ctime>
 #include <cstdlib>
@@ -7,21 +7,21 @@ using namespace std;
 
 int main ()
 {
-	srand (time (NULL));		// ³]©w¶Ã¼ÆªººØ¤l
-	int no = rand () % 100;		// ­n²qªº¼Æ¦r¡G²£¥Í0¡ã99ªº¶Ã¼Æ
+	srand (time (NULL));		// è¨­å®šäº‚æ•¸çš„ç¨®å­
+	int no = rand () % 100;		// è¦çŒœçš„æ•¸å­—ï¼šç”¢ç”Ÿ0âˆ¼99çš„äº‚æ•¸
 	int x;
-	cout << "²q¼Æ¦r¹CÀ¸¶}©l!!\n";
-	cout << "½Ğ²q0~99ªº¼Æ¦r¡C\n";
+	cout << "çŒœæ•¸å­—éŠæˆ²é–‹å§‹!!\n";
+	cout << "è«‹çŒœ0~99çš„æ•¸å­—ã€‚\n";
 
 	do {
-		cout << "­ş­Ó¼Æ¦r¡G";
+		cout << "å“ªå€‹æ•¸å­—ï¼š";
 		cin >> x;
 		if (x > no)
-			cout << "\a¬O§ó¤pªº¼Æ¦r³á¡C\n";
+			cout << "\aæ˜¯æ›´å°çš„æ•¸å­—å–”ã€‚\n";
 		else if (x < no)
-			cout << "\a¬O§ó¤jªº¼Æ¦r³á¡C\n";
+			cout << "\aæ˜¯æ›´å¤§çš„æ•¸å­—å–”ã€‚\n";
 	} while (x != no);
-	cout << "¥¿½Tµª®×¡C\n";
+	cout << "æ­£ç¢ºç­”æ¡ˆã€‚\n";
 
 	return 0;
 }

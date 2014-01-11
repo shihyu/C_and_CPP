@@ -1,4 +1,4 @@
-// ½Õ¬d¬O§_¬°¶|¦~
+// èª¿æŸ¥æ˜¯å¦ç‚ºé–å¹´
 
 #include <iostream>
 using namespace std;
@@ -7,15 +7,15 @@ int main()
 {
 	int y;
 
-	cout << "¿é¤J¦~¡G";
+	cout << "è¼¸å…¥å¹´ï¼š";
 	cin >> y;
 
-	cout << "¸Ó¦~";
+	cout << "è©²å¹´";
 	if (y % 4 == 0 and y % 100 != 0
 				   or  y % 400 == 0)
-		cout << "¬O¶|¦~¡C\n";
+		cout << "æ˜¯é–å¹´ã€‚\n";
 	else
-		cout << "¤£¬O¶|¦~¡C\n";
+		cout << "ä¸æ˜¯é–å¹´ã€‚\n";
 
 	return 0;
 }

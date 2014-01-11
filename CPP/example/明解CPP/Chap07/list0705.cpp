@@ -1,10 +1,10 @@
-// ±N¦r¦ê¤¤ªº¤p¼g¦r¥ÀÂà´«¦¨¤j¼g¦r¥À¨ÃÅã¥Ü
+// å°‡å­—ä¸²ä¸­çš„å°å¯«å­—æ¯è½‰æ›æˆå¤§å¯«å­—æ¯ä¸¦é¡¯ç¤º
 
 #include <cctype>
 #include <iostream>
 using namespace std;
 
-//--- Åã¥Ü¦r¦ês (±N¤p¼g¦r¥ÀÂà´«¦¨¤j¼g¦r¥À)---//
+//--- é¡¯ç¤ºå­—ä¸²s (å°‡å°å¯«å­—æ¯è½‰æ›æˆå¤§å¯«å­—æ¯)---//
 void put_upper(const char s[])
 {
 	int i = 0;
@@ -16,7 +16,7 @@ int main()
 {
 	char str[40];
 
-	cout << "¦r¦ê¡G";
+	cout << "å­—ä¸²ï¼š";
 	cin >> str;
 
 	put_upper(str);

@@ -1,4 +1,4 @@
-// ¤é´ÁÃş§ODate¡]²Ä3ª©)ªº¨Ï¥Î½d¨Ò ¡K ®Ñ¤¤¥¼¥Zµn¤§µ{¦¡
+// æ—¥æœŸé¡åˆ¥Dateï¼ˆç¬¬3ç‰ˆ)çš„ä½¿ç”¨ç¯„ä¾‹ â€¦ æ›¸ä¸­æœªåˆŠç™»ä¹‹ç¨‹å¼
 
 #include <string>
 #include <iostream>
@@ -7,21 +7,21 @@ using namespace std;
 
 int main()
 {
-	Date today;						// ¤µ¤Ñªº¤é´Á
-	Date birthday(1963, 11, 18);		                                                // ¥Í¤é
-	Date day[3];						// °}¦C¡]¤µ¤Ñªº¤é´Á¡^
-	string dw[] = {"¤é", "¤@", "¤G", "¤T", "¥|", "¤­", "¤»"};
+	Date today;						// ä»Šå¤©çš„æ—¥æœŸ
+	Date birthday(1963, 11, 18);		                                                // ç”Ÿæ—¥
+	Date day[3];						// é™£åˆ—ï¼ˆä»Šå¤©çš„æ—¥æœŸï¼‰
+	string dw[] = {"æ—¥", "ä¸€", "äºŒ", "ä¸‰", "å››", "äº”", "å…­"};
 
 	cout << "today    = " << today;
-	cout << "¡]" << dw[today.DayOfWeek()] << "¡^\n";
+	cout << "ï¼ˆ" << dw[today.DayOfWeek()] << "ï¼‰\n";
 
-	cout << "todayªº¦r¦êªí²{¡G\"" << today.to_string() << "\"\n"; 
+	cout << "todayçš„å­—ä¸²è¡¨ç¾ï¼š\"" << today.to_string() << "\"\n"; 
 
 	cout << "birthday = " << birthday;
-	cout << "¡]" << dw[birthday.DayOfWeek()] << "¡^\n";
+	cout << "ï¼ˆ" << dw[birthday.DayOfWeek()] << "ï¼‰\n";
 	for (int i = 0; i < 3; i++) {
 		cout << "day[" << i << "] = " << day[i];
-		cout << "¡]" << dw[day[i].DayOfWeek()] << "¡^\n";
+		cout << "ï¼ˆ" << dw[day[i].DayOfWeek()] << "ï¼‰\n";
 	}
 
 	return 0;

@@ -1,4 +1,4 @@
-// Åã¥Ü¿é¤J¤§¤ë¥÷ªº©u¸`
+// é¡¯ç¤ºè¼¸å…¥ä¹‹æœˆä»½çš„å­£ç¯€
 
 #include <iostream>
 using namespace std;
@@ -7,17 +7,17 @@ int main()
 {
 	int month;
 
-	cout << "¨D±o©u¸`¡C\n­þ­Ó¤ë¥÷¡G";
+	cout << "æ±‚å¾—å­£ç¯€ã€‚\nå“ªå€‹æœˆä»½ï¼š";
 	cin >> month;
 
-	if (month >= 3 && month <= 5)					// 3¤ë¡B4¤ë¡B5¤ë
-		cout << "¨º¬O¬K©u¡C\n";
-	else if (month >= 6 && month <= 8)				// 6¤ë¡B7¤ë¡B8¤ë
-		cout << "¨º¬O®L©u¡C\n";
-	else if (month >= 9 && month <= 11)				// 9¤ë¡B10¤ë¡B11¤ë
-		cout << "¨º¬O¬î©u¡C\n";
-	else if (month == 12 || month == 1 || month == 2)		// 12¤ë¡B1¤ë¡B2¤ë
-		cout << "¨º¬O¥V©u¡C\n";
+	if (month >= 3 && month <= 5)					// 3æœˆã€4æœˆã€5æœˆ
+		cout << "é‚£æ˜¯æ˜¥å­£ã€‚\n";
+	else if (month >= 6 && month <= 8)				// 6æœˆã€7æœˆã€8æœˆ
+		cout << "é‚£æ˜¯å¤å­£ã€‚\n";
+	else if (month >= 9 && month <= 11)				// 9æœˆã€10æœˆã€11æœˆ
+		cout << "é‚£æ˜¯ç§‹å­£ã€‚\n";
+	else if (month == 12 || month == 1 || month == 2)		// 12æœˆã€1æœˆã€2æœˆ
+		cout << "é‚£æ˜¯å†¬å­£ã€‚\n";
 
 	return 0;
 }

@@ -1,26 +1,26 @@
-// ±NÅª¤Jªº¾ã¼Æ¥[Á` (¿é¤J9999´N±j¨îµ²§ô)
+// å°‡è®€å…¥çš„æ•´æ•¸åŠ ç¸½ (è¼¸å…¥9999å°±å¼·åˆ¶çµæŸ)
 
 #include <iostream>
 using namespace std;
 
 int main ()
 {
-	int n;			//¥[Á`ªº­Ó¼Æ
-	cout << "±N¾ã¼Æ¥[Á`¡C\n";
-	cout << "­n¥[Á`´X­Ó¾ã¼Æ¡G";
+	int n;			//åŠ ç¸½çš„å€‹æ•¸
+	cout << "å°‡æ•´æ•¸åŠ ç¸½ã€‚\n";
+	cout << "è¦åŠ ç¸½å¹¾å€‹æ•´æ•¸ï¼š";
 	cin >> n;
-	cout << "¿é¤J9999´N±j¨îµ²§ô¡C\n";
+	cout << "è¼¸å…¥9999å°±å¼·åˆ¶çµæŸã€‚\n";
 
-	int sum = 0;		//Á`©M
+	int sum = 0;		//ç¸½å’Œ
 	for (int i = 0; i < n; i++) {
 		int t;
-		cout << "¾ã¼Æ¡G";
+		cout << "æ•´æ•¸ï¼š";
 		cin >> t;
 		if (t == 9999)
 			goto Exit;
 		sum += t;
 	}
-	cout << "Á`©M¬°" << sum << "¡C\n";
+	cout << "ç¸½å’Œç‚º" << sum << "ã€‚\n";
 
 Exit:
 	return 0;

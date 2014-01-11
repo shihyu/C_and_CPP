@@ -1,4 +1,4 @@
-// ¤é´ÁÃþ§ODate¡]²Ä4ª©)ªº¨Ï¥Î½d¨Ò
+// æ—¥æœŸé¡žåˆ¥Dateï¼ˆç¬¬4ç‰ˆ)çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Date.h"
@@ -7,18 +7,18 @@ using namespace std;
 int main()
 {
 	int y, m, d;
-	cout << "¦è¤¸¦~¡G";
+	cout << "è¥¿å…ƒå¹´ï¼š";
 	cin >> y;
-	cout << "¸Ó¦~"
-		 << (Date::IsLeap(y) ? "¬O¶|¦~¡C\n" : "¤£¬O¶|¦~¡C\n"); 
+	cout << "è©²å¹´"
+		 << (Date::IsLeap(y) ? "æ˜¯é–å¹´ã€‚\n" : "ä¸æ˜¯é–å¹´ã€‚\n"); 
 
-	cout << "½Ð¿é¤J¥Í¤é¡C\n";
-	cout << "¦~¡G";	  cin >> y;
-	cout << "¤ë¡G";	  cin >> m;
-	cout << "¤é¡G";	  cin >> d;
+	cout << "è«‹è¼¸å…¥ç”Ÿæ—¥ã€‚\n";
+	cout << "å¹´ï¼š";	  cin >> y;
+	cout << "æœˆï¼š";	  cin >> m;
+	cout << "æ—¥ï¼š";	  cin >> d;
 	Date birthday(y, m, d);
-	cout << birthday.Year() << "¦~" 
-		 << (birthday.IsLeap() ? "¬O¶|¦~¡C\n" : "¤£¬O¶|¦~¡C\n"); 
+	cout << birthday.Year() << "å¹´" 
+		 << (birthday.IsLeap() ? "æ˜¯é–å¹´ã€‚\n" : "ä¸æ˜¯é–å¹´ã€‚\n"); 
 
 	return 0;
 }

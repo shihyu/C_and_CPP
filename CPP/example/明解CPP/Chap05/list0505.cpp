@@ -1,15 +1,15 @@
-// ¨D¨ú¦¸¤è
+// æ±‚å–æ¬¡æ–¹
 
 #include <iostream>
 using namespace std;
 
-//--- ¶Ç¦^xªºn¦¸¤è ---//
+//--- å‚³å›xçš„næ¬¡æ–¹ ---//
 double power(double x, int n)
 {
 	double tmp = 1.0;
 
 	for (int i = 1; i <= n; i++)
-		tmp *= x;		// ±Nx­¼¥Htmp
+		tmp *= x;		// å°‡xä¹˜ä»¥tmp
 	return tmp;
 }
 
@@ -18,10 +18,10 @@ int main()
 	double a;
 	int    b;
 
-	cout << "¨D¨úaªºb¦¸¤è¡C\n";
-	cout << "¹ê¼Æa¡G";	cin >> a;
-	cout << "¾ã¼Æb¡G";	cin >> b;
-	cout << a << "ªº" << b << "¦¸¤è¬O" << power(a, b) << "¡C\n";
+	cout << "æ±‚å–açš„bæ¬¡æ–¹ã€‚\n";
+	cout << "å¯¦æ•¸aï¼š";	cin >> a;
+	cout << "æ•´æ•¸bï¼š";	cin >> b;
+	cout << a << "çš„" << b << "æ¬¡æ–¹æ˜¯" << power(a, b) << "ã€‚\n";
 
 	return 0;
 }

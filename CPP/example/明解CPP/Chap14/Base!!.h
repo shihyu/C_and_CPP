@@ -1,10 +1,10 @@
-// °ò©³Ãş§OBase
+// åŸºåº•é¡åˆ¥Base
 
 class Base {
 private:
-	int pri;	// «D¤½¶}
+	int pri;	// éå…¬é–‹
 protected:
-	int pro;	// ­­©w¤½¶}
+	int pro;	// é™å®šå…¬é–‹
 public:
-	int pub;	// ¤½¶}
+	int pub;	// å…¬é–‹
 };

@@ -1,4 +1,4 @@
-//  »È¦æ±b¤áÃþ§O (²Ä5ª©¡G¨Ï¥Î½d¨Ò)
+//  éŠ€è¡Œå¸³æˆ¶é¡žåˆ¥ (ç¬¬5ç‰ˆï¼šä½¿ç”¨ç¯„ä¾‹)
 
 #include <iostream>
 #include "Account.h"
@@ -6,25 +6,25 @@ using namespace std;
 
 int main()
 {
-	Account adachi("¨¬¥ß©¯¤@", "12345678", 1000, 2005, 1, 10); // ¨¬¥ß¥ý¥Íªº±b¤á
-	Account nakata("¥ò¥Ð¯u¤G", "87654321",  200, 2004, 7, 15); // ¥ò¥Ð¥ý¥Íªº±b¤á
+	Account adachi("è¶³ç«‹å¹¸ä¸€", "12345678", 1000, 2005, 1, 10); // è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶
+	Account nakata("ä»²ç”°çœŸäºŒ", "87654321",  200, 2004, 7, 15); // ä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶
 
-	adachi.Withdraw(200);	// ¨¬¥ß¥ý¥Í»â¤F200¤¸
-	nakata.Deposit(100);	// ¥ò¥Ð¥ý¥Í¦s¤F100¤¸
+	adachi.Withdraw(200);	// è¶³ç«‹å…ˆç”Ÿé ˜äº†200å…ƒ
+	nakata.Deposit(100);	// ä»²ç”°å…ˆç”Ÿå­˜äº†100å…ƒ
 
-	cout << "¨¬¥ß¥ý¥Íªº±b¤á\n";
-	cout << "±b¤á¦W¡×" << adachi.GetName() << '\n';
-	cout << "±b¸¹¡×" << adachi.GetNo() << '\n';
-	cout << "¦s´Ú¾lÃB¡×" << adachi.CheckBalance() << "¤¸\n";
-	cout << "¶}¤á¤é¡×" << adachi.OpeningDate() << '\n';
+	cout << "è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶\n";
+	cout << "å¸³æˆ¶åï¼" << adachi.GetName() << '\n';
+	cout << "å¸³è™Ÿï¼" << adachi.GetNo() << '\n';
+	cout << "å­˜æ¬¾é¤˜é¡ï¼" << adachi.CheckBalance() << "å…ƒ\n";
+	cout << "é–‹æˆ¶æ—¥ï¼" << adachi.OpeningDate() << '\n';
 
-	cout << "\n¥ò¥Ð¥ý¥Íªº±b¤á\n";
-	cout << "±b¤á¦W¡×" << nakata.GetName() << '\n';
-	cout << "±b¸¹¡×" << nakata.GetNo() << '\n';
-	cout << "¦s´Ú¾lÃB¡×" << nakata.CheckBalance() << "¤¸\n";
-	cout << "¶}¤á¤é¡×" << nakata.OpeningDate().Year()  << "¦~"
-						 << nakata.OpeningDate().Month() << "¤ë"
-						 << nakata.OpeningDate().Day()   << "¤é\n";
+	cout << "\nä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶\n";
+	cout << "å¸³æˆ¶åï¼" << nakata.GetName() << '\n';
+	cout << "å¸³è™Ÿï¼" << nakata.GetNo() << '\n';
+	cout << "å­˜æ¬¾é¤˜é¡ï¼" << nakata.CheckBalance() << "å…ƒ\n";
+	cout << "é–‹æˆ¶æ—¥ï¼" << nakata.OpeningDate().Year()  << "å¹´"
+						 << nakata.OpeningDate().Month() << "æœˆ"
+						 << nakata.OpeningDate().Day()   << "æ—¥\n";
 
 	return 0;
 }

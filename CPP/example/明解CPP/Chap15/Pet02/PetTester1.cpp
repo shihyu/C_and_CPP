@@ -1,4 +1,4 @@
-// Ãdª«Ãþ§OPet¡]²Ä2ª©¡^ªº¨Ï¥Î½d¨Ò¡A¨ä¤@
+// å¯µç‰©é¡žåˆ¥Petï¼ˆç¬¬2ç‰ˆï¼‰çš„ä½¿ç”¨ç¯„ä¾‹ï¼Œå…¶ä¸€
 
 #include <iostream>
 #include "Pet.h"
@@ -6,16 +6,16 @@ using namespace std;
 
 int main()
 {
-	Pdog spank("Spank", "®ã¤ü");	// ª¯¡]®ã¤ü¡^
-	Pcat michael("Michael");		// ¿ß
-	Pmonkey jiro("Jiro", 7);		// µU¡]·³¡^
+	Pdog spank("Spank", "æŸ´çŠ¬");	// ç‹—ï¼ˆæŸ´çŠ¬ï¼‰
+	Pcat michael("Michael");		// è²“
+	Pmonkey jiro("Jiro", 7);		// çŒ´ï¼ˆæ­²ï¼‰
 
-	cout << "Ãdª«ªº¸ê®Æ¡G\n";		// ¤@Äýªí¡]´¡¤J¹Bºâ¤l¡^
+	cout << "å¯µç‰©çš„è³‡æ–™ï¼š\n";		// ä¸€è¦½è¡¨ï¼ˆæ’å…¥é‹ç®—å­ï¼‰
 	cout << spank << '\n';
 	cout << michael << '\n';
 	cout << jiro << '\n';
 
-	cout << "\nÅý¤j®a§@¦Û§Ú¤¶²Ð¡C\n";		// ¦Û§Ú¤¶²Ð¡]Sintro¡^
+	cout << "\nè®“å¤§å®¶ä½œè‡ªæˆ‘ä»‹ç´¹ã€‚\n";		// è‡ªæˆ‘ä»‹ç´¹ï¼ˆSintroï¼‰
 	spank.Sintro();
 	michael.Sintro();
 	jiro.Sintro();

@@ -1,30 +1,30 @@
-// Ãdª«Ãş§OPet¡]²Ä2ª©¡G¹ê§@³¡¤À¡^
+// å¯µç‰©é¡åˆ¥Petï¼ˆç¬¬2ç‰ˆï¼šå¯¦ä½œéƒ¨åˆ†ï¼‰
 
 #include <string>
 #include <iostream>
 #include "Pet.h"
 using namespace std;
 
-//--- Pet::©¹¿é¥X¦ê¬yªº´¡¤J¹Bºâ¤l ---//
+//--- Pet::å¾€è¼¸å‡ºä¸²æµçš„æ’å…¥é‹ç®—å­ ---//
 ostream& operator<<(ostream& s, const Pet& p)
 {
 	return s << "{ " << p.Name() << " }";
 }
 
-//--- Pdog::©¹¿é¥X¦ê¬yªº´¡¤J¹Bºâ¤l ---//
+//--- Pdog::å¾€è¼¸å‡ºä¸²æµçš„æ’å…¥é‹ç®—å­ ---//
 ostream& operator<<(ostream& s, const Pdog& p)
 {
-	return s << "{ ª¯, " << p.Name() << ", [" << p.Type() << "] }";
+	return s << "{ ç‹—, " << p.Name() << ", [" << p.Type() << "] }";
 }
 
-//--- Pcat::©¹¿é¥X¦ê¬yªº´¡¤J¹Bºâ¤l ---//
+//--- Pcat::å¾€è¼¸å‡ºä¸²æµçš„æ’å…¥é‹ç®—å­ ---//
 ostream& operator<<(ostream& s, const Pcat& p)
 {
-	return s << "{ ¿ß, " << p.Name() << " }";
+	return s << "{ è²“, " << p.Name() << " }";
 }
 
-//--- Pmonkey::©¹¿é¥X¦ê¬yªº´¡¤J¹Bºâ¤l ---//
+//--- Pmonkey::å¾€è¼¸å‡ºä¸²æµçš„æ’å…¥é‹ç®—å­ ---//
 ostream& operator<<(ostream& s, const Pmonkey& p)
 {
-	return s << "{ µU, " << p.Name() << ", " << p.Age() << "·³ }";
+	return s << "{ çŒ´, " << p.Name() << ", " << p.Age() << "æ­² }";
 }

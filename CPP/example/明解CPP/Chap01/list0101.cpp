@@ -1,12 +1,12 @@
-// ¿é¥X¨ìµe­±ªºµ{¦¡
+// è¼¸å‡ºåˆ°ç•«é¢çš„ç¨‹å¼
 
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	cout << "²Ä¤@­ÓC++µ{¦¡¡C\n";
-	cout << "¿é¥X¨ìµe­±¡C\n";
+	cout << "ç¬¬ä¸€å€‹C++ç¨‹å¼ã€‚\n";
+	cout << "è¼¸å‡ºåˆ°ç•«é¢ã€‚\n";
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-// Åª¤J¦W¦r«á°İ¦n(¤]¥i¥HÅª¤JªÅ¥Õ)
+// è®€å…¥åå­—å¾Œå•å¥½(ä¹Ÿå¯ä»¥è®€å…¥ç©ºç™½)
 
 #include <string>
 #include <iostream>
@@ -6,12 +6,12 @@ using namespace std;
 
 int main()
 {
-	string name;	// ¦W¦r
+	string name;	// åå­—
 
-	cout << "±zªº¦W¦r¬O¡G";		// ­n¨D¿é¤J¦W¦r
-	getline(cin, name);				// Åª¤J¦W¦r (¤]¥i¥HÅª¤JªÅ¥Õ)
+	cout << "æ‚¨çš„åå­—æ˜¯ï¼š";		// è¦æ±‚è¼¸å…¥åå­—
+	getline(cin, name);				// è®€å…¥åå­— (ä¹Ÿå¯ä»¥è®€å…¥ç©ºç™½)
 
-	cout << "±z¦n!" << name << "¥ı¥Í¡C\n";		// °İ¦n
+	cout << "æ‚¨å¥½!" << name << "å…ˆç”Ÿã€‚\n";		// å•å¥½
 
 	return 0;
 }

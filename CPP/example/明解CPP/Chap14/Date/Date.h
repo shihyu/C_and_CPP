@@ -1,4 +1,4 @@
-// ¦~¸¹ª©¤é´ÁÃş§ODate¡]¤¶­±³¡¥÷¡^
+// å¹´è™Ÿç‰ˆæ—¥æœŸé¡åˆ¥Dateï¼ˆä»‹é¢éƒ¨ä»½ï¼‰
 
 #if !defined(___Class_Date)
 	#define	 ___Class_Date
@@ -7,37 +7,37 @@
 #include <iostream>
 using namespace std;
 
-//===== ¦~¸¹ª©¤é´ÁÃş§ODate =====//
+//===== å¹´è™Ÿç‰ˆæ—¥æœŸé¡åˆ¥Date =====//
 class Date {
 public:
-	enum Gengou {Meiji, Taisho, Showa, Heisei};		// ¦~¸¹
+	enum Gengou {Meiji, Taisho, Showa, Heisei};		// å¹´è™Ÿ
 private:
-	int year;			// ¦è¤¸¦~
-	int month;			// ¤ë
-	int day;			// ¤é
+	int year;			// è¥¿å…ƒå¹´
+	int month;			// æœˆ
+	int day;			// æ—¥
 public:
-	Date();						// ¹w³]«Øºc¤l
-	Date(int y, int m = 1, int d = 1) :			// «Øºc¤l¡]¦è¤¸¡^
+	Date();						// é è¨­å»ºæ§‹å­
+	Date(int y, int m = 1, int d = 1) :			// å»ºæ§‹å­ï¼ˆè¥¿å…ƒï¼‰
 			year(y), month(m), day(d) { }
-	Date(Gengou g, int y, int m = 1, int d = 1) {	// «Øºc¤l¡]¦~¸¹¡^
+	Date(Gengou g, int y, int m = 1, int d = 1) {	// å»ºæ§‹å­ï¼ˆå¹´è™Ÿï¼‰
 		switch (g) {
-		 case Meiji	 : y += 1867;  break;	// ©úªv
-		 case Taisho : y += 1911;  break;	// ¤j¥¿
-		 case Showa	 : y += 1925;  break;	// ¬L©M
-		 case Heisei : y += 1988;  break;	// ¥­¦¨
+		 case Meiji	 : y += 1867;  break;	// æ˜æ²»
+		 case Taisho : y += 1911;  break;	// å¤§æ­£
+		 case Showa	 : y += 1925;  break;	// æ˜­å’Œ
+		 case Heisei : y += 1988;  break;	// å¹³æˆ
 		}
 		year = y;  month = m;  day = d;
 	}
-	// y¦~¬O¶|¦~¶Ü¡H
+	// yå¹´æ˜¯é–å¹´å—ï¼Ÿ
 	static bool IsLeap(int y) { return y % 4 == 0 && y % 100 != 0 || y % 400 == 0; }
-	int Year()	const { return year; }		// ¶Ç¦^¦~
-	int Month() const { return month; }		// ¶Ç¦^¤ë
-	int Day()	const { return day; }		// ¶Ç¦^¤é
-	int DayOfWeek() const;					// ¶Ç¦^¬P´Á 
-	bool IsLeap() const { return IsLeap(year); }		// ¬O¶|¦~¶Ü¡H
-	string to_string() const;				// ¥H¦r¦ê¶Ç¦^
+	int Year()	const { return year; }		// å‚³å›å¹´
+	int Month() const { return month; }		// å‚³å›æœˆ
+	int Day()	const { return day; }		// å‚³å›æ—¥
+	int DayOfWeek() const;					// å‚³å›æ˜ŸæœŸ 
+	bool IsLeap() const { return IsLeap(year); }		// æ˜¯é–å¹´å—ï¼Ÿ
+	string to_string() const;				// ä»¥å­—ä¸²å‚³å›
 };
 
-ostream& operator<<(ostream& s, const Date& x);		// ´¡¤J¤l
+ostream& operator<<(ostream& s, const Date& x);		// æ’å…¥å­
 
 #endif

@@ -1,4 +1,4 @@
-//  »È¦æ±b¤áÃş§O (²Ä1ª©)
+//  éŠ€è¡Œå¸³æˆ¶é¡åˆ¥ (ç¬¬1ç‰ˆ)
 
 #include <string>
 #include <iostream>
@@ -6,32 +6,32 @@ using namespace std;
 
 class Account {
 public:
-	string name;			// ±b¤á¦W
-	string no;				// ±b¸¹
-	long balance;			// ¦s´Ú¾lÃB
+	string name;			// å¸³æˆ¶å
+	string no;				// å¸³è™Ÿ
+	long balance;			// å­˜æ¬¾é¤˜é¡
 };
 
 int main()
 {
-	Account adachi;				// ¨¬¥ß¥ı¥Íªº±b¤á
-	Account nakata;				// ¥ò¥Ğ¥ı¥Íªº±b¤á
+	Account adachi;				// è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶
+	Account nakata;				// ä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶
 
-	adachi.name = "¨¬¥ß©¯¤@";	// ¨¬¥ß¥ı¥Íªº±b¤á¦W
-	adachi.no = "12345678";		// ¡@¡²¡@ªº±b¸¹
-	adachi.balance = 1000;		// ¡@¡²¡@ªº¦s´Ú¾lÃB
+	adachi.name = "è¶³ç«‹å¹¸ä¸€";	// è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶å
+	adachi.no = "12345678";		// ã€€ã€ƒã€€çš„å¸³è™Ÿ
+	adachi.balance = 1000;		// ã€€ã€ƒã€€çš„å­˜æ¬¾é¤˜é¡
 
-	nakata.name = "¥ò¥Ğ¯u¤G";	// ¥ò¥Ğ¥ı¥Íªº±b¤á¦W
-	nakata.no = "87654321";		// ¡@¡²¡@ªº±b¸¹
-	nakata.balance = 200;		// ¡@¡²¡@ªº¦s´Ú¾lÃB
+	nakata.name = "ä»²ç”°çœŸäºŒ";	// ä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶å
+	nakata.no = "87654321";		// ã€€ã€ƒã€€çš„å¸³è™Ÿ
+	nakata.balance = 200;		// ã€€ã€ƒã€€çš„å­˜æ¬¾é¤˜é¡
 
-	adachi.balance -= 200;		// ¨¬¥ß¥ı¥Í»â¤F200¤¸
-	nakata.balance += 100;		// ¥ò¥Ğ¥ı¥Í¦s¤F100¤¸
+	adachi.balance -= 200;		// è¶³ç«‹å…ˆç”Ÿé ˜äº†200å…ƒ
+	nakata.balance += 100;		// ä»²ç”°å…ˆç”Ÿå­˜äº†100å…ƒ
 
-	cout << "¡½¨¬¥ß¥ı¥Íªº±b¤á¡G\"" << adachi.name << "\" ("
-		 << adachi.no << ") " << adachi.balance << "¤¸\n";
+	cout << "â– è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶ï¼š\"" << adachi.name << "\" ("
+		 << adachi.no << ") " << adachi.balance << "å…ƒ\n";
 
-	cout << "¡½¥ò¥Ğ¥ı¥Íªº±b¤á¡G\"" << nakata.name << "\" ("
-		 << nakata.no << ") " << nakata.balance << "¤¸\n";
+	cout << "â– ä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶ï¼š\"" << nakata.name << "\" ("
+		 << nakata.no << ") " << nakata.balance << "å…ƒ\n";
 
 	return 0;
 }

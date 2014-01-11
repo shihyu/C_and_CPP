@@ -1,18 +1,18 @@
-// ¶Ç¦^°Ñ·Óªº¨ç¼Æ
+// å‚³å›åƒç…§çš„å‡½æ•¸
 
 #include <iostream>
 using namespace std;
 
-//--- ¶Ç¦^«ü¦Vxªº°Ñ·Ó ---//
+//--- å‚³å›æŒ‡å‘xçš„åƒç…§ ---//
 int& ref()
 {
-	static int x;	// ÀRºA¥Í©R¶g´Á
+	static int x;	// éœæ…‹ç”Ÿå‘½é€±æœŸ
 	return x;
 }
 
 int main()
 {
-	ref() = 5;		// ±N­È«ü©wµ¹ref()
+	ref() = 5;		// å°‡å€¼æŒ‡å®šçµ¦ref()
 	cout << "ref() = " << ref() << '\n';
 
 	return 0;

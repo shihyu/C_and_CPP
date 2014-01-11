@@ -1,4 +1,4 @@
-// Åã¥Ü¦r¤¸©M¦r¤¸½X
+// é¡¯ç¤ºå­—å…ƒå’Œå­—å…ƒç¢¼
 
 #include <cctype>
 #include <climits>
@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	cout << "¦¹³B²z¾¹ªº¦r¤¸©M¦r¤¸½X\n";
+	cout << "æ­¤è™•ç†å™¨çš„å­—å…ƒå’Œå­—å…ƒç¢¼\n";
 	for (char i = 0; ; i++) {
 		switch (i) {
 		 case '\a' : cout << "\\a";  break;
@@ -19,7 +19,7 @@ int main()
 		 case '\v' : cout << "\\v";  break;
 		 default   : cout << ' ' << (isprint(i) ? i : ' '); 
 		}
-		// Âà«¬¬°¾ã¼Æ«¬ºA«á¥H¤Q¤»¶i¦ìÅã¥Ü
+		// è½‰åž‹ç‚ºæ•´æ•¸åž‹æ…‹å¾Œä»¥åå…­é€²ä½é¡¯ç¤º
 		cout << ' ' << hex << int(i) << '\n';
 		if (i == CHAR_MAX) break;
 	}

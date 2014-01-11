@@ -1,4 +1,4 @@
-// Åã¥Ü¦r¤¸«¬ºAªº¦ì¤¸¼Æ
+// é¡¯ç¤ºå­—å…ƒå‹æ…‹çš„ä½å…ƒæ•¸
 
 #include <climits>
 #include <iostream>
@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-	cout << "¦¹³B²z¾¹ªº¦r¤¸«¬ºA¬O" << CHAR_BIT << "¦ì¤¸¡C\n";
+	cout << "æ­¤è™•ç†å™¨çš„å­—å…ƒå‹æ…‹æ˜¯" << CHAR_BIT << "ä½å…ƒã€‚\n";
 
 	return 0;
 }

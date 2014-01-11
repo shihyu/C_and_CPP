@@ -1,26 +1,26 @@
-// Åã¥Ü¿ï¾Üªº°Êª«¤§¥sÁn («ü¦V¨ç¼Æªº«ü¼Ğ) 
+// é¡¯ç¤ºé¸æ“‡çš„å‹•ç‰©ä¹‹å«è² (æŒ‡å‘å‡½æ•¸çš„æŒ‡æ¨™) 
 
 #include <iostream>
 using namespace std; 
 
 enum animal { Dog, Cat, Monkey, Invalid };
 
-//--- ª¯ ---//
+//--- ç‹— ---//
 void dog()
 {
-	cout << "¨L¨L!!\n";
+	cout << "æ±ªæ±ª!!\n";
 }
 
-//--- ¿ß ---//
+//--- è²“ ---//
 void cat()
 {
-	cout << "Øp!!\n";
+	cout << "å–µ!!\n";
 }
 
-//--- µU ---//
+//--- çŒ´ ---//
 void monkey()
 {
-	cout << "§s§s!!\n";
+	cout << "å±å±!!\n";
 }
 
 //--- main ---//
@@ -32,7 +32,7 @@ int main()
 
 	do {
 		do {
-			cout << "0¡Kª¯¡@1¡K¿ß¡@2¡KµU¡@3¡Kµ²§ô¡G";
+			cout << "0â€¦ç‹—ã€€1â€¦è²“ã€€2â€¦çŒ´ã€€3â€¦çµæŸï¼š";
 			cin >> menu;
 		} while (menu < Dog	|| menu > Invalid);
 		if (menu != Invalid)

@@ -1,22 +1,22 @@
-// ¤é´ÁÃş§ODate¡]²Ä2ª©¡G¤¶­±³¡¤À¡^
+// æ—¥æœŸé¡åˆ¥Dateï¼ˆç¬¬2ç‰ˆï¼šä»‹é¢éƒ¨åˆ†ï¼‰
 
 #include <string>
 #include <iostream>
 using namespace std;
 
 class Date {
-	int	year;		// ¦è¤¸¦~
-	int	month;		// ¤ë
-	int	day;		// ¤é
+	int	year;		// è¥¿å…ƒå¹´
+	int	month;		// æœˆ
+	int	day;		// æ—¥
 
 public:
-	Date();					// ¹w³]«Øºc¤l
-	Date(int y, int m = 1, int d = 1);		// «Øºc¤l
+	Date();					// é è¨­å»ºæ§‹å­
+	Date(int y, int m = 1, int d = 1);		// å»ºæ§‹å­
 
-	int Year()  const { return year; }		// ¶Ç¦^¦~
-	int Month() const { return month; }		// ¶Ç¦^¤ë
-	int Day()   const { return day; }		// ¶Ç¦^¤é
-	string to_string() const;			// ¥H¦r¦ê¶Ç¦^
+	int Year()  const { return year; }		// å‚³å›å¹´
+	int Month() const { return month; }		// å‚³å›æœˆ
+	int Day()   const { return day; }		// å‚³å›æ—¥
+	string to_string() const;			// ä»¥å­—ä¸²å‚³å›
 };
 
-ostream& operator<<(ostream& s, const Date& x);		// ´¡¤J¤l
+ostream& operator<<(ostream& s, const Date& x);		// æ’å…¥å­

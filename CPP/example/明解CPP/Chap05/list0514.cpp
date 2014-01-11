@@ -1,9 +1,9 @@
-// ±N¨â­Ó¤Ş¼Æªº­È¥æ´«ªº¨ç¼Æ
+// å°‡å…©å€‹å¼•æ•¸çš„å€¼äº¤æ›çš„å‡½æ•¸
 
 #include <iostream>
 using namespace std;
 
-//--- ¥æ´«¤Ş¼Æx©Myªº­È ---//
+//--- äº¤æ›å¼•æ•¸xå’Œyçš„å€¼ ---//
 void swap(int& x, int& y)
 {
 	int t = x;
@@ -15,14 +15,14 @@ int main()
 {
 	int a, b;
 
-	cout << "ÅÜ¼Æa¡G";   cin >> a;
-	cout << "ÅÜ¼Æb¡G";   cin >> b;
+	cout << "è®Šæ•¸aï¼š";   cin >> a;
+	cout << "è®Šæ•¸bï¼š";   cin >> b;
 
-	swap(a, b);							// ¥æ´«a©Mb
+	swap(a, b);							// äº¤æ›aå’Œb
 
-	cout << "¥æ´«ÅÜ¼Æa©Mbªº­È¡C\n";
-	cout << "ÅÜ¼Æaªº­È¬O" << a << "¡C\n";
-	cout << "ÅÜ¼Æbªº­È¬O" << b << "¡C\n";
+	cout << "äº¤æ›è®Šæ•¸aå’Œbçš„å€¼ã€‚\n";
+	cout << "è®Šæ•¸açš„å€¼æ˜¯" << a << "ã€‚\n";
+	cout << "è®Šæ•¸bçš„å€¼æ˜¯" << b << "ã€‚\n";
 
 	return 0;
 }

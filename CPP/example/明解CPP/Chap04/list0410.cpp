@@ -1,4 +1,4 @@
-// Åã¥ÜÃö«Y¹Bºâ¤l¡B¬Ûµ¥¹Bºâ¤l¡BÅŞ¿è§_©w¹Bºâ¤l©Ò²£¥Íªº­È
+// é¡¯ç¤ºé—œä¿‚é‹ç®—å­ã€ç›¸ç­‰é‹ç®—å­ã€é‚è¼¯å¦å®šé‹ç®—å­æ‰€ç”¢ç”Ÿçš„å€¼
 
 #include <iostream>
 using namespace std;
@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
 	int a, b;
-	cout << "¾ã¼Æa, b¡G";
+	cout << "æ•´æ•¸a, bï¼š";
 	cin >> a >> b;
 
 	cout << boolalpha;

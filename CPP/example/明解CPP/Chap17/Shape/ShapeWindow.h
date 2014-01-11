@@ -1,4 +1,4 @@
-// ¹Ï§ÎÃş§OShape»Pµøµ¡Ãş§OWindow
+// åœ–å½¢é¡åˆ¥Shapeèˆ‡è¦–çª—é¡åˆ¥Window
 
 #if !defined(___Class_Shape_Window)
 	#define	 ___Class_Shape_Window
@@ -6,68 +6,68 @@
 #include <iostream>
 using namespace std;
 
-//===== ¹Ï§ÎÃş§O¡]©â¶HÃş§O¡^ =====//
+//===== åœ–å½¢é¡åˆ¥ï¼ˆæŠ½è±¡é¡åˆ¥ï¼‰ =====//
 class Shape {
 public:
-	virtual ~Shape() { }			// µêÀÀ¸Ñºc¤l
-	virtual void draw() = 0;		// Ã¸¹Ï¡]¯ÂµêÀÀ¨ç¼Æ¡^
+	virtual ~Shape() { }			// è™›æ“¬è§£æ§‹å­
+	virtual void draw() = 0;		// ç¹ªåœ–ï¼ˆç´”è™›æ“¬å‡½æ•¸ï¼‰
 };
 
-//===== Ã¸¹Ïµøµ¡Ãş§O¡]©â¶HÃş§O¡^ =====//
+//===== ç¹ªåœ–è¦–çª—é¡åˆ¥ï¼ˆæŠ½è±¡é¡åˆ¥ï¼‰ =====//
 class Window {
 public:
-	virtual ~Window() { }			// µêÀÀ¸Ñºc¤l
-	virtual int area() = 0;			// ­±¿n¡]¯ÂµêÀÀ¨ç¼Æ¡^		
+	virtual ~Window() { }			// è™›æ“¬è§£æ§‹å­
+	virtual int area() = 0;			// é¢ç©ï¼ˆç´”è™›æ“¬å‡½æ•¸ï¼‰		
 };
 
-//===== ÂI =====//
+//===== é» =====//
 class Point : public Shape {
 public:
 	void draw() {
-		cout << "ÂI\n"; 
+		cout << "é»\n"; 
 		cout << "*\n";
 	}
 };
 
-//===== ¤ô¥­ª½½u =====//
+//===== æ°´å¹³ç›´ç·š =====//
 class HLine : public Shape {
-	int length;			// ªø«×
+	int length;			// é•·åº¦
 
 public:
 	HLine(int s) : length(s) { }
 
 	void draw() {
-		cout << "¤ô¥­ª½½u¡]ªø«×¡G" << length << "¡^\n"; 
+		cout << "æ°´å¹³ç›´ç·šï¼ˆé•·åº¦ï¼š" << length << "ï¼‰\n"; 
 		for (int i = 1; i <= length; i++)
 			cout << '*';
 		cout << '\n';
 	}
 };
 
-//===== ««ª½ª½½u =====//
+//===== å‚ç›´ç›´ç·š =====//
 class VLine : public Shape {
-	int length;			// ªø«×
+	int length;			// é•·åº¦
 
 public:
 	VLine(int s) : length(s) { }
 
 	void draw() {
-		cout << "««ª½ª½½u¡]ªø«×¡G" << length << "¡^\n"; 
+		cout << "å‚ç›´ç›´ç·šï¼ˆé•·åº¦ï¼š" << length << "ï¼‰\n"; 
 		for (int i = 1; i <= length; i++)
 			cout << "*\n";
 	}
 };
 
-//===== ªø¤è§Î =====//
+//===== é•·æ–¹å½¢ =====//
 class RectAngle : public Shape, public Window {
-	int width;			// ¼e«×
-	int height;			// °ª«×
+	int width;			// å¯¬åº¦
+	int height;			// é«˜åº¦
 
 public:
 	RectAngle(int w, int h) : width(w), height(h) { }
 
 	void draw() {
-		cout << "ªø¤è§Î¡]¼e«×¡G" << width << "¡@°ª«×¡G" << height << "¡^\n"; 
+		cout << "é•·æ–¹å½¢ï¼ˆå¯¬åº¦ï¼š" << width << "ã€€é«˜åº¦ï¼š" << height << "ï¼‰\n"; 
 		for (int i = 1; i <= height; i++) {
 			for (int j = 1; j <= width; j++)
 				cout << '*';
@@ -75,19 +75,19 @@ public:
 		}
 	}
 
-	int area() { return width * height; }			// ­±¿n
+	int area() { return width * height; }			// é¢ç©
 
 };
 
-//===== ¥ª¤U¬°ª½¨¤ªºµ¥Ãä¤T¨¤§Î =====//
+//===== å·¦ä¸‹ç‚ºç›´è§’çš„ç­‰é‚Šä¸‰è§’å½¢ =====//
 class Triangle : public Shape, public Window  {
-	int length;			// ¬Ûµ¥¤§¨âÃäªºªø«×
+	int length;			// ç›¸ç­‰ä¹‹å…©é‚Šçš„é•·åº¦
 
 public:
 	Triangle(int s) : length(s) { }
 
 	void draw() {
-		cout << "µ¥Ãä¤T¨¤§Î¡]ªø«×¡G" << length << "¡^\n"; 
+		cout << "ç­‰é‚Šä¸‰è§’å½¢ï¼ˆé•·åº¦ï¼š" << length << "ï¼‰\n"; 
 		for (int i = 1; i <= length; i++) {
 			for (int j = 1; j <= i; j++)
 				cout << '*';
@@ -95,7 +95,7 @@ public:
 		}
 	}
 
-	int area() { return length * length / 2; }		// ­±¿n
+	int area() { return length * length / 2; }		// é¢ç©
 };
 
 #endif

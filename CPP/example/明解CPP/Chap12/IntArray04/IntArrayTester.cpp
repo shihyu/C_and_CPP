@@ -1,4 +1,4 @@
-// ¾ã¼Æ°}¦CÃþ§OIntArray¡]²Ä4ª©¡^ªº¨Ï¥Î½d¨Ò
+// æ•´æ•¸é™£åˆ—é¡žåˆ¥IntArrayï¼ˆç¬¬4ç‰ˆï¼‰çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <new>
 #include <iomanip>
@@ -6,7 +6,7 @@
 #include "IntArray.h"
 using namespace std;
 
-//--- ±Nnum­Ó¸ê®Æ«ü©wµ¹¤¸¯À¼Æ¬°sizeªº°}¦C¨ÃÅã¥Ü --//
+//--- å°‡numå€‹è³‡æ–™æŒ‡å®šçµ¦å…ƒç´ æ•¸ç‚ºsizeçš„é™£åˆ—ä¸¦é¡¯ç¤º --//
 void f(int size, int num)
 {
 	try {
@@ -17,12 +17,12 @@ void f(int size, int num)
 		}
 	}
 	catch (IntArray::IdxRngErr& x) {
-		cout << "¯Á¤Þ·¸¦ì¡G" << x.Index() << '\n';
+		cout << "ç´¢å¼•æº¢ä½ï¼š" << x.Index() << '\n';
 		return;
 	}
 	catch (bad_alloc) {
-		cout << "½T«O°O¾ÐÅé¥¢±Ñ¡C\n";
-		exit(1);			               // ±j¨îµ²§ô
+		cout << "ç¢ºä¿è¨˜æ†¶é«”å¤±æ•—ã€‚\n";
+		exit(1);			               // å¼·åˆ¶çµæŸ
 	}
 }
 
@@ -30,8 +30,8 @@ int main()
 {
 	int size, num;
 
-	cout << "¤¸¯À¼Æ¡G"; cin >> size;
-	cout << "¸ê®Æ¼Æ¡G"; cin >> num;
+	cout << "å…ƒç´ æ•¸ï¼š"; cin >> size;
+	cout << "è³‡æ–™æ•¸ï¼š"; cin >> num;
 
 	f(size, num);
 

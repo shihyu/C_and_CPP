@@ -1,3 +1,3 @@
-// ¦b¥»®Ñ©Ò°²³]ªº<climits>ªº¤@³¡¤À
+// åœ¨æœ¬æ›¸æ‰€å‡è¨­çš„<climits>çš„ä¸€éƒ¨åˆ†
 
-#define CHAR_BIT	8				// ¦r¤¸«¬ºAªº¦ì¤¸¼Æ
+#define CHAR_BIT	8				// å­—å…ƒåž‹æ…‹çš„ä½å…ƒæ•¸

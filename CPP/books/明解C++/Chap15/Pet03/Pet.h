@@ -1,4 +1,4 @@
-// Ãdª«Ãş§OPet¡]²Ä3ª©¡G¤¶­±³¡¤À¡^
+// å¯µç‰©é¡åˆ¥Petï¼ˆç¬¬3ç‰ˆï¼šä»‹é¢éƒ¨åˆ†ï¼‰
 
 #if !defined(___Class_Pet)
 	#define	 ___Class_Pet
@@ -7,79 +7,79 @@
 #include <iostream>
 using namespace std;
 
-//=== Ãdª«Ãş§OPet ===//
+//=== å¯µç‰©é¡åˆ¥Pet ===//
 class Pet {
-	string name;					// ¦W¦r
+	string name;					// åå­—
 
 public:
-	Pet(string n = "") : name(n) { }				// «Øºc¤l
+	Pet(string n = "") : name(n) { }				// å»ºæ§‹å­
 
-	string Name() const { return name; }			// ¶Ç¦^¦W¦r
+	string Name() const { return name; }			// å‚³å›åå­—
 
-	virtual void Input() { 				// Åª¤J
-		cout << "¦W¦r : ";	cin >> name;
+	virtual void Input() { 				// è®€å…¥
+		cout << "åå­— : ";	cin >> name;
 	}
 
-	virtual void Sintro() const {				// ¦Û§Ú¤¶²Ğ
-		cout << "§Úªº¦W¦r¬O" << name << "¡C\n";
+	virtual void Sintro() const {				// è‡ªæˆ‘ä»‹ç´¹
+		cout << "æˆ‘çš„åå­—æ˜¯" << name << "ã€‚\n";
 	}
 };
 
-ostream& operator<<(ostream&, const Pet&);				// ´¡¤J¹Bºâ¤l
+ostream& operator<<(ostream&, const Pet&);				// æ’å…¥é‹ç®—å­
 
-//=== ª¯Ãdª«Ãş§OPdog ===//
+//=== ç‹—å¯µç‰©é¡åˆ¥Pdog ===//
 class Pdog : public Pet {
-	string dtype;						// «~ºØ
+	string dtype;						// å“ç¨®
 
 public:
 	Pdog(string n = "", string d = "") : Pet(n), dtype(d) { }
 
-	string Type() const { return dtype; }				// ¶Ç¦^«~ºØ	
+	string Type() const { return dtype; }				// å‚³å›å“ç¨®	
 
-	void Input() {						// Åª¤J
+	void Input() {						// è®€å…¥
 		Pet::Input();
-		cout << "«~ºØ : "; cin >> dtype;
+		cout << "å“ç¨® : "; cin >> dtype;
 	}
 
-	void Sintro() const {						// ¦Û§Ú¤¶²Ğ
-		cout << "§Ú¬O" << dtype << Name() << "!!\n";
+	void Sintro() const {						// è‡ªæˆ‘ä»‹ç´¹
+		cout << "æˆ‘æ˜¯" << dtype << Name() << "!!\n";
 	}
 };
 
-ostream& operator<<(ostream&, const Pdog&);				// ´¡¤J¹Bºâ¤l
+ostream& operator<<(ostream&, const Pdog&);				// æ’å…¥é‹ç®—å­
 
-//=== ¿ßÃdª«Ãş§OPcat ===//
+//=== è²“å¯µç‰©é¡åˆ¥Pcat ===//
 class Pcat : public Pet {
 public:
 	Pcat(string n = "") : Pet(n) { }
 
-	// ¤£©w¸q¦¨­û¨ç¼ÆInput
+	// ä¸å®šç¾©æˆå“¡å‡½æ•¸Input
 
-	void Sintro() const {						// ¦Û§Ú¤¶²Ğ
-		cout << "§Úªº¦W¦r¬O" << Name() << "!!\n";
+	void Sintro() const {						// è‡ªæˆ‘ä»‹ç´¹
+		cout << "æˆ‘çš„åå­—æ˜¯" << Name() << "!!\n";
 	}
 };
 
-ostream& operator<<(ostream&, const Pcat&);				// ´¡¤J¹Bºâ¤l
+ostream& operator<<(ostream&, const Pcat&);				// æ’å…¥é‹ç®—å­
 
-//=== µUÃdª«Ãş§OPmonkey ===//
+//=== çŒ´å¯µç‰©é¡åˆ¥Pmonkey ===//
 class Pmonkey : public Pet {
-	int age;							// ¦~ÄÖ
+	int age;							// å¹´é½¡
 public:
 	Pmonkey(string n = "", int a = 0) : Pet(n), age(a) { }
 
-	int Age() const { return age; }					// ¶Ç¦^¦~ÄÖ	
+	int Age() const { return age; }					// å‚³å›å¹´é½¡	
 
-	void Input() {						// Åª¤J
+	void Input() {						// è®€å…¥
 		Pet::Input();
-		cout << "¦~ÄÖ : "; cin >> age;
+		cout << "å¹´é½¡ : "; cin >> age;
 	}
 
-	void Sintro() const {						// ¦Û§Ú¤¶²Ğ
-		cout << "§Ú¬O" << age << "·³ªº" << Name() << "!!\n";
+	void Sintro() const {						// è‡ªæˆ‘ä»‹ç´¹
+		cout << "æˆ‘æ˜¯" << age << "æ­²çš„" << Name() << "!!\n";
 	}
 };
 
-ostream& operator<<(ostream&, const Pmonkey&);			// ´¡¤J¹Bºâ¤l
+ostream& operator<<(ostream&, const Pmonkey&);			// æ’å…¥é‹ç®—å­
 
 #endif

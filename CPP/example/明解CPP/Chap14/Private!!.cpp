@@ -1,10 +1,10 @@
-// private­l¥Í
+// privateè¡ç”Ÿ
 
 #include "Base.h"
 
 class Derived : private Base {
 	void f() {
-		pri = 1;	// µLªk¦s¨ú
+		pri = 1;	// ç„¡æ³•å­˜å–
 		pro = 1;
 		pub = 1;
 	}
@@ -14,9 +14,9 @@ int main()
 {
 	Derived x;
 
-	x.pri = 1;		// µLªk¦s¨ú
-	x.pro = 1;		// µLªk¦s¨ú
-	x.pub = 1;		// µLªk¦s¨ú
+	x.pri = 1;		// ç„¡æ³•å­˜å–
+	x.pro = 1;		// ç„¡æ³•å­˜å–
+	x.pub = 1;		// ç„¡æ³•å­˜å–
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-// ¨T¨®Ãş§O
+// æ±½è»Šé¡åˆ¥
 
 #include <cmath>
 #include <string>
@@ -6,35 +6,35 @@
 using namespace std;
 
 class Car {
-	string name;				// ¦WºÙ
-	int width, length, height; 	                                // ¨®¼e¡B¨®ªø¡B¨®°ª
-	double x, y;				// ²{¦b¦ì¸m®y¼Ğ
-	double fuel;				// ³Ñ¾l¿U®Æ
+	string name;				// åç¨±
+	int width, length, height; 	                                // è»Šå¯¬ã€è»Šé•·ã€è»Šé«˜
+	double x, y;				// ç¾åœ¨ä½ç½®åº§æ¨™
+	double fuel;				// å‰©é¤˜ç‡ƒæ–™
 
 public:
-	//--- «Øºc¤l ---//
+	//--- å»ºæ§‹å­ ---//
 	Car(string n, int w, int l, int h, double f) {
 		name = n; width = w; length = l; height = h; fuel = f; x = y = 0.0;
 	}
 
-	double X() { return x; }			// ¶Ç¦^²{¦b¦ì¸mªºX®y¼Ğ
-	double Y() { return y; }			// ¶Ç¦^²{¦b¦ì¸mªºY®y¼Ğ
-	double Fuel() { return fuel; }		                // ¶Ç¦^³Ñ¾l¿U®Æ
+	double X() { return x; }			// å‚³å›ç¾åœ¨ä½ç½®çš„Xåº§æ¨™
+	double Y() { return y; }			// å‚³å›ç¾åœ¨ä½ç½®çš„Yåº§æ¨™
+	double Fuel() { return fuel; }		                // å‚³å›å‰©é¤˜ç‡ƒæ–™
 
-	void PutSpec() {				// Åã¥Ü³W®æ
-		cout << "¦WºÙ¡G" << name << "\n"; 
-		cout << "¨®¼e¡G" << width << "mm\n"; 
-		cout << "¨®ªø¡G" << length << "mm\n"; 
-		cout << "¨®°ª¡G" << height << "mm\n"; 
+	void PutSpec() {				// é¡¯ç¤ºè¦æ ¼
+		cout << "åç¨±ï¼š" << name << "\n"; 
+		cout << "è»Šå¯¬ï¼š" << width << "mm\n"; 
+		cout << "è»Šé•·ï¼š" << length << "mm\n"; 
+		cout << "è»Šé«˜ï¼š" << height << "mm\n"; 
 	}
 
-	bool move(double dx, double dy) {	                // ¦VX¤è¦V²¾°Êdx¡B¦VY¤è¦V²¾°Êdy
-		double dist = sqrt(dx * dx + dy * dy);		// ²¾°Ê¶ZÂ÷
+	bool move(double dx, double dy) {	                // å‘Xæ–¹å‘ç§»å‹•dxã€å‘Yæ–¹å‘ç§»å‹•dy
+		double dist = sqrt(dx * dx + dy * dy);		// ç§»å‹•è·é›¢
 
 		if (dist > fuel)
-			return false;				// ¿U®Æ¤£¨¬
+			return false;				// ç‡ƒæ–™ä¸è¶³
 		else {
-			fuel -= dist;				// ®ø¯Ó¤F²¾°Ê¶ZÂ÷ªº¶qªº¿U®Æ
+			fuel -= dist;				// æ¶ˆè€—äº†ç§»å‹•è·é›¢çš„é‡çš„ç‡ƒæ–™
 			x += dx;  y += dy;
 			return true;
 		}

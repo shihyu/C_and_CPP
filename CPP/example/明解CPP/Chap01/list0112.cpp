@@ -1,4 +1,4 @@
-// §Q¥Î¶Ã¼Æ²£¥Í0~9ªº©¯¹B¸¹½X¨ÃÅã¥Ü
+// åˆ©ç”¨äº‚æ•¸ç”¢ç”Ÿ0~9çš„å¹¸é‹è™Ÿç¢¼ä¸¦é¡¯ç¤º
 
 #include <ctime>
 #include <cstdlib>
@@ -7,11 +7,11 @@ using namespace std;
 
 int main()
 {
-	srand(time(NULL));				// ³]©w¶Ã¼ÆªººØ¤l
+	srand(time(NULL));				// è¨­å®šäº‚æ•¸çš„ç¨®å­
 
-	int lucky = rand() % 10;				// 0~9ªº¶Ã¼Æ
+	int lucky = rand() % 10;				// 0~9çš„äº‚æ•¸
 
-	cout << "¤µ¤Ñªº©¯¹B¸¹½X¬O" << lucky << "¡C\n";
+	cout << "ä»Šå¤©çš„å¹¸é‹è™Ÿç¢¼æ˜¯" << lucky << "ã€‚\n";
 
 	return 0;
 }

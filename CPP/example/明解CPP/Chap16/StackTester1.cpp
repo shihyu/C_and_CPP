@@ -1,4 +1,4 @@
-// °ïÅ|©â¶HÃþ§O½d¥»Stackªº¨Ï¥Î½d¨Ò¡]¨ä¢°¡^
+// å †ç–ŠæŠ½è±¡é¡žåˆ¥ç¯„æœ¬Stackçš„ä½¿ç”¨ç¯„ä¾‹ï¼ˆå…¶ï¼‘ï¼‰
 
 #include <iostream>
 #include "Stack.h"
@@ -10,23 +10,23 @@ int main()
 
 	while (1) {
 		int menu;
-		cout << "(1)±À¤J  (2)¼u¥X¡@(0)µ²§ô¡G";
+		cout << "(1)æŽ¨å…¥  (2)å½ˆå‡ºã€€(0)çµæŸï¼š";
 		cin >> menu;
 		if (menu == 0) break;
 
 		switch (menu) {
 		 int x;
-		 case 1: cout << "¸ê®Æ¡G";
+		 case 1: cout << "è³‡æ–™ï¼š";
 				 cin >> x;
 				 s->Push(x);
 				 break;
 
 		 case 2: try {
 					x = s->Pop();
-				 	cout << "¼u¥Xªº¸ê®Æ¬°" << x << "¡C\n"; 
+				 	cout << "å½ˆå‡ºçš„è³‡æ–™ç‚º" << x << "ã€‚\n"; 
 				 }
 				 catch (Stack<int>::EmptyErr) {
-					cout << "\a°ïÅ|¬°ªÅªº¡C\n";
+					cout << "\aå †ç–Šç‚ºç©ºçš„ã€‚\n";
 				 }
 				 break;
 		 }

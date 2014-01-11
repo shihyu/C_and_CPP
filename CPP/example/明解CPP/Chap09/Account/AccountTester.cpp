@@ -1,4 +1,4 @@
-//  »È¦æ±b¤áÃþ§O (²Ä4ª©)ªº¨Ï¥Î½d¨Ò
+//  éŠ€è¡Œå¸³æˆ¶é¡žåˆ¥ (ç¬¬4ç‰ˆ)çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <string>
 #include <iostream>
@@ -7,17 +7,17 @@ using namespace std;
 
 int main()
 {
-	Account* adachi = new Account("¨¬¥ß©¯¤@", "12345678", 1000);
-	Account* nakata = new Account("¥ò¥Ð¯u¤G", "87654321",  200);
+	Account* adachi = new Account("è¶³ç«‹å¹¸ä¸€", "12345678", 1000);
+	Account* nakata = new Account("ä»²ç”°çœŸäºŒ", "87654321",  200);
 
-	adachi->Withdraw(200);		// ¨¬¥ß¥ý¥Í»â¤F200¤¸
-	nakata->Deposit(100);		// ¥ò¥Ð¥ý¥Í¦s¤F100¤¸
+	adachi->Withdraw(200);		// è¶³ç«‹å…ˆç”Ÿé ˜äº†200å…ƒ
+	nakata->Deposit(100);		// ä»²ç”°å…ˆç”Ÿå­˜äº†100å…ƒ
 
-	cout << "¡½¨¬¥ß¥ý¥Íªº±b¤á¡G\"" << adachi->GetName() << "\" ("
-		 << adachi->GetNo() << ") " << adachi->CheckBalance() << "¤¸\n";
+	cout << "â– è¶³ç«‹å…ˆç”Ÿçš„å¸³æˆ¶ï¼š\"" << adachi->GetName() << "\" ("
+		 << adachi->GetNo() << ") " << adachi->CheckBalance() << "å…ƒ\n";
 
-	cout << "¡½¥ò¥Ð¥ý¥Íªº±b¤á¡G\"" << nakata->GetName() << "\" ("
-		 << nakata->GetNo() << ") " << nakata->CheckBalance() << "¤¸\n";
+	cout << "â– ä»²ç”°å…ˆç”Ÿçš„å¸³æˆ¶ï¼š\"" << nakata->GetName() << "\" ("
+		 << nakata->GetNo() << ") " << nakata->CheckBalance() << "å…ƒ\n";
 
 	return 0;
 }

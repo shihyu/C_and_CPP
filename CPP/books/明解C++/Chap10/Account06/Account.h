@@ -1,4 +1,4 @@
-//  »È¦æ±b¤áÃş§O (²Ä6ª©¡G¤¶­±³¡¤À)
+//  éŠ€è¡Œå¸³æˆ¶é¡åˆ¥ (ç¬¬6ç‰ˆï¼šä»‹é¢éƒ¨åˆ†)
 
 #if !defined(___Class_Account)
 	#define	 ___Class_Account
@@ -7,23 +7,23 @@
 #include "Date.h"
 using namespace std;
 
-//===== »È¦æ±b¤áÃş§O =====//
+//===== éŠ€è¡Œå¸³æˆ¶é¡åˆ¥ =====//
 class Account {
-	string name;			// ±b¤á¦W
-	string no;				// ±b¸¹
-	long balance;			// ¦s´Úª÷ÃB
-	Date open;			// ¶}¤á¤é
+	string name;			// å¸³æˆ¶å
+	string no;				// å¸³è™Ÿ
+	long balance;			// å­˜æ¬¾é‡‘é¡
+	Date open;			// é–‹æˆ¶æ—¥
 
 public:
-	// «Øºc¤l
+	// å»ºæ§‹å­
 	Account(string n, string num, long z, Date op);
 
-	void Deposit(long k);						// ¦s´Ú
-	void Withdraw(long k);						// ´£´Ú
-	string GetName() const    { return name; }		// ¬d¸ß±b¤á¦W
-	string GetNo() const      { return no; }		                // ¬d¸ß±b¸¹
-	long CheckBalance()	const { return balance; }	// ¬d¸ß¦s´Ú¾lÃB
-	Date OpeningDate() const  { return open; }		// ¬d¸ß¶}¤á¤é
+	void Deposit(long k);						// å­˜æ¬¾
+	void Withdraw(long k);						// ææ¬¾
+	string GetName() const    { return name; }		// æŸ¥è©¢å¸³æˆ¶å
+	string GetNo() const      { return no; }		                // æŸ¥è©¢å¸³è™Ÿ
+	long CheckBalance()	const { return balance; }	// æŸ¥è©¢å­˜æ¬¾é¤˜é¡
+	Date OpeningDate() const  { return open; }		// æŸ¥è©¢é–‹æˆ¶æ—¥
 };
 
 #endif

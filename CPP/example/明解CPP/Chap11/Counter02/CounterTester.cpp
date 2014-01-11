@@ -1,4 +1,4 @@
-// °O¼ÆÃþ§OCounter (²Ä2ª©)ªº¨Ï¥Î½d¨Ò
+// è¨˜æ•¸é¡žåˆ¥Counter (ç¬¬2ç‰ˆ)çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Counter.h"
@@ -10,18 +10,18 @@ int main()
 	Counter x;
 	Counter y;
 
-	cout << "¼W¥[ªº¦¸¼Æ¡G";  cin >> no;
+	cout << "å¢žåŠ çš„æ¬¡æ•¸ï¼š";  cin >> no;
 	for (int i = 0; i < no; i++)
-		cout << x++ << ' ' << ++y << '\n';	// ¼W¥[¦¸¼Æ
+		cout << x++ << ' ' << ++y << '\n';	// å¢žåŠ æ¬¡æ•¸
 
-	cout << "´î¤Öªº¦¸¼Æ¡G";  cin >> no;
+	cout << "æ¸›å°‘çš„æ¬¡æ•¸ï¼š";  cin >> no;
 	for (int i = 0; i < no; i++)
-		cout << x-- << ' ' << --y << '\n'; 	// ´î¤Ö¦¸¼Æ
+		cout << x-- << ' ' << --y << '\n'; 	// æ¸›å°‘æ¬¡æ•¸
 
 	if (!x)
-		cout << "x¬O0¡C\n";
+		cout << "xæ˜¯0ã€‚\n";
 	else 
-		cout << "x¤£¬O0¡C\n";
+		cout << "xä¸æ˜¯0ã€‚\n";
 
 	return 0;
 }

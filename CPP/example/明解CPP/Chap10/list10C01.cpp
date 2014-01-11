@@ -1,4 +1,4 @@
-// Åã¥Ü²{¦bªº¤é´Á¡B®É¶¡
+// é¡¯ç¤ºç¾åœ¨çš„æ—¥æœŸã€æ™‚é–“
 
 #include <ctime>
 #include <iostream>
@@ -6,18 +6,18 @@ using namespace std;
 
 int main()
 {
-	time_t current = time(NULL);				// ²{¦bªº¼Ğ·Ç®É¶¡
-	struct tm *timer = localtime(&current);		// ¦U¤¸¯Àªº®É¶¡¡]¦a¤è®É¶¡¡^
-	char *wday_name[] = {"¤é", "¤@", "¤G", "¤T", "¥|", "¤­", "¤»"};
+	time_t current = time(NULL);				// ç¾åœ¨çš„æ¨™æº–æ™‚é–“
+	struct tm *timer = localtime(&current);		// å„å…ƒç´ çš„æ™‚é–“ï¼ˆåœ°æ–¹æ™‚é–“ï¼‰
+	char *wday_name[] = {"æ—¥", "ä¸€", "äºŒ", "ä¸‰", "å››", "äº”", "å…­"};
 
-	cout << "²{¦bªº¤é´Á¡B®É¶¡¬°"
-		 << timer->tm_year + 1900     << "¦~"
-		 << timer->tm_mon + 1         << "¤ë"
-		 << timer->tm_mday            << "¤é¡]"
-		 << wday_name[timer->tm_wday] << "¡^"
-		 << timer->tm_hour            << "ÂI"
-		 << timer->tm_min             << "¤À"
-		 << timer->tm_sec             << "¬í¡C\n";
+	cout << "ç¾åœ¨çš„æ—¥æœŸã€æ™‚é–“ç‚º"
+		 << timer->tm_year + 1900     << "å¹´"
+		 << timer->tm_mon + 1         << "æœˆ"
+		 << timer->tm_mday            << "æ—¥ï¼ˆ"
+		 << wday_name[timer->tm_wday] << "ï¼‰"
+		 << timer->tm_hour            << "é»"
+		 << timer->tm_min             << "åˆ†"
+		 << timer->tm_sec             << "ç§’ã€‚\n";
 
 	return 0;
 }

@@ -1,4 +1,4 @@
-// ±N°}¦C¤¸¯À°f¦V±Æ¦C¨ÃÅã¥Ü
+// å°‡é™£åˆ—å…ƒç´ é€†å‘æ’åˆ—ä¸¦é¡¯ç¤º
 
 #include <ctime>
 #include <cstdlib>
@@ -7,10 +7,10 @@ using namespace std;
 
 int main()
 {
-	const int n = 7;			// °}¦Caªº¤¸¯À¼Æ
+	const int n = 7;			// é™£åˆ—açš„å…ƒç´ æ•¸
 	int a[n];
 
-	srand(time(NULL));		// ±N¶Ã¼ÆªººØ¤lªì©l¤Æ
+	srand(time(NULL));		// å°‡äº‚æ•¸çš„ç¨®å­åˆå§‹åŒ–
 	for (int i = 0; i < n; i++) {
 		a[i] = rand() % 100;
 		cout << "a[" << i << "] = " << a[i] << '\n';
@@ -22,7 +22,7 @@ int main()
 		a[n - i - 1] = t;
 	}
 
-	cout << "±N¤¸¯Àªº±Æ¦C¶¶§Ç¤ÏÂà¤F¡C\n";
+	cout << "å°‡å…ƒç´ çš„æ’åˆ—é †åºåè½‰äº†ã€‚\n";
 	for (int i = 0; i < n; i++)
 		cout << "a[" << i << "] = " << a[i] << '\n';
 

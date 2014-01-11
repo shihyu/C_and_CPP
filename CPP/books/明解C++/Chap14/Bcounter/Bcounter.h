@@ -1,19 +1,19 @@
-// °¸¼Æ°O¼ÆÃş§OBcounter
+// å¶æ•¸è¨˜æ•¸é¡åˆ¥Bcounter
 
 #if !defined(___Class_Bcounter)
 	#define	 ___Class_Bcounter
 
 #include "Counter.h"
 
-//===== °¸¼Æ°O¼ÆÃş§O =====//
+//===== å¶æ•¸è¨˜æ•¸é¡åˆ¥ =====//
 class Bcounter : private Counter {
 
 public:
-	Bcounter() { }					// «Øºc¤l
+	Bcounter() { }					// å»ºæ§‹å­
 
-	using Counter::Value;			// ½Õ¾ã¦¨­û¨ç¼Æªº¦s¨úÅv­­
+	using Counter::Value;			// èª¿æ•´æˆå“¡å‡½æ•¸çš„å­˜å–æ¬Šé™
 
-	void Increment() {				// ¦A¦¸©w¸q¦¨­û¨ç¼Æ
+	void Increment() {				// å†æ¬¡å®šç¾©æˆå“¡å‡½æ•¸
 		if (Value() < UINT_MAX - 1) {
 			Counter::Increment();
 			Counter::Increment();

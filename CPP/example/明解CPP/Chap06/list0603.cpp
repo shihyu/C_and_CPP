@@ -1,4 +1,4 @@
-// ¦ì§}¹Bºâ¤l©M¶¡±µ°Ñ·Ó¹Bºâ¤l
+// ä½å€é‹ç®—å­å’Œé–“æ¥åƒç…§é‹ç®—å­
 
 #include <iostream>
 using namespace std;
@@ -11,14 +11,14 @@ int main()
 	cout << "y = " << y << '\n';
 	cout << "-------\n";
 
-	int* ptr = &x;				// ptr«ü¦Vx
-	*ptr = 300;				// ±N300«ü©wµ¹*ptr (¤]´N¬Ox)
+	int* ptr = &x;				// ptræŒ‡å‘x
+	*ptr = 300;				// å°‡300æŒ‡å®šçµ¦*ptr (ä¹Ÿå°±æ˜¯x)
 	cout << "x = " << x << '\n';
 	cout << "y = " << y << '\n';
 	cout << "-------\n";
 
-	ptr = &y;					// ptr«ü¦Vy
-	*ptr = 400;				// ±N400«ü©wµ¹*ptr (¤]´N¬Oy)
+	ptr = &y;					// ptræŒ‡å‘y
+	*ptr = 400;				// å°‡400æŒ‡å®šçµ¦*ptr (ä¹Ÿå°±æ˜¯y)
 	cout << "x = " << x << '\n';
 	cout << "y = " << y << '\n';
 

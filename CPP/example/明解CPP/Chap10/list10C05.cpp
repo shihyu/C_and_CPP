@@ -1,4 +1,4 @@
-// ¨Ï¥Î#if«ü¥O¨Ó¹F¦¨ªºµ{¦¡¥[µù
+// ä½¿ç”¨#ifæŒ‡ä»¤ä¾†é”æˆçš„ç¨‹å¼åŠ è¨»
 
 #include <iostream>
 using namespace std;
@@ -11,10 +11,10 @@ int main()
 	int	x = 1;
 
 #if DEBUG == 1
-	a = x;				/*±Nx«ü©wµ¹a */
+	a = x;				/*å°‡xæŒ‡å®šçµ¦a */
 #endif
 
-	cout << "aªº­È¬°" << a << "¡C\n";
+	cout << "açš„å€¼ç‚º" << a << "ã€‚\n";
 
 	return 0;
 }

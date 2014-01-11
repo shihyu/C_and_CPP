@@ -1,15 +1,15 @@
-// °ÊºA²£¥Í¡Bªì©l¤Æ¾ã¼Æª«¥ó
+// å‹•æ…‹ç”¢ç”Ÿã€åˆå§‹åŒ–æ•´æ•¸ç‰©ä»¶
 
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	int* x = new int(5);				// ²£¥Í¡Gªş¥[ªì©l¤Æ¤l
+	int* x = new int(5);				// ç”¢ç”Ÿï¼šé™„åŠ åˆå§‹åŒ–å­
 
 	cout << "*x = " << *x << '\n';
 
-	delete x;						// ¥á±ó
+	delete x;						// ä¸Ÿæ£„
 
 	return 0;
 }

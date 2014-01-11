@@ -1,4 +1,4 @@
-// vectorªº¤¸¯À¼Æ»P®e¶q
+// vectorçš„å…ƒç´ æ•¸èˆ‡å®¹é‡
 
 #include <vector>
 #include <iostream>
@@ -7,13 +7,13 @@ using namespace std;
 int main()
 {
 	vector<int> x;
-	cout << "®e¶q¡G" << x.capacity() << '\n';
-	x.reserve(7);		// ¨Ï®e¶q³Ì¤Ö¤]¦³7
+	cout << "å®¹é‡ï¼š" << x.capacity() << '\n';
+	x.reserve(7);		// ä½¿å®¹é‡æœ€å°‘ä¹Ÿæœ‰7
 
 	x.push_back(15);	x.push_back(92);
 	x.push_back(75);	x.push_back(48);
 
-	cout << "®e¶q¡G" << x.capacity() << '\n';
+	cout << "å®¹é‡ï¼š" << x.capacity() << '\n';
 
 	for (int i = 0; i < x.size(); i++)
 		cout << "x[" << i << "] = " << x[i] << '\n';

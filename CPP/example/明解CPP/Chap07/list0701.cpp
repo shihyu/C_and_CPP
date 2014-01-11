@@ -1,4 +1,4 @@
-// Åã¥Ü¦r¦ê±`­Èªº«¬ºA»Pªø«×
+// é¡¯ç¤ºå­—ä¸²å¸¸å€¼çš„åž‹æ…‹èˆ‡é•·åº¦
 
 #include <iostream>
 #include <typeinfo>
@@ -6,17 +6,17 @@ using namespace std;
 
 int main()
 {
-	cout << "¡½¦r¦ê±`­È\"ABC\"\n";
-	cout << "  «¬ºA¡G"   << typeid("ABC").name()
-		 << "  ªø«×¡G" << sizeof("ABC") << "\n\n";
+	cout << "â– å­—ä¸²å¸¸å€¼\"ABC\"\n";
+	cout << "  åž‹æ…‹ï¼š"   << typeid("ABC").name()
+		 << "  é•·åº¦ï¼š" << sizeof("ABC") << "\n\n";
 
-	cout << "¡½¦r¦ê±`­È\"\"\n";
-	cout << "  «¬ºA¡G"   << typeid("").name()
-		 << "  ªø«×¡G" << sizeof("") << "\n\n";
+	cout << "â– å­—ä¸²å¸¸å€¼\"\"\n";
+	cout << "  åž‹æ…‹ï¼š"   << typeid("").name()
+		 << "  é•·åº¦ï¼š" << sizeof("") << "\n\n";
 
-	cout << "¡½¦r¦ê±`­È\"abc\\0def\"\n";
-	cout << "  «¬ºA¡G"   << typeid("abc\0def").name()
-		 << "  ªø«×¡G" << sizeof("abc\0def") << "\n\n";
+	cout << "â– å­—ä¸²å¸¸å€¼\"abc\\0def\"\n";
+	cout << "  åž‹æ…‹ï¼š"   << typeid("abc\0def").name()
+		 << "  é•·åº¦ï¼š" << sizeof("abc\0def") << "\n\n";
 
 	return 0;
 }

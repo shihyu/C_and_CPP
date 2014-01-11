@@ -1,4 +1,4 @@
-// ¨Ï¥Î«ü¦V¦¨­û¨ç¼Æªº«ü¼Ğ¨Ó°ÊºA©I¥s¨ç¼Æ
+// ä½¿ç”¨æŒ‡å‘æˆå“¡å‡½æ•¸çš„æŒ‡æ¨™ä¾†å‹•æ…‹å‘¼å«å‡½æ•¸
 
 #include <iostream>
 #include "Date.h"
@@ -11,23 +11,23 @@ int main()
 	int	  menu;
 	const Date birthday(1963, 11, 18);
 
-	cout << "½Ğ²q²q¬İ§Úªº¥Í¤é¡C\n";
+	cout << "è«‹çŒœçŒœçœ‹æˆ‘çš„ç”Ÿæ—¥ã€‚\n";
 	do {
-		cout << "0¡K¦~/1¡K¤ë/2¡K¤é/3¡Kµ²§ô¡G";
+		cout << "0â€¦å¹´/1â€¦æœˆ/2â€¦æ—¥/3â€¦çµæŸï¼š";
 		cin >> menu;
 
 		if (menu >= 0 && menu <= 2) {
 			int value;
-			cout << "¬O¦h¤Ö©O¡G";
+			cout << "æ˜¯å¤šå°‘å‘¢ï¼š";
 			cin >> value;
 
 			int diff = (birthday.*fcomp[menu])(value);
 			if (!diff)
-				cout << "¥¿½Tµª®×¡C\n";
+				cout << "æ­£ç¢ºç­”æ¡ˆã€‚\n";
 			else if (diff > 0)
-				cout << "¦h¤F" <<  diff << "¡C\n";
+				cout << "å¤šäº†" <<  diff << "ã€‚\n";
 			else
-				cout << "¤Ö¤F" << -diff << "¡C\n";
+				cout << "å°‘äº†" << -diff << "ã€‚\n";
 		}
 	  } while (menu != 3);
 

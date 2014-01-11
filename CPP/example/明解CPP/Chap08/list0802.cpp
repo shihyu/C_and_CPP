@@ -1,9 +1,9 @@
-// ¨D±o°}¦C¤§³Ì¤j­È(¨Ï¥Î¦h¸ü)
+// æ±‚å¾—é™£åˆ—ä¹‹æœ€å¤§å€¼(ä½¿ç”¨å¤šè¼‰)
 
 #include <iostream>
 using namespace std;
 
-//--- ¶Ç¦^¤¸¯À¼Æ¬°nªº°}¦Cx¤§³Ì¤j­È(int«¬ºA) ---//
+//--- å‚³å›žå…ƒç´ æ•¸ç‚ºnçš„é™£åˆ—xä¹‹æœ€å¤§å€¼(intåž‹æ…‹) ---//
 int maxof(const int x[], int n)
 {
 	int max = x[0];
@@ -13,7 +13,7 @@ int maxof(const int x[], int n)
 	return max;
 }
 
-//--- ¶Ç¦^¤¸¯À¼Æ¬°nªº°}¦Cx¤§³Ì¤j­È(double«¬ºA) ---//
+//--- å‚³å›žå…ƒç´ æ•¸ç‚ºnçš„é™£åˆ—xä¹‹æœ€å¤§å€¼(doubleåž‹æ…‹) ---//
 double maxof(const double x[], int n)
 {
 	double max = x[0];
@@ -28,25 +28,25 @@ int main()
 	const int isize = 8;
 	int ix[isize];
 
-	// ¾ã¼Æ°}¦Cªº³Ì¤j­È
-	cout <<"½Ð¿é¤J"<< isize << "­Ó¾ã¼Æ¡C\n";
+	// æ•´æ•¸é™£åˆ—çš„æœ€å¤§å€¼
+	cout <<"è«‹è¼¸å…¥"<< isize << "å€‹æ•´æ•¸ã€‚\n";
 	for (int i = 0; i < isize; i++) {
 		cout << i + 1 << ":";
 		cin >> ix[i];
 	}
-	cout << "³Ì¤j­È¬°" << maxof(ix, isize) << "¡C\n\n";
+	cout << "æœ€å¤§å€¼ç‚º" << maxof(ix, isize) << "ã€‚\n\n";
 
 	const int dsize = 5;
 	double dx[dsize];
 
-	// ¹ê¼Æ°}¦Cªº³Ì¤j­È
-	cout <<"½Ð¿é¤J"<< dsize << "­Ó¹ê¼Æ¡C\n";
+	// å¯¦æ•¸é™£åˆ—çš„æœ€å¤§å€¼
+	cout <<"è«‹è¼¸å…¥"<< dsize << "å€‹å¯¦æ•¸ã€‚\n";
 
 	for (int i = 0; i < dsize; i++) {
 		cout << i + 1 << ":";
 		cin >> dx[i];
 	}
-	cout << "³Ì¤j­È¬°" << maxof(dx, dsize) << "¡C\n";
+	cout << "æœ€å¤§å€¼ç‚º" << maxof(dx, dsize) << "ã€‚\n";
 
 	return 0;
 }

@@ -1,18 +1,18 @@
-// ¾ã¼Æ°}¦CÃş§OIntArray¡]²Ä¢°ª©¡^
+// æ•´æ•¸é™£åˆ—é¡åˆ¥IntArrayï¼ˆç¬¬ï¼‘ç‰ˆï¼‰
 
 #if !defined(___Class_IntArray)
 	#define  ___Class_IntArray
 
-//===== ¾ã¼Æ°}¦CÃş§O ======//
+//===== æ•´æ•¸é™£åˆ—é¡åˆ¥ ======//
 class IntArray {
-	int size;		// °}¦Cªº¤¸¯À¼Æ
-	int* vec;		// «ü¦V¶}ÀY¤¸¯Àªº«ü¼Ğ
+	int size;		// é™£åˆ—çš„å…ƒç´ æ•¸
+	int* vec;		// æŒ‡å‘é–‹é ­å…ƒç´ çš„æŒ‡æ¨™
 
 public:
-	//©ú½Tªº«Øºc¤l
+	//æ˜ç¢ºçš„å»ºæ§‹å­
 	explicit IntArray(int sz) : size(sz) { vec = new int[size]; }
-	int Size() { return size; }				    // ¶Ç¦^¤¸¯À¼Æ
-	int& operator[](int i) { return vec[i]; }	// ¯Á¤Ş¹Bºâ¤l[]
+	int Size() { return size; }				    // å‚³å›å…ƒç´ æ•¸
+	int& operator[](int i) { return vec[i]; }	// ç´¢å¼•é‹ç®—å­[]
 };
 
 #endif

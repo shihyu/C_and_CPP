@@ -1,4 +1,4 @@
-// ¦~¸¹ª©¤é´ÁÃş§ODate¡]¹ê§@³¡¥÷¡^
+// å¹´è™Ÿç‰ˆæ—¥æœŸé¡åˆ¥Dateï¼ˆå¯¦ä½œéƒ¨ä»½ï¼‰
 
 #include <ctime>
 #include <sstream>
@@ -6,17 +6,17 @@
 #include "Date.h"
 using namespace std;
 
-//--- ¹w³]«Øºc¤l ---//
+//--- é è¨­å»ºæ§‹å­ ---//
 Date::Date()
 {
-	time_t current = time(NULL);			// ¨ú±o²{¦bªº®É¶¡
-	struct tm* local = localtime(&current);	// Âà´«¬°¦U¤¸¯Àªº®É¶¡
-	year  = local->tm_year + 1900;			// ¦~¡Gtm_year¬O¦~-1900
-	month = local->tm_mon + 1;				// ¤ë¡Gtm_mon¬O0¡ã11
+	time_t current = time(NULL);			// å–å¾—ç¾åœ¨çš„æ™‚é–“
+	struct tm* local = localtime(&current);	// è½‰æ›ç‚ºå„å…ƒç´ çš„æ™‚é–“
+	year  = local->tm_year + 1900;			// å¹´ï¼štm_yearæ˜¯å¹´-1900
+	month = local->tm_mon + 1;				// æœˆï¼štm_monæ˜¯0âˆ¼11
 	day	  = local->tm_mday;
 }
 
-//--- ¶Ç¦^¬P´Á¡]¬P´Á¤é¡ã¬P´Á¤»¤À§O¹ïÀ³0¡ã6¡^---//
+//--- å‚³å›æ˜ŸæœŸï¼ˆæ˜ŸæœŸæ—¥âˆ¼æ˜ŸæœŸå…­åˆ†åˆ¥å°æ‡‰0âˆ¼6ï¼‰---//
 int Date::DayOfWeek() const
 {
 	int y = year;
@@ -28,7 +28,7 @@ int Date::DayOfWeek() const
 	return (y + y / 4 - y / 100 + y / 400 + (13 * m + 8) / 5 + day) % 7;
 }
 
-//--- ¥H¦r¦ê¶Ç¦^ ---//
+//--- ä»¥å­—ä¸²å‚³å› ---//
 string Date::to_string() const
 {
 	unsigned long idate = year * 10000UL + month * 100UL + day;
@@ -37,19 +37,19 @@ string Date::to_string() const
 	if (idate < 18680908UL)
 		s << year;
 	else if (idate < 19120730UL)
-		s << "©úªv" << (year - 1867);
+		s << "æ˜æ²»" << (year - 1867);
 	else if (idate < 19261225UL)
-		s << "¤j¥¿" << (year - 1911);
+		s << "å¤§æ­£" << (year - 1911);
 	else if (idate < 19890108UL)
-		s << "¬L©M" << (year - 1925);
+		s << "æ˜­å’Œ" << (year - 1925);
 	else
-		s << "¥­¦¨" << (year - 1988);
-	s << "¦~" << month << "¤ë" << day << "¤é";
+		s << "å¹³æˆ" << (year - 1988);
+	s << "å¹´" << month << "æœˆ" << day << "æ—¥";
 
 	return s.str();
 }
 
-//--- ´¡¤J¨ìostream ---//
+//--- æ’å…¥åˆ°ostream ---//
 ostream& operator<<(ostream& s, const Date& x)
 {
 	return s << x.to_string();

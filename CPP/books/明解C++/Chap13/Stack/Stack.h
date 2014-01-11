@@ -1,23 +1,23 @@
-// °ïÅ| Ãş§O½d¥»
+// å †ç–Š é¡åˆ¥ç¯„æœ¬
 
 #if !defined(___Class_Stack)
 	#define  ___Class_Stack
 
-//===== °ïÅ| Ãş§O½d¥» =====//
+//===== å †ç–Š é¡åˆ¥ç¯„æœ¬ =====//
 template<class Type> class Stack {
-	int size;			// °ïÅ|ªº®e¶q
-	int	ptr;			// °ïÅ|«ü¼Ğ
-	Type* stk;			// °ïÅ|ªº¥DÅé¡]«ü¦V¶}ÀY¤¸¯Àªº«ü¼Ğ¡^
+	int size;			// å †ç–Šçš„å®¹é‡
+	int	ptr;			// å †ç–ŠæŒ‡æ¨™
+	Type* stk;			// å †ç–Šçš„ä¸»é«”ï¼ˆæŒ‡å‘é–‹é ­å…ƒç´ çš„æŒ‡æ¨™ï¼‰
 
-	Stack(const Stack&);			// Åı½Æ»s«Øºc¤lµL®Ä
-	Stack& operator=(const Stack&);	// Åı«ü©w¹Bºâ¤lµL®Ä
+	Stack(const Stack&);			// è®“è¤‡è£½å»ºæ§‹å­ç„¡æ•ˆ
+	Stack& operator=(const Stack&);	// è®“æŒ‡å®šé‹ç®—å­ç„¡æ•ˆ
 
 public:
-	// ©ú½Tªº«Øºc¤l
+	// æ˜ç¢ºçš„å»ºæ§‹å­
 	explicit Stack(int sz) : size(sz), ptr(0) { stk = new Type[size]; }
-   ~Stack() { delete[] stk; }						// ¸Ñºc¤l
+   ~Stack() { delete[] stk; }						// è§£æ§‹å­
 
-	//----- ¹ï©ó¤wº¡°ïÅ|ªº±À¤J¤§¨Ò¥~ -----//
+	//----- å°æ–¼å·²æ»¿å †ç–Šçš„æ¨å…¥ä¹‹ä¾‹å¤– -----//
 	class OverflowErr {
 		Stack* ident;
 	public:
@@ -25,13 +25,13 @@ public:
 		Stack* vec() { return ident; }
 	};
 
-	Type& Push(const Type& x) {				// ±À¤J
-		if (ptr >= size)					// °ïÅ|¤wº¡
+	Type& Push(const Type& x) {				// æ¨å…¥
+		if (ptr >= size)					// å †ç–Šå·²æ»¿
 			throw OverflowErr(this);
 		return stk[ptr++] = x;
 	}
 
-	//----- ¹ï©ó¨Ó¦ÛªÅ°ïÅ|ªº¼u¥X¤§¨Ò¥~ -----//
+	//----- å°æ–¼ä¾†è‡ªç©ºå †ç–Šçš„å½ˆå‡ºä¹‹ä¾‹å¤– -----//
 	class EmptyErr {
 		Stack* ident;
 	public:
@@ -39,8 +39,8 @@ public:
 		Stack* vec() { return ident; }
 	};
 		
-	Type& Pop() {                       // ¼u¥X
-		if (ptr <= 0)					// °ïÅ|¬OªÅªº
+	Type& Pop() {                       // å½ˆå‡º
+		if (ptr <= 0)					// å †ç–Šæ˜¯ç©ºçš„
 			throw EmptyErr(this);
 		return stk[--ptr];
 	}

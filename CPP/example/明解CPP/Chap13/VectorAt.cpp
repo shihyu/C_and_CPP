@@ -1,4 +1,4 @@
-// ¦s¨ú¦V¶qªº¤¸¯À
+// å­˜å–å‘é‡çš„å…ƒç´ 
 
 #include <vector>
 #include <iostream>
@@ -7,7 +7,7 @@ using namespace std;
 int main()
 {
 	int a[] = {1, 2, 3, 4, 5};
-	vector<int> x(a, a + 5);	// ±q°}¦C¤¤»s§@¦V¶q
+	vector<int> x(a, a + 5);	// å¾é™£åˆ—ä¸­è£½ä½œå‘é‡
 
 	try {
 		for (int i = 0; i <= 10; i++) {
@@ -15,8 +15,8 @@ int main()
 		}
 	}
 	catch (std::out_of_range){
-		cout << "³o¬O¤£¥¿½Tªº¯Á¤Ş¡C\n";
-		return 1;						// ±j¨îµ²§ô
+		cout << "é€™æ˜¯ä¸æ­£ç¢ºçš„ç´¢å¼•ã€‚\n";
+		return 1;						// å¼·åˆ¶çµæŸ
 	}
 
 	return 0;

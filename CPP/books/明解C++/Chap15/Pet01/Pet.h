@@ -1,4 +1,4 @@
-// Ãdª«Ãş§OPet¡]²Ä¢°ª©¡G¤¶­±³¡¤À¡^
+// å¯µç‰©é¡åˆ¥Petï¼ˆç¬¬ï¼‘ç‰ˆï¼šä»‹é¢éƒ¨åˆ†ï¼‰
 
 #if !defined(___Class_Pet)
 	#define	 ___Class_Pet
@@ -7,27 +7,27 @@
 #include <iostream>
 using namespace std;
 
-//===== Ãdª«Ãş§O =====//
+//===== å¯µç‰©é¡åˆ¥ =====//
 class Pet {
 public:
-	enum PetType {Dog, Cat, Monkey};	// Ãdª«ªººØÃş
+	enum PetType {Dog, Cat, Monkey};	// å¯µç‰©çš„ç¨®é¡
 
 private:
-	PetType kind;		// ºØÃş
-	string  name;		// ¦W¦r
+	PetType kind;		// ç¨®é¡
+	string  name;		// åå­—
 
 public:
-	// «Øºc¤l
+	// å»ºæ§‹å­
 	Pet(PetType x = Dog, string n = "") : kind(x), name(n) { }
 
-	PetType Type() const { return kind; }		// ¶Ç¦^ºØÃş
-	string Name()  const { return name; }		// ¶Ç¦^¦W¦r
+	PetType Type() const { return kind; }		// å‚³å›ç¨®é¡
+	string Name()  const { return name; }		// å‚³å›åå­—
 
-	void Input();				// Åª¤J
-	void Sintro() const;		// ¦Û§Ú¤¶²Ğ
+	void Input();				// è®€å…¥
+	void Sintro() const;		// è‡ªæˆ‘ä»‹ç´¹
 };
 
-// ´¡¤J¹Bºâ¤l
+// æ’å…¥é‹ç®—å­
 ostream& operator<<(ostream&, const Pet&);
 
 #endif

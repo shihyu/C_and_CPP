@@ -1,9 +1,9 @@
-// ¨Ï¥Î»¼°j¨Ó¨D±o¶¥­¼
+// ä½¿ç”¨éè¿´ä¾†æ±‚å¾—éšä¹˜
 
 #include <iostream>
 using namespace std;
 
-//--- ¥H»¼°jªºµ²ºc¨Ó¨Dnªº¶¥­¼ ---//
+//--- ä»¥éè¿´çš„çµæ§‹ä¾†æ±‚nçš„éšä¹˜ ---//
 int factorial(int n)
 {
 	if (n > 0)
@@ -16,10 +16,10 @@ int main()
 {
 	int x;
 
-	cout << "¾ã¼Æ­È:";
+	cout << "æ•´æ•¸å€¼:";
 	cin >> x;
 
-	cout << x << "ªº¶¥­¼¬°" << factorial(x) << "¡C\n";
+	cout << x << "çš„éšä¹˜ç‚º" << factorial(x) << "ã€‚\n";
 
 	return 0;
 }

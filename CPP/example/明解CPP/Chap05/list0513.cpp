@@ -1,4 +1,4 @@
-// °Ñ·Óª«¥ó
+// åƒç…§ç‰©ä»¶
 
 #include <iostream>
 using namespace std;
@@ -7,12 +7,12 @@ int main()
 {
 	int  x = 1;
 	int  y = 2;
-	int& a = x;					// ¥Hx¨Ó±Naªì©l¤Æ (a°Ñ·Óx)
+	int& a = x;					// ä»¥xä¾†å°‡aåˆå§‹åŒ– (aåƒç…§x)
 	cout << "a = " << a << '\n';
 	cout << "x = " << x << '\n';
 	cout << "y = " << y << '\n';
 
-	a = 5;						// ±N5«ü©wµ¹a
+	a = 5;						// å°‡5æŒ‡å®šçµ¦a
 	cout << "a = " << a << '\n';
 	cout << "x = " << x << '\n';
 	cout << "y = " << y << '\n';

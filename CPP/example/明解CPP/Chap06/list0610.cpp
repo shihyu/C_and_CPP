@@ -1,15 +1,15 @@
-// °ÊºA²£¥Í¾ã¼Æ°}¦Cª«¥ó
+// å‹•æ…‹ç”¢ç”Ÿæ•´æ•¸é™£åˆ—ç‰©ä»¶
 
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	int asize;						// °}¦Cªº¤¸¯À¼Æ
-	cout << "¤¸¯À¼Æ¡G";
+	int asize;						// é™£åˆ—çš„å…ƒç´ æ•¸
+	cout << "å…ƒç´ æ•¸ï¼š";
 	cin >> asize;
 
-	int* a = new int[asize];			// ²£¥Í
+	int* a = new int[asize];			// ç”¢ç”Ÿ
 
 	for (int i = 0; i < asize; i++)
 		a[i] = i;
@@ -17,7 +17,7 @@ int main()
 	for (int i = 0; i < asize; i++)
 		cout << "a[" << i << "] = " << a[i] << '\n';
 
-	delete[] a;					// ¥á±ó
+	delete[] a;					// ä¸Ÿæ£„
 
 	return 0;
 }

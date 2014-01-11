@@ -1,4 +1,4 @@
-// Åª¤Jªº¨â­Ó¾ã¼Æ­È¬O§_¬Ûµ¥
+// è®€å…¥çš„å…©å€‹æ•´æ•¸å€¼æ˜¯å¦ç›¸ç­‰
 
 #include <iostream>
 using namespace std;
@@ -7,13 +7,13 @@ int main()
 {
 	int a, b;
 
-	cout << "¾ã¼Æa¡G";   cin >> a;
-	cout << "¾ã¼Æb¡G";   cin >> b;
+	cout << "æ•´æ•¸aï¼š";   cin >> a;
+	cout << "æ•´æ•¸bï¼š";   cin >> b;
 
 	if (a == b)
-		cout << "¨â­Ó­È¬Ûµ¥¡C\n";
+		cout << "å…©å€‹å€¼ç›¸ç­‰ã€‚\n";
 	else
-		cout << "¨â­Ó­È¤£¬Ûµ¥¡C\n";
+		cout << "å…©å€‹å€¼ä¸ç›¸ç­‰ã€‚\n";
 
 	return 0;
 }

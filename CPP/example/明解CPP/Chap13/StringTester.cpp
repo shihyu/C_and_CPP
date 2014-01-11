@@ -1,4 +1,4 @@
-// stringªº¨Ï¥Î½d¨Ò
+// stringçš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <string>
 #include <cstring>
@@ -13,15 +13,15 @@ int main()
 	string x1, x2;
 	char p[12];
 
-	s1 += "DEF";		// ¦bs1¤¤¥[¤J"DEF"
-	s1 += 'G';			// ¦bs1¤¤¥[¤J'G'		
-	s1 += s2;			// ¦bs1¤¤¥[¤J"HIJKLMN"	
-	s1.insert(6, digits.substr(5, 3));		// ¦bs1[6]¤¤´¡¤J"567"
+	s1 += "DEF";		// åœ¨s1ä¸­åŠ å…¥"DEF"
+	s1 += 'G';			// åœ¨s1ä¸­åŠ å…¥'G'		
+	s1 += s2;			// åœ¨s1ä¸­åŠ å…¥"HIJKLMN"	
+	s1.insert(6, digits.substr(5, 3));		// åœ¨s1[6]ä¸­æ’å…¥"567"
 
-	s2.replace(3, 2, "kl");	// ±Ns2[3]¡ãs2[4]Âà´«¬°"kl"
-	s2.erase(6);			// ±Ns2[6]§R°£
+	s2.replace(3, 2, "kl");	// å°‡s2[3]âˆ¼s2[4]è½‰æ›ç‚º"kl"
+	s2.erase(6);			// å°‡s2[6]åˆªé™¤
 
-	strcpy(p, digits.c_str());	// ±NdigitsÂà´«¬°¢Ñ¦r¦ê¨Ã½Æ»s
+	strcpy(p, digits.c_str());	// å°‡digitsè½‰æ›ç‚ºï¼£å­—ä¸²ä¸¦è¤‡è£½
 
 	cout << "s1 = ";
 	for (int i = 0; i < s1.length(); i++)
@@ -32,12 +32,12 @@ int main()
 
 	cout << "p = " << p << '\n';
 
-	cout << "¦r¦êx1 = ";  cin >> x1;
-	cout << "¦r¦êx2 = ";  cin >> x2;
+	cout << "å­—ä¸²x1 = ";  cin >> x1;
+	cout << "å­—ä¸²x2 = ";  cin >> x2;
 
-	string::size_type d = x1.find(x2);		// ±qx1¤¤´M§äx2
-	cout << "¦r¦êx1¤§¤¤" << 
-				((d == string::npos) ? "¨S¦³¥]§tx2¡C\n" : "¥]§t¤Fx2¡C\n");
+	string::size_type d = x1.find(x2);		// å¾x1ä¸­å°‹æ‰¾x2
+	cout << "å­—ä¸²x1ä¹‹ä¸­" << 
+				((d == string::npos) ? "æ²’æœ‰åŒ…å«x2ã€‚\n" : "åŒ…å«äº†x2ã€‚\n");
 
 	return 0;
 }

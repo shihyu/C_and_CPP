@@ -1,4 +1,4 @@
-// ¾ã¼Æ°}¦CÃþ§OIntArray¡]²Ä5ª©¡^ªº¨Ï¥Î½d¨Ò
+// æ•´æ•¸é™£åˆ—é¡žåˆ¥IntArrayï¼ˆç¬¬5ç‰ˆï¼‰çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "IntArray.h"
@@ -7,12 +7,12 @@ using namespace std;
 int main()
 {
 	IntArray a(5);
-	cout << "²{¦b¦³" << IntArray::GetCount() << "­Ó°}¦C¡C\n";
+	cout << "ç¾åœ¨æœ‰" << IntArray::GetCount() << "å€‹é™£åˆ—ã€‚\n";
 	{
 		IntArray b(10);
-		cout << "²{¦b¦³" << IntArray::GetCount() << "­Ó°}¦C¡C\n";
+		cout << "ç¾åœ¨æœ‰" << IntArray::GetCount() << "å€‹é™£åˆ—ã€‚\n";
 	}
-	cout << "²{¦b¦³" << IntArray::GetCount() << "­Ó°}¦C¡C\n";
+	cout << "ç¾åœ¨æœ‰" << IntArray::GetCount() << "å€‹é™£åˆ—ã€‚\n";
 
 	return 0;
 }

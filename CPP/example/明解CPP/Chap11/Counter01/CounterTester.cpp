@@ -1,4 +1,4 @@
-// °O¼ÆÃþ§OCounter¡]²Ä¢°ª©¡^ªº¨Ï¥Î½d¨Ò
+// è¨˜æ•¸é¡žåˆ¥Counterï¼ˆç¬¬ï¼‘ç‰ˆï¼‰çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Counter.h"
@@ -9,15 +9,15 @@ int main()
 	int no;
 	Counter x;
 
-	cout << "¼W¥[ªº¦¸¼Æ¡G";  cin >> no;
+	cout << "å¢žåŠ çš„æ¬¡æ•¸ï¼š";  cin >> no;
 	for (int i = 0; i < no; i++) {
-		x.Increment();					// ¼W¥[¦¸¼Æ
+		x.Increment();					// å¢žåŠ æ¬¡æ•¸
 		cout << x.Value() << '\n';
 	}
 
-	cout << "´î¤Öªº¦¸¼Æ¡G";  cin >> no;
+	cout << "æ¸›å°‘çš„æ¬¡æ•¸ï¼š";  cin >> no;
 	for (int i = 0; i < no; i++) {
-		x.Decrement();					// ´î¤Ö¦¸¼Æ
+		x.Decrement();					// æ¸›å°‘æ¬¡æ•¸
 		cout << x.Value() << '\n';
 	}
 

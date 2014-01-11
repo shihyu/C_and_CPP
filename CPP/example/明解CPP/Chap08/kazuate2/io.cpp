@@ -1,17 +1,17 @@
-// ²q¼Æ¦r¹CÀ¸ (²Ä2ª©¡G¿é¥X¤J³¡¥÷)
+// çŒœæ•¸å­—éŠæˆ² (ç¬¬2ç‰ˆï¼šè¼¸å‡ºå…¥éƒ¨ä»½)
 
 #include <iostream>
 #include "kazuate.h"
 using namespace std;
 
-//--- ­n¨D¿é¤J  ---//
+//--- è¦æ±‚è¼¸å…¥  ---//
 static void prompt()
 {
-	cout << "±q0¶}©l¨ì" << max_no
-		 << "¬°¤îªº¼Æ¦r¡G";
+	cout << "å¾0é–‹å§‹åˆ°" << max_no
+		 << "ç‚ºæ­¢çš„æ•¸å­—ï¼š";
 }
 
-//--- Åª¤J¸Ñµª  ---//
+//--- è®€å…¥è§£ç­”  ---//
 int input()
 {
 	int kazu;
@@ -22,12 +22,12 @@ int input()
 	return kazu;
 }
 
-//--- ½T»{¬O§_Ä~Äò ---//
+//--- ç¢ºèªæ˜¯å¦ç¹¼çºŒ ---//
 bool confirm_retry()
 {
 	int cont;
-	cout << "­n¦A¨Ó¤@¦¸¶Ü¡H\n"
-		 << "<Yes ... 1 / No ... 0>¡G";
+	cout << "è¦å†ä¾†ä¸€æ¬¡å—ï¼Ÿ\n"
+		 << "<Yes ... 1 / No ... 0>ï¼š";
 	cin >> cont;
 	return bool(cont);
 }

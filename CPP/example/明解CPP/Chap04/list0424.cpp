@@ -1,4 +1,4 @@
-// ¥H1, 2, 3, 4, 5¨Σªμ©l¤Ζ°}¦CªΊ¦U­Σ¤Έ―ΐ¨ΓΕγ¥ά (³zΉL­pΊβ¨Σ¨D¨ϊ¤Έ―ΐΌΖ)
+// δ»¥1, 2, 3, 4, 5δΎ†εε§‹ε–ι™£ε—η„ε„ε€‹ε…ƒη΄ δΈ¦ι΅―η¤Ί (ι€ιθ¨η®—δΎ†ζ±‚ε–ε…ƒη΄ ζ•Έ)
 
 #include <iostream>
 using namespace std;
@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
 	int a[] = {1, 2, 3, 4, 5};
-	int a_size = sizeof(a) / sizeof(a[0]);	// °}¦CaªΊ¤Έ―ΐΌΖ
+	int a_size = sizeof(a) / sizeof(a[0]);	// ι™£ε—aη„ε…ƒη΄ ζ•Έ
 
 	for (int i = 0; i < a_size; i++)
 		cout << "a[" << i << "] = " << a[i] << '\n';

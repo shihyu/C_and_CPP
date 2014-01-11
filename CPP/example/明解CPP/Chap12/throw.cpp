@@ -1,17 +1,17 @@
-// °e¥X»P®·®»¨Ò¥~
+// é€å‡ºèˆ‡æ•æ‰ä¾‹å¤–
 
 #include <new>
 #include <iostream>
 using namespace std;
 
-//=== ·¸¦ìÃş§O ===//
+//=== æº¢ä½é¡åˆ¥ ===//
 class OverFlow { };
 
-//--- ¶Ç¦^xªº2­¿ªº­È ---//
+//--- å‚³å›xçš„2å€çš„å€¼ ---//
 int f(int x)
 {
 	if (x < 0)
-		throw "©_©Ç¡A­È³ºµMÅÜ¦¨­t¼Æ¤F¡C\n";
+		throw "å¥‡æ€ªï¼Œå€¼ç«Ÿç„¶è®Šæˆè² æ•¸äº†ã€‚\n";
 	else if (x > 30000)
 		throw OverFlow();
 	else
@@ -21,18 +21,18 @@ int f(int x)
 int main()
 {
 	int a;
-	cout << "¾ã¼Æ¡G";
+	cout << "æ•´æ•¸ï¼š";
 	cin >> a;
 
 	try {
 		int b = f(a);
-		cout << "¸Ó¼Æªº2­¿¬°" << b << "¡C\n";
+		cout << "è©²æ•¸çš„2å€ç‚º" << b << "ã€‚\n";
 	}
-	catch (const char* str) {		// ®·®»¦r¦êªº¨Ò¥~
-		cout << "µo¥Í¨Ò¥~¡G" << str;
+	catch (const char* str) {		// æ•æ‰å­—ä¸²çš„ä¾‹å¤–
+		cout << "ç™¼ç”Ÿä¾‹å¤–ï¼š" << str;
 	}
-	catch (OverFlow) {				// ¦b³o¸Ì®·®»¨ì¤FOverFlow«¬ºAªº¨Ò¥~
-		cout << "µo¥Í·¸¦ì¤F¡Aµ{¦¡µ²§ô¡C\n";
+	catch (OverFlow) {				// åœ¨é€™è£¡æ•æ‰åˆ°äº†OverFlowå‹æ…‹çš„ä¾‹å¤–
+		cout << "ç™¼ç”Ÿæº¢ä½äº†ï¼Œç¨‹å¼çµæŸã€‚\n";
 		return 1;
 	}
 	return 0;

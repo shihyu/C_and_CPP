@@ -1,22 +1,22 @@
-// Åª¤J¤»­Ó¤Hªº¤À¼Æ¨ÃÅã¥ÜÁ`¤À»P¥­§¡
+// è®€å…¥å…­å€‹äººçš„åˆ†æ•¸ä¸¦é¡¯ç¤ºç¸½åˆ†èˆ‡å¹³å‡
 
 #include <iostream>
 using namespace std;
 
 int main()
 {
-	int tensu[6];		// ¤»¤Hªº¤À¼Æ
-	int sum = 0;		// Á`©M
+	int tensu[6];		// å…­äººçš„åˆ†æ•¸
+	int sum = 0;		// ç¸½å’Œ
 
-	cout << "¨D¨ú¤»­Ó¤Hªº¤À¼Æ¤§Á`¤À»P¥­§¡¡C\n";
+	cout << "æ±‚å–å…­å€‹äººçš„åˆ†æ•¸ä¹‹ç¸½åˆ†èˆ‡å¹³å‡ã€‚\n";
 	for (int i = 0; i < 6; i++) {
-		cout << i + 1 << "¸¹ªº¤À¼Æ¡G";
-		cin >> tensu[i];		// Åª¤Jtensu[i]
-		sum += tensu[i];		// ±Ntensu[i]¥[¨ìsum 
+		cout << i + 1 << "è™Ÿçš„åˆ†æ•¸ï¼š";
+		cin >> tensu[i];		// è®€å…¥tensu[i]
+		sum += tensu[i];		// å°‡tensu[i]åŠ åˆ°sum 
 	}
 
-	cout << "Á`¤À¬O" << sum << "¤À¡C\n";
-	cout << "¥­§¡¬O" << double(sum) / 6 << "¤À¡C\n ";
+	cout << "ç¸½åˆ†æ˜¯" << sum << "åˆ†ã€‚\n";
+	cout << "å¹³å‡æ˜¯" << double(sum) / 6 << "åˆ†ã€‚\n ";
 
 	return 0;
 }

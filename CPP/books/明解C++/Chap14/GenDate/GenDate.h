@@ -1,4 +1,4 @@
-// ¦~¸¹ª©¤é´ÁÃş§ODate¡]¤¶­±³¡¥÷¡^
+// å¹´è™Ÿç‰ˆæ—¥æœŸé¡åˆ¥Dateï¼ˆä»‹é¢éƒ¨ä»½ï¼‰
 
 #if !defined(___Class_GenDate)
 	#define	 ___Class_GenDate
@@ -8,7 +8,7 @@
 #include "Date.h"
 using namespace std;
 
-//===== ¦~¸¹ª©¤é´ÁÃş§O =====//
+//===== å¹´è™Ÿç‰ˆæ—¥æœŸé¡åˆ¥ =====//
 class GenDate : public Date {
 public:
 	enum Gengou {Meiji, Taisho, Showa, Heisei};
@@ -18,15 +18,15 @@ public:
 	GenDate(Gengou g, int y, int m = 1, int d = 1) : Date(y, m, d)
 	{
 		switch (g) {
-		 case Meiji	 : year += 1867;  break;	// ©úªv
-		 case Taisho : year += 1911;  break;	// ¤j¥¿
-		 case Showa	 : year += 1925;  break;	// ¬L©M
-		 case Heisei : year += 1988;  break;	// ¥­¦¨
+		 case Meiji	 : year += 1867;  break;	// æ˜æ²»
+		 case Taisho : year += 1911;  break;	// å¤§æ­£
+		 case Showa	 : year += 1925;  break;	// æ˜­å’Œ
+		 case Heisei : year += 1988;  break;	// å¹³æˆ
 		}
 	}
-	string to_string() const;				// ¥H¦r¦ê¶Ç¦^
+	string to_string() const;				// ä»¥å­—ä¸²å‚³å›
 };
 
-ostream& operator<<(ostream& s, const GenDate& x);		  // ´¡¤J¹Bºâ¤l
+ostream& operator<<(ostream& s, const GenDate& x);		  // æ’å…¥é‹ç®—å­
 
 #endif

@@ -1,4 +1,4 @@
-// ½Æ¼ÆÃþ§OComplexªº¨Ï¥Î½d¨Ò
+// è¤‡æ•¸é¡žåˆ¥Complexçš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Complex.h"
@@ -8,19 +8,19 @@ int main()
 {
 	double re, im;
 
-	cout << "aªº¹êªº³¡¤À¡G";  cin >> re;
-	cout << "aªºµêªº³¡¤À¡G";  cin >> im;
+	cout << "açš„å¯¦çš„éƒ¨åˆ†ï¼š";  cin >> re;
+	cout << "açš„è™›çš„éƒ¨åˆ†ï¼š";  cin >> im;
 	Complex a(re, im);
 
-	cout << "bªº¹êªº³¡¤À¡G";  cin >> re;
-	cout << "bªºµêªº³¡¤À¡G";  cin >> im;
+	cout << "bçš„å¯¦çš„éƒ¨åˆ†ï¼š";  cin >> re;
+	cout << "bçš„è™›çš„éƒ¨åˆ†ï¼š";  cin >> im;
 	Complex b(re, im);
 
 	Complex c = -a + b;
 
-	b += 2.0;			          	// ¦bb¥[¤W(2.0, 0.0)
-	c -= Complex(1.0, 1.0);	      	// ±qc´î¥h(1.0, 1.0)
-	Complex d(b.Imag(), c.Real());	// ±Nd§@¬°(bªºµêªº³¡¤À, cªº¹êªº³¡¤À)
+	b += 2.0;			          	// åœ¨båŠ ä¸Š(2.0, 0.0)
+	c -= Complex(1.0, 1.0);	      	// å¾žcæ¸›åŽ»(1.0, 1.0)
+	Complex d(b.Imag(), c.Real());	// å°‡dä½œç‚º(bçš„è™›çš„éƒ¨åˆ†, cçš„å¯¦çš„éƒ¨åˆ†)
 
 	cout << "a = " << a << '\n';
 	cout << "b = " << b << '\n';

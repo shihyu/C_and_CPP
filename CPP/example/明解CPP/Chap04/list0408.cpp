@@ -1,4 +1,4 @@
-// Åã¥Ü¦UºØÅÜ¼Æ©M±`¼Æªº«¬ºA¸ê°T
+// é¡¯ç¤ºå„ç¨®è®Šæ•¸å’Œå¸¸æ•¸çš„å‹æ…‹è³‡è¨Š
 
 #include <iostream>
 #include <typeinfo>
@@ -11,16 +11,16 @@ int main()
 	int i;
 	long l;
 
-	cout << "ÅÜ¼Æcªº«¬ºA¡G" << typeid(c).name() << '\n';
-	cout << "ÅÜ¼Æhªº«¬ºA¡G" << typeid(h).name() << '\n';
-	cout << "ÅÜ¼Æiªº«¬ºA¡G" << typeid(i).name() << '\n';
-	cout << "ÅÜ¼Ælªº«¬ºA¡G" << typeid(l).name() << '\n';
+	cout << "è®Šæ•¸cçš„å‹æ…‹ï¼š" << typeid(c).name() << '\n';
+	cout << "è®Šæ•¸hçš„å‹æ…‹ï¼š" << typeid(h).name() << '\n';
+	cout << "è®Šæ•¸içš„å‹æ…‹ï¼š" << typeid(i).name() << '\n';
+	cout << "è®Šæ•¸lçš„å‹æ…‹ï¼š" << typeid(l).name() << '\n';
 
-	cout << "¦r¤¸±`­È'A'ªº«¬ºA¡G"   << typeid('A').name() << '\n';
-	cout << "¾ã¼Æ±`­È100ªº«¬ºA¡G"   << typeid(100).name() << '\n';
-	cout << "¾ã¼Æ±`­È100Uªº«¬ºA¡G"  << typeid(100U).name() << '\n';
-	cout << "¾ã¼Æ±`­È100Lªº«¬ºA¡G"  << typeid(100L).name() << '\n';
-	cout << "¾ã¼Æ±`­È100ULªº«¬ºA¡G" << typeid(100UL).name() << '\n';
+	cout << "å­—å…ƒå¸¸å€¼'A'çš„å‹æ…‹ï¼š"   << typeid('A').name() << '\n';
+	cout << "æ•´æ•¸å¸¸å€¼100çš„å‹æ…‹ï¼š"   << typeid(100).name() << '\n';
+	cout << "æ•´æ•¸å¸¸å€¼100Uçš„å‹æ…‹ï¼š"  << typeid(100U).name() << '\n';
+	cout << "æ•´æ•¸å¸¸å€¼100Lçš„å‹æ…‹ï¼š"  << typeid(100L).name() << '\n';
+	cout << "æ•´æ•¸å¸¸å€¼100ULçš„å‹æ…‹ï¼š" << typeid(100UL).name() << '\n';
 
 	return 0;
 }

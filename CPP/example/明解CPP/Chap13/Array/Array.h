@@ -1,15 +1,15 @@
-// °}¦CÃş§O½d¥»Array
+// é™£åˆ—é¡åˆ¥ç¯„æœ¬Array
 
 #if !defined(___Class_Array)
 	#define  ___Class_Array
 
-//===== °}¦CÃş§O½d¥» =====//
+//===== é™£åˆ—é¡åˆ¥ç¯„æœ¬ =====//
 template <class Type> class Array {
-	int	size;		// °}¦Cªº¤¸¯À¼Æ
-	Type* vec;		// «ü¦V¶}ÀY¤¸¯Àªº«ü¼Ğ
+	int	size;		// é™£åˆ—çš„å…ƒç´ æ•¸
+	Type* vec;		// æŒ‡å‘é–‹é ­å…ƒç´ çš„æŒ‡æ¨™
 
 public:
-	//----- ¯Á¤Ş½d³ò¿ù»~ -----//
+	//----- ç´¢å¼•ç¯„åœéŒ¯èª¤ -----//
 	class IdxRngErr {
 		Array* ident;
 		int index;
@@ -18,39 +18,39 @@ public:
 		int Index() { return index; }
 	};
 
-	// ©ú½Tªº«Øºc¤l
+	// æ˜ç¢ºçš„å»ºæ§‹å­
 	explicit Array(int sz) : size(sz) { vec = new Type[size]; }
 
-	// ½Æ»s«Øºc¤l
+	// è¤‡è£½å»ºæ§‹å­
 	Array(const Array& x) {
-		vec = new Type[x.size];	    // ±N¤¸¯À¼Æ³]¬°»Px¬Û¦Pªº­È
-		size = x.size;				// ½T«O°}¦C¥DÅé
-		for (int i = 0; i < size; i++)		 // ½Æ»sxªº©Ò¦³¤¸¯À
+		vec = new Type[x.size];	    // å°‡å…ƒç´ æ•¸è¨­ç‚ºèˆ‡xç›¸åŒçš„å€¼
+		size = x.size;				// ç¢ºä¿é™£åˆ—ä¸»é«”
+		for (int i = 0; i < size; i++)		 // è¤‡è£½xçš„æ‰€æœ‰å…ƒç´ 
 			vec[i] = x.vec[i];
 	}
 
-	// ¸Ñºc¤l
+	// è§£æ§‹å­
    ~Array() { delete[] vec; }
 
-	// ¶Ç¦^¤¸¯À¼Æ
+	// å‚³å›å…ƒç´ æ•¸
 	int Size() { return size; }
 
-	// «ü©w¹Bºâ¤l=
+	// æŒ‡å®šé‹ç®—å­=
 	Array& operator=(const Array& x) {
-		if (&x != this) {			// ¦pªG¤£¬O«ü©w¦Û¤v¥»¨­ªº¸Ü¡K
-			delete[] vec;			// ¸Ñ©ñ­ì¥»½T«Oªº°O¾ĞÅé°Ï°ì
-			size = x.size;			// ·sªº¤¸¯À¼Æ
-			vec = new Type[size];		// ½T«O·sªº°O¾ĞÅé°Ï°ì
-			for (int i = 0; i < size; i++)	// ½Æ»s©Ò¦³¤¸¯À
+		if (&x != this) {			// å¦‚æœä¸æ˜¯æŒ‡å®šè‡ªå·±æœ¬èº«çš„è©±â€¦
+			delete[] vec;			// è§£æ”¾åŸæœ¬ç¢ºä¿çš„è¨˜æ†¶é«”å€åŸŸ
+			size = x.size;			// æ–°çš„å…ƒç´ æ•¸
+			vec = new Type[size];		// ç¢ºä¿æ–°çš„è¨˜æ†¶é«”å€åŸŸ
+			for (int i = 0; i < size; i++)	// è¤‡è£½æ‰€æœ‰å…ƒç´ 
 				vec[i] = x.vec[i];
 		}
 		return *this;
 	}
 
-	// ¯Á¤Ş¹Bºâ¤l[]
+	// ç´¢å¼•é‹ç®—å­[]
 	Type& operator[](int i)	{
 		if (i < 0 || i >= size)
-			throw IdxRngErr(this, i);		// °e¥X¯Á¤Ş½d³ò¿ù»~
+			throw IdxRngErr(this, i);		// é€å‡ºç´¢å¼•ç¯„åœéŒ¯èª¤
 		return vec[i];
 	}
 };

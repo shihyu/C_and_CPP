@@ -1,9 +1,9 @@
-// ¶Ç¦^¦¸¤è¹Bºâ¤§­Èªº¨ç¼Æ
+// å‚³å›æ¬¡æ–¹é‹ç®—ä¹‹å€¼çš„å‡½æ•¸
 
 #include <iostream>
 using namespace std;
 
-//--- ¶Ç¦^xªºn¦¸¤è ---//
+//--- å‚³å›xçš„næ¬¡æ–¹ ---//
 double power(double x, int n);
 
 int main()
@@ -11,11 +11,11 @@ int main()
 	double a;
 	int    b;
 
-	cout << "¨Daªºb¦¸¤è¡C\n";
-	cout << "¹ê¼Æa¡G";	cin >> a;
-	cout << "¾ã¼Æb¡G";	cin >> b;
-	cout << a << "ªº" << b << "¦¸¤è¬°" <<
-			power(a, b) << "¡C\n";
+	cout << "æ±‚açš„bæ¬¡æ–¹ã€‚\n";
+	cout << "å¯¦æ•¸aï¼š";	cin >> a;
+	cout << "æ•´æ•¸bï¼š";	cin >> b;
+	cout << a << "çš„" << b << "æ¬¡æ–¹ç‚º" <<
+			power(a, b) << "ã€‚\n";
 
 	return 0;
 }
