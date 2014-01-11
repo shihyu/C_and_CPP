@@ -1,4 +1,4 @@
-// µøÅª¤Jªº­È¨ÓÅã¥Ü²q®±ªº¤â¶Õ
+// è¦–è®€å…¥çš„å€¼ä¾†é¡¯ç¤ºçŒœæ‹³çš„æ‰‹å‹¢
 
 #include <iostream>
 using namespace std;
@@ -7,13 +7,13 @@ int main()
 {
 	int hand;
 
-	cout << "½Ð¿ï¾Ü¤â¶Õ (0¡K¥ÛÀY¡þ1¡K°Å¤M¡þ2¡K¥¬)¡G";
+	cout << "è«‹é¸æ“‡æ‰‹å‹¢ (0â€¦çŸ³é ­ï¼1â€¦å‰ªåˆ€ï¼2â€¦å¸ƒ)ï¼š";
 	cin >> hand;
 
 	switch (hand) {
-	 case 0: cout << "¥ÛÀY\n";	 break;
-	 case 1: cout << "°Å¤M\n";   break;
-	 case 2: cout << "¥¬\n";	 break;
+	 case 0: cout << "çŸ³é ­\n";	 break;
+	 case 1: cout << "å‰ªåˆ€\n";   break;
+	 case 2: cout << "å¸ƒ\n";	 break;
 	}
 
 	return 0;

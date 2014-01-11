@@ -1,4 +1,4 @@
-// ¨T¨®Ãş§Oªº¨Ï¥Î½d¨Ò
+// æ±½è»Šé¡åˆ¥çš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "Car.h"
@@ -9,28 +9,28 @@ int main()
 	string name;
 	int width, length, height;
 	double gas;
-	cout << "½Ğ¿é¤J¨®¤lªº¸ê®Æ¡C\n";
-	cout << "¦WºÙ¬O¡G";  cin >> name;
-	cout << "¨®¼e¬O¡G";  cin >> width;
-	cout << "¨®ªø¬O¡G";  cin >> length;
-	cout << "¨®°ª¬O¡G";  cin >> height;
-	cout << "¨Tªoªº¶q¬O¡G";  cin >> gas;
+	cout << "è«‹è¼¸å…¥è»Šå­çš„è³‡æ–™ã€‚\n";
+	cout << "åç¨±æ˜¯ï¼š";  cin >> name;
+	cout << "è»Šå¯¬æ˜¯ï¼š";  cin >> width;
+	cout << "è»Šé•·æ˜¯ï¼š";  cin >> length;
+	cout << "è»Šé«˜æ˜¯ï¼š";  cin >> height;
+	cout << "æ±½æ²¹çš„é‡æ˜¯ï¼š";  cin >> gas;
 
 	Car myCar(name, width, length, height, gas);
-	myCar.PutSpec();		// Åã¥Ü³W®æ
+	myCar.PutSpec();		// é¡¯ç¤ºè¦æ ¼
 
 	while (true) {
-		cout << "¥Ø«e¦ì¸m(" << myCar.X() << ", " << myCar.Y() << ")\n";
-		cout << "³Ñ¾l¿U®Æ¡G" << myCar.Fuel() << '\n';
-		cout << "¬O§_²¾°Ê[0¡KNo¡ş1¡KYes]¡G";
+		cout << "ç›®å‰ä½ç½®(" << myCar.X() << ", " << myCar.Y() << ")\n";
+		cout << "å‰©é¤˜ç‡ƒæ–™ï¼š" << myCar.Fuel() << '\n';
+		cout << "æ˜¯å¦ç§»å‹•[0â€¦Noï¼1â€¦Yes]ï¼š";
 		int move;
 		cin >> move;
 		if (move == 0) break;
 
 		double dx, dy;
-		cout << "©¹¢æ¤è¦Vªº²¾°Ê¶ZÂ÷¡G";  cin >> dx;
-		cout << "©¹¢ç¤è¦Vªº²¾°Ê¶ZÂ÷¡G";  cin >> dy;
+		cout << "å¾€ï¼¸æ–¹å‘çš„ç§»å‹•è·é›¢ï¼š";  cin >> dx;
+		cout << "å¾€ï¼¹æ–¹å‘çš„ç§»å‹•è·é›¢ï¼š";  cin >> dy;
 		if (!myCar.move(dx, dy))
-			cout << "\a¿U®Æ¤£¨¬¡I\n";
+			cout << "\aç‡ƒæ–™ä¸è¶³ï¼\n";
 	}
 }

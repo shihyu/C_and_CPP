@@ -1,43 +1,43 @@
-// Ãdª«Ãþ§OPet¡]²Ä¢°ª©¡G¹ê§@³¡¤À¡^
+// å¯µç‰©é¡žåˆ¥Petï¼ˆç¬¬ï¼‘ç‰ˆï¼šå¯¦ä½œéƒ¨åˆ†ï¼‰
 
 #include <string>
 #include <iostream>
 #include "Pet.h"
 using namespace std;
 
-//--- Åª¤J ---//
+//--- è®€å…¥ ---//
 void Pet::Input()
 {
 	int k;
 	do {
-		cout << "ºØÃþ¡i0¡Kª¯¡þ1¡K¿ß¡þ 2¡KµU¡j¡G";
+		cout << "ç¨®é¡žã€0â€¦ç‹—ï¼1â€¦è²“ï¼ 2â€¦çŒ´ã€‘ï¼š";
 		cin >> k;
 	} while (k < Dog || k > Monkey);
 	kind = PetType(k);
-	cout << "¦WºÙ¡G";
+	cout << "åç¨±ï¼š";
 	cin >> name;
 }
 
-//--- ¦Û§Ú¤¶²Ð ---//
+//--- è‡ªæˆ‘ä»‹ç´¹ ---//
 void Pet::Sintro() const
 {
-	cout << "§Ú¬O";
+	cout << "æˆ‘æ˜¯";
 	switch (kind) {
-	 case Dog :    cout << "ª¯"; break;
-	 case Cat :	   cout << "¿ß"; break;
-	 case Monkey : cout << "µU"; break;
+	 case Dog :    cout << "ç‹—"; break;
+	 case Cat :	   cout << "è²“"; break;
+	 case Monkey : cout << "çŒ´"; break;
 	}
-	cout << "¡A§Úªº¦W¦r¥s°µ" << name << "!!\n";
+	cout << "ï¼Œæˆ‘çš„åå­—å«åš" << name << "!!\n";
 }
 
-//--- ©¹¿é¥X¦ê¬yªº´¡¤J¹Bºâ¤l ---//
+//--- å¾€è¼¸å‡ºä¸²æµçš„æ’å…¥é‹ç®—å­ ---//
 ostream& operator<<(ostream& s, const Pet& p)
 {
 	s << "{ ";
 	switch (p.Type()) {
-	 case Pet::Dog    : s << "ª¯, "; break;
-	 case Pet::Cat    : s << "¿ß, "; break;
-	 case Pet::Monkey : s << "µU, "; break;
+	 case Pet::Dog    : s << "ç‹—, "; break;
+	 case Pet::Cat    : s << "è²“, "; break;
+	 case Pet::Monkey : s << "çŒ´, "; break;
 	}
 	s << p.Name() << " }";
 	return s;

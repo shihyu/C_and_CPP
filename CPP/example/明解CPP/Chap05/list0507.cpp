@@ -1,36 +1,36 @@
-// ¤ßºâ½m²ß
+// å¿ƒç®—ç·´ç¿’
 
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
 using namespace std;
 
-//--- ½T»{¬O§_Ä~Äò¶i¦æ ---//
+//--- ç¢ºèªæ˜¯å¦ç¹¼çºŒé€²è¡Œ ---//
 bool confirm_retry()
 {
 	int cont;
 	do {
-		cout << "¦A¤@¦¸¶Ü¡H<Yes¡K1¡şNo¡K0>¡G";
+		cout << "å†ä¸€æ¬¡å—ï¼Ÿ<Yesâ€¦1ï¼Noâ€¦0>ï¼š";
 		cin >> cont;
 	} while (cont != 0 && cont != 1);
-	return bool(cont);			// ¶Ç¦^Âà´«¦¨bool«¬ºAªº­È
+	return bool(cont);			// å‚³å›è½‰æ›æˆboolå‹æ…‹çš„å€¼
 }
 
 int main()
 {
 	srand(time(NULL));
-	cout << "¤ßºâ½m²ß¶}©l!!\n";
+	cout << "å¿ƒç®—ç·´ç¿’é–‹å§‹!!\n";
 
 	do {
-		int x = rand() % 900 + 100;		// ¤T¦ì¼Æ
-		int y = rand() % 900 + 100;		// ¤T¦ì¼Æ
-		int z = rand() % 900 + 100;		// ¤T¦ì¼Æ
-		int k;						// Åª¤Jªº­È
+		int x = rand() % 900 + 100;		// ä¸‰ä½æ•¸
+		int y = rand() % 900 + 100;		// ä¸‰ä½æ•¸
+		int z = rand() % 900 + 100;		// ä¸‰ä½æ•¸
+		int k;						// è®€å…¥çš„å€¼
 		while (true) {
 			cout << x << " + " << y << " + " << z << " = ";
 			cin >> k;
 			if (k == x + y + z) break;
-			cout << "\a¿ù¤F!!\n";
+			cout << "\aéŒ¯äº†!!\n";
 		}
 	} while (confirm_retry());
 

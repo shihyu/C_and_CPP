@@ -1,4 +1,4 @@
-// Ä~©Óª©Ãdª«½u«¬²M³æÃş§OPetListªº¨Ï¥Î½d¨Ò
+// ç¹¼æ‰¿ç‰ˆå¯µç‰©ç·šå‹æ¸…å–®é¡åˆ¥PetListçš„ä½¿ç”¨ç¯„ä¾‹
 
 #include <iostream>
 #include "PetList.h"
@@ -9,36 +9,36 @@ enum Menu {
 	Print, Intro, MenuOver
 };
 
-//--- ¿é¤J¸ê®Æ ---//
+//--- è¼¸å…¥è³‡æ–™ ---//
 Pet* Read()
 {
-	int    kind;		// ºØÃş
-	Pet* ptr;			// Ãdª«
+	int    kind;		// ç¨®é¡
+	Pet* ptr;			// å¯µç‰©
 
 	do {
-		cout << "ºØÃş¡i0¡Kª¯¡ş1¡K¿ß¡ş2¡KµU¡j¡G";
+		cout << "ç¨®é¡ã€0â€¦ç‹—ï¼1â€¦è²“ï¼2â€¦çŒ´ã€‘ï¼š";
 		cin >> kind;
 	} while (kind < 0 || kind > 2);
 	switch (kind) {
-	 case 0 : ptr = new Pdog();		break;		// ²£¥Íª¯
-	 case 1 : ptr = new Pcat();		break;		// ²£¥Í¿ß 
-	 case 2 : ptr = new Pmonkey();	break;		// ²£¥ÍµU
+	 case 0 : ptr = new Pdog();		break;		// ç”¢ç”Ÿç‹—
+	 case 1 : ptr = new Pcat();		break;		// ç”¢ç”Ÿè²“ 
+	 case 2 : ptr = new Pmonkey();	break;		// ç”¢ç”ŸçŒ´
 	}
-	ptr->Input();			// Åª¨ú¸ê®Æ
+	ptr->Input();			// è®€å–è³‡æ–™
 	return ptr;
 }
 
-//--- ¿ï¾Ü¿ï³æ ---//
+//--- é¸æ“‡é¸å–® ---//
 Menu SelectMenu()
 {
 	int ch;
 
 	do {
-		cout << "(1) ´¡¤J¦Ü«eºİ  (2) ´¡¤J¦Ü§Àºİ  "
-			 << "(3) Åã¥Ü«eºİ  (4) Åã¥Ü§Àºİ\n";
-		cout << "(5) §R°£«eºİ    (6) §R°£§Àºİ    "
-			 << "(7) §R°£¥ş³¡  (8) Åã¥Ü¥ş³¡\n";
-		cout << "(9) ¦Û§Ú¤¶²Ğ¡@  (0) µ²§ô¡G";
+		cout << "(1) æ’å…¥è‡³å‰ç«¯  (2) æ’å…¥è‡³å°¾ç«¯  "
+			 << "(3) é¡¯ç¤ºå‰ç«¯  (4) é¡¯ç¤ºå°¾ç«¯\n";
+		cout << "(5) åˆªé™¤å‰ç«¯    (6) åˆªé™¤å°¾ç«¯    "
+			 << "(7) åˆªé™¤å…¨éƒ¨  (8) é¡¯ç¤ºå…¨éƒ¨\n";
+		cout << "(9) è‡ªæˆ‘ä»‹ç´¹ã€€  (0) çµæŸï¼š";
 		cin >> ch;
 	} while (ch < Terminate || ch >= MenuOver);
 	return Menu(ch);
@@ -53,33 +53,33 @@ int main()
 		menu = SelectMenu();
 		switch (menu) {
 		 PetNode* p;
-		 case AddFirst: {				               // ±N¸`ÂI´¡¤J¨ì«eºİ
-				cout << "½Ğ¿é¤J­n´¡¤J¨ì«eºİªº¸ê®Æ¡C\n";
+		 case AddFirst: {				               // å°‡ç¯€é»æ’å…¥åˆ°å‰ç«¯
+				cout << "è«‹è¼¸å…¥è¦æ’å…¥åˆ°å‰ç«¯çš„è³‡æ–™ã€‚\n";
 				Pet* x = Read();
 				list.AddFirst(x);
 			         } break;
 
-		 case AddLast: {			                   // ±N¸`ÂI´¡¤J¨ì§Àºİ
-				cout << "½Ğ¿é¤J­n´¡¤J¨ì§Àºİªº¸ê®Æ¡C\n";
+		 case AddLast: {			                   // å°‡ç¯€é»æ’å…¥åˆ°å°¾ç«¯
+				cout << "è«‹è¼¸å…¥è¦æ’å…¥åˆ°å°¾ç«¯çš„è³‡æ–™ã€‚\n";
 				Pet* x = Read();
 				list.AddLast(x);
 			         } break;
 
-		 case DspFirst: if (p = list.Top())		        	// Åã¥Ü«eºİªº¸`ÂI
+		 case DspFirst: if (p = list.Top())		        	// é¡¯ç¤ºå‰ç«¯çš„ç¯€é»
 				((Pet*)*p)->Sintro(); break;
 
-		 case DspLast: if (p = list.Bottom())		        // Åã¥Ü§Àºİªº¸`ÂI
+		 case DspLast: if (p = list.Bottom())		        // é¡¯ç¤ºå°¾ç«¯çš„ç¯€é»
 				((Pet*)*p)->Sintro(); break;
 
-		 case RmvFist: list.RemoveFirst(); break;	        // §R°£«eºİ¸`ÂI
+		 case RmvFist: list.RemoveFirst(); break;	        // åˆªé™¤å‰ç«¯ç¯€é»
 
-		 case RmvLast: list.RemoveLast(); break;		    // §R°£§Àºİ¸`ÂI
+		 case RmvLast: list.RemoveLast(); break;		    // åˆªé™¤å°¾ç«¯ç¯€é»
 
-		 case Clear: list.Clear();  break;		            // §R°£©Ò¦³¸`ÂI
+		 case Clear: list.Clear();  break;		            // åˆªé™¤æ‰€æœ‰ç¯€é»
 
-		 case Print	: cout << list;  break;			        // ¿é¥X©Ò¦³¸ê®Æ
+		 case Print	: cout << list;  break;			        // è¼¸å‡ºæ‰€æœ‰è³‡æ–™
 
-		 case Intro: list.Introduce(); break;		        // ¦Û§Ú¤¶²Ğ
+		 case Intro: list.Introduce(); break;		        // è‡ªæˆ‘ä»‹ç´¹
 		}
 	} while (menu != Terminate);
 

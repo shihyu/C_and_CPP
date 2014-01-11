@@ -1,4 +1,4 @@
-// Ãdª«Ãş§OPet¡]²Ä2ª©¡^ªº¨Ï¥Î½d¨Ò¡A¨ä¤G
+// å¯µç‰©é¡åˆ¥Petï¼ˆç¬¬2ç‰ˆï¼‰çš„ä½¿ç”¨ç¯„ä¾‹ï¼Œå…¶äºŒ
 
 #include <iostream>
 #include "Pet.h"
@@ -6,19 +6,19 @@ using namespace std;
 
 int main()
 {
-	const int max = 10;			// Ãdª«ªº³Ì¤j¼Æ¶q
-	int no;				// Ãdª«ªº¼Æ¶q
-	Pet* MyPet[max];			// «ü¦VÃdª«ªº«ü¼Ğ¤§°}¦C
+	const int max = 10;			// å¯µç‰©çš„æœ€å¤§æ•¸é‡
+	int no;				// å¯µç‰©çš„æ•¸é‡
+	Pet* MyPet[max];			// æŒ‡å‘å¯µç‰©çš„æŒ‡æ¨™ä¹‹é™£åˆ—
 
-	cout << "¤@¦@¦³´X°¦Ãdª«©O¡]1¡ã" << max << "¡^¡G";
+	cout << "ä¸€å…±æœ‰å¹¾éš»å¯µç‰©å‘¢ï¼ˆ1ï½" << max << "ï¼‰ï¼š";
 	do {
 		cin >> no;
-	} while (no < 1 || no > max);						// ÅÜ¦¨1¡Øno¡Ømax
+	} while (no < 1 || no > max);						// è®Šæˆ1â‰¦noâ‰¦max
 
-	for (int i = 0; i < no; i++) {						// ¿é¤J¸ê®Æ
+	for (int i = 0; i < no; i++) {						// è¼¸å…¥è³‡æ–™
 		int k;
 		do {
-			cout << "ºØÃş¡i0¡Kª¯¡ş1¡K¿ß¡ş 2¡KµU¡j¡G";
+			cout << "ç¨®é¡ã€0â€¦ç‹—ï¼1â€¦è²“ï¼ 2â€¦çŒ´ã€‘ï¼š";
 			cin >> k;
 		} while (k < 0 || k > 2);
 
@@ -30,11 +30,11 @@ int main()
 		MyPet[i]->Input();
 	}
 
-	cout << "\nÃdª«ªº¤@Äıªí\n";					// ¤@Äıªí
+	cout << "\nå¯µç‰©çš„ä¸€è¦½è¡¨\n";					// ä¸€è¦½è¡¨
 	for (int i = 0; i < no; i++)
 		cout << *MyPet[i] << '\n';
 
-	cout << "\nÅı¤j®a§@¦Û§Ú¤¶²Ğ¡C\n";		// ¦Û§Ú¤¶²Ğ
+	cout << "\nè®“å¤§å®¶ä½œè‡ªæˆ‘ä»‹ç´¹ã€‚\n";		// è‡ªæˆ‘ä»‹ç´¹
 	for (int i = 0; i < no; i++)
 		MyPet[i]->Sintro();
 
