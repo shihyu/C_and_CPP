@@ -1,0 +1,912 @@
+
+兩週前在亞洲大學講 [快快樂樂學 GNU Debugger (gdb) Part I + II] 時，與一位同業的工程師談到，不透過 gdb 而能自我建立 backtrace，也就是在必要時建立函式呼叫的階層資訊，當時即提到 TimHsu 兄四年前的作品 [Who Call Me]，實在是極好的參考資訊。可惜，TimHsu 兄文中所使用的工具與 API 稍微過時，所以，取得他的同意下，筆者將該文改寫並更新，本文以 GNU/Linux 在 IA32 平台的運作為主。
+
+Who Call Me?
+
+原作：徐千洋 (TimHsu) 於 March 30, 2004
+改作：Jim Huang (jserv) 於 July 30, 2008
+誰呼叫我？使用過 gdb 對 core 檔作 bt (backtrace) 嗎？所謂 backtrace 是用來回溯檢查函式呼叫的關聯性, 以便得知執行時期有哪個函式呼叫的動作，尢其是在許多錯綜複雜的龐大程式碼中，backtrace 是相當有用的 debug 技巧，而這個題目則是用來討論如何在程式執行中作 backtrace。
+
+在實作這個技術前，有兩個關鍵點要先解決：
+如何取得此 function 返回位址
+如何依據返回位址查知函式名稱
+關於第一點, 須先了解堆疊 (stack) 和函式呼叫的處理關係。堆疊是一個後進先出 (LIFO, Last-In-First-Out) 的資料結構，當呼叫某個函式時，相關的暫存器 (register) 就會被存入堆疊。而當函式返回時，便會從堆疊裡取出返回位址，以便回到原來呼叫的下一個指令繼續執行。以 x86 暫存器組來說，其中 EIP 是 Instruction Pointer 之意，用以指出 CPU 將要執行指令的位址；ESP 暫存器則是用來指向目前堆疊的位址。
+
+我們先寫個小程式來觀察： (test.c)
+1
+2
+3
+4
+5
+6
+7
+8
+void test()
+{
+}
+
+int main()
+{
+    test();
+}
+透過 gdb 分析其執行行為：
+jserv@venux:~/whocallme$ gcc -o test test.c
+jserv@venux:~/whocallme$ gdb ./test
+GNU gdb 6.8-debian
+Copyright (C) 2008 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later 
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i486-linux-gnu"...
+(gdb) b test
+Breakpoint 1 at 0x8048397
+(gdb) r
+Starting program: /home/jserv/whocallme/test 
+
+Breakpoint 1, 0x08048397 in test ()
+Current language:  auto; currently asm
+(gdb) info reg
+eax            0xbff05fb4   -1074765900
+ecx            0xbff05f30   -1074766032
+edx            0x1  1
+ebx            0xb7fceff4   -1208160268
+esp            0xbff05f08   0xbff05f08
+ebp            0xbff05f08   0xbff05f08
+esi            0x80483d0    134513616
+edi            0x80482e0    134513376
+eip            0x8048397    0x8048397 <test+3>
+eflags         0x282    [ SF IF ]
+cs             0x73 115
+ss             0x7b 123
+ds             0x7b 123
+es             0x7b 123
+fs             0x0  0
+gs             0x33 51
+(gdb) disas test
+Dump of assembler code for function test:
+0x08048394 <test+0>:    push   %ebp
+0x08048395 <test+1>:    mov    %esp,%ebp
+0x08048397 <test+3>:    pop    %ebp
+0x08048398 <test+4>:    ret    
+End of assembler dump.
+(gdb)
+由上可見，ebp 暫存器值為 0xbff05f08，也就是原來的堆疊位址。以 IA32 來說，函式呼叫 (對應機械指令為 "call") 的過程，CPU 會將返回位址存入堆疊，因此可從 ebp 暫存器的位址裡面，找到我們需要的返回位址。繼續透過 gdb 觀察：
+(gdb) p/x *0xbff05f08
+$1 = 0xbff05f18
+別忘了，一進入此函式時，機械指令 "push $ebp" 已被執行 (詳見 test 函式反組譯的結果，也就是位址 0x08048394)，因此堆疊位址已被減 4，故，若要取得正確的值，需要再將位址加回 4，才可，也就是：
+(gdb) p/x *(0xbff05f08+4)
+$2 = 0x80483af
+此值應該就是 test() 正確的返回位址，繼續透過 gdb 檢查看看：
+(gdb) disas main
+Dump of assembler code for function main:
+0x08048399 <main+0>:    lea    0x4(%esp),%ecx
+0x0804839d <main+4>:    and    $0xfffffff0,%esp
+0x080483a0 <main+7>:    pushl  -0x4(%ecx)
+0x080483a3 <main+10>:   push   %ebp
+0x080483a4 <main+11>:   mov    %esp,%ebp
+0x080483a6 <main+13>:   push   %ecx
+0x080483a7 <main+14>:   sub    $0x4,%esp
+0x080483aa <main+17>:   call   0x8048394 <test>
+0x080483af <main+22>:   add    $0x4,%esp
+0x080483b2 <main+25>:   pop    %ecx
+0x080483b3 <main+26>:   pop    %ebp
+0x080483b4 <main+27>:   lea    -0x4(%ecx),%esp
+0x080483b7 <main+30>:   ret    
+End of assembler dump.
+(gdb)
+果然在 "call <test>" 完後的下個指令，位址就是位於 0x80483af，這也就是 test() 返回位址。接下來，我們將前述的程式，透過 inline assembly 印出一些有用的訊息： (test-1.c)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+#include <stdio.h>
+void test()
+{
+    unsigned int *stack;
+    asm ("movl %%ebp, %0\n"
+         : "=g"(stack));
+    printf("Return address = 0x%x\n", *(stack+1));
+}
+
+int main()
+{
+    test();
+}
+編譯並執行：
+jserv@venux:~/whocallme$ gcc -o test-1 test-1.c
+jserv@venux:~/whocallme$ ./test-1 
+Return address = 0x80483fd
+再次，透過 gdb 來驗證 test() 函式的返回位址與機械指令 "call" 的關聯：
+$ gdb ./test-1
+(gdb) disas main
+Dump of assembler code for function main:
+0x080483e7 <main+0>:    lea    0x4(%esp),%ecx
+0x080483eb <main+4>:    and    $0xfffffff0,%esp
+0x080483ee <main+7>:    pushl  -0x4(%ecx)
+0x080483f1 <main+10>:   push   %ebp
+0x080483f2 <main+11>:   mov    %esp,%ebp
+0x080483f4 <main+13>:   push   %ecx
+0x080483f5 <main+14>:   sub    $0x4,%esp
+0x080483f8 <main+17>:   call   0x80483c4 <test>
+0x080483fd <main+22>:   add    $0x4,%esp
+0x08048400 <main+25>:   pop    %ecx
+0x08048401 <main+26>:   pop    %ebp
+0x08048402 <main+27>:   lea    -0x4(%ecx),%esp
+0x08048405 <main+30>:   ret    
+End of assembler dump.
+(gdb)
+果然如此，所以我們已對本文一開始提出「如何取得此 function 返回位址」的問題，有了初步的解答，再來，就要思索，該如何依據記憶體位址，查知所處的函式名稱。
+
+我們可透過 GNU binutils 的 objdump 工具程式分析 ELF 執行檔的重要資訊，首先觀察執行檔的符號表：
+jserv@venux:~/whocallme$ objdump -t ./test-1 | awk '{print $1" "$3" "$6}'|grep "F"
+08048340 F __do_global_dtors_aux
+080483a0 F frame_dummy
+080484e8 O __FRAME_END__
+08048480 F __do_global_ctors_aux
+08048410 F __libc_csu_fini
+08048310 F _start
+080484ac F _fini
+08048420 F __libc_csu_init
+080483c4 F test
+0804847a F .hidden
+080483e7 F main
+08048298 F _init
+既然 "objdump -t" 可印出程式的函式名稱和記憶體位址，不就是我們預期的動作嗎？所以，我們將重心擺在該工具程式背後的原理。objdump 是利用 BFD Library (Binary File Descriptor Library) 來實作的，底下的小程式也利用 BFD Library 來讀取符號表 (bfd.c)。注意：在 Debian/Ubuntu 下，需安裝套件 "binutils-dev"，方可編譯。
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+#include <stdio.h>
+#include <bfd.h>
+
+int main(int argc, char *argv[])
+{
+    bfd *abfd;
+    long storage_needed;  
+    asymbol **symbol_table;
+    long number_of_symbols;
+    long i;
+    char **matching;
+    sec_ptr section;
+    char *symbol_name; 
+    long symbol_offset, section_vma, symbol_address;
+
+    if (argc < 2)
+        return 0;
+    printf("Open %s\n", argv[1]);
+    bfd_init();
+    abfd = bfd_openr(argv[1],NULL);
+    if (abfd == (bfd *) 0) {
+        bfd_perror("bfd_openr");
+        return -1; 
+    }
+    if (!bfd_check_format_matches(abfd, bfd_object, &matching)) {
+        return -1;
+    }      
+    if (!(bfd_get_file_flags (abfd) & HAS_SYMS)) {
+        printf("ERROR flag!\n");
+        return -1;
+    }
+    /* 取得符號表大小 */
+    storage_needed = bfd_get_symtab_upper_bound(abfd);
+    if (storage_needed < 0)
+        return -1;
+    symbol_table = (asymbol **) xmalloc(storage_needed);
+    /* 將符號表讀進所配置的記憶體裡(symbol_table), 並傳回符號表個數 */
+    number_of_symbols = bfd_canonicalize_symtab(abfd, symbol_table);
+    if (number_of_symbols < 0)
+        return -1;
+    for (i = 0; i < number_of_symbols; i++) {
+        /* 檢查此符號是否為函式 */
+        if (symbol_table[i]->flags & (BSF_FUNCTION|BSF_GLOBAL)) {
+            /* 反查此函式所處的區段(section) 及
+                               區段位址(section_vma) */
+            section = symbol_table[i]->section;
+            section_vma = bfd_get_section_vma(abfd, section);
+            /* 取得此函式的名稱(symbol_name)、
+                           偏移位址(symbol_offset) */
+            symbol_name = symbol_table[i]->name;
+            symbol_offset = symbol_table[i]->value;
+            /* 將此函式的偏移位址加上區段位址，則為此函式在執行時
+               的記憶體位址(symbol_address */
+            symbol_address = section_vma + symbol_offset;
+            /* 檢查此函式是否處在程式本文區段 */
+            if (section->flags & SEC_CODE)
+                printf("<%s> 0x%x 0x%x 0x%x\n",
+                         symbol_name,  
+                               section_vma,  
+                                    symbol_offset,
+                                         symbol_address);
+        }
+    }
+    bfd_close(abfd);
+}
+編譯並執行：
+jserv@venux:~/whocallme$ gcc -o bfd bfd.c -lbfd
+jserv@venux:~/whocallme$ ./bfd test-1
+Open test-1
+<__do_global_dtors_aux> 0x8048310 0x30 0x8048340
+<frame_dummy> 0x8048310 0x90 0x80483a0
+<__do_global_ctors_aux> 0x8048310 0x170 0x8048480
+<__libc_csu_fini> 0x8048310 0x100 0x8048410
+<_start> 0x8048310 0x0 0x8048310
+<_fini> 0x80484ac 0x0 0x80484ac
+<__libc_csu_init> 0x8048310 0x110 0x8048420
+<test> 0x8048310 0xb4 0x80483c4
+<__i686.get_pc_thunk.bx> 0x8048310 0x16a 0x804847a
+<main> 0x8048310 0xd7 0x80483e7
+<_init> 0x8048298 0x0 0x8048298
+觀察由 objdump 工具程式與我們撰寫的小程式 bfd，對於 test() 函式的位址，有著相同的輸出，也就是 0x80483c4。現在, 我們依照函式名稱及記憶體位址作對照表，即可立即查詢.，不過這其中仍有個小問題，就是，雖然知道個別函式的起始位址，但並不知道函式的結束位址，也不知道各函式程式內容的大小。要解決這個小問題，就必須在建立對照表時，先作排序，將位址越高的函式排在越後面，並將下一個函式的起始位址當作結束位址。於是筆者建立於前面的 bfd.c 程式，提出新的工具程式 (bfd_dumpfun.c)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+/* bfd_dumpfun.c (GPL)
+ *
+ * Usage: ./bfd_dumpfun [binary]
+ * Note: Dump functions infomation of ELF-binary with BFD Library.
+ *     
+ * by TimHsu(timhsu@info.sayya.org) 2004/03/31
+ * Modified by Jim Huang <jserv.tw@gmail.com>, 2008/07/22
+ *   - Bump bfd APIs and build fixes.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <bfd.h>
+
+typedef struct function_table FUN_TABLE;
+
+/* 宣告一個包含函式名稱和位址的結構 */
+struct function_table {
+    char name[80];
+    unsigned long addr;
+};
+
+static FUN_TABLE *fun_table;
+static int table_count = 0;   /* 函式個數 */
+
+static int compare_function(const void *a, const void *b)
+{
+    FUN_TABLE *aa = (FUN_TABLE *) a, *bb = (FUN_TABLE *) b;
+    if (aa->addr > bb->addr)
+        return 1;
+    else if (aa->addr < bb->addr)
+        return -1;
+    return 0;  
+}
+
+/* 增加一個函式資料至對照表 */
+static void add_function_table(char *name, unsigned long address)
+{
+    strncpy(fun_table[table_count].name, name, 80);
+    fun_table[table_count].addr = address;
+    table_count++;  
+}
+
+static void dump_function_table(void)
+{
+    int i;
+    for (i = 0; i < table_count; i++) {
+        printf("%-30s 0x%x\n",
+               fun_table[i].name, fun_table[i].addr);
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    bfd *abfd;
+    asection *text;
+    long storage_needed;
+    asymbol **symbol_table;
+    long number_of_symbols;
+    long i;
+    char **matching;
+    sec_ptr section;
+    char *symbol_name;
+    long symbol_offset, section_vma, symbol_address;
+
+    if (argc < 2) 
+        return 0;
+    printf("Open %s\n", argv[1]);
+    bfd_init();
+    abfd = bfd_openr(argv[1],NULL);
+    if (abfd == (bfd *) 0) {
+        bfd_perror("bfd_openr");
+        return -1;
+    }
+    if (!bfd_check_format_matches(abfd, bfd_object, &matching)) {
+        return -1;
+    }      
+    if (!(bfd_get_file_flags (abfd) & HAS_SYMS)) {
+        printf("ERROR flag!\n");
+        return -1;
+    }
+    if ((storage_needed = bfd_get_symtab_upper_bound(abfd)) < 0)
+        return -1;
+    symbol_table = (asymbol **) xmalloc(storage_needed);
+    number_of_symbols = bfd_canonicalize_symtab(abfd, symbol_table);
+    if (number_of_symbols < 0)
+        return -1;
+    fun_table = (FUN_TABLE **)malloc(sizeof(FUN_TABLE)*number_of_symbols);
+    bzero(fun_table, sizeof(FUN_TABLE)*number_of_symbols);
+
+    for (i = 0; i < number_of_symbols; i++) {
+        if (symbol_table[i]->flags & (BSF_FUNCTION|BSF_GLOBAL)) {
+            section = symbol_table[i]->section;
+            section_vma = bfd_get_section_vma(abfd, section);
+            symbol_name = symbol_table[i]->name;
+            symbol_offset = symbol_table[i]->value;
+            symbol_address = section_vma + symbol_offset;
+            if (section->flags & SEC_CODE) {
+                add_function_table(symbol_name,
+                                   symbol_address);
+            }
+        }
+    }
+    bfd_close(abfd);
+    /* 將函式對照表作排序 */
+    qsort(fun_table, table_count, sizeof(FUN_TABLE), compare_function);
+    dump_function_table();
+}
+編譯並執行：
+jserv@venux:~/whocallme$ gcc -o bfd_dumpfun bfd_dumpfun.c -lbfd
+jserv@venux:~/whocallme$ ./bfd_dumpfun ./test-1
+Open ./test-1
+_init                          0x8048298
+_start                         0x8048310
+__do_global_dtors_aux          0x8048340
+frame_dummy                    0x80483a0
+test                           0x80483c4
+main                           0x80483e7
+__libc_csu_fini                0x8048410
+__libc_csu_init                0x8048420
+__i686.get_pc_thunk.bx         0x804847a
+__do_global_ctors_aux          0x8048480
+_fini                          0x80484ac
+現在，我們已將技術的關鍵點都處理好，為能實用化，最好是作成函式庫，得以日後隨時呼叫。我們的函式庫包含兩部份： whocallme.[ch]，首先是標頭檔部份： (whocallme.h)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+#include <stdio.h>
+
+#define FUNCTION_NAME_MAXLEN        80
+
+#define who_call_me() \
+    do { \
+            unsigned int *stack; \
+        asm ("movl %%ebp, %0\n"  \
+             : "=g"(stack));  \
+        fprintf(stderr, \
+            "<whocallme>: function <%s> call me <%s>!\n", \
+            find_function_by_addr(*(stack+1)), who_am_i()); \
+    } while(0)
+
+extern int init_function_table(char *);
+留意到巨集定義中的自訂函式 who_am_i()，目的自然就是取得執行中的函式名稱，整個實做如下： (whocallme.c)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+/* whocallme.c (GPL)
+ *
+ * A runtime backtrace of function. 
+ * 
+ * by Timhsu(timhsu@chroot.org) 2004/03/31
+ * Modified by Jim Huang <jserv.tw@gmail.com>, 2008/07/22
+ *   - Bump bfd APIs.
+ *   - Eliminate compiler errors.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <bfd.h>
+#include "whocallme.h"
+
+/* forward declarations */
+char *find_function_by_addr(unsigned long addr);
+
+typedef struct function_table FUN_TABLE;
+/* 宣告一個包含函式名稱和位址的結構 */
+struct function_table {
+    char name[FUNCTION_NAME_MAXLEN];
+    unsigned long addr;
+};
+
+static FUN_TABLE *fun_table;
+static int table_count = 0; /* 函式個數 */
+
+static int compare_function(const void *a, const void *b)
+{
+        FUN_TABLE *aa = (FUN_TABLE *) a;
+        FUN_TABLE *bb = (FUN_TABLE *) b;
+    if (aa->addr > bb->addr)
+        return 1;
+    else if (aa->addr < bb->addr)
+        return -1;
+    return 0;
+}
+
+/* 增加一個函式資料至對照表 */
+static void add_function_table(char *name, unsigned long address)
+{
+    strncpy(fun_table[table_count].name, name, FUNCTION_NAME_MAXLEN);
+    fun_table[table_count].addr = address;
+    table_count++;
+}
+
+/* 取得目前正在執行的函式名稱 */
+char * who_am_i(void)
+{
+        unsigned long *stack;   \
+    asm ("movl %%ebp, %0\n"  \
+        : "=g"(stack));         
+    return find_function_by_addr(*(stack + 1));
+}
+
+/* 依照位址取得函式名稱 */
+char *find_function_by_addr(unsigned long addr)
+{
+    int i;
+    for (i = 0; i < table_count; i++) {
+        if (addr > fun_table[i].addr) {
+            if (addr < fun_table[i + 1].addr)
+                return fun_table[i].name;
+        }
+    }
+    return NULL;
+}
+
+/* 初始化函式對照表 */
+int init_function_table(char *file)
+{
+    bfd *abfd;
+    long storage_needed;
+    asymbol **symbol_table;
+    long number_of_symbols;
+    long i;
+    char **matching;
+    sec_ptr section;
+    char *symbol_name;
+    long symbol_offset, section_vma, symbol_address;
+
+    bfd_init();
+    abfd = bfd_openr(file, NULL);
+    if (abfd == (bfd *) 0) {
+        bfd_perror("bfd_openr");
+        return -1;
+    }
+    if (!bfd_check_format_matches(abfd, bfd_object, &matching)) {
+        return -1;
+    }   
+    if (!(bfd_get_file_flags (abfd) & HAS_SYMS)) {
+        printf("ERROR flag!\n");
+        return -1;
+    }
+    /* 取得符號表大小 */
+    storage_needed = bfd_get_symtab_upper_bound(abfd);
+    if (storage_needed < 0)
+        return -1;
+    symbol_table = (asymbol **) malloc(storage_needed);
+    /* 將符號表讀進所配置的記憶體裡(symbol_table), 並傳回符號表個數 */
+    number_of_symbols = bfd_canonicalize_symtab(abfd, symbol_table);
+    if (number_of_symbols < 0)
+        return -1;
+    /* 配置空間給函式對照表 */
+    fun_table = (FUN_TABLE *) malloc(sizeof(FUN_TABLE) * number_of_symbols);
+    bzero(fun_table, sizeof(FUN_TABLE)*number_of_symbols);
+
+    for (i = 0; i < number_of_symbols; i++) {
+        /* 檢查此符號是否為函式 */
+        if (symbol_table[i]->flags & (BSF_FUNCTION|BSF_GLOBAL)) {
+            /* 反查此函式所處的區段(section) 及區段位址(section_vma)*/ */
+            section = symbol_table[i]->section;
+            section_vma = bfd_get_section_vma(abfd, section);
+            /* 取得此函式的名稱(symbol_name), 偏移位址(symbol_offset) */
+            symbol_name = (char *) symbol_table[i]->name;
+            symbol_offset = symbol_table[i]->value;
+            /* 將此函式的偏移位址加上區段位址，則為此函式
+             * 在執行時的記憶體位址 (symbol_address) */
+            symbol_address = section_vma + symbol_offset;
+            /* 檢查此函式是否處在程式本文區段 */
+            if (section->flags & SEC_CODE) {
+                /* 將此函式名稱和位址加入至對照表 */
+            add_function_table(symbol_name, 
+                           symbol_address);
+            }
+        }
+    }
+    free(symbol_table);
+    bfd_close(abfd);
+    /* 將函式對照表作排序 */
+    qsort(fun_table, table_count, sizeof(FUN_TABLE), compare_function);
+    return 0;
+}
+建構此函式庫方式如下：
+jserv@venux:~/whocallme$ gcc -c whocallme.c
+jserv@venux:~/whocallme$ ar -q libwhocallme.a whocallme.o
+寫個簡短的測試程式，看看執行的效果： (test-2.c)
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+#include "whocallme.h"
+
+void test()
+{
+    who_call_me(); 
+}
+void test_a()
+{
+    test_b();
+    test_c();
+}
+void test_b()
+{
+    test();
+}
+void test_c()
+{
+    who_call_me(); 
+}
+int main(int argc, char *argv[])
+{
+    init_function_table(argv[0]);
+    test();
+    test_a();      
+    test_b();
+    test_c();
+}
+編譯並執行：
+jserv@venux:~/whocallme$ gcc -o test-2 test-2.c -lbfd -L. -lwhocallme
+jserv@venux:~/whocallme$ ./test-2
+: function <main> call me <test>!
+: function <test_b> call me <test>!
+: function <test_a> call me <test_c>!
+: function <test_b> call me <test>!
+: function <main> call me <test_c>!
+下載本文的範例程式： [whocallme.tar.bz2]
