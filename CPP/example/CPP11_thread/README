@@ -1,0 +1,10 @@
+在終端中執行：
+ g++ -std=c++11   test.cpp  -pthread -o test.out
+
+
+編譯報錯：
+terminate called after throwing an instance of 'std::system_error'
+  what():  Enable multithreading to use std::thread: Operation not permitted
+
+在網上查閱資料測試加上-Wl,--no-as-needed 就能正常編譯運行了，完整的執行指令為：
+ g++ -std=c++11  -Wl,--no-as-needed  test.cpp  -pthread -o test.out
