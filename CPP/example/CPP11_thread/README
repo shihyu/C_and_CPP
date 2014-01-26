@@ -8,3 +8,9 @@ terminate called after throwing an instance of 'std::system_error'
 
 在網上查閱資料測試加上-Wl,--no-as-needed 就能正常編譯運行了，完整的執行指令為：
  g++ -std=c++11  -Wl,--no-as-needed  test.cpp  -pthread -o test.out
+
+
+
+
+
+ g++ -std=c++11  -Wl,--no-as-needed  test1.cpp  -pthread -o test1.out
