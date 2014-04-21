@@ -7,7 +7,14 @@ fun_name=''
 
 for line in fd:
     fields=line.split(":",2)
+
+    #print fields[1] 
+    #print sys.argv[2]
+
     args1 = ['/usr/bin/addr2line', '-e', sys.argv[2] , fields[1] , '-f']
+
+    
+
     handle1 = subprocess.Popen(args1, stdout=subprocess.PIPE)
     r1 = handle1.stdout.readlines()
     if(fields[0].rfind('enter') != -1):
