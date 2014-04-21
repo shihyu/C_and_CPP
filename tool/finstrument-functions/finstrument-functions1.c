@@ -58,15 +58,30 @@ __cyg_profile_func_exit(void* this_func, void* call_site)
     dump("leave", this_func);
 }
 
-void myfun(){
+
+void func2() {
 }
 
+void func1() {
+    func2();
+    func3();
+}
 
+void func3() {
+    func4();
+
+}
+
+void func4(){
+}
 
 int
 main( int argc, char **argv )
 {
-    myfun();
+
+    func1();
+    func3();
     
     return 0;
 }
+
