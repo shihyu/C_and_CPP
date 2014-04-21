@@ -1,0 +1,2 @@
+1 gcc -finstrument-functions -finstrument-functions finstrument-functions.c -o finstrument-functions
+2 addr2line  -f -C -e ./finstrument-functions  0xxxxxxxx
