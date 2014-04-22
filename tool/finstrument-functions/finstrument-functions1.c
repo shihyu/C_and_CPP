@@ -58,6 +58,10 @@ __cyg_profile_func_exit(void* this_func, void* call_site)
     dump("leave", this_func);
 }
 
+void func1();
+void func2();
+void func3();
+void func4();
 
 void func2() {
 }
