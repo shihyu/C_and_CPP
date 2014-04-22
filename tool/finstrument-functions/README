@@ -7,4 +7,6 @@
 2. ./finstrument-functions1 
 3. 產生 trace.txt
 4. ./pvtrace.py  trace.txt  ./finstrument-functions1  // 印出enter  leave 函數 行數
+   ./pvtrace_modify.py  trace.txt  ./finstrument-functions1
+
 
