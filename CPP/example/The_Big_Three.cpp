@@ -82,16 +82,6 @@ private:
 
 int
 main(int argc, char** argv) {
-    // 建立第一個物件
-    ClassA A(BUFFER_SIZE);
-    // 開始執行 ClassA(const ClassA& clone)
-    ClassA B = A;
-    ClassA C;
-    // 開始執行 ClassA& operator=(const ClassA& clone)
-    C = A;
-    
-    cout << "classA D +" << endl;
-    ClassA D = ClassA(BUFFER_SIZE);
-
+    ClassA B = ClassA(BUFFER_SIZE);
     return 0;
 }
