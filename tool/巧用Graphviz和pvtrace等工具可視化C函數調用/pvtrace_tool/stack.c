@@ -9,53 +9,48 @@
 
 #include <assert.h>
 
-#define MAX_ELEMENTS	50
+#define MAX_ELEMENTS    50
 
 static int stack[MAX_ELEMENTS];
 static int index;
 
-void stackInit( void )
-{
-  index = 0;
+void stackInit(void) {
+    index = 0;
 
-  return;
+    return;
 }
 
 
-int stackNumElems( void )
-{
-  return index;
+int stackNumElems(void) {
+    return index;
 }
 
 
-unsigned int stackTop( void )
-{
-  assert( index > 0 );
+unsigned int stackTop(void) {
+    assert(index > 0);
 
-  return (stack[index-1]);
+    return (stack[index - 1]);
 }
 
 
-void stackPush( unsigned int value )
-{
-  assert ( index < MAX_ELEMENTS );
+void stackPush(unsigned int value) {
+    assert(index < MAX_ELEMENTS);
 
-  stack[index] = value;
-  index++;
+    stack[index] = value;
+    index++;
 
-  return;
+    return;
 }
 
 
-unsigned int stackPop( void )
-{
-  unsigned int value;
+unsigned int stackPop(void) {
+    unsigned int value;
 
-  assert( index > 0 );
+    assert(index > 0);
 
-  index--;
-  value = stack[index];
+    index--;
+    value = stack[index];
 
-  return value;
+    return value;
 }
 

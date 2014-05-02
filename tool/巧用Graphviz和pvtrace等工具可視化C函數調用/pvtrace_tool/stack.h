@@ -10,15 +10,15 @@
 #ifndef __STACK_H
 #define __STACK_H
 
-void stackInit( void );
+void stackInit(void);
 
-int stackNumElems( void );
+int stackNumElems(void);
 
-unsigned int stackTop( void );
+unsigned int stackTop(void);
 
-void stackPush( unsigned int value );
+void stackPush(unsigned int value);
 
-unsigned int stackPop( void );
+unsigned int stackPop(void);
 
 #endif /* __STACK_H */
 
