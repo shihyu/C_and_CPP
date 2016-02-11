@@ -1,0 +1,64 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstdlib&gt;</font> 
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font>  <b><font color="#000000">string_number_sum</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> string<font color="#990000">&amp;</font> line <font color="#990000">)</font> <font color="#FF0000">{</font>
+    
+    <b><font color="#0000FF">const</font></b>  string  number <font color="#990000">=</font> <font color="#FF0000">"0123456789"</font> <font color="#990000">;</font>
+    
+    <font color="#009900">int</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">,</font> i <font color="#990000">,</font> sum <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+            
+        <i><font color="#9A1900">// 由下標 j 起找尋第一個數字的下標 i, 若沒找到, 跳離迴圈</font></i>
+        i <font color="#990000">=</font> line<font color="#990000">.</font><b><font color="#000000">find_first_of</font></b><font color="#990000">(</font>number<font color="#990000">,</font>j<font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> i <font color="#990000">==</font> string<font color="#990000">::</font>npos <font color="#990000">)</font> <b><font color="#0000FF">break</font></b>   <font color="#990000">;</font>    
+
+        <i><font color="#9A1900">// 由第一個數字下標 i 起找尋第一個非數字的下標 j</font></i>
+        j <font color="#990000">=</font> line<font color="#990000">.</font><b><font color="#000000">find_first_not_of</font></b><font color="#990000">(</font>number<font color="#990000">,</font>i<font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 如果 j 已經到末端, 則截取最後一個數字後跳離迴圈</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> j <font color="#990000">==</font> string<font color="#990000">::</font>npos <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            <i><font color="#9A1900">// 如果此數字從第一格開始或者是在空格之後  才截取數字</font></i>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> i <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">||</font> <font color="#990000">(</font> i <font color="#990000">&gt;</font> <font color="#993399">0</font> <font color="#990000">&amp;&amp;</font> line<font color="#990000">[</font>i<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">==</font> <font color="#FF0000">' '</font> <font color="#990000">)</font> <font color="#990000">)</font>
+                sum <font color="#990000">+=</font> 
+                    <b><font color="#000000">atoi</font></b><font color="#990000">(</font> line<font color="#990000">.</font><b><font color="#000000">substr</font></b><font color="#990000">(</font>i<font color="#990000">,</font>line<font color="#990000">.</font><b><font color="#000000">length</font></b><font color="#990000">()-</font>i<font color="#990000">).</font><b><font color="#000000">c_str</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+            <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+
+        <i><font color="#9A1900">// 如果此數字從第一格開始或者是在空格之後  才截取數字</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> i <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">||</font> <font color="#990000">(</font> i <font color="#990000">&gt;</font> <font color="#993399">0</font> <font color="#990000">&amp;&amp;</font> line<font color="#990000">[</font>i<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">==</font> <font color="#FF0000">' '</font> <font color="#990000">)</font> <font color="#990000">)</font> 
+            sum <font color="#990000">+=</font> <b><font color="#000000">atoi</font></b><font color="#990000">(</font> line<font color="#990000">.</font><b><font color="#000000">substr</font></b><font color="#990000">(</font>i<font color="#990000">,</font>j<font color="#990000">-</font>i<font color="#990000">).</font><b><font color="#000000">c_str</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font> 
+        
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">return</font></b>  sum <font color="#990000">;</font>
+        
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    string  line <font color="#990000">;</font>
+
+    <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; "</font> <font color="#990000">;</font>
+        <b><font color="#000000">getline</font></b><font color="#990000">(</font> cin <font color="#990000">,</font> line <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 如果為空行 則跳離迴圈結束</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> line<font color="#990000">.</font><b><font color="#000000">empty</font></b><font color="#990000">()</font> <font color="#990000">)</font> <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">string_number_sum</font></b><font color="#990000">(</font> line <font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font> 
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+</tt></pre>

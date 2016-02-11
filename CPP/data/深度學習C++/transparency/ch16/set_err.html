@@ -1,0 +1,204 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+
+<b><font color="#0000FF">using</font></b>  <b><font color="#0000FF">namespace</font></b>  std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 定義處理集合執行錯誤類別</font></i>
+<b><font color="#0000FF">class</font></b>  Set_Error <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 設定兩個集合的錯誤種類的形態</font></i>
+    <b><font color="#0000FF">enum</font></b>  error_type  <font color="#FF0000">{</font> under_set <font color="#990000">,</font> over_set <font color="#FF0000">}</font> <font color="#990000">;</font>  
+
+  <b><font color="#0000FF">private</font></b><font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 錯誤種類</font></i>
+    error_type  kind <font color="#990000">;</font>
+ 
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Set_Error</font></b><font color="#990000">(</font>error_type type<font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">kind</font></b><font color="#990000">(</font>type<font color="#990000">)</font> <font color="#FF0000">{}</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 重列印錯誤訊習</font></i>
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                                   <b><font color="#0000FF">const</font></b> Set_Error<font color="#990000">&amp;</font> err <font color="#990000">)</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+
+<i><font color="#9A1900">// 定義模板集合類別</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font> <b><font color="#0000FF">class</font></b> T <font color="#990000">,</font> <font color="#009900">int</font> Set_Size <font color="#990000">=</font> <font color="#993399">5</font> <font color="#990000">&gt;</font>
+<b><font color="#0000FF">class</font></b> Set <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    <font color="#009900">int</font>    count              <font color="#990000">;</font>  <i><font color="#9A1900">// 已有的集合元素個數</font></i>
+    T      data<font color="#990000">[</font>Set_Size<font color="#990000">]</font>     <font color="#990000">;</font>  <i><font color="#9A1900">// 儲存元素的陣列</font></i>
+    <font color="#009900">bool</font>   occupied<font color="#990000">[</font>Set_Size<font color="#990000">]</font> <font color="#990000">;</font>  <i><font color="#9A1900">// 是否陣列的某個位置已儲存元素</font></i>
+
+  <b><font color="#0000FF">public</font></b><font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 內定建構函式</font></i>
+    <b><font color="#000000">Set</font></b><font color="#990000">()</font> <b><font color="#0000FF">throw</font></b><font color="#990000">()</font> <font color="#990000">:</font> <b><font color="#000000">count</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b><font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> Set_Size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> occupied<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 移除元素</font></i>
+    <font color="#009900">bool</font>  <b><font color="#000000">remove</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> item <font color="#990000">)</font> <b><font color="#0000FF">throw</font></b><font color="#990000">(</font>Set_Error<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 加入元素</font></i>
+    <font color="#009900">bool</font>  <b><font color="#000000">insert</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> item <font color="#990000">)</font> <b><font color="#0000FF">throw</font></b><font color="#990000">(</font>Set_Error<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 列印集合所有的元素</font></i>
+    <b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">,</font> <font color="#009900">int</font> size<font color="#990000">&gt;</font>
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> 
+          <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">,</font>size<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <b><font color="#0000FF">throw</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 針對 Set_Error 類別重新定義輸出運算子</font></i>
+ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Set_Error<font color="#990000">&amp;</font> err <font color="#990000">)</font> <font color="#FF0000">{</font>
+    
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> err<font color="#990000">.</font>kind <font color="#990000">==</font> Set_Error<font color="#990000">::</font>under_set <font color="#990000">)</font> <font color="#FF0000">{</font>
+        out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 集合執行錯誤 : 無法由一空集合中移除元素"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> err<font color="#990000">.</font>kind <font color="#990000">==</font> Set_Error<font color="#990000">::</font>over_set <font color="#990000">)</font> <font color="#FF0000">{</font>
+        out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 集合執行錯誤 : 集合空間已滿, 無法加入元素"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> out <font color="#990000">;</font>
+      
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 由集合內刪除元素</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T <font color="#990000">,</font> <font color="#009900">int</font> Set_Size<font color="#990000">&gt;</font>
+<font color="#009900">bool</font> Set<font color="#990000">&lt;</font>T<font color="#990000">,</font>Set_Size<font color="#990000">&gt;::</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> item<font color="#990000">)</font> <b><font color="#0000FF">throw</font></b><font color="#990000">(</font>Set_Error<font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 集合已空, 擲出錯誤物件</font></i>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> count <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> <b><font color="#0000FF">throw</font></b>  <b><font color="#000000">Set_Error</font></b><font color="#990000">(</font> Set_Error<font color="#990000">::</font>under_set <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> Set_Size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> occupied<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&amp;&amp;</font> data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">==</font> item <font color="#990000">)</font> <font color="#FF0000">{</font>
+            occupied<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+            <font color="#990000">--</font>count <font color="#990000">;</font>
+            <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 如果沒找到元素, 則回傳假值</font></i>
+    <b><font color="#0000FF">return</font></b>  <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 加入元素到集合內</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">,</font> <font color="#009900">int</font> Set_Size<font color="#990000">&gt;</font>
+<font color="#009900">bool</font> Set<font color="#990000">&lt;</font>T<font color="#990000">,</font>Set_Size<font color="#990000">&gt;::</font><b><font color="#000000">insert</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> item <font color="#990000">)</font> <b><font color="#0000FF">throw</font></b><font color="#990000">(</font>Set_Error<font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 集合已滿, 擲出錯誤物件</font></i>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> count <font color="#990000">==</font> Set_Size <font color="#990000">)</font> 
+        <b><font color="#0000FF">throw</font></b> <b><font color="#000000">Set_Error</font></b><font color="#990000">(</font> Set_Error<font color="#990000">::</font>over_set <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> Set_Size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#990000">!</font> occupied<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+            occupied<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+            data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> item <font color="#990000">;</font>
+            <font color="#990000">++</font>count <font color="#990000">;</font>
+            <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 列印集合 </font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">,</font> <font color="#009900">int</font> Set_Size<font color="#990000">&gt;</font>
+ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                       <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>T<font color="#990000">,</font>Set_Size<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <b><font color="#0000FF">throw</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+ 
+    out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 集合 [ 可儲存元素個數 = "</font> <font color="#990000">&lt;&lt;</font> Set_Size 
+        <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" ] 共有 "</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font>count <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 個元素</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" ( "</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> foo<font color="#990000">.</font>count <font color="#990000">!=</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <font color="#009900">bool</font> first_item <font color="#990000">=</font> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> Set_Size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#990000">!</font> foo<font color="#990000">.</font>occupied<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">)</font> <b><font color="#0000FF">continue</font></b> <font color="#990000">;</font>
+
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> first_item <font color="#990000">)</font> <font color="#FF0000">{</font>
+                out <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font>data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+                first_item <font color="#990000">=</font> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+            <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> 
+                out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" , "</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font>data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font>
+
+    <font color="#FF0000">}</font> 
+
+    <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" )</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    Set<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">,</font><font color="#993399">20</font><font color="#990000">&gt;</font>  foo1 <font color="#990000">,</font> foo2 <font color="#990000">;</font>
+    Set<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;</font>  foo3 <font color="#990000">,</font> foo4 <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 測試 整數集合 foo1, 可以儲存有 20 個元素</font></i>
+    <b><font color="#0000FF">try</font></b> <font color="#FF0000">{</font>
+        foo1<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">6</font><font color="#990000">)</font> <font color="#990000">;</font> foo1<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">8</font><font color="#990000">)</font> <font color="#990000">;</font> foo1<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">7</font><font color="#990000">)</font> <font color="#990000">;</font>
+        foo1<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#993399">8</font><font color="#990000">)</font> <font color="#990000">;</font> foo1<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#993399">6</font><font color="#990000">)</font> <font color="#990000">;</font> foo1<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#993399">9</font><font color="#990000">)</font> <font color="#990000">;</font>
+        foo1<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#993399">7</font><font color="#990000">)</font> <font color="#990000">;</font> foo1<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">;</font>
+
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"[正確] foo1 : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> foo1 <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">catch</font></b> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set_Error<font color="#990000">&amp;</font> error <font color="#990000">)</font> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"[錯誤] foo1 : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> error <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> foo1 <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 測試 整數集合 foo1, 可以儲存有 20 個元素</font></i>
+    <b><font color="#0000FF">try</font></b> <font color="#FF0000">{</font>
+        foo2<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">;</font> foo2<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">;</font> foo2<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">;</font> 
+        foo2<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">9</font><font color="#990000">)</font> <font color="#990000">;</font> foo2<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#993399">4</font><font color="#990000">)</font> <font color="#990000">;</font> foo2<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">;</font> 
+        foo2<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">;</font> foo2<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">6</font><font color="#990000">)</font> <font color="#990000">;</font> foo2<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#993399">4</font><font color="#990000">)</font> <font color="#990000">;</font>
+
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"[正確] foo2 : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> foo2<font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">catch</font></b> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set_Error<font color="#990000">&amp;</font> error <font color="#990000">)</font> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"[錯誤] foo2 : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> error <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> foo2 <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 測試 雙精度浮點數集合 foo3, 可以儲存 5 個元素</font></i>
+    <b><font color="#0000FF">try</font></b> <font color="#FF0000">{</font>
+        foo3<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">1.1</font><font color="#990000">)</font> <font color="#990000">;</font> foo3<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">2.2</font><font color="#990000">)</font> <font color="#990000">;</font> foo3<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">3.3</font><font color="#990000">)</font> <font color="#990000">;</font> 
+        foo3<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">4.4</font><font color="#990000">)</font> <font color="#990000">;</font> foo3<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">5.5</font><font color="#990000">)</font> <font color="#990000">;</font> foo3<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">6.6</font><font color="#990000">)</font> <font color="#990000">;</font> 
+        foo3<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">7.7</font><font color="#990000">)</font> <font color="#990000">;</font> foo3<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">8.8</font><font color="#990000">)</font> <font color="#990000">;</font> foo3<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">9.9</font><font color="#990000">)</font> <font color="#990000">;</font>
+
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"[正確] foo3 : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> foo3 <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">catch</font></b> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set_Error<font color="#990000">&amp;</font> error <font color="#990000">)</font> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"[錯誤] foo3 : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> error <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> foo3 <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 測試 雙精度浮點數集合 foo4, 可以儲存 5 個元素</font></i>
+    <b><font color="#0000FF">try</font></b> <font color="#FF0000">{</font>
+        foo4<font color="#990000">.</font><b><font color="#000000">remove</font></b><font color="#990000">(</font><font color="#993399">1.9</font><font color="#990000">)</font> <font color="#990000">;</font> 
+        foo4<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">1.1</font><font color="#990000">)</font> <font color="#990000">;</font> foo4<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">2.2</font><font color="#990000">)</font> <font color="#990000">;</font> foo4<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">3.3</font><font color="#990000">)</font> <font color="#990000">;</font> 
+        foo4<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">4.4</font><font color="#990000">)</font> <font color="#990000">;</font> foo4<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font><font color="#993399">5.5</font><font color="#990000">)</font> <font color="#990000">;</font> 
+
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"[正確] foo4 : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> foo4 <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">catch</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set_Error<font color="#990000">&amp;</font> error <font color="#990000">)</font> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"[錯誤] foo4 : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> error <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> foo4 <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

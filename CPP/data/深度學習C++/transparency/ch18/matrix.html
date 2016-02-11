@@ -1,0 +1,109 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b>  <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<b><font color="#0000FF">class</font></b>   Matrix <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    vector<font color="#990000">&lt;</font> vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font> <font color="#990000">&gt;</font>  mat <font color="#990000">;</font>            <i><font color="#9A1900">// 雙重向量陣列</font></i>
+    <font color="#009900">int</font>                  row <font color="#990000">,</font> col <font color="#990000">;</font>      <i><font color="#9A1900">// 列數與行數   </font></i>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 預設建構函式</font></i>
+    <b><font color="#000000">Matrix</font></b><font color="#990000">()</font> <font color="#990000">:</font> <b><font color="#000000">row</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">col</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Matrix</font></b><font color="#990000">(</font> <font color="#009900">int</font> r <font color="#990000">,</font> <font color="#009900">int</font> c <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> val <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">row</font></b><font color="#990000">(</font>r<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">col</font></b><font color="#990000">(</font>c<font color="#990000">)</font> <font color="#FF0000">{</font>
+        mat <font color="#990000">=</font> vector<font color="#990000">&lt;</font> vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font> <font color="#990000">&gt;(</font>r<font color="#990000">,</font>vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;(</font>c<font color="#990000">,</font>val<font color="#990000">))</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 回傳矩陣列數與行數</font></i>
+    <b><font color="#0000FF">inline</font></b>  <font color="#009900">int</font>  <b><font color="#000000">rows</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b> row <font color="#990000">;</font>  <font color="#FF0000">}</font>
+    <b><font color="#0000FF">inline</font></b>  <font color="#009900">int</font>  <b><font color="#000000">cols</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b> col <font color="#990000">;</font>  <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 回傳矩陣的第 i 列的向量陣列參考</font></i>
+    <b><font color="#0000FF">inline</font></b> vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font>        <b><font color="#0000FF">operator</font></b> <font color="#990000">[]</font> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">)</font>       <font color="#FF0000">{</font> 
+        <b><font color="#0000FF">return</font></b>  mat<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font> 
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">inline</font></b> <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">[]</font> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> 
+        <b><font color="#0000FF">return</font></b>  mat<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font> 
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 重載 += 運算子</font></i>
+    Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font>   <b><font color="#0000FF">operator</font></b> <font color="#990000">+=</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> rhs <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <font color="#009900">int</font>  i <font color="#990000">,</font> j <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> row <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> col <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> mat<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">+=</font> rhs<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        <b><font color="#0000FF">return</font></b>  <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+
+<i><font color="#9A1900">// 定義矩陣的輸出運算子</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Matrix<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> m <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font>  i <font color="#990000">,</font> j <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> m<font color="#990000">.</font><b><font color="#000000">rows</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> m<font color="#990000">.</font><b><font color="#000000">cols</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            out <font color="#990000">&lt;&lt;</font> m<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 重載矩陣乘法運算子</font></i>
+<b><font color="#0000FF">template</font></b>  <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">*</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> m1 <font color="#990000">,</font> 
+                        <b><font color="#0000FF">const</font></b> Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> m2 <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    T          sum <font color="#990000">;</font>
+    <font color="#009900">int</font>        i <font color="#990000">,</font> j <font color="#990000">,</font> k <font color="#990000">;</font>
+    Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font>  <b><font color="#000000">m</font></b><font color="#990000">(</font>m1<font color="#990000">.</font><b><font color="#000000">rows</font></b><font color="#990000">(),</font>m2<font color="#990000">.</font><b><font color="#000000">cols</font></b><font color="#990000">())</font> <font color="#990000">;</font>
+ 
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> m1<font color="#990000">.</font><b><font color="#000000">rows</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> m2<font color="#990000">.</font><b><font color="#000000">cols</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            sum <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> k <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> k <font color="#990000">&lt;</font> m1<font color="#990000">.</font><b><font color="#000000">cols</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>k <font color="#990000">)</font> 
+                sum <font color="#990000">+=</font> m1<font color="#990000">[</font>i<font color="#990000">][</font>k<font color="#990000">]</font> <font color="#990000">*</font> m2<font color="#990000">[</font>k<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">;</font>
+            m<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">=</font> sum <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b>  m <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 重載矩陣加法運算子</font></i>
+<b><font color="#0000FF">template</font></b>  <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">+</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> m1 <font color="#990000">,</font> 
+                        <b><font color="#0000FF">const</font></b> Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> m2 <font color="#990000">)</font> <font color="#FF0000">{</font>
+    Matrix<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font>  m <font color="#990000">=</font> m1 <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  m <font color="#990000">+=</font> m2 <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// A 為 2 x 3 矩陣,  B 為 3 x 2 矩陣</font></i>
+    Matrix<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  <b><font color="#000000">A</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">,</font><font color="#993399">3</font><font color="#990000">,</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">B</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">,</font><font color="#993399">2</font><font color="#990000">,</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">;</font>
+    
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"A = "</font>       <font color="#990000">&lt;&lt;</font> A <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"B = "</font>       <font color="#990000">&lt;&lt;</font> B <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"A * B = "</font>   <font color="#990000">&lt;&lt;</font> A <font color="#990000">*</font> B <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"A + A = "</font>   <font color="#990000">&lt;&lt;</font> A <font color="#990000">+</font> A <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font> 
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"A[1][2] = "</font> <font color="#990000">&lt;&lt;</font> A<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

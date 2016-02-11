@@ -1,0 +1,73 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<b><font color="#0000FF">typedef</font></b>  <font color="#009900">double</font>  Dollar <font color="#990000">;</font>
+
+<b><font color="#0000FF">class</font></b>  Deposit <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 所有存款帳號的利率</font></i>
+    <b><font color="#0000FF">static</font></b>  <font color="#009900">double</font>  interest_rate <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 存款</font></i>
+    Dollar      amount <font color="#990000">;</font>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 建構成員函式</font></i>
+    <b><font color="#000000">Deposit</font></b><font color="#990000">(</font> Dollar money <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#FF0000">{</font> amount <font color="#990000">=</font> money <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 設定所有存款帳號的新利率</font></i>
+    <b><font color="#0000FF">static</font></b>  <font color="#009900">void</font>  <b><font color="#000000">set_rate</font></b><font color="#990000">(</font> <font color="#009900">double</font> rate <font color="#990000">)</font> <font color="#FF0000">{</font> 
+        interest_rate <font color="#990000">=</font> rate <font color="#990000">;</font> 
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 輸出存款</font></i>
+    Dollar  <b><font color="#000000">deposit</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b>  amount <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 輸出利息</font></i>
+    Dollar  <b><font color="#000000">interest</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b>  amount <font color="#990000">*</font> interest_rate <font color="#990000">;</font> <font color="#FF0000">}</font> 
+
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 設定存款帳號類別的內定靜態資料初值 (也可以不須設初值, </font></i>
+<i><font color="#9A1900">// 但仍須定義)</font></i>
+<font color="#009900">double</font>  Deposit<font color="#990000">::</font>interest_rate <font color="#990000">=</font> <font color="#993399">0.05</font> <font color="#990000">;</font>
+
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> no <font color="#990000">=</font> <font color="#993399">5</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 設定存款帳號</font></i>
+    Deposit  account<font color="#990000">[</font>no<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#993399">100</font> <font color="#990000">,</font> <font color="#993399">300</font> <font color="#990000">,</font> <font color="#993399">200</font> <font color="#990000">,</font> <font color="#993399">350</font> <font color="#990000">,</font> <font color="#993399">50</font> <font color="#FF0000">}</font> <font color="#990000">;</font>
+
+    <font color="#009900">double</font>  interest_rate <font color="#990000">;</font>
+     
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入利率 : "</font> <font color="#990000">;</font>
+    cin <font color="#990000">&gt;&gt;</font> interest_rate <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 設定存款帳號的新利率 </font></i>
+    Deposit<font color="#990000">::</font><b><font color="#000000">set_rate</font></b><font color="#990000">(</font>interest_rate<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 計算總存款與總利息</font></i>
+    <font color="#009900">double</font>  total_deposit <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">,</font> total_interest <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        total_deposit  <font color="#990000">+=</font> account<font color="#990000">[</font>i<font color="#990000">].</font><b><font color="#000000">deposit</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        total_interest <font color="#990000">+=</font> account<font color="#990000">[</font>i<font color="#990000">].</font><b><font color="#000000">interest</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 總存款為 : "</font> <font color="#990000">&lt;&lt;</font> total_deposit  <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 總利息為 : "</font> <font color="#990000">&lt;&lt;</font> total_interest <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+
+</tt></pre>

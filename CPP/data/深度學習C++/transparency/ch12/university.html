@@ -1,0 +1,187 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 列舉型別 : 可能的學院</font></i>
+<b><font color="#0000FF">enum</font></b>  Colleges  <font color="#FF0000">{</font> Sci <font color="#990000">,</font> Eng <font color="#990000">,</font> Mgt <font color="#990000">,</font> Ife <font color="#990000">,</font> Eth <font color="#FF0000">}</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">typedef</font></b>  string  Name <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 學院 : 抽象基礎類別</font></i>
+<b><font color="#0000FF">class</font></b>  College <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">protected</font></b> <font color="#990000">:</font>
+    
+    Name              name  <font color="#990000">;</font>        <i><font color="#9A1900">// 學院名稱</font></i>
+    vector<font color="#990000">&lt;</font>Name<font color="#990000">&gt;</font>      depts <font color="#990000">;</font>        <i><font color="#9A1900">// 學院內的學系</font></i>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 列印學院共同必修 : 純虛擬函式</font></i>
+    <b><font color="#0000FF">virtual</font></b>  <font color="#009900">void</font>  <b><font color="#000000">list_common_subjects</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 列印學院內所有的學系</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">list_all_departments</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; "</font> <font color="#990000">&lt;&lt;</font> name <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" :  "</font>  <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> depts<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            cout <font color="#990000">&lt;&lt;</font> depts<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font>  <font color="#990000">;</font>
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 學院名稱</font></i>
+    Name <b><font color="#000000">get_college_name</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> name <font color="#990000">;</font>  <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 學院內的學系總數</font></i>
+    <font color="#009900">int</font>  <b><font color="#000000">get_dept_no</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> depts<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font>  <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 虛擬解構函式</font></i>
+    <b><font color="#0000FF">virtual</font></b>  <font color="#990000">~</font><b><font color="#000000">College</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+
+<i><font color="#9A1900">// 列印預設的共同必修</font></i>
+<font color="#009900">void</font>  College<font color="#990000">::</font><b><font color="#000000">list_common_subjects</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font> <font color="#990000">&lt;&lt;</font> name <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"共同必修科目 : 無"</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+
+
+<i><font color="#9A1900">// 理學院</font></i>
+<b><font color="#0000FF">class</font></b>  Science <font color="#990000">:</font> <b><font color="#0000FF">public</font></b>  College <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Science</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+        name <font color="#990000">=</font> <font color="#FF0000">"理學院"</font> <font color="#990000">;</font> 
+        depts<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <font color="#FF0000">"數學系"</font> <font color="#990000">)</font> <font color="#990000">;</font>   
+        depts<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <font color="#FF0000">"化學系"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        depts<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <font color="#FF0000">"物理系"</font> <font color="#990000">)</font> <font color="#990000">;</font>   
+        depts<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <font color="#FF0000">"生命科學系"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印共同必修科目</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">list_common_subjects</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font> <font color="#990000">&lt;&lt;</font> name <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"共同必修科目 : 微積分, 物理"</font> 
+             <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+        
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 工學院</font></i>
+<b><font color="#0000FF">class</font></b>  Engineering <font color="#990000">:</font> <b><font color="#0000FF">public</font></b>  College <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Engineering</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+        name <font color="#990000">=</font> <font color="#FF0000">"工學院"</font>  <font color="#990000">;</font> 
+        depts<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <font color="#FF0000">"土木系"</font> <font color="#990000">)</font> <font color="#990000">;</font> depts<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <font color="#FF0000">"機械系"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        depts<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <font color="#FF0000">"化工系"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印共同必修科目 : 使用預設的</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">list_common_subjects</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> 
+        College<font color="#990000">::</font><b><font color="#000000">list_common_subjects</font></b><font color="#990000">()</font> <font color="#990000">;</font> 
+    <font color="#FF0000">}</font>
+
+    
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+
+<i><font color="#9A1900">// 大學類別</font></i>
+<b><font color="#0000FF">class</font></b>  University <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    Name               name <font color="#990000">;</font>            <i><font color="#9A1900">// 大學名稱</font></i>
+    vector<font color="#990000">&lt;</font>College<font color="#990000">*&gt;</font>   colleges <font color="#990000">;</font>        <i><font color="#9A1900">// 大學內的學院</font></i>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+  
+    <i><font color="#9A1900">// 預設建構函式</font></i>
+    <b><font color="#000000">University</font></b><font color="#990000">()</font> <font color="#990000">:</font> <b><font color="#000000">name</font></b><font color="#990000">(</font><font color="#FF0000">"聯邦星際大學"</font><font color="#990000">)</font> <font color="#FF0000">{</font>
+        colleges<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> Science <font color="#990000">)</font> <font color="#990000">;</font> 
+        colleges<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> Engineering <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 解構函式 </font></i>
+    <font color="#990000">~</font><b><font color="#000000">University</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>  
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> colleges<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            <b><font color="#0000FF">delete</font></b> colleges<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font> 
+    <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 列印所有學院名稱</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">list_all_colleges</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; "</font> <font color="#990000">&lt;&lt;</font> name <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"的學院 : "</font>  <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> colleges<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            cout <font color="#990000">&lt;&lt;</font> colleges<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">get_college_name</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font> <font color="#990000">;</font>
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 列印學校內的所有學系名稱</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">list_all_departments</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; "</font> <font color="#990000">&lt;&lt;</font> name <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"的學系 :</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> colleges<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&lt;"</font> <font color="#990000">&lt;&lt;</font> i<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">;</font>
+            colleges<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">list_all_departments</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 學校名稱</font></i>
+    <b><font color="#0000FF">inline</font></b>  Name  <b><font color="#000000">get_name</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> name <font color="#990000">;</font>  <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印指定學院的所有學系名稱</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">list_departments_in_college</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Colleges<font color="#990000">&amp;</font> college <font color="#990000">)</font> 
+        <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        colleges<font color="#990000">[</font>college<font color="#990000">]-&gt;</font><b><font color="#000000">list_all_departments</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 計算大學內所有學系的總數</font></i>
+    <font color="#009900">int</font>  <b><font color="#000000">total_no_of_departments</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <font color="#009900">int</font> no <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b><font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> colleges<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            no <font color="#990000">+=</font> colleges<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">get_dept_no</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        <b><font color="#0000FF">return</font></b> no <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    Science  sci <font color="#990000">;</font>                  <i><font color="#9A1900">// 理學院物件                </font></i>
+    sci<font color="#990000">.</font><b><font color="#000000">list_all_departments</font></b><font color="#990000">()</font> <font color="#990000">;</font>    <i><font color="#9A1900">// 列印理學院內的所有學系名稱</font></i>
+    sci<font color="#990000">.</font><b><font color="#000000">list_common_subjects</font></b><font color="#990000">()</font> <font color="#990000">;</font>    <i><font color="#9A1900">// 列印理學院內的共同必修科目</font></i>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    Engineering  eng <font color="#990000">;</font>              <i><font color="#9A1900">// 工學院物件                </font></i>
+    eng<font color="#990000">.</font><b><font color="#000000">list_all_departments</font></b><font color="#990000">()</font> <font color="#990000">;</font>    <i><font color="#9A1900">// 列印工學院內的所有學系名稱</font></i>
+    eng<font color="#990000">.</font><b><font color="#000000">list_common_subjects</font></b><font color="#990000">()</font> <font color="#990000">;</font>    <i><font color="#9A1900">// 列印工學院內的共同必修科目</font></i>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    University  fed <font color="#990000">;</font>               <i><font color="#9A1900">// 大學物件</font></i>
+    fed<font color="#990000">.</font><b><font color="#000000">list_all_colleges</font></b><font color="#990000">()</font> <font color="#990000">;</font>       <i><font color="#9A1900">// 列印大學內的所有學院名稱</font></i>
+    fed<font color="#990000">.</font><b><font color="#000000">list_all_departments</font></b><font color="#990000">()</font> <font color="#990000">;</font>    <i><font color="#9A1900">// 列印大學內的所有學系名稱</font></i>
+
+    <i><font color="#9A1900">// 列印學系總數</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; "</font> <font color="#990000">&lt;&lt;</font> fed<font color="#990000">.</font><b><font color="#000000">get_name</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"學系總數 = "</font>           
+         <font color="#990000">&lt;&lt;</font> fed<font color="#990000">.</font><b><font color="#000000">total_no_of_departments</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 列印中央大學理學院內的所有學系</font></i>
+    fed<font color="#990000">.</font><b><font color="#000000">list_departments_in_college</font></b><font color="#990000">(</font> Sci <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

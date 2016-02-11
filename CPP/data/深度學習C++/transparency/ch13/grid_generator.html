@@ -1,0 +1,298 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;fstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+
+<b><font color="#0000FF">using</font></b>  <b><font color="#0000FF">namespace</font></b>  std <font color="#990000">;</font>
+
+<b><font color="#0000FF">typedef</font></b>  <font color="#009900">int</font>  Node <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 座標點類別</font></i>
+<b><font color="#0000FF">class</font></b>  Point <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+    
+    <font color="#009900">double</font>  x <font color="#990000">,</font> y <font color="#990000">;</font>   <i><font color="#9A1900">// x , y 座標</font></i>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+    
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Point</font></b><font color="#990000">(</font> <font color="#009900">double</font> a <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">,</font> <font color="#009900">double</font> b <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">x</font></b><font color="#990000">(</font>a<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">y</font></b><font color="#990000">(</font>b<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <font color="#009900">double</font>  <b><font color="#000000">getx </font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b> x <font color="#990000">;</font>  <font color="#FF0000">}</font>
+    <font color="#009900">double</font>  <b><font color="#000000">gety </font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b> y <font color="#990000">;</font>  <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 輸出運算子</font></i>
+    <b><font color="#0000FF">friend</font></b> ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> pt <font color="#990000">)</font> <font color="#FF0000">{</font>
+        out<font color="#990000">.</font><b><font color="#000000">setf</font></b><font color="#990000">(</font>ios<font color="#990000">::</font>fixed<font color="#990000">,</font>ios<font color="#990000">::</font>floatfield<font color="#990000">)</font> <font color="#990000">;</font>
+        out<font color="#990000">.</font><b><font color="#000000">precision</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"("</font> <font color="#990000">&lt;&lt;</font> pt<font color="#990000">.</font>x <font color="#990000">&lt;&lt;</font> <font color="#FF0000">","</font> <font color="#990000">&lt;&lt;</font> pt<font color="#990000">.</font>y <font color="#990000">&lt;&lt;</font> <font color="#FF0000">")"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 網格格子基礎類別</font></i>
+<b><font color="#0000FF">class</font></b>  Geometrical_Cell <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+    
+    <i><font color="#9A1900">// 格子名稱</font></i>
+    <b><font color="#0000FF">virtual</font></b>  string  <b><font color="#000000">cell_name</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 格子頂點的編號</font></i>
+    <b><font color="#0000FF">virtual</font></b>  <font color="#009900">void</font>  <b><font color="#000000">get_nodes</font></b><font color="#990000">(</font> Node node<font color="#990000">[]</font> <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 格子的頂點數目</font></i>
+    <b><font color="#0000FF">virtual</font></b>  <font color="#009900">int</font>   <b><font color="#000000">node_no</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 列印格子資料</font></i>
+    <b><font color="#0000FF">virtual</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#000000">print</font></b><font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 複製格子</font></i>
+    <b><font color="#0000FF">virtual</font></b>  Geometrical_Cell<font color="#990000">*</font>  <b><font color="#000000">clone</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 虛擬解構函式</font></i>
+    <b><font color="#0000FF">virtual</font></b>  <font color="#990000">~</font><b><font color="#000000">Geometrical_Cell</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+    
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 覆載網格輸出運算子</font></i>
+ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                        <b><font color="#0000FF">const</font></b> Geometrical_Cell<font color="#990000">&amp;</font> cell <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b>  cell<font color="#990000">.</font><b><font color="#000000">print</font></b><font color="#990000">(</font> out <font color="#990000">)</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+    
+
+<i><font color="#9A1900">// 三角形格子</font></i>
+<b><font color="#0000FF">class</font></b>  Triangular_Cell <font color="#990000">:</font> <b><font color="#0000FF">public</font></b> Geometrical_Cell <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 格子頂點編號</font></i>
+    Node     nodes<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">;</font>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 三個建構函式</font></i>
+    <b><font color="#000000">Triangular_Cell</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+
+    <b><font color="#000000">Triangular_Cell</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Node<font color="#990000">&amp;</font> node1 <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Node<font color="#990000">&amp;</font> node2 <font color="#990000">,</font> 
+                     <b><font color="#0000FF">const</font></b> Node<font color="#990000">&amp;</font> node3 <font color="#990000">)</font> <font color="#FF0000">{</font>
+        nodes<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> node1 <font color="#990000">;</font>     nodes<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font> node2 <font color="#990000">;</font>
+        nodes<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> node3 <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#000000">Triangular_Cell</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Node n<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> <font color="#993399">3</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> nodes<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> n<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 輸出格子頂點的編號</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">get_nodes</font></b><font color="#990000">(</font> Node  n<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> <font color="#993399">3</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> n<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> nodes<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 回傳格子頂點數</font></i>
+    <font color="#009900">int</font>   <b><font color="#000000">node_no</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>    <b><font color="#0000FF">return</font></b> <font color="#993399">3</font> <font color="#990000">;</font>    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 格子名稱</font></i>
+    string  <b><font color="#000000">cell_name</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b>  <b><font color="#000000">string</font></b><font color="#990000">(</font><font color="#FF0000">"三角形格子"</font><font color="#990000">)</font> <font color="#990000">;</font>  <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印格子資料</font></i>
+    ostream<font color="#990000">&amp;</font>  <b><font color="#000000">print</font></b><font color="#990000">(</font>ostream<font color="#990000">&amp;</font> out<font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"格子編號 : "</font> <font color="#990000">&lt;&lt;</font> nodes<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> 
+                    <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">&lt;&lt;</font> nodes<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">&lt;&lt;</font> nodes<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 複製格子</font></i>
+    Triangular_Cell<font color="#990000">*</font>  <b><font color="#000000">clone</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> 
+        <b><font color="#0000FF">return</font></b>  <b><font color="#0000FF">new</font></b> <b><font color="#000000">Triangular_Cell</font></b><font color="#990000">(</font>nodes<font color="#990000">)</font> <font color="#990000">;</font> 
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 產生網格於區域 [0,1]x[0,1] 之內</font></i>
+<b><font color="#0000FF">class</font></b>  Mesh_Generator <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+  
+    <font color="#009900">int</font>                         division <font color="#990000">;</font>    <i><font color="#9A1900">// 切割等份</font></i>
+    vector<font color="#990000">&lt;</font>Point<font color="#990000">&gt;</font>               points   <font color="#990000">;</font>    <i><font color="#9A1900">// 頂點向量陣列</font></i>
+    vector<font color="#990000">&lt;</font>Geometrical_Cell<font color="#990000">*&gt;</font>   cells    <font color="#990000">;</font>    <i><font color="#9A1900">// 格子向量陣列</font></i>
+
+    <i><font color="#9A1900">// 清除網格 : 釋放動態格子記憶空間</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">delete_mesh</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+        <font color="#009900">int</font> i <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> cells<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <b><font color="#0000FF">delete</font></b> cells<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+        cells<font color="#990000">.</font><b><font color="#000000">resize</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#990000">;</font>
+        points<font color="#990000">.</font><b><font color="#000000">resize</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+    
+    <i><font color="#9A1900">// 預設建構函式</font></i>
+    <b><font color="#000000">Mesh_Generator</font></b><font color="#990000">(</font> <font color="#009900">int</font> d <font color="#990000">=</font> <font color="#993399">3</font> <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">division</font></b><font color="#990000">(</font>d<font color="#990000">)</font> <font color="#FF0000">{}</font><font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 複製建構函式</font></i>
+    <b><font color="#000000">Mesh_Generator</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Mesh_Generator<font color="#990000">&amp;</font> mesh <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <font color="#009900">int</font> i <font color="#990000">;</font>
+        division <font color="#990000">=</font> mesh<font color="#990000">.</font>division <font color="#990000">;</font>
+
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> mesh<font color="#990000">.</font>points<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            points<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font>mesh<font color="#990000">.</font>points<font color="#990000">[</font>i<font color="#990000">])</font> <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> mesh<font color="#990000">.</font>cells<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            cells<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> mesh<font color="#990000">.</font>cells<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">clone</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 解構函式</font></i>
+    <font color="#990000">~</font><b><font color="#000000">Mesh_Generator</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>  <b><font color="#000000">delete_mesh</font></b><font color="#990000">()</font> <font color="#990000">;</font>  <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 定義指定運算子</font></i>
+    Mesh_Generator<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">=</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Mesh_Generator<font color="#990000">&amp;</font> mesh <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <i><font color="#9A1900">// 處理自我指定</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <b><font color="#0000FF">this</font></b> <font color="#990000">==</font> <font color="#990000">&amp;</font>mesh <font color="#990000">)</font> <b><font color="#0000FF">return</font></b>  <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">;</font>
+
+        <font color="#009900">int</font> i <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 去除已有的資料</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> cells<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">0</font> <font color="#990000">)</font> <b><font color="#000000">delete_mesh</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        
+        <i><font color="#9A1900">// 設定新資料</font></i>
+        division <font color="#990000">=</font> mesh<font color="#990000">.</font>division <font color="#990000">;</font>
+
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> mesh<font color="#990000">.</font>points<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            points<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font>mesh<font color="#990000">.</font>points<font color="#990000">[</font>i<font color="#990000">])</font> <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> mesh<font color="#990000">.</font>cells<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            cells<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> mesh<font color="#990000">.</font>cells<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">clone</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <b><font color="#0000FF">return</font></b>  <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 設定與取得切割區域</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">set_division</font></b><font color="#990000">(</font> <font color="#009900">int</font> d <font color="#990000">)</font> <font color="#FF0000">{</font>  division <font color="#990000">=</font> d <font color="#990000">;</font>         <font color="#FF0000">}</font>
+    <font color="#009900">int</font>   <b><font color="#000000">get_division</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b>  division  <font color="#990000">;</font> <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 產生三角形網格</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">generate_triangular_mesh</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+        <font color="#009900">int</font>    i <font color="#990000">,</font> j <font color="#990000">,</font> c1 <font color="#990000">,</font> c2 <font color="#990000">,</font> c3 <font color="#990000">,</font> c4 <font color="#990000">;</font>
+        <font color="#009900">int</font>    line_point_no <font color="#990000">=</font> division<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">;</font>
+        <font color="#009900">double</font>  ds <font color="#990000">=</font>  <font color="#993399">1</font><font color="#990000">.</font> <font color="#990000">/</font> division <font color="#990000">;</font>
+
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> cells<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">!=</font> <font color="#993399">0</font> <font color="#990000">)</font>  <b><font color="#000000">delete_mesh</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        
+        <i><font color="#9A1900">// 儲存格子點編號</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> line_point_no <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> line_point_no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+                points<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#000000">Point</font></b><font color="#990000">(</font> i <font color="#990000">*</font> ds <font color="#990000">,</font> j <font color="#990000">*</font> ds <font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+        <font color="#FF0000">}</font>
+
+        <i><font color="#9A1900">// 儲存三角形格子</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> division <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> division <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+                c1 <font color="#990000">=</font> i  <font color="#990000">+</font> j <font color="#990000">*</font> line_point_no <font color="#990000">;</font>
+                c2 <font color="#990000">=</font> c1 <font color="#990000">+</font> <font color="#993399">1</font> <font color="#990000">;</font>
+                c3 <font color="#990000">=</font> c2 <font color="#990000">+</font> line_point_no <font color="#990000">;</font>
+                c4 <font color="#990000">=</font> c1 <font color="#990000">+</font> line_point_no <font color="#990000">;</font>
+                cells<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Triangular_Cell</font></b><font color="#990000">(</font>c1<font color="#990000">,</font>c2<font color="#990000">,</font>c4<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+                cells<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Triangular_Cell</font></b><font color="#990000">(</font>c2<font color="#990000">,</font>c3<font color="#990000">,</font>c4<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+        <font color="#FF0000">}</font>
+        
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 使用 gnuplot 的格式輸出網格資料</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">output_mesh</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> string<font color="#990000">&amp;</font>  filename <font color="#990000">=</font> <font color="#FF0000">"mesh"</font> <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+
+        <font color="#009900">int</font>       i <font color="#990000">,</font> j <font color="#990000">;</font>
+        Node      nodes<font color="#990000">[</font><font color="#993399">4</font><font color="#990000">]</font> <font color="#990000">;</font>
+        ofstream  <b><font color="#000000">fout</font></b><font color="#990000">(</font> filename<font color="#990000">.</font><b><font color="#000000">c_str</font></b><font color="#990000">()</font> <font color="#990000">,</font> ios<font color="#990000">::</font>out <font color="#990000">)</font> <font color="#990000">;</font>
+        
+        fout<font color="#990000">.</font><b><font color="#000000">setf</font></b><font color="#990000">(</font>ios<font color="#990000">::</font>fixed<font color="#990000">,</font>ios<font color="#990000">::</font>floatfield<font color="#990000">)</font> <font color="#990000">;</font>
+        fout<font color="#990000">.</font><b><font color="#000000">precision</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i  <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> cells<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            cells<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">get_nodes</font></b><font color="#990000">(</font>nodes<font color="#990000">)</font> <font color="#990000">;</font>
+
+            fout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"# "</font> <font color="#990000">&lt;&lt;</font> i <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" : "</font> <font color="#990000">&lt;&lt;</font> cells<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">cell_name</font></b><font color="#990000">()</font> 
+                 <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" --- "</font> <font color="#990000">;</font>
+
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> cells<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">node_no</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> 
+                fout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> nodes<font color="#990000">[</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+            fout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+            
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> cells<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">node_no</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+                fout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> points<font color="#990000">[</font>nodes<font color="#990000">[</font>j<font color="#990000">]].</font><b><font color="#000000">getx</font></b><font color="#990000">()</font> 
+                     <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> points<font color="#990000">[</font>nodes<font color="#990000">[</font>j<font color="#990000">]].</font><b><font color="#000000">gety</font></b><font color="#990000">()</font> 
+                     <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+            fout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> points<font color="#990000">[</font>nodes<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]].</font><b><font color="#000000">getx</font></b><font color="#990000">()</font> 
+                 <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> points<font color="#990000">[</font>nodes<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]].</font><b><font color="#000000">gety</font></b><font color="#990000">()</font> 
+                 <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+
+        fout<font color="#990000">.</font><b><font color="#000000">close</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+    
+
+    <i><font color="#9A1900">// 覆載輸出運算子</font></i>
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                                   <b><font color="#0000FF">const</font></b> Mesh_Generator<font color="#990000">&amp;</font> mesh <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <font color="#009900">int</font>    i <font color="#990000">,</font> j <font color="#990000">;</font>
+        Node   nodes<font color="#990000">[</font><font color="#993399">4</font><font color="#990000">]</font>  <font color="#990000">;</font>
+        
+        out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 網格總共有 "</font> <font color="#990000">&lt;&lt;</font> mesh<font color="#990000">.</font>cells<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 格子與 "</font> 
+            <font color="#990000">&lt;&lt;</font> mesh<font color="#990000">.</font>points<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 格子點"</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i  <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> mesh<font color="#990000">.</font>cells<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            mesh<font color="#990000">.</font>cells<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">get_nodes</font></b><font color="#990000">(</font>nodes<font color="#990000">)</font> <font color="#990000">;</font>
+            out <font color="#990000">&lt;&lt;</font> mesh<font color="#990000">.</font>cells<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">cell_name</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" : "</font>  
+                <font color="#990000">&lt;&lt;</font> i <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> mesh<font color="#990000">.</font>cells<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">node_no</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+                out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"["</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> nodes<font color="#990000">[</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"] : "</font> 
+                    <font color="#990000">&lt;&lt;</font> mesh<font color="#990000">.</font>points<font color="#990000">[</font>nodes<font color="#990000">[</font>j<font color="#990000">]]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"   "</font> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+            out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font>
+
+        <b><font color="#0000FF">return</font></b> out <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font>
+    
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 產生網格, 每一邊切成兩等份</font></i>
+    Mesh_Generator  <b><font color="#000000">mesh</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 產生三角形網格</font></i>
+    mesh<font color="#990000">.</font><b><font color="#000000">generate_triangular_mesh</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 輸出網格資料</font></i>
+    cout <font color="#990000">&lt;&lt;</font> mesh <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 將網格資料輸出成 gnuplot 格式檔</font></i>
+    mesh<font color="#990000">.</font><b><font color="#000000">output_mesh</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

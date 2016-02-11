@@ -1,0 +1,75 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;ctime&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstdlib&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font> i <font color="#990000">,</font> j <font color="#990000">,</font> n <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 块簎近羆糷计</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; n : "</font> <font color="#990000">;</font>
+    cin <font color="#990000">&gt;&gt;</font> n <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 纗–竚紆痌计秖</font></i>
+    <font color="#009900">int</font>  <font color="#990000">*</font>ball <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">[</font>n<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// –竚癬﹍紆痌计 0</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> ball<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 代刚紆痌羆计秖</font></i>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> M <font color="#990000">=</font> <font color="#993399">100000</font> <font color="#990000">;</font>
+
+    <b><font color="#000000">srand</font></b><font color="#990000">(</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">unsigned</font> <font color="#009900">int</font><font color="#990000">&gt;(</font><b><font color="#000000">time</font></b><font color="#990000">(</font>NULL<font color="#990000">))</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <font color="#009900">int</font>  position <font color="#990000">;</font>
+    <i><font color="#9A1900">// 代刚 M Ω</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> M <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <i><font color="#9A1900">// 璸衡紆痌竒筁 n 糷簎近竚</font></i>
+        position <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <i><font color="#9A1900">// 璝睹计 1 玥瞴疾簎近┕, 玥┕オ</font></i>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <b><font color="#000000">rand</font></b><font color="#990000">()%</font><font color="#993399">2</font> <font color="#990000">)</font> <font color="#990000">++</font>position <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+
+        <i><font color="#9A1900">//  position 矪纗糤紆痌</font></i>
+        <font color="#990000">++</font>ball<font color="#990000">[</font>position<font color="#990000">]</font> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// だ计ゑよΑ挡狦, だダ s  2  n Ωよ</font></i>
+    <font color="#009900">int</font> s <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> s<font color="#990000">*=</font><font color="#993399">2</font> <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">+</font> <font color="#993399">1</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"| "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;(</font><font color="#FF0000">'A'</font><font color="#990000">+</font>i<font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"|"</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// ㄌだダ s , 穝秸俱–瑌瞴计, 块彼き计</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">+</font> <font color="#993399">1</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font>
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font>
+             <font color="#990000">&lt;&lt;</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">unsigned</font><font color="#990000">&gt;(</font><font color="#993399">1</font><font color="#990000">.*</font>ball<font color="#990000">[</font>i<font color="#990000">]*</font>s<font color="#990000">/</font>M<font color="#990000">+</font><font color="#993399">0.5</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">+</font> <font color="#993399">1</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font>  cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" -- "</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">+</font> <font color="#993399">1</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font>  cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> s <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+
+    <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> ball <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+</tt></pre>

@@ -1,0 +1,159 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;list&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 多項式的每一項 </font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b>  Item <font color="#FF0000">{</font>
+    <font color="#009900">int</font>     deg <font color="#990000">;</font>    <i><font color="#9A1900">// X 的次方數</font></i>
+    T       coeff <font color="#990000">;</font>  <i><font color="#9A1900">// X 的係數</font></i>
+
+    <b><font color="#000000">Item</font></b><font color="#990000">(</font> <font color="#009900">int</font> d <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">,</font> T c <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">deg</font></b><font color="#990000">(</font>d<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">coeff</font></b><font color="#990000">(</font>c<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <i><font color="#9A1900">// 輸出項的資料</font></i>
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                                   <b><font color="#0000FF">const</font></b> Item<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> foo<font color="#990000">.</font>coeff <font color="#990000">&gt;</font> <font color="#993399">0</font> <font color="#990000">?</font> <font color="#FF0000">" + "</font> <font color="#990000">:</font> <font color="#FF0000">" - "</font> <font color="#990000">)</font> 
+                    <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> foo<font color="#990000">.</font>coeff <font color="#990000">&gt;</font> <font color="#993399">0</font> <font color="#990000">?</font> foo<font color="#990000">.</font>coeff <font color="#990000">:</font> <font color="#990000">-</font>foo<font color="#990000">.</font>coeff <font color="#990000">)</font>
+                    <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" X^"</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font>deg <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 多項式判斷式 : 次方數小者優先</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<b><font color="#0000FF">struct</font></b>  small_degree <font color="#FF0000">{</font>
+    <font color="#009900">bool</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">()</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Item<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Item<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> b <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  a<font color="#990000">.</font>deg <font color="#990000">&lt;</font> b<font color="#990000">.</font>deg <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 多項式類別</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<b><font color="#0000FF">class</font></b>  Polynomial <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+    
+    list<font color="#990000">&lt;</font> Item<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font> <font color="#990000">&gt;</font>       items <font color="#990000">;</font>        <i><font color="#9A1900">// 儲存多項式的每一項</font></i>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 預設建構函式</font></i>
+    Polynomial<font color="#990000">&lt;</font>T<font color="#990000">&gt;()</font> <font color="#FF0000">{}</font>
+    
+    <i><font color="#9A1900">// 一般建構函式</font></i>
+    <b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> Iter<font color="#990000">&gt;</font>
+    Polynomial<font color="#990000">&lt;</font>T<font color="#990000">&gt;(</font> Iter first <font color="#990000">,</font> Iter last <font color="#990000">)</font> 
+        <font color="#990000">:</font> <b><font color="#000000">items</font></b><font color="#990000">(</font>first<font color="#990000">,</font>last<font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">typename</font></b>  list<font color="#990000">&lt;</font> Item<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font> <font color="#990000">&gt;::</font>iterator   iter <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 去除零係數的項式</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> iter <font color="#990000">=</font> items<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">;</font> iter <font color="#990000">!=</font> items<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">;</font> 
+              <font color="#990000">++</font>iter <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> iter<font color="#990000">-&gt;</font>coeff <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+                <i><font color="#9A1900">// 回傳的迭代器指向下一筆資料</font></i>
+                iter <font color="#990000">=</font> items<font color="#990000">.</font><b><font color="#000000">erase</font></b><font color="#990000">(</font>iter<font color="#990000">)</font> <font color="#990000">;</font>  
+
+                <i><font color="#9A1900">// 迭代器指回到上一筆資料</font></i>
+                <font color="#990000">--</font>iter <font color="#990000">;</font>                    
+            <font color="#FF0000">}</font>
+        <font color="#FF0000">}</font>
+
+        <i><font color="#9A1900">// 由次方數小者排序</font></i>
+        items<font color="#990000">.</font><b><font color="#000000">sort</font></b><font color="#990000">(</font> small_degree<font color="#990000">&lt;</font>T<font color="#990000">&gt;()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+        
+    <i><font color="#9A1900">// 插入一項到多項式內</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">insert</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Item<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> item <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <i><font color="#9A1900">// 若係數為零, 則直接跳出</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> item<font color="#990000">.</font>coeff <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 如果多項式為空多項式 或是 輸入的次方數大於多項式的</font></i>
+        <i><font color="#9A1900">// 最高次方數, 則直接加上末尾</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> items<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">||</font> item<font color="#990000">.</font>deg <font color="#990000">&gt;</font> items<font color="#990000">.</font><b><font color="#000000">back</font></b><font color="#990000">().</font>deg <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            items<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> item <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+
+            <i><font color="#9A1900">// 定義一串列迭代器物件</font></i>
+            <b><font color="#0000FF">typename</font></b>  list<font color="#990000">&lt;</font> Item<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font> <font color="#990000">&gt;::</font>iterator   iter <font color="#990000">;</font>
+
+            <i><font color="#9A1900">// 找出是否已有同次方數的 X 項, 若有則直接其值加入其內</font></i>
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> iter <font color="#990000">=</font> items<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">;</font> iter <font color="#990000">!=</font> items<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">;</font> 
+                  <font color="#990000">++</font>iter <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> item<font color="#990000">.</font>deg <font color="#990000">&lt;</font> <font color="#990000">(*</font>iter<font color="#990000">).</font>deg <font color="#990000">)</font> <font color="#FF0000">{</font>
+                    items<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font> iter <font color="#990000">,</font> item <font color="#990000">)</font> <font color="#990000">;</font>
+                    <b><font color="#0000FF">return</font></b> <font color="#990000">;</font>
+                <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> item<font color="#990000">.</font>deg <font color="#990000">==</font> <font color="#990000">(*</font>iter<font color="#990000">).</font>deg <font color="#990000">)</font> <font color="#FF0000">{</font>
+                    iter<font color="#990000">-&gt;</font>coeff <font color="#990000">+=</font> item<font color="#990000">.</font>coeff <font color="#990000">;</font>
+                    <i><font color="#9A1900">// 如果係數最後為 0, 則去除此項</font></i>
+                    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> iter<font color="#990000">-&gt;</font>coeff <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> items<font color="#990000">.</font><b><font color="#000000">erase</font></b><font color="#990000">(</font> iter <font color="#990000">)</font> <font color="#990000">;</font>
+                    <b><font color="#0000FF">return</font></b> <font color="#990000">;</font>
+                <font color="#FF0000">}</font>
+
+            <font color="#FF0000">}</font>
+
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印多項式 </font></i>
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                                  <b><font color="#0000FF">const</font></b> Polynomial<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <b><font color="#0000FF">typename</font></b>  list<font color="#990000">&lt;</font> Item<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font> <font color="#990000">&gt;::</font>const_iterator   iter <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> iter <font color="#990000">=</font> foo<font color="#990000">.</font>items<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">;</font> 
+              iter <font color="#990000">!=</font> foo<font color="#990000">.</font>items<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">;</font>  <font color="#990000">++</font>iter <font color="#990000">)</font>  out <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>iter <font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> out <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    Polynomial<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  foo  <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 交錯將各項存入多項式,  foo = X - 2 X^1 + 3 X^2 - 4 X^3</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">3</font> <font color="#990000">;</font> i <font color="#990000">&gt;=</font> <font color="#993399">0</font> <font color="#990000">;</font> <font color="#990000">--</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>  
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> i <font color="#990000">%</font> <font color="#993399">2</font> <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> 
+            foo<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font> Item<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>i<font color="#990000">,</font>i<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">else</font></b>
+            foo<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font> Item<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>i<font color="#990000">,-(</font>i<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">))</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// foo = + 1 X^0 - 2 X^1 + 3 X^2 - 4 X^3</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"foo = "</font> <font color="#990000">&lt;&lt;</font> foo <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 加入  4 X^2 + 4 X^3 + 4 X^4 + 4 X^5</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">2</font> <font color="#990000">;</font> i <font color="#990000">&lt;=</font> <font color="#993399">5</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> foo<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font> Item<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>i<font color="#990000">,</font><font color="#993399">4</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// foo =  + 1 X^0 - 2 X^1 + 7 X^2 + 4 X^4 + 4 X^5</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"foo = "</font> <font color="#990000">&lt;&lt;</font> foo <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+
+    <i><font color="#9A1900">// 使用向量陣列儲存多項式的一些項式</font></i>
+    vector<font color="#990000">&lt;</font> Item<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font> <font color="#990000">&gt;</font>   items <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">10</font> <font color="#990000">;</font> i <font color="#990000">&gt;=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">-=</font> <font color="#993399">2</font> <font color="#990000">)</font>
+       items<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> Item<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>i<font color="#990000">,</font>i<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 將向量陣列的資料存入多項式類別</font></i>
+    Polynomial<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  <b><font color="#000000">bar</font></b><font color="#990000">(</font>items<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">(),</font>items<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">())</font> <font color="#990000">;</font>
+    
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"bar = "</font> <font color="#990000">&lt;&lt;</font> bar <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+</tt></pre>

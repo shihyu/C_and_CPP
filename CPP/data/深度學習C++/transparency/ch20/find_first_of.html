@@ -1,0 +1,49 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iterator&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 固定式設定樂透開獎號碼 : 32 24 38 42 12 19</font></i>
+    <font color="#009900">int</font>  lottery<font color="#990000">[</font><font color="#993399">6</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#993399">32</font> <font color="#990000">,</font> <font color="#993399">24</font> <font color="#990000">,</font> <font color="#993399">38</font> <font color="#990000">,</font> <font color="#993399">42</font> <font color="#990000">,</font> <font color="#993399">12</font><font color="#990000">,</font> <font color="#993399">19</font> <font color="#FF0000">}</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 列印樂透開獎號碼</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 樂透開獎號碼 : "</font> <font color="#990000">;</font>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> lottery <font color="#990000">,</font> lottery<font color="#990000">+</font><font color="#993399">6</font> <font color="#990000">,</font> ostream_iterator<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>cout<font color="#990000">,</font><font color="#FF0000">" "</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 人工輸入彩券號碼</font></i>
+    vector<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  no <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 彩券購買號碼 : "</font> <font color="#990000">;</font>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> istream_iterator<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>cin<font color="#990000">)</font> <font color="#990000">,</font> istream_iterator<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;()</font> <font color="#990000">,</font>
+          <b><font color="#000000">back_inserter</font></b><font color="#990000">(</font>no<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 核算中獎的號碼其及總數</font></i>
+    vector<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;::</font>iterator  iter <font color="#990000">=</font> no<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+    vector<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>            matched_no <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">while</font></b><font color="#990000">(</font> <font color="#990000">(</font> iter <font color="#990000">=</font> <b><font color="#000000">find_first_of</font></b><font color="#990000">(</font> iter <font color="#990000">,</font> no<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">,</font> lottery <font color="#990000">,</font>
+                                   lottery<font color="#990000">+</font><font color="#993399">6</font> <font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">!=</font> no<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        matched_no<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <font color="#990000">*</font>iter<font color="#990000">++</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 列印彩券中獎號碼</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 彩券中獎號碼 : "</font> <font color="#990000">;</font>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> matched_no<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">,</font> matched_no<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">,</font> 
+          ostream_iterator<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>cout<font color="#990000">,</font><font color="#FF0000">" "</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" , 共 "</font> <font color="#990000">&lt;&lt;</font>  matched_no<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 個號碼"</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+    
+    
+</tt></pre>

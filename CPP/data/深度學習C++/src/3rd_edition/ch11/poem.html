@@ -1,0 +1,56 @@
+
+<html lang="zh-tw"><title>C++ 程式語言</title>
+<body background="/~weihan/bg3.gif"><pre>
+#include  &lt;iostream&gt;
+<br>#include  &lt;fstream&gt;
+<br>#include  &lt;sstream&gt;
+<br>#include  &lt;string&gt;
+<br>#include  &lt;iomanip&gt;
+<br>
+<br>using namespace std ;
+<br>
+<br>int main( int argc , char *argv[]) {
+<br>
+<br>    // 如果忘了在命令行後加入欲處理的中文檔案名稱, 則程式結束
+<br>    if ( argc == 1 ) return 1 ;
+<br>
+<br>    // 設定讀入的中文文字高度與寬度
+<br>    const int MAX_H = 24*2 ;
+<br>    const int MAX_W = 80   ;
+<br>
+<br>    string          line ;
+<br>    ifstream        poem( argv[1] ) ;
+<br>
+<br>    // 定義字串資料流物件陣列
+<br>    ostringstream   poemstring[MAX_W]  ;
+<br>
+<br>    // 記錄在讀入的所有行數中最多字元的個數
+<br>    int  no = 0 , max = 0 ;
+<br>
+<br>    // 讀入橫行中文, 並一一存入字串資料流物件陣列
+<br>    while ( getline( poem , line ) ) {
+<br>        
+<br>        if ( max &lt; line.length() ) max = line.length() ;
+<br>        poemstring[no++] &lt;&lt; setw(MAX_H) &lt;&lt; setiosflags(ios::left) 
+<br>                         &lt;&lt; line.c_str() ;
+<br>        
+<br>    }
+<br>
+<br>    // 兩個兩個字元輸出, 並在每一行之間另外加入一空白行
+<br>    int i , j ;
+<br>    for ( j = 0 ; j &lt; max ; j += 2 ) {
+<br>        for ( i = no-1 ; i &gt;= 0 ; --i ) {
+<br>            cout &lt;&lt; poemstring[i].str()[j] &lt;&lt; poemstring[i].str()[j+1]
+<br>                 &lt;&lt; &quot;  &quot; ;
+<br>        }
+<br>        cout &lt;&lt; endl ;
+<br>    }
+<br>
+<br>    return 0 ;
+<br>    
+<br>}
+<br>
+<br>
+</pre>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;sstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+
+<b><font color="#0000FF">using</font></b>  <b><font color="#0000FF">namespace</font></b>  std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 定義角度, 長度, 與距離等類型</font></i>
+<b><font color="#0000FF">typedef</font></b>  <font color="#009900">double</font>  Angle <font color="#990000">;</font>
+<b><font color="#0000FF">typedef</font></b>  <font color="#009900">double</font>  Length <font color="#990000">;</font>
+<b><font color="#0000FF">typedef</font></b>  <font color="#009900">double</font>  Distance <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 設定 PI</font></i>
+<b><font color="#0000FF">const</font></b>  <font color="#009900">double</font>  PI <font color="#990000">=</font> <font color="#993399">3.14159265358979</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 設定轉換類別 : 平移 旋轉 鏡射</font></i>
+<b><font color="#0000FF">enum</font></b>  Transformation_Type <font color="#FF0000">{</font> TRA <font color="#990000">,</font> ROT <font color="#990000">,</font> REF <font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 幾何座標轉換 : 抽象基礎類別</font></i>
+<b><font color="#0000FF">class</font></b>  Geometric_Transformation <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">protected</font></b> <font color="#990000">:</font>
+    
+    <font color="#009900">double</font>  m<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">][</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">;</font>  <i><font color="#9A1900">// 轉換矩陣</font></i>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 計算新的轉換矩陣 A = M A : 兩轉換矩陣乘積</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">update_transformation_matrix</font></b><font color="#990000">(</font> <font color="#009900">double</font> a<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">][</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <font color="#009900">int</font> i <font color="#990000">,</font> j <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">static</font></b>  <font color="#009900">double</font> tmp<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">][</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> <font color="#993399">2</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> <font color="#993399">2</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> 
+                tmp<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">=</font> m<font color="#990000">[</font>i<font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">*</font> a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">+</font> m<font color="#990000">[</font>i<font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">*</font> a<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">;</font>
+
+        tmp<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]*</font>a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">+</font> m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]*</font>a<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">+</font> m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">;</font>
+        tmp<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]*</font>a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">+</font> m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]*</font>a<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">+</font> m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> <font color="#993399">2</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> <font color="#993399">3</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> a<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">=</font> tmp<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">;</font>
+    
+    <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 回傳轉換的類型</font></i>
+    <b><font color="#0000FF">virtual</font></b> Transformation_Type  <b><font color="#000000">get_transformation_type</font></b><font color="#990000">()</font> 
+        <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 虛擬解構函式</font></i>
+    <b><font color="#0000FF">virtual</font></b> <font color="#990000">~</font><b><font color="#000000">Geometric_Transformation</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+
+<b><font color="#0000FF">typedef</font></b>  Geometric_Transformation  GT <font color="#990000">;</font>
+
+
+<i><font color="#9A1900">// 平移類別</font></i>
+<b><font color="#0000FF">class</font></b>  Translation <font color="#990000">:</font> <b><font color="#0000FF">public</font></b> GT <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    Distance  dx <font color="#990000">,</font> dy <font color="#990000">;</font>   <i><font color="#9A1900">// 儲存對 X 與 Y 的平移距離</font></i>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 設定轉換矩陣</font></i>
+    <b><font color="#000000">Translation</font></b><font color="#990000">(</font> Distance x <font color="#990000">,</font> Distance y <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">dx</font></b><font color="#990000">(</font>x<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">dy</font></b><font color="#990000">(</font>y<font color="#990000">)</font> <font color="#FF0000">{</font>
+        m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">1</font><font color="#990000">.</font> <font color="#990000">;</font>  m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font>  <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">;</font> m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> dx <font color="#990000">;</font>
+        m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">;</font>  m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font>  <font color="#993399">1</font><font color="#990000">.</font> <font color="#990000">;</font> m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> dy <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    Transformation_Type <b><font color="#000000">get_transformation_type</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> <b><font color="#000000">Transformation_Type</font></b><font color="#990000">(</font> TRA <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 旋轉類別</font></i>
+<b><font color="#0000FF">class</font></b>  Rotation <font color="#990000">:</font> <b><font color="#0000FF">public</font></b> GT <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    Angle  angle <font color="#990000">;</font>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 設定轉換矩陣, 輸入角度的單位為度</font></i>
+    <b><font color="#000000">Rotation</font></b><font color="#990000">(</font> Angle a <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">angle</font></b><font color="#990000">(</font>PI<font color="#990000">*</font>a<font color="#990000">/</font><font color="#993399">180</font><font color="#990000">.)</font>  <font color="#FF0000">{</font> 
+        <font color="#009900">double</font>  c <font color="#990000">=</font> <b><font color="#000000">cos</font></b><font color="#990000">(</font>angle<font color="#990000">)</font> <font color="#990000">,</font> s <font color="#990000">=</font> <b><font color="#000000">sin</font></b><font color="#990000">(</font>angle<font color="#990000">)</font> <font color="#990000">;</font>
+        m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> c  <font color="#990000">;</font>  m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#990000">-</font>s  <font color="#990000">;</font> m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">;</font>
+        m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> s  <font color="#990000">;</font>  m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font>  c  <font color="#990000">;</font> m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font><font color="#990000">;</font>
+
+    Transformation_Type <b><font color="#000000">get_transformation_type</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> <b><font color="#000000">Transformation_Type</font></b><font color="#990000">(</font> ROT <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 鏡射類別</font></i>
+<b><font color="#0000FF">class</font></b>  Reflection <font color="#990000">:</font> <b><font color="#0000FF">public</font></b> GT <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    Angle  angle <font color="#990000">;</font>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 設定轉換矩陣, 輸入角度的單位為度</font></i>
+    <b><font color="#000000">Reflection</font></b><font color="#990000">(</font> Angle a <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">angle</font></b><font color="#990000">(</font>PI<font color="#990000">*</font>a<font color="#990000">/</font><font color="#993399">180</font><font color="#990000">.)</font> <font color="#FF0000">{</font>
+        <font color="#009900">double</font>  c <font color="#990000">=</font> <b><font color="#000000">cos</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">.*</font>angle<font color="#990000">)</font> <font color="#990000">,</font> s <font color="#990000">=</font> <b><font color="#000000">sin</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">.*</font>angle<font color="#990000">)</font> <font color="#990000">;</font>
+        m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> c  <font color="#990000">;</font>  m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font>  s  <font color="#990000">;</font> m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">;</font>
+        m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> s  <font color="#990000">;</font>  m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#990000">-</font>c  <font color="#990000">;</font> m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font><font color="#990000">;</font>
+
+    Transformation_Type <b><font color="#000000">get_transformation_type</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> <b><font color="#000000">Transformation_Type</font></b><font color="#990000">(</font> REF <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+
+<i><font color="#9A1900">// 平面點</font></i>
+<b><font color="#0000FF">class</font></b>  Point <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+        <font color="#009900">double</font>   x <font color="#990000">,</font> y <font color="#990000">;</font>   <i><font color="#9A1900">// 平面點的座標</font></i>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Point</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+    <b><font color="#000000">Point</font></b><font color="#990000">(</font> <font color="#009900">double</font> a <font color="#990000">,</font> <font color="#009900">double</font> b <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">x</font></b><font color="#990000">(</font>a<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">y</font></b><font color="#990000">(</font>b<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <i><font color="#9A1900">// 回傳點經過一連串的幾何轉換後的座標</font></i>
+    Point  <b><font color="#000000">transformation</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font>GT<font color="#990000">*&gt;&amp;</font> gt <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 覆載輸入與輸出運算子</font></i>
+    <b><font color="#0000FF">friend</font></b>  istream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&gt;&gt;</font> <font color="#990000">(</font> istream<font color="#990000">&amp;</font> in <font color="#990000">,</font> Point<font color="#990000">&amp;</font> pt <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  in <font color="#990000">&gt;&gt;</font> pt<font color="#990000">.</font>x <font color="#990000">&gt;&gt;</font> pt<font color="#990000">.</font>y <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                                   <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> pt <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"( "</font> <font color="#990000">&lt;&lt;</font> pt<font color="#990000">.</font>x <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" , "</font> <font color="#990000">&lt;&lt;</font> pt<font color="#990000">.</font>y <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" )"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 回傳點經過一連串的幾何轉換後的座標</font></i>
+Point  Point<font color="#990000">::</font><b><font color="#000000">transformation</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font>GT<font color="#990000">*&gt;&amp;</font> gt <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 設定初始的轉換矩陣為單位矩陣</font></i>
+    <font color="#009900">double</font>  m<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">][</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#FF0000">{</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">0</font><font color="#990000">,</font><font color="#993399">0</font><font color="#FF0000">}</font><font color="#990000">,</font><font color="#FF0000">{</font><font color="#993399">0</font><font color="#990000">,</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">0</font><font color="#FF0000">}</font> <font color="#FF0000">}</font> <font color="#990000">;</font>
+     
+    <i><font color="#9A1900">// 重複計算每次幾何轉換後的轉換矩陣 m</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> gt<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        gt<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">update_transformation_matrix</font></b><font color="#990000">(</font>m<font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 將轉換矩陣乘上原始點座標位置後  產生新點輸出</font></i>
+    <b><font color="#0000FF">return</font></b>  <b><font color="#000000">Point</font></b><font color="#990000">(</font> m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">*</font> x <font color="#990000">+</font> m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">*</font> y <font color="#990000">+</font> m<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">,</font>
+                   m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">*</font> x <font color="#990000">+</font> m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">*</font> y <font color="#990000">+</font> m<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <i><font color="#9A1900">// 平面點</font></i>
+    Point  point <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 向量陣列儲存轉換類別物件的指標</font></i>
+    vector<font color="#990000">&lt;</font>GT<font color="#990000">*&gt;</font>  gt <font color="#990000">;</font>
+
+    <font color="#009900">int</font>       i <font color="#990000">,</font> no <font color="#990000">;</font>
+    Distance  dx <font color="#990000">,</font> dy <font color="#990000">;</font>  
+    Angle     angle   <font color="#990000">;</font>  <i><font color="#9A1900">// 使用角度, 非徑度</font></i>
+    
+    <i><font color="#9A1900">// 讀取資料</font></i>
+    string         line <font color="#990000">,</font> transformation <font color="#990000">;</font>
+    istringstream  istr <font color="#990000">;</font>
+
+    <b><font color="#0000FF">do</font></b> <font color="#FF0000">{</font>
+        
+        cout 
+        <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入平面點座標, 轉換次數, 個別轉換方式與相關資料 :"</font>
+        <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+        <i><font color="#9A1900">// 讀取每一行, 存入字串流物件</font></i>
+        <b><font color="#000000">getline</font></b><font color="#990000">(</font>cin<font color="#990000">,</font>line<font color="#990000">)</font> <font color="#990000">;</font>
+        istr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">(</font>line<font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 讀入點座標與須要轉換的次數</font></i>
+        istr <font color="#990000">&gt;&gt;</font> point <font color="#990000">&gt;&gt;</font> no <font color="#990000">;</font>
+        
+        <i><font color="#9A1900">// 處理每次的轉換</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            istr <font color="#990000">&gt;&gt;</font> transformation <font color="#990000">;</font>
+
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> transformation <font color="#990000">==</font> <font color="#FF0000">"TRA"</font> <font color="#990000">)</font> <font color="#FF0000">{</font>             <i><font color="#9A1900">// 平移</font></i>
+                istr <font color="#990000">&gt;&gt;</font> dx <font color="#990000">&gt;&gt;</font> dy <font color="#990000">;</font>
+                gt<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Translation</font></b><font color="#990000">(</font>dx<font color="#990000">,</font>dy<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+            <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> transformation <font color="#990000">==</font> <font color="#FF0000">"ROT"</font> <font color="#990000">)</font> <font color="#FF0000">{</font>      <i><font color="#9A1900">// 旋轉</font></i>
+                istr <font color="#990000">&gt;&gt;</font> angle <font color="#990000">;</font>
+                gt<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Rotation</font></b><font color="#990000">(</font>angle<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+            <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> transformation <font color="#990000">==</font> <font color="#FF0000">"REF"</font> <font color="#990000">)</font> <font color="#FF0000">{</font>      <i><font color="#9A1900">// 鏡射</font></i>
+                istr <font color="#990000">&gt;&gt;</font> angle <font color="#990000">;</font>
+                gt<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Reflection</font></b><font color="#990000">(</font>angle<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+                
+        <font color="#FF0000">}</font>
+
+        <i><font color="#9A1900">// 清除旗幟</font></i>
+        istr<font color="#990000">.</font><b><font color="#000000">clear</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        
+        <i><font color="#9A1900">// 列印</font></i>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font> <font color="#990000">&lt;&lt;</font> point <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  --&gt;  "</font> 
+             <font color="#990000">&lt;&lt;</font> point<font color="#990000">.</font><b><font color="#000000">transformation</font></b><font color="#990000">(</font>gt<font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 清除 gt 所指到所有轉換物件, 之後將 gt 向量陣列的長度</font></i>
+        <i><font color="#9A1900">// 調成零</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> gt<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <b><font color="#0000FF">delete</font></b>  gt<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+        gt<font color="#990000">.</font><b><font color="#000000">resize</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font>  <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font> <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> no <font color="#990000">!=</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#990000">;</font>      <i><font color="#9A1900">// 如果沒有任何轉換動作則跳離迴圈</font></i>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+</tt></pre>

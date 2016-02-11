@@ -1,0 +1,54 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;fstream&gt;</font>
+<b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;sstream&gt;</font>
+<b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;iomanip&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">(</font> <font color="#009900">int</font> argc <font color="#990000">,</font> <font color="#009900">char</font> <font color="#990000">*</font>argv<font color="#990000">[])</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 如果忘了在命令行後加入欲處理的中文檔案名稱, 則程式結束</font></i>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> argc <font color="#990000">==</font> <font color="#993399">1</font> <font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <font color="#993399">1</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 設定讀入的中文文字高度與寬度</font></i>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> MAX_H <font color="#990000">=</font> <font color="#993399">24</font><font color="#990000">*</font><font color="#993399">2</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> MAX_W <font color="#990000">=</font> <font color="#993399">80</font>   <font color="#990000">;</font>
+
+    string          line <font color="#990000">;</font>
+    ifstream        <b><font color="#000000">poem</font></b><font color="#990000">(</font> argv<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 定義字串資料流物件陣列</font></i>
+    ostringstream   poemstring<font color="#990000">[</font>MAX_W<font color="#990000">]</font>  <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 記錄在讀入的所有行數中最多字元的個數</font></i>
+    <font color="#009900">int</font>  no <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">,</font> max <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 讀入橫行中文, 並一一存入字串資料流物件陣列</font></i>
+    <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <b><font color="#000000">getline</font></b><font color="#990000">(</font> poem <font color="#990000">,</font> line <font color="#990000">)</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> max <font color="#990000">&lt;</font> line<font color="#990000">.</font><b><font color="#000000">length</font></b><font color="#990000">()</font> <font color="#990000">)</font> max <font color="#990000">=</font> line<font color="#990000">.</font><b><font color="#000000">length</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        poemstring<font color="#990000">[</font>no<font color="#990000">++]</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font>MAX_H<font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setiosflags</font></b><font color="#990000">(</font>ios<font color="#990000">::</font>left<font color="#990000">)</font> 
+                         <font color="#990000">&lt;&lt;</font> line<font color="#990000">.</font><b><font color="#000000">c_str</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 兩個兩個字元輸出, 並在每一行之間另外加入一空白行</font></i>
+    <font color="#009900">int</font> i <font color="#990000">,</font> j <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> max <font color="#990000">;</font> j <font color="#990000">+=</font> <font color="#993399">2</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> no<font color="#990000">-</font><font color="#993399">1</font> <font color="#990000">;</font> i <font color="#990000">&gt;=</font> <font color="#993399">0</font> <font color="#990000">;</font> <font color="#990000">--</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            cout <font color="#990000">&lt;&lt;</font> poemstring<font color="#990000">[</font>i<font color="#990000">].</font><b><font color="#000000">str</font></b><font color="#990000">()[</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> poemstring<font color="#990000">[</font>i<font color="#990000">].</font><b><font color="#000000">str</font></b><font color="#990000">()[</font>j<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">]</font>
+                 <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+</tt></pre>

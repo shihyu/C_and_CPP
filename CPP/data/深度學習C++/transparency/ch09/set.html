@@ -1,0 +1,110 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 定義集合最多能儲存多少元素</font></i>
+<b><font color="#0000FF">const</font></b>  <font color="#009900">int</font>  SIZE <font color="#990000">=</font> <font color="#993399">10</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 設定是否集合元素陣列的儲存狀態</font></i>
+<b><font color="#0000FF">enum</font></b>   Status  <font color="#FF0000">{</font> empty <font color="#990000">,</font> occupied <font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 定義集合組織資料型別</font></i>
+<b><font color="#0000FF">struct</font></b>  Set <font color="#FF0000">{</font>
+    <font color="#009900">int</font>     element<font color="#990000">[</font>SIZE<font color="#990000">]</font> <font color="#990000">;</font>    <i><font color="#9A1900">// 儲存集合元素</font></i>
+    Status  status<font color="#990000">[</font>SIZE<font color="#990000">]</font>  <font color="#990000">;</font>    <i><font color="#9A1900">// 每個集合位置的狀態</font></i>
+    <font color="#009900">int</font>     element_no    <font color="#990000">;</font>    <i><font color="#9A1900">// 集合元素的個數</font></i>
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 集合初值設定</font></i>
+<font color="#009900">void</font>  <b><font color="#000000">set_initialization</font></b><font color="#990000">(</font> Set<font color="#990000">&amp;</font>  set <font color="#990000">)</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 加入元素至集合</font></i>
+<font color="#009900">bool</font>  <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> Set<font color="#990000">&amp;</font> set <font color="#990000">,</font> <font color="#009900">int</font> data <font color="#990000">)</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 刪除集合元素</font></i>
+<font color="#009900">int</font>  <b><font color="#000000">delete_element</font></b><font color="#990000">(</font> Set<font color="#990000">&amp;</font> set <font color="#990000">,</font> <font color="#009900">int</font> data <font color="#990000">)</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 列印集合</font></i>
+<font color="#009900">void</font>  <b><font color="#000000">print_set</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&amp;</font> set <font color="#990000">)</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 主函式</font></i>
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <i><font color="#9A1900">// 定義集合變數</font></i>
+    Set   myset <font color="#990000">;</font>  
+    
+    <i><font color="#9A1900">// 設定集合變數初值</font></i>
+    <b><font color="#000000">set_initialization</font></b><font color="#990000">(</font> myset <font color="#990000">)</font> <font color="#990000">;</font>  
+
+    <i><font color="#9A1900">// 加入元素</font></i>
+    <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">3</font> <font color="#990000">)</font> <font color="#990000">;</font> <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">5</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">;</font> <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">4</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">;</font> <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">7</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">;</font> <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">5</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">print_set</font></b><font color="#990000">(</font> myset <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 刪除元素</font></i>
+    <b><font color="#000000">delete_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">;</font>  <b><font color="#000000">delete_element</font></b><font color="#990000">(</font> myset <font color="#990000">,</font> <font color="#993399">3</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">print_set</font></b><font color="#990000">(</font> myset <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+
+<i><font color="#9A1900">// 集合初值設定</font></i>
+<font color="#009900">void</font>  <b><font color="#000000">set_initialization</font></b><font color="#990000">(</font> Set<font color="#990000">&amp;</font>  set <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> SIZE <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> set<font color="#990000">.</font>status<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> empty <font color="#990000">;</font>
+    set<font color="#990000">.</font>element_no <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 加入元素至集合</font></i>
+<font color="#009900">bool</font>  <b><font color="#000000">insert_element</font></b><font color="#990000">(</font> Set<font color="#990000">&amp;</font> set <font color="#990000">,</font> <font color="#009900">int</font> data <font color="#990000">)</font> <font color="#FF0000">{</font> 
+
+    <i><font color="#9A1900">// 若集合已滿了, 則禁止加入任何元素</font></i>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> set<font color="#990000">.</font>element_no <font color="#990000">==</font> SIZE <font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 尋找第一個空著的元素</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> SIZE <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> set<font color="#990000">.</font>status<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">==</font> empty <font color="#990000">)</font> <font color="#FF0000">{</font>
+            set<font color="#990000">.</font>element<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> data <font color="#990000">;</font>
+            set<font color="#990000">.</font>status<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> occupied <font color="#990000">;</font>
+            <font color="#990000">++</font>set<font color="#990000">.</font>element_no <font color="#990000">;</font>
+            <b><font color="#0000FF">return</font></b>  <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 刪除集合元素</font></i>
+<font color="#009900">int</font>  <b><font color="#000000">delete_element</font></b><font color="#990000">(</font> Set<font color="#990000">&amp;</font> set <font color="#990000">,</font> <font color="#009900">int</font> data <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 定義變數表示是否有元素被去除</font></i>
+    <font color="#009900">int</font>  no_element_deleted <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> SIZE <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <i><font color="#9A1900">// 找到集合元素, 同時其值與去除的元素相同</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> set<font color="#990000">.</font>status<font color="#990000">[</font>i<font color="#990000">]</font>  <font color="#990000">==</font> occupied  <font color="#990000">&amp;&amp;</font>  
+             set<font color="#990000">.</font>element<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">==</font> data <font color="#990000">)</font> <font color="#FF0000">{</font>
+            set<font color="#990000">.</font>status<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> empty <font color="#990000">;</font>
+            <font color="#990000">--</font>set<font color="#990000">.</font>element_no <font color="#990000">;</font>
+            <font color="#990000">++</font>no_element_deleted <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b>  no_element_deleted <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 列印集合</font></i>
+<font color="#009900">void</font>  <b><font color="#000000">print_set</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&amp;</font> set <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"集合有 "</font> <font color="#990000">&lt;&lt;</font> set<font color="#990000">.</font>element_no <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 元素 : "</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> SIZE <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> set<font color="#990000">.</font>status<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">==</font> occupied <font color="#990000">)</font>
+            cout <font color="#990000">&lt;&lt;</font> set<font color="#990000">.</font>element<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+</tt></pre>

@@ -1,0 +1,146 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;assert.h&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<b><font color="#0000FF">class</font></b>  Vector <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+    <font color="#009900">int</font>  <font color="#990000">*</font>data <font color="#990000">;</font>  <i><font color="#9A1900">// 向量元素</font></i>
+    <font color="#009900">int</font>   size <font color="#990000">;</font>  <i><font color="#9A1900">// 向量元素個數</font></i>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+    <i><font color="#9A1900">// 內定建構函式</font></i>
+    <b><font color="#000000">Vector</font></b><font color="#990000">()</font> <font color="#990000">:</font> <b><font color="#000000">data</font></b><font color="#990000">(</font>NULL<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">size</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#FF0000">{}</font><font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Vector</font></b><font color="#990000">(</font> <font color="#009900">unsigned</font> <font color="#009900">int</font> s <font color="#990000">,</font> <font color="#009900">int</font> v <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 複製建構函式</font></i>
+    <b><font color="#000000">Vector</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Vector<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 指定運算子</font></i>
+    Vector<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">=</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Vector<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 解構函式</font></i>
+    <font color="#990000">~</font><b><font color="#000000">Vector</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>  <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> data <font color="#990000">;</font>  <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 向量長度</font></i>
+    <font color="#009900">int</font>  <b><font color="#000000">length</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> size <font color="#990000">;</font>  <font color="#FF0000">}</font>
+        
+    <i><font color="#9A1900">// 下標函式</font></i>
+    <font color="#009900">int</font><font color="#990000">&amp;</font>        <b><font color="#0000FF">operator</font></b> <font color="#990000">[]</font> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">)</font>       <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font><font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">[]</font> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 輸入運算子</font></i>
+    <b><font color="#0000FF">friend</font></b> istream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&gt;&gt;</font> <font color="#990000">(</font> istream<font color="#990000">&amp;</font> in  <font color="#990000">,</font> Vector<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 輸出運算子</font></i>
+    <b><font color="#0000FF">friend</font></b> ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                                  <b><font color="#0000FF">const</font></b> Vector<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 建構函式 : 請留意 v 整數在此不寫預設值</font></i>
+Vector<font color="#990000">::</font><b><font color="#000000">Vector</font></b><font color="#990000">(</font> <font color="#009900">unsigned</font> <font color="#009900">int</font> s <font color="#990000">,</font> <font color="#009900">int</font> v <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">size</font></b><font color="#990000">(</font>s<font color="#990000">)</font> <font color="#FF0000">{</font>
+    data <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">[</font>size<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> v <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 複製建構函式</font></i>
+Vector<font color="#990000">::</font><b><font color="#000000">Vector</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Vector<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">size</font></b><font color="#990000">(</font>foo<font color="#990000">.</font>size<font color="#990000">)</font> <font color="#FF0000">{</font>
+    data <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">[</font>size<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> foo<font color="#990000">.</font>data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 指定運算子</font></i>
+Vector<font color="#990000">&amp;</font>  Vector<font color="#990000">::</font><b><font color="#0000FF">operator</font></b><font color="#990000">=(</font> <b><font color="#0000FF">const</font></b> Vector<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <b><font color="#0000FF">this</font></b> <font color="#990000">==</font> <font color="#990000">&amp;</font>foo <font color="#990000">)</font> <b><font color="#0000FF">return</font></b>  <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> foo<font color="#990000">.</font>size <font color="#990000">!=</font> size <font color="#990000">)</font> <font color="#FF0000">{</font> 
+        <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> data <font color="#990000">;</font> 
+        size <font color="#990000">=</font> foo<font color="#990000">.</font>size <font color="#990000">;</font> 
+        data <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">[</font>size<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> foo<font color="#990000">.</font>data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 加法</font></i>
+Vector  <b><font color="#0000FF">operator</font></b><font color="#990000">+(</font> <b><font color="#0000FF">const</font></b> Vector<font color="#990000">&amp;</font> foo <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Vector<font color="#990000">&amp;</font> bar <font color="#990000">)</font> <font color="#FF0000">{</font>
+    Vector  <b><font color="#000000">tmp</font></b><font color="#990000">(</font>foo<font color="#990000">.</font><b><font color="#000000">length</font></b><font color="#990000">())</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> tmp<font color="#990000">.</font><b><font color="#000000">length</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        tmp<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">+</font> bar<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> tmp <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 內積</font></i>
+<font color="#009900">int</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">*(</font> <b><font color="#0000FF">const</font></b> Vector<font color="#990000">&amp;</font> foo <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Vector<font color="#990000">&amp;</font> bar <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <font color="#009900">int</font>  sum <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> foo<font color="#990000">.</font><b><font color="#000000">length</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        sum <font color="#990000">+=</font> foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">*</font> bar<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b> sum <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 輸入運算子</font></i>
+istream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&gt;&gt;</font> <font color="#990000">(</font> istream<font color="#990000">&amp;</font> in <font color="#990000">,</font> Vector <font color="#990000">&amp;</font>foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> foo<font color="#990000">.</font>size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> in <font color="#990000">&gt;&gt;</font> foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  in <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 輸出運算子</font></i>
+ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Vector <font color="#990000">&amp;</font>foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+    out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'('</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> foo<font color="#990000">.</font>size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> out <font color="#990000">&lt;&lt;</font> foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+    out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">')'</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  out <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <i><font color="#9A1900">// 建構函式</font></i>
+    Vector  <b><font color="#000000">a</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">,</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">b</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">,</font><font color="#993399">4</font><font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">c</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 輸出運算子</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; a = "</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" , b = "</font> <font color="#990000">&lt;&lt;</font> b <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 加法 與 內積</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt;  a + b = "</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">+</font> b <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" ,"</font>
+         <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  a * b = "</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">*</font> b <font color="#990000">&lt;&lt;</font> endl <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 向量輸入運算子</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入 3 筆整數資料 : "</font> <font color="#990000">;</font>
+    cin  <font color="#990000">&gt;&gt;</font> c <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; c = "</font> <font color="#990000">&lt;&lt;</font> c <font color="#990000">&lt;&lt;</font> endl <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 複製建構函式</font></i>
+    Vector  <b><font color="#000000">d</font></b><font color="#990000">(</font>c<font color="#990000">)</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; d(c)  ==&gt;  d = "</font> <font color="#990000">&lt;&lt;</font> d <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 加法與指定函式</font></i>
+    d <font color="#990000">=</font> a <font color="#990000">+</font> b <font color="#990000">+</font> c <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; d = a + b + c  ==&gt;  d = "</font> <font color="#990000">&lt;&lt;</font> d <font color="#990000">&lt;&lt;</font> endl <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 向量陣列</font></i>
+    Vector  foo<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">;</font>    <i><font color="#9A1900">// 呼叫內定建構函式</font></i>
+
+    foo<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> a <font color="#990000">;</font>    foo<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font> b <font color="#990000">;</font>    foo<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> c <font color="#990000">;</font>
+    
+    <font color="#009900">int</font>  i <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; "</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> <font color="#993399">3</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"["</font> <font color="#990000">&lt;&lt;</font> i <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"] = "</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 將 foo[2] 的每個元素加上 foo[1] 的兩倍</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> <font color="#993399">3</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> foo<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">][</font>i<font color="#990000">]</font> <font color="#990000">+=</font> <font color="#993399">2</font> <font color="#990000">*</font> foo<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">][</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">&gt; foo[2][i] += 2 * foo[1][i]  ==&gt;  foo[2] = "</font> 
+         <font color="#990000">&lt;&lt;</font> foo<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>
+

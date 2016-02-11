@@ -1,0 +1,57 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstdlib&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;ctime&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <font color="#009900">int</font>  right_choice <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">,</font> total_no <font color="#990000">=</font> <font color="#993399">1000000</font> <font color="#990000">;</font>
+    <font color="#009900">int</font>  i <font color="#990000">,</font> j <font color="#990000">,</font> car_door <font color="#990000">,</font> guest_door <font color="#990000">,</font> sheep_door <font color="#990000">,</font> last_door <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 用時間設定亂數函數的初值</font></i>
+    <b><font color="#000000">srand</font></b><font color="#990000">(</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">unsigned</font> <font color="#009900">int</font><font color="#990000">&gt;(</font> <b><font color="#000000">time</font></b><font color="#990000">(</font>NULL<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 測試 1000000 次</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> total_no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        
+        <i><font color="#9A1900">// 用亂數設定車子的位置 : 1 到 3 之間</font></i>
+        car_door <font color="#990000">=</font> <b><font color="#000000">rand</font></b><font color="#990000">()</font> <font color="#990000">%</font> <font color="#993399">3</font> <font color="#990000">+</font> <font color="#993399">1</font> <font color="#990000">;</font>
+        
+        <i><font color="#9A1900">// 來賓所選擇門的位置</font></i>
+        guest_door <font color="#990000">=</font> <b><font color="#000000">rand</font></b><font color="#990000">()</font> <font color="#990000">%</font> <font color="#993399">3</font> <font color="#990000">+</font> <font color="#993399">1</font> <font color="#990000">;</font>
+        
+        <i><font color="#9A1900">// 主持人找出不是來賓所選擇門的其它兩扇門中有羊的門</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font> j <font color="#990000">&lt;=</font> <font color="#993399">3</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> j <font color="#990000">!=</font> guest_door <font color="#990000">&amp;&amp;</font> j <font color="#990000">!=</font> car_door <font color="#990000">)</font> <font color="#FF0000">{</font>
+                sheep_door <font color="#990000">=</font> j <font color="#990000">;</font>
+                <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+        <font color="#FF0000">}</font>
+        
+        <i><font color="#9A1900">// 找出最後一扇門, 也就是可以更換的門</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font> j <font color="#990000">&lt;=</font> <font color="#993399">3</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> j <font color="#990000">!=</font> guest_door <font color="#990000">&amp;&amp;</font> j <font color="#990000">!=</font> sheep_door <font color="#990000">)</font> <font color="#FF0000">{</font>
+                last_door <font color="#990000">=</font> j <font color="#990000">;</font>
+                <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+        <font color="#FF0000">}</font>
+        
+        <i><font color="#9A1900">// 檢查更換的門後是否有汽車, 如果是則記錄下來</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> last_door <font color="#990000">==</font> car_door <font color="#990000">)</font> <font color="#FF0000">{</font>
+            right_choice <font color="#990000">+=</font> <font color="#993399">1</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 印出更換後猜對的機率</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> right_choice <font color="#990000">*</font> <font color="#993399">1.0</font> <font color="#990000">/</font> total_no <font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

@@ -1,0 +1,59 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;map&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;sstream&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 作曲家名單字串</font></i>
+    string   famous_composers <font color="#990000">=</font> 
+       <font color="#FF0000">"Vivaldi Handel Bach Haydn Mozart Beethoven Paganini "</font>
+       <font color="#FF0000">"Schubert Berlioz Weber Mendelssohn Chopin Schumann Liszt "</font>
+       <font color="#FF0000">"Bramhs Bruch Tchaikovsky Dvorak Sibelius Strawinsky "</font>
+       <font color="#FF0000">"Shostakovitch"</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 複對映容器</font></i>
+    multimap<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">,</font>string<font color="#990000">&gt;</font>  collection <font color="#990000">;</font>
+    string                 composer <font color="#990000">;</font>
+    
+    istringstream  <b><font color="#000000">istring</font></b><font color="#990000">(</font>famous_composers<font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 將作曲家一一取出後, 加入複對映容器內</font></i>
+    <b><font color="#0000FF">while</font></b><font color="#990000">(</font> istring <font color="#990000">&gt;&gt;</font> composer <font color="#990000">)</font> 
+        collection<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font> <b><font color="#000000">make_pair</font></b><font color="#990000">(</font>composer<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">],</font>composer<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">typedef</font></b>  multimap<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">,</font>string<font color="#990000">&gt;::</font>iterator  mmiter <font color="#990000">;</font>
+
+    <font color="#009900">char</font>                 letter <font color="#990000">;</font>
+    mmiter               iter <font color="#990000">;</font>
+
+    pair<font color="#990000">&lt;</font>mmiter<font color="#990000">,</font>mmiter<font color="#990000">&gt;</font>  piter <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入作曲家名字的第一個字母 : "</font> <font color="#990000">;</font>
+        cin <font color="#990000">&gt;&gt;</font> letter <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 若是小寫字母則改成大寫, 若非大寫字母則重複讀入</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> letter <font color="#990000">&gt;=</font> <font color="#FF0000">'a'</font> <font color="#990000">&amp;&amp;</font> letter <font color="#990000">&lt;=</font> <font color="#FF0000">'z'</font> <font color="#990000">)</font> letter <font color="#990000">=</font> letter <font color="#990000">-</font> <font color="#FF0000">'a'</font> <font color="#990000">+</font> <font color="#FF0000">'A'</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> letter <font color="#990000">&lt;</font> <font color="#FF0000">'A'</font> <font color="#990000">||</font> letter <font color="#990000">&gt;</font> <font color="#FF0000">'Z'</font> <font color="#990000">)</font> <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 使用字母, 搜尋可能的作曲家名單</font></i>
+        piter <font color="#990000">=</font> collection<font color="#990000">.</font><b><font color="#000000">equal_range</font></b><font color="#990000">(</font> letter <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 列印結果</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> iter <font color="#990000">=</font> piter<font color="#990000">.</font>first <font color="#990000">;</font> iter <font color="#990000">!=</font> piter<font color="#990000">.</font>second <font color="#990000">;</font> <font color="#990000">++</font>iter <font color="#990000">)</font> 
+            cout <font color="#990000">&lt;&lt;</font> iter<font color="#990000">-&gt;</font>second <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"   "</font> <font color="#990000">;</font>
+
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

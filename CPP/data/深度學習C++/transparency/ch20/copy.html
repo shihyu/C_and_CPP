@@ -1,0 +1,32 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iterator&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;deque&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <font color="#009900">int</font>          no<font color="#990000">[</font><font color="#993399">8</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#993399">2</font> <font color="#990000">,</font> <font color="#993399">1</font> <font color="#990000">,</font> <font color="#993399">8</font> <font color="#990000">,</font> <font color="#993399">7</font> <font color="#990000">,</font> <font color="#993399">4</font> <font color="#990000">,</font> <font color="#993399">3</font> <font color="#990000">,</font> <font color="#993399">5</font> <font color="#990000">,</font> <font color="#993399">9</font> <font color="#FF0000">}</font><font color="#990000">;</font>
+    deque<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>   <b><font color="#000000">foo</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">,</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#990000">;</font>   <i><font color="#9A1900">// 10 個 0 </font></i>
+
+    <i><font color="#9A1900">// 複製 no 前五個元素到 foo 的第四個位置之後</font></i>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> no <font color="#990000">,</font> no<font color="#990000">+</font><font color="#993399">5</font> <font color="#990000">,</font> foo<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()+</font><font color="#993399">3</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 將 no[4] .. no[6] 由 foo 的前端一一插入</font></i>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> no<font color="#990000">+</font><font color="#993399">4</font> <font color="#990000">,</font> no<font color="#990000">+</font><font color="#993399">7</font> <font color="#990000">,</font> <b><font color="#000000">front_inserter</font></b><font color="#990000">(</font>foo<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 使用 ostream_iterator 將 foo 的資料全部輸出到螢幕</font></i>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> foo<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">,</font> foo<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">,</font> ostream_iterator<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>cout<font color="#990000">,</font><font color="#FF0000">" "</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+            
+</tt></pre>

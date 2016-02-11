@@ -1,0 +1,44 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iterator&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 比較字串長度</font></i>
+<font color="#009900">bool</font>  <b><font color="#000000">ssize</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> string<font color="#990000">&amp;</font> a <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> string<font color="#990000">&amp;</font> b <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b>  a<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;</font> b<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font>  <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font> S <font color="#990000">=</font> <font color="#993399">8</font> <font color="#990000">;</font>
+    string  Picard<font color="#990000">[</font>S<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#FF0000">"I"</font> <font color="#990000">,</font>  <font color="#FF0000">"am"</font> <font color="#990000">,</font>  <font color="#FF0000">"Locutus"</font> <font color="#990000">,</font>  <font color="#FF0000">"of"</font> <font color="#990000">,</font>  
+                          <font color="#FF0000">"Borg"</font> <font color="#990000">,</font>  <font color="#FF0000">"Resistance"</font> <font color="#990000">,</font> <font color="#FF0000">"is"</font> <font color="#990000">,</font>  <font color="#FF0000">"futile"</font> <font color="#FF0000">}</font> <font color="#990000">;</font>
+
+    vector<font color="#990000">&lt;</font>string<font color="#990000">&gt;</font>  Locutus <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 將 Picard 字串陣列依字串長度由小到大排列複製到 Locutus</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font> i <font color="#990000">&lt;=</font> S <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <i><font color="#9A1900">// 重新設定 Locutus 的長度</font></i>
+        Locutus<font color="#990000">.</font><b><font color="#000000">resize</font></b><font color="#990000">(</font>i<font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#000000">partial_sort_copy</font></b><font color="#990000">(</font> Picard <font color="#990000">,</font> Picard<font color="#990000">+</font>S <font color="#990000">,</font> 
+                           Locutus<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">,</font> Locutus<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">,</font> ssize <font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#000000">copy</font></b><font color="#990000">(</font> Locutus<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">,</font> Locutus<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()+</font>i <font color="#990000">,</font> 
+              ostream_iterator<font color="#990000">&lt;</font>string<font color="#990000">&gt;(</font>cout<font color="#990000">,</font><font color="#FF0000">" "</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 原始字串陣列 : "</font> <font color="#990000">;</font>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> Picard <font color="#990000">,</font> Picard<font color="#990000">+</font>S <font color="#990000">,</font> ostream_iterator<font color="#990000">&lt;</font>string<font color="#990000">&gt;(</font>cout<font color="#990000">,</font><font color="#FF0000">" "</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+    
+</tt></pre>

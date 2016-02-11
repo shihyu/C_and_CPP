@@ -1,0 +1,232 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 將在同目錄的日期檔案程式碼加入</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"date.cc"</font> 
+
+<i><font color="#9A1900">// 個人帳號資料</font></i>
+<b><font color="#0000FF">class</font></b>  Account <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    <b><font color="#0000FF">static</font></b>  <font color="#009900">double</font>  interest_rate            <font color="#990000">;</font>   <i><font color="#9A1900">// 年利率</font></i>
+    
+    <font color="#009900">int</font>             transaction_no           <font color="#990000">;</font>   <i><font color="#9A1900">// 交易次數</font></i>
+    vector<font color="#990000">&lt;</font><font color="#009900">bool</font><font color="#990000">&gt;</font>    is_interest              <font color="#990000">;</font>   <i><font color="#9A1900">// 是否交易為</font></i>
+                                                 <i><font color="#9A1900">// 利息收入</font></i>
+    vector<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;</font>  balance                  <font color="#990000">;</font>   <i><font color="#9A1900">// 餘額</font></i>
+    vector<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;</font>  transaction              <font color="#990000">;</font>   <i><font color="#9A1900">// 交易金額</font></i>
+    vector<font color="#990000">&lt;</font>Date<font color="#990000">&gt;</font>    transaction_date         <font color="#990000">;</font>   <i><font color="#9A1900">// 交易日期</font></i>
+    
+    <i><font color="#9A1900">// 計算某年的第幾期的所得利息</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">add_interest</font></b><font color="#990000">(</font> <font color="#009900">int</font> year <font color="#990000">,</font> <font color="#009900">int</font> time <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <i><font color="#9A1900">// 每日利息</font></i>
+        <font color="#009900">double</font> daily_interest_rate <font color="#990000">=</font> interest_rate <font color="#990000">/</font> <font color="#993399">365</font> <font color="#990000">;</font>
+        
+        <font color="#009900">int</font> i <font color="#990000">,</font> index <font color="#990000">;</font>
+        <font color="#009900">int</font> day_count <font color="#990000">;</font>
+        
+        <i><font color="#9A1900">// 由所有的資料中, 找尋存有某年第幾期的第一筆資料下標</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> transaction_no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> transaction_date<font color="#990000">[</font>i<font color="#990000">].</font>year <font color="#990000">==</font> year <font color="#990000">)</font> <font color="#FF0000">{</font>
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> time <font color="#990000">==</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+                    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> transaction_date<font color="#990000">[</font>i<font color="#990000">].</font>mon <font color="#990000">&lt;=</font> <font color="#993399">6</font> <font color="#990000">)</font> index <font color="#990000">=</font> i <font color="#990000">;</font>
+                <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+                    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> transaction_date<font color="#990000">[</font>i<font color="#990000">].</font>mon <font color="#990000">&gt;</font> <font color="#993399">6</font> <font color="#990000">)</font>  index <font color="#990000">=</font> i <font color="#990000">;</font>
+                <font color="#FF0000">}</font>
+            <font color="#FF0000">}</font>
+        <font color="#FF0000">}</font>
+
+        <i><font color="#9A1900">// 記錄利息的收入日期</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> time <font color="#990000">==</font> <font color="#993399">1</font> <font color="#990000">)</font> 
+            transaction_date<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#000000">Date</font></b><font color="#990000">(</font>year<font color="#990000">,</font><font color="#993399">7</font><font color="#990000">,</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">else</font></b>
+            transaction_date<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#000000">Date</font></b><font color="#990000">(</font>year<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+        
+        <i><font color="#9A1900">// 計算天數與利息</font></i>
+        <font color="#009900">double</font>  interest <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> index <font color="#990000">;</font> i <font color="#990000">&lt;</font> transaction_no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            day_count <font color="#990000">=</font> transaction_date<font color="#990000">[</font>i<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">-</font> transaction_date<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+            interest <font color="#990000">+=</font> balance<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">*</font> day_count <font color="#990000">*</font> daily_interest_rate<font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+
+        <i><font color="#9A1900">// 更新資料</font></i>
+        is_interest<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">true</font></b> <font color="#990000">)</font> <font color="#990000">;</font>
+        transaction<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> interest <font color="#990000">)</font> <font color="#990000">;</font>
+        balance<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> balance<font color="#990000">.</font><b><font color="#000000">back</font></b><font color="#990000">()</font> <font color="#990000">+</font> interest <font color="#990000">)</font> <font color="#990000">;</font>
+        transaction_no <font color="#990000">=</font> transaction<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 列印交易標頭</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">print_transaction_header</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">6</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"日期"</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">14</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"註解"</font> 
+             <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">15</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"存款"</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">15</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"提款"</font> 
+             <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">15</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"餘額"</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印單筆交易細目</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">print_single_transaction</font></b><font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+
+        cout <font color="#990000">&lt;&lt;</font> transaction_date<font color="#990000">[</font>i<font color="#990000">]</font> 
+             <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> is_interest<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">?</font> <font color="#FF0000">"利息"</font> <font color="#990000">:</font> <font color="#FF0000">" "</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+        cout<font color="#990000">.</font><b><font color="#000000">setf</font></b><font color="#990000">(</font>ios<font color="#990000">::</font>fixed<font color="#990000">,</font>ios<font color="#990000">::</font>floatfield<font color="#990000">)</font> <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> transaction<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&gt;=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">)</font> 
+            cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">15</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setprecision</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> transaction<font color="#990000">[</font>i<font color="#990000">]</font> 
+                 <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">15</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">else</font></b>
+            cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">15</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">15</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setprecision</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> 
+                 <font color="#990000">&lt;&lt;</font> transaction<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+        
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">15</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> balance<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setprecision</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+
+        cout<font color="#990000">.</font><b><font color="#000000">unsetf</font></b><font color="#990000">(</font>ios<font color="#990000">::</font>fixed<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+    
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 設定物件    </font></i>
+    <b><font color="#000000">Account</font></b><font color="#990000">()</font> <font color="#990000">:</font> <b><font color="#000000">transaction_no</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#FF0000">{}</font>
+    
+    <i><font color="#9A1900">// 列印所有交易細目</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">print_all_transactions</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#000000">print_transaction_header</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> transaction_no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#000000">print_single_transaction</font></b><font color="#990000">(</font>i<font color="#990000">)</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 交易處理    </font></i>
+    <font color="#009900">bool</font>  <b><font color="#000000">make_transaction</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> today <font color="#990000">,</font> <font color="#009900">double</font> amount <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <i><font color="#9A1900">// 如果已經有交易記錄</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> transaction_no <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            <i><font color="#9A1900">// 上次交易時間</font></i>
+            Date  date <font color="#990000">=</font> transaction_date<font color="#990000">.</font><b><font color="#000000">back</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> today <font color="#990000">&lt;</font> date <font color="#990000">)</font> <font color="#FF0000">{</font>
+                cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入的日期已經過期</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+                <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+
+            <b><font color="#000000">print_transaction_header</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+            <i><font color="#9A1900">// 計算利息</font></i>
+            <font color="#009900">bool</font>  first_day <font color="#990000">=</font> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+            <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> date <font color="#990000">&lt;=</font> today <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#990000">(</font> date<font color="#990000">.</font>mon <font color="#990000">==</font>  <font color="#993399">7</font> <font color="#990000">&amp;&amp;</font> date<font color="#990000">.</font>day <font color="#990000">==</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">||</font>
+                     <font color="#990000">(</font> date<font color="#990000">.</font>mon <font color="#990000">==</font>  <font color="#993399">1</font> <font color="#990000">&amp;&amp;</font> date<font color="#990000">.</font>day <font color="#990000">==</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+                    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#990000">!</font> first_day <font color="#990000">)</font> <font color="#FF0000">{</font>
+                        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> date<font color="#990000">.</font>mon <font color="#990000">==</font>  <font color="#993399">7</font> <font color="#990000">)</font> 
+                            <b><font color="#000000">add_interest</font></b><font color="#990000">(</font> date<font color="#990000">.</font>year <font color="#990000">,</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">;</font>
+                        <b><font color="#0000FF">else</font></b> 
+                            <b><font color="#000000">add_interest</font></b><font color="#990000">(</font> date<font color="#990000">.</font>year<font color="#990000">-</font><font color="#993399">1</font> <font color="#990000">,</font> <font color="#993399">2</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+                        <b><font color="#000000">print_single_transaction</font></b><font color="#990000">(</font>transaction_no<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">;</font>
+                    <font color="#FF0000">}</font>
+                <font color="#FF0000">}</font>
+
+                date <font color="#990000">=</font> date<font color="#990000">.</font><b><font color="#000000">next_date</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+                first_day <font color="#990000">=</font> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+
+            <i><font color="#9A1900">// 存款不足</font></i>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#990000">-</font>amount <font color="#990000">&gt;</font> balance<font color="#990000">.</font><b><font color="#000000">back</font></b><font color="#990000">()</font> <font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+
+            balance<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> balance<font color="#990000">.</font><b><font color="#000000">back</font></b><font color="#990000">()</font> <font color="#990000">+</font> amount <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+
+            <i><font color="#9A1900">// 第一次交易, 不能提款</font></i>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> amount <font color="#990000">&lt;</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+
+            <b><font color="#000000">print_transaction_header</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+            balance<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> amount <font color="#990000">)</font> <font color="#990000">;</font>
+            
+        <font color="#FF0000">}</font>
+        
+        <i><font color="#9A1900">// 更新資料</font></i>
+        is_interest<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">false</font></b> <font color="#990000">)</font> <font color="#990000">;</font>
+        transaction_date<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> today <font color="#990000">)</font> <font color="#990000">;</font>
+        transaction<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> amount <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 列印此次交易資料</font></i>
+        <b><font color="#000000">print_single_transaction</font></b><font color="#990000">(</font>transaction_no<font color="#990000">)</font> <font color="#990000">;</font>
+        transaction_no <font color="#990000">=</font> transaction<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印交易訊息</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">print_transaction_message</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 歡迎使用個人專用虛擬郵局, 請選擇以下服務項目</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> 
+             <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  [1] 存款交易    [2] 提款交易  "</font> 
+             <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  [3] 列印明細    [4] 離開</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 設定利息</font></i>
+<font color="#009900">double</font>  Account<font color="#990000">::</font>interest_rate <font color="#990000">=</font> <font color="#993399">0.1</font> <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <font color="#009900">int</font>      option <font color="#990000">;</font>
+    
+    Account  foo    <font color="#990000">;</font>
+    Date     date   <font color="#990000">;</font>
+    <font color="#009900">double</font>   amount <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        
+        foo<font color="#990000">.</font><b><font color="#000000">print_transaction_message</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; "</font> <font color="#990000">;</font>
+        cin <font color="#990000">&gt;&gt;</font> option <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> option <font color="#990000">==</font> <font color="#993399">1</font> <font color="#990000">||</font> option <font color="#990000">==</font> <font color="#993399">2</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            <i><font color="#9A1900">// 存款 與 提款</font></i>
+            cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入日期與金額 : "</font> <font color="#990000">;</font>
+            cin <font color="#990000">&gt;&gt;</font> date <font color="#990000">&gt;&gt;</font> amount <font color="#990000">;</font>
+
+            <i><font color="#9A1900">// 讓提款的金額為負值</font></i>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> option <font color="#990000">==</font> <font color="#993399">2</font> <font color="#990000">&amp;&amp;</font> amount <font color="#990000">&gt;</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">)</font> amount <font color="#990000">*=</font> <font color="#990000">-</font><font color="#993399">1</font> <font color="#990000">;</font>
+
+            foo<font color="#990000">.</font><b><font color="#000000">make_transaction</font></b><font color="#990000">(</font>date<font color="#990000">,</font>amount<font color="#990000">)</font> <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> option <font color="#990000">==</font> <font color="#993399">3</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            <i><font color="#9A1900">// 列印所有交易明細</font></i>
+            foo<font color="#990000">.</font><b><font color="#000000">print_all_transactions</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+
+            <i><font color="#9A1900">// 結束</font></i>
+            <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font>
+
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+</tt></pre>

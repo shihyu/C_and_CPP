@@ -1,0 +1,177 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+
+<b><font color="#0000FF">using</font></b>  <b><font color="#0000FF">namespace</font></b>  std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 將前一範例相關程式碼加入本程式使用</font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">"transformation.h"</font>   
+
+<i><font color="#9A1900">// 基本幾何圖形</font></i>
+<b><font color="#0000FF">class</font></b>  Basic_Geometric_Entity <font color="#FF0000">{</font>
+
+    <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+        <i><font color="#9A1900">// (1) 幾何轉換 : 用來平移, 旋轉, 鏡射等等</font></i>
+        <b><font color="#0000FF">virtual</font></b> Basic_Geometric_Entity<font color="#990000">*</font>  <b><font color="#000000">transformation</font></b><font color="#990000">(</font> 
+                 <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font>GT<font color="#990000">*&gt;&amp;</font> geotrs <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// (2) 複製物件</font></i>
+        <b><font color="#0000FF">virtual</font></b> Basic_Geometric_Entity<font color="#990000">*</font> <b><font color="#000000">clone</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// (3) 列印物件</font></i>
+        <b><font color="#0000FF">virtual</font></b> ostream<font color="#990000">&amp;</font> <b><font color="#000000">print</font></b><font color="#990000">(</font>ostream<font color="#990000">&amp;</font> out<font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// (4) 虛擬解構函式</font></i>
+        <b><font color="#0000FF">virtual</font></b>  <font color="#990000">~</font><b><font color="#000000">Basic_Geometric_Entity</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+
+        <i><font color="#9A1900">// (5) 覆載輸出運算子</font></i>
+        <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> 
+            ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Basic_Geometric_Entity<font color="#990000">&amp;</font> bge <font color="#990000">)</font> <font color="#FF0000">{</font>
+             <b><font color="#0000FF">return</font></b>  bge<font color="#990000">.</font><b><font color="#000000">print</font></b><font color="#990000">(</font>out<font color="#990000">)</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+
+<i><font color="#9A1900">// 線段類別</font></i>
+<b><font color="#0000FF">class</font></b>  Line <font color="#990000">:</font> <b><font color="#0000FF">public</font></b>  Basic_Geometric_Entity <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    Point  p <font color="#990000">,</font> q <font color="#990000">;</font>   <i><font color="#9A1900">// 線段的兩個端點</font></i>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+ 
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Line</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> a <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> b <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">p</font></b><font color="#990000">(</font>a<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">q</font></b><font color="#990000">(</font>b<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <i><font color="#9A1900">// 搬動線段</font></i>
+    <b><font color="#0000FF">virtual</font></b> Line<font color="#990000">*</font>  <b><font color="#000000">transformation</font></b><font color="#990000">(</font> 
+        <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font>GT<font color="#990000">*&gt;&amp;</font> geotrs <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  <b><font color="#0000FF">new</font></b>  <b><font color="#000000">Line</font></b><font color="#990000">(</font> p<font color="#990000">.</font><b><font color="#000000">transformation</font></b><font color="#990000">(</font>geotrs<font color="#990000">),</font>
+                           q<font color="#990000">.</font><b><font color="#000000">transformation</font></b><font color="#990000">(</font>geotrs<font color="#990000">))</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 複製物件, 並回傳其指標</font></i>
+    <b><font color="#0000FF">virtual</font></b>  Line<font color="#990000">*</font>  <b><font color="#000000">clone</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b>  <b><font color="#0000FF">new</font></b>  <b><font color="#000000">Line</font></b><font color="#990000">(*</font><b><font color="#0000FF">this</font></b><font color="#990000">)</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印線段</font></i>
+    <b><font color="#0000FF">virtual</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#000000">print</font></b><font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; Line : "</font> <font color="#990000">&lt;&lt;</font> p <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" --&gt; "</font> <font color="#990000">&lt;&lt;</font> q  <font color="#990000">;</font>
+    <font color="#FF0000">}</font> 
+
+<font color="#FF0000">}</font> <font color="#990000">;</font>   
+
+
+<i><font color="#9A1900">// 圓</font></i>
+<b><font color="#0000FF">class</font></b>  Circle <font color="#990000">:</font> <b><font color="#0000FF">public</font></b>  Basic_Geometric_Entity <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+    
+    Point    center <font color="#990000">;</font>   <i><font color="#9A1900">// 圓心</font></i>
+    Length   radius <font color="#990000">;</font>   <i><font color="#9A1900">// 半徑</font></i>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Circle</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Point<font color="#990000">&amp;</font> c <font color="#990000">,</font> Length r <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">center</font></b><font color="#990000">(</font>c<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">radius</font></b><font color="#990000">(</font>r<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <i><font color="#9A1900">// 搬動圓</font></i>
+    <b><font color="#0000FF">virtual</font></b>  Circle<font color="#990000">*</font>  <b><font color="#000000">transformation</font></b><font color="#990000">(</font> 
+        <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font>GT<font color="#990000">*&gt;&amp;</font> geotrs <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Circle</font></b><font color="#990000">(</font>center<font color="#990000">.</font><b><font color="#000000">transformation</font></b><font color="#990000">(</font>geotrs<font color="#990000">),</font>radius<font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 複製物件, 並回傳其指標</font></i>
+    <b><font color="#0000FF">virtual</font></b>  Circle<font color="#990000">*</font> <b><font color="#000000">clone</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Circle</font></b><font color="#990000">(*</font><b><font color="#0000FF">this</font></b><font color="#990000">)</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印圓</font></i>
+    <b><font color="#0000FF">virtual</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#000000">print</font></b><font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; Circle : center = "</font> 
+                    <font color="#990000">&lt;&lt;</font>  center <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" , radius = "</font> <font color="#990000">&lt;&lt;</font> radius  <font color="#990000">;</font>
+    <font color="#FF0000">}</font> 
+
+<font color="#FF0000">}</font> <font color="#990000">;</font>   
+    
+
+<b><font color="#0000FF">typedef</font></b>  Basic_Geometric_Entity  BGE <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <font color="#009900">int</font>  i <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 產生兩個向量陣列用來儲存幾何類別架構內動態物件的指標</font></i>
+    vector<font color="#990000">&lt;</font>BGE<font color="#990000">*&gt;</font>  bge1 <font color="#990000">,</font> bge2 <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 動態產生三個幾何物件</font></i>
+
+    <i><font color="#9A1900">// (1) 圓 : 圓心 (1,1) 半徑 1 </font></i>
+    bge1<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Circle</font></b><font color="#990000">(</font><b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">1</font><font color="#990000">),</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>         
+
+    <i><font color="#9A1900">// (2) 直線 : 兩端點 (1,1) (2,1) </font></i>
+    bge1<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Line</font></b><font color="#990000">(</font><b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">1</font><font color="#990000">),</font><b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">,</font><font color="#993399">1</font><font color="#990000">))</font> <font color="#990000">)</font> <font color="#990000">;</font>  
+
+    <i><font color="#9A1900">// (3) 圓 : 圓心 (1,0) 半徑 3</font></i>
+    bge1<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Circle</font></b><font color="#990000">(</font><b><font color="#000000">Point</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">0</font><font color="#990000">),</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>         
+
+    <i><font color="#9A1900">// 列印所有的幾何物件</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"搬動前的圖形"</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> bge1<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>bge1<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 儲存幾何轉換資料</font></i>
+    vector<font color="#990000">&lt;</font>GT<font color="#990000">*&gt;</font> gt <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 搬動幾何圖形, 先逆時針旋轉 90 度, 對 45 度直線作鏡射, </font></i>
+    <i><font color="#9A1900">// 再往右移 1 單位</font></i>
+    gt<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Rotation</font></b><font color="#990000">(</font><font color="#993399">90</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    gt<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Reflection</font></b><font color="#990000">(</font><font color="#993399">45</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    gt<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Translation</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 產生搬動後的圖形</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> bge1<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        bge2<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> bge1<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">transformation</font></b><font color="#990000">(</font> gt <font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 列印搬動後的所有幾何圖形</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"搬動後的圖形 : "</font> 
+         <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"(1) 逆時針旋轉 90 度 (2) 45 度線鏡射 (3) 右移 1"</font>
+         <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> bge2<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>bge2<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 複製 bge2 幾何圖形</font></i>
+    vector<font color="#990000">&lt;</font>BGE<font color="#990000">*&gt;</font>  bge3 <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> bge2<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        bge3<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> bge2<font color="#990000">[</font>i<font color="#990000">]-&gt;</font><b><font color="#000000">clone</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"複製圖形"</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> bge3<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>bge3<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    
+    <i><font color="#9A1900">// 刪除所有的動態物件</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> bge1<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">delete</font></b>  bge1<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>        
+        <b><font color="#0000FF">delete</font></b>  bge2<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">delete</font></b>  bge3<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 刪除所有的動態物件</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> gt<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font>  <b><font color="#0000FF">delete</font></b> gt<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

@@ -1,0 +1,67 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 樂透包牌程式</font></i>
+<font color="#009900">void</font> <b><font color="#000000">print_combination</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;&amp;</font> number <font color="#990000">,</font> 
+                        vector<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;&amp;</font> chosen_no <font color="#990000">,</font> 
+                        <font color="#009900">int</font> depth <font color="#990000">,</font> <font color="#009900">int</font> start_index <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font> i <font color="#990000">;</font>
+    <b><font color="#0000FF">static</font></b>  <font color="#009900">int</font>  count <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 當遞迴的深度與找到的號碼數相同</font></i>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> depth <font color="#990000">==</font> chosen_no<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <i><font color="#9A1900">// 輸出數字組合</font></i>
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#990000">++</font>count <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" : "</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> chosen_no<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+            cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">4</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> chosen_no<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+
+        <i><font color="#9A1900">// 遞迴式迴圈, 深一層的遞迴初始下標值會自動加一</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> start_index <font color="#990000">;</font> i <font color="#990000">&lt;</font> number<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            chosen_no<font color="#990000">[</font>depth<font color="#990000">]</font> <font color="#990000">=</font> number<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+            <b><font color="#000000">print_combination</font></b><font color="#990000">(</font> number <font color="#990000">,</font> chosen_no <font color="#990000">,</font> depth<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">,</font> i<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        
+    <font color="#FF0000">}</font>
+    
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <font color="#009900">int</font>  no <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入總號碼數量 : "</font> <font color="#990000">;</font>
+    cin  <font color="#990000">&gt;&gt;</font> no <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// number  : 儲存所有的號碼</font></i>
+    vector<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  <b><font color="#000000">number</font></b><font color="#990000">(</font>no<font color="#990000">)</font>  <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入 "</font> <font color="#990000">&lt;&lt;</font> no <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 個號碼 : "</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> cin <font color="#990000">&gt;&gt;</font> number<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入包牌碼數量 : "</font> <font color="#990000">;</font>
+    cin  <font color="#990000">&gt;&gt;</font> no <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// chosen_no  : 已找到的號碼</font></i>
+    vector<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  <b><font color="#000000">chosen_no</font></b><font color="#990000">(</font>no<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// depth       : 遞迴深度</font></i>
+    <i><font color="#9A1900">// start_index : 遞迴迴圈中的初始下標值</font></i>
+    <font color="#009900">int</font>  depth <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">,</font> start_index <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">,</font> count <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+    <b><font color="#000000">print_combination</font></b><font color="#990000">(</font> number <font color="#990000">,</font> chosen_no <font color="#990000">,</font> depth <font color="#990000">,</font> start_index <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+        
+</tt></pre>

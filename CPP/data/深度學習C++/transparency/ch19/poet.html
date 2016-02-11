@@ -1,0 +1,55 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;sstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;map&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    string   foo<font color="#990000">[</font><font color="#993399">4</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#FF0000">"李白    夜思 怨情"</font>  <font color="#990000">,</font>  <font color="#FF0000">"王維    送別 相思"</font> <font color="#990000">,</font> 
+                        <font color="#FF0000">"杜牧    清明"</font>       <font color="#990000">,</font>  <font color="#FF0000">"杜甫    八陣圖"</font>   <font color="#FF0000">}</font> <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">typedef</font></b>  string  POET <font color="#990000">;</font>   <i><font color="#9A1900">// 詩人</font></i>
+    <b><font color="#0000FF">typedef</font></b>  string  POEM <font color="#990000">;</font>   <i><font color="#9A1900">// 詩名</font></i>
+    
+    multimap<font color="#990000">&lt;</font>POET<font color="#990000">,</font>POEM<font color="#990000">&gt;</font>  collection <font color="#990000">;</font>
+    string               poet <font color="#990000">,</font> poem <font color="#990000">;</font>
+    istringstream  <b><font color="#000000">istring</font></b><font color="#990000">(</font>poem<font color="#990000">)</font> <font color="#990000">;</font>    
+    
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font>  i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> <font color="#993399">4</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font> 
+        <i><font color="#9A1900">// 將每個字串送入字串資料流物件, 取出詩人名字</font></i>
+        istring<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">(</font> foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        istring <font color="#990000">&gt;&gt;</font> poet <font color="#990000">;</font>
+        
+        <i><font color="#9A1900">// 依次將詩取出, 產生成對物件, 後插入複對映物件中</font></i>
+        <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> istring <font color="#990000">&gt;&gt;</font> poem <font color="#990000">)</font> collection<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font> <b><font color="#000000">make_pair</font></b><font color="#990000">(</font>poet<font color="#990000">,</font>poem<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 去除 failbit </font></i>
+        istring<font color="#990000">.</font><b><font color="#000000">clear</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 依次列印整個複對映物件    </font></i>
+    multimap<font color="#990000">&lt;</font> POET <font color="#990000">,</font> POEM <font color="#990000">&gt;::</font>iterator  iter1 <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> iter1 <font color="#990000">=</font> collection<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">;</font> iter1 <font color="#990000">!=</font> collection<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>iter1 <font color="#990000">)</font>
+        cout <font color="#990000">&lt;&lt;</font> iter1<font color="#990000">-&gt;</font>first <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" : "</font> <font color="#990000">&lt;&lt;</font> iter1<font color="#990000">-&gt;</font>second <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 將複對映容器資料插入到對映物件中, 但相同的索引不作插入動作</font></i>
+    map<font color="#990000">&lt;</font>POET<font color="#990000">,</font>POEM<font color="#990000">&gt;</font>  single <font color="#990000">;</font>
+    single<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font> collection<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">,</font> collection<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 依次列印整個對映物件    </font></i>
+    map<font color="#990000">&lt;</font> string <font color="#990000">,</font> string <font color="#990000">&gt;::</font>iterator  iter2 <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> iter2 <font color="#990000">=</font> single<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">;</font> iter2 <font color="#990000">!=</font> single<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>iter2 <font color="#990000">)</font>
+        cout <font color="#990000">&lt;&lt;</font> iter2<font color="#990000">-&gt;</font>first <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" : "</font> <font color="#990000">&lt;&lt;</font> iter2<font color="#990000">-&gt;</font>second <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

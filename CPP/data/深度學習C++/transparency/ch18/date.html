@@ -1,0 +1,136 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#0000FF">class</font></b>  Date <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 類別靜態資料 : 非閏年的每月總天數</font></i>
+    <b><font color="#0000FF">static</font></b>  <b><font color="#0000FF">const</font></b>  <font color="#009900">int</font>  Days<font color="#990000">[</font><font color="#993399">12</font><font color="#990000">]</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 年 , 月 , 日</font></i>
+    <font color="#009900">int</font>  year <font color="#990000">,</font> mon <font color="#990000">,</font> day <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 檢查某年是否有閏月</font></i>
+    <font color="#009900">bool</font>  <b><font color="#000000">leap_year </font></b><font color="#990000">(</font> <font color="#009900">int</font> y <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">(</font> y <font color="#990000">%</font> <font color="#993399">400</font> <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">||</font> <font color="#990000">(</font> y <font color="#990000">%</font> <font color="#993399">4</font> <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">&amp;&amp;</font> y <font color="#990000">%</font> <font color="#993399">100</font> <font color="#990000">!=</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#990000">?</font> 
+                 <b><font color="#0000FF">true</font></b> <font color="#990000">:</font> <b><font color="#0000FF">false</font></b> <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+    
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Date </font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+    <b><font color="#000000">Date </font></b><font color="#990000">(</font> <font color="#009900">int</font> y <font color="#990000">,</font> <font color="#009900">int</font> m <font color="#990000">,</font> <font color="#009900">int</font> d <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">year</font></b><font color="#990000">(</font>y<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">mon</font></b><font color="#990000">(</font>m<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">day</font></b><font color="#990000">(</font>d<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <i><font color="#9A1900">// 計算出隔一天的日期</font></i>
+    Date  <b><font color="#000000">next_date</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 檢查是否兩天為同一天</font></i>
+    <font color="#009900">bool</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">==</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> date <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">(</font> year <font color="#990000">==</font> date<font color="#990000">.</font>year <font color="#990000">&amp;&amp;</font> mon <font color="#990000">==</font> date<font color="#990000">.</font>mon <font color="#990000">&amp;&amp;</font> 
+                 day <font color="#990000">==</font> date<font color="#990000">.</font>day <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 檢查是否兩個日期為不同一天</font></i>
+    <font color="#009900">bool</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">!=</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> date <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> 
+        <b><font color="#0000FF">return</font></b> <font color="#990000">!</font> <font color="#990000">(</font> <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">==</font> date <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 檢查兩天時間的前後次序是否為正確</font></i>
+    <font color="#009900">bool</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> date <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#990000">;</font>
+
+    <font color="#009900">bool</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;=</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> date <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> 
+        <b><font color="#0000FF">return</font></b>  <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">==</font> date <font color="#990000">||</font> <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">&lt;</font> date <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 夥伴函式 : 計算兩個日期相差的天數</font></i>
+    <b><font color="#0000FF">friend</font></b>  <font color="#009900">int</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">-</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 夥伴函式 : 輸入與輸出日期</font></i>
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">friend</font></b>  istream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&gt;&gt;</font> <font color="#990000">(</font> istream<font color="#990000">&amp;</font> <font color="#990000">,</font>       Date<font color="#990000">&amp;</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 夥伴類別 : 設定類別 Account 為 Date 的夥伴類別</font></i>
+    <b><font color="#0000FF">friend</font></b>  <b><font color="#0000FF">class</font></b>  Account <font color="#990000">;</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 非閏年的每月總天數</font></i>
+<b><font color="#0000FF">const</font></b> <font color="#009900">int</font>  Date<font color="#990000">::</font>Days<font color="#990000">[</font><font color="#993399">12</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#993399">31</font> <font color="#990000">,</font> <font color="#993399">28</font> <font color="#990000">,</font> <font color="#993399">31</font> <font color="#990000">,</font> <font color="#993399">30</font> <font color="#990000">,</font> <font color="#993399">31</font> <font color="#990000">,</font> <font color="#993399">30</font> <font color="#990000">,</font> 
+                              <font color="#993399">31</font> <font color="#990000">,</font> <font color="#993399">31</font> <font color="#990000">,</font> <font color="#993399">30</font> <font color="#990000">,</font> <font color="#993399">31</font> <font color="#990000">,</font> <font color="#993399">30</font> <font color="#990000">,</font> <font color="#993399">31</font> <font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 計算出隔一天的日期</font></i>
+Date  Date<font color="#990000">::</font><b><font color="#000000">next_date</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 當月份的總天數</font></i>
+    <font color="#009900">int</font>  days_of_month <font color="#990000">=</font> <font color="#990000">(</font> mon <font color="#990000">==</font> <font color="#993399">2</font> <font color="#990000">&amp;&amp;</font> <b><font color="#000000">leap_year</font></b><font color="#990000">(</font> year <font color="#990000">)</font> <font color="#990000">?</font> 
+                           Days<font color="#990000">[</font>mon<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">]+</font><font color="#993399">1</font> <font color="#990000">:</font> Days<font color="#990000">[</font>mon<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <font color="#009900">int</font>  y <font color="#990000">=</font> year <font color="#990000">,</font> m <font color="#990000">=</font> mon <font color="#990000">,</font> d <font color="#990000">=</font> day <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 檢查是否為月底最後一天</font></i>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> day <font color="#990000">==</font> days_of_month <font color="#990000">)</font> <font color="#FF0000">{</font>
+        d <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font>  <font color="#990000">++</font>m <font color="#990000">;</font>
+        <i><font color="#9A1900">// 若為年尾, 則次日為隔年第一天</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> m <font color="#990000">&gt;</font> <font color="#993399">12</font> <font color="#990000">)</font> <font color="#FF0000">{</font>  m <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font>  y <font color="#990000">+=</font> <font color="#993399">1</font> <font color="#990000">;</font> <font color="#FF0000">}</font> 
+    <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> 
+        d<font color="#990000">++</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b>  <b><font color="#000000">Date</font></b><font color="#990000">(</font> y <font color="#990000">,</font> m <font color="#990000">,</font> d <font color="#990000">)</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 檢查兩天時間的前後次序是否為正確</font></i>
+<font color="#009900">bool</font>  Date<font color="#990000">::</font><b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> date <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> year <font color="#990000">==</font> date<font color="#990000">.</font>year <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> mon <font color="#990000">==</font> date<font color="#990000">.</font>mon <font color="#990000">)</font> 
+            <b><font color="#0000FF">return</font></b> <font color="#990000">(</font> day <font color="#990000">&lt;</font> date<font color="#990000">.</font>day <font color="#990000">?</font> <b><font color="#0000FF">true</font></b> <font color="#990000">:</font> <b><font color="#0000FF">false</font></b> <font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">else</font></b> 
+            <b><font color="#0000FF">return</font></b> <font color="#990000">(</font> mon <font color="#990000">&lt;</font> date<font color="#990000">.</font>mon <font color="#990000">?</font> <b><font color="#0000FF">true</font></b> <font color="#990000">:</font> <b><font color="#0000FF">false</font></b> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> 
+
+        <b><font color="#0000FF">return</font></b> <font color="#990000">(</font> year <font color="#990000">&lt;</font> date<font color="#990000">.</font>year <font color="#990000">?</font> <b><font color="#0000FF">true</font></b> <font color="#990000">:</font> <b><font color="#0000FF">false</font></b> <font color="#990000">)</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 計算兩天相差的天數</font></i>
+<font color="#009900">int</font>   <b><font color="#0000FF">operator</font></b> <font color="#990000">-</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> date1 <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> date2 <font color="#990000">)</font>  <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font>  c <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+    Date date <font color="#990000">;</font>
+
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> date1 <font color="#990000">&lt;</font> date2 <font color="#990000">)</font> <font color="#FF0000">{</font>
+        
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> date <font color="#990000">=</font> date1 <font color="#990000">;</font>  date <font color="#990000">!=</font> date2 <font color="#990000">;</font> <font color="#990000">++</font>c <font color="#990000">)</font> 
+            date <font color="#990000">=</font> date<font color="#990000">.</font><b><font color="#000000">next_date</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+        <b><font color="#0000FF">return</font></b> <font color="#990000">-</font>c <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+        
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> date <font color="#990000">=</font> date2 <font color="#990000">;</font>  date <font color="#990000">!=</font> date1 <font color="#990000">;</font> <font color="#990000">++</font>c <font color="#990000">)</font> 
+            date <font color="#990000">=</font> date<font color="#990000">.</font><b><font color="#000000">next_date</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> c <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+    
+<font color="#FF0000">}</font>
+    
+<i><font color="#9A1900">// 日期的輸出運算子</font></i>
+ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Date<font color="#990000">&amp;</font> date <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> out <font color="#990000">&lt;&lt;</font> date<font color="#990000">.</font>year <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'-'</font> 
+               <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font><font color="#FF0000">'0'</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> date<font color="#990000">.</font>mon <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'-'</font> 
+               <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> date<font color="#990000">.</font>day <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font><font color="#FF0000">' '</font><font color="#990000">)</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 日期的輸入運算子</font></i>
+istream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&gt;&gt;</font> <font color="#990000">(</font> istream<font color="#990000">&amp;</font> in <font color="#990000">,</font> Date<font color="#990000">&amp;</font> date <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <font color="#009900">char</font>  sep <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  in <font color="#990000">&gt;&gt;</font> date<font color="#990000">.</font>year <font color="#990000">&gt;&gt;</font> sep <font color="#990000">&gt;&gt;</font> date<font color="#990000">.</font>mon <font color="#990000">&gt;&gt;</font> sep <font color="#990000">&gt;&gt;</font> date<font color="#990000">.</font>day <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+</tt></pre>

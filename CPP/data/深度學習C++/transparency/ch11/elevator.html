@@ -1,0 +1,93 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;sstream&gt;</font>
+<b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;iomanip&gt;</font>
+<b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;string&gt;</font>
+
+<i><font color="#9A1900">// 樓層層數</font></i>
+<b><font color="#0000FF">const</font></b> <font color="#009900">int</font> MAX_FLOOR <font color="#990000">=</font> <font color="#993399">10</font> <font color="#990000">;</font>          
+
+<i><font color="#9A1900">// 昇降梯昇降方向</font></i>
+<b><font color="#0000FF">enum</font></b>  DIRECTION  <font color="#FF0000">{</font> up   <font color="#990000">,</font> down <font color="#FF0000">}</font> <font color="#990000">;</font>  
+
+<i><font color="#9A1900">// 昇降梯在某樓層是否跳過不停或者停止</font></i>
+<b><font color="#0000FF">enum</font></b>  STATUS     <font color="#FF0000">{</font> skip <font color="#990000">,</font> stop <font color="#FF0000">}</font> <font color="#990000">;</font>  
+
+<b><font color="#0000FF">using</font></b>  <b><font color="#0000FF">namespace</font></b>  std <font color="#990000">;</font>
+
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <font color="#009900">int</font>        i  <font color="#990000">,</font> no <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 設定內定的昇降梯現在所在的樓層, 昇降方向, 欲停止的樓層</font></i>
+    <font color="#009900">int</font>        current_floor       <font color="#990000">=</font> <font color="#993399">1</font>         <font color="#990000">;</font>
+    DIRECTION  direction           <font color="#990000">=</font> up        <font color="#990000">;</font>
+    STATUS     floor<font color="#990000">[</font>MAX_FLOOR<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">]</font>  <font color="#990000">=</font> <font color="#FF0000">{</font> skip <font color="#FF0000">}</font>  <font color="#990000">;</font>
+    
+    string         line           <font color="#990000">;</font>
+    istringstream  <b><font color="#000000">stops</font></b><font color="#990000">(</font> line <font color="#990000">)</font>  <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 昇降梯為連續運轉, 使用 Ctrl-c 跳離程式</font></i>
+    <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"["</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> current_floor <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"] : "</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 讀入昇降梯停止樓層</font></i>
+        <b><font color="#000000">getline</font></b><font color="#990000">(</font> cin <font color="#990000">,</font> line <font color="#990000">)</font> <font color="#990000">;</font>
+        stops<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">(</font> line <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 設定昇降梯停止樓層</font></i>
+        <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> stops <font color="#990000">&gt;&gt;</font> no <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#990000">(</font> no <font color="#990000">&gt;=</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">&amp;&amp;</font> <font color="#990000">(</font> no <font color="#990000">&lt;=</font> MAX_FLOOR <font color="#990000">)</font> <font color="#990000">)</font> 
+                floor<font color="#990000">[</font>no<font color="#990000">]</font> <font color="#990000">=</font> stop <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        
+        floor<font color="#990000">[</font>current_floor<font color="#990000">]</font> <font color="#990000">=</font> skip <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 根據輸入的樓層資料, 決定昇降梯接下來的昇降方向</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> direction <font color="#990000">==</font> up <font color="#990000">||</font> current_floor <font color="#990000">==</font> MAX_FLOOR <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            direction <font color="#990000">=</font> down <font color="#990000">;</font>
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> current_floor<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">;</font> i <font color="#990000">&lt;=</font> MAX_FLOOR <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> floor<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">==</font> stop <font color="#990000">)</font> direction <font color="#990000">=</font> up <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+
+            direction <font color="#990000">=</font> up <font color="#990000">;</font>
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> current_floor <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> floor<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">==</font> stop <font color="#990000">)</font> direction <font color="#990000">=</font> down <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font>
+
+        <i><font color="#9A1900">// 根據昇降方向, 找出昇降梯下一個須要停止的樓層</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> direction <font color="#990000">==</font> up <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> current_floor<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">;</font> i <font color="#990000">&lt;=</font> MAX_FLOOR <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> floor<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">==</font> stop <font color="#990000">)</font> <font color="#FF0000">{</font>
+                    current_floor <font color="#990000">=</font> i <font color="#990000">;</font>
+                    <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+                <font color="#FF0000">}</font>
+            <font color="#FF0000">}</font>
+            
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+            
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> current_floor<font color="#990000">-</font><font color="#993399">1</font> <font color="#990000">;</font> i <font color="#990000">&gt;=</font> <font color="#993399">1</font> <font color="#990000">;</font> <font color="#990000">--</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> floor<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">==</font> stop <font color="#990000">)</font> <font color="#FF0000">{</font>
+                    current_floor <font color="#990000">=</font> i <font color="#990000">;</font>
+                    <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+                <font color="#FF0000">}</font>
+            <font color="#FF0000">}</font>
+
+        <font color="#FF0000">}</font>
+
+        stops<font color="#990000">.</font><b><font color="#000000">clear</font></b><font color="#990000">()</font> <font color="#990000">;</font>    <i><font color="#9A1900">// 清除錯誤旗幟</font></i>
+        
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

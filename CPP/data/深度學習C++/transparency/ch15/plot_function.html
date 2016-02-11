@@ -1,0 +1,233 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;sstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 設定函數</font></i>
+<font color="#009900">double</font>  <b><font color="#000000">g</font></b><font color="#990000">(</font> <font color="#009900">double</font> x <font color="#990000">)</font> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b>  <b><font color="#000000">sin</font></b><font color="#990000">(</font>x<font color="#990000">)/</font>x <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 定義位置列舉型別</font></i>
+<b><font color="#0000FF">enum</font></b>  Position <font color="#FF0000">{</font> upperleft <font color="#990000">,</font> upperright <font color="#990000">,</font> lowerleft <font color="#990000">,</font> lowerright <font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 定義函式繪圖樣板類別</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><font color="#009900">int</font> row <font color="#990000">=</font> <font color="#993399">21</font> <font color="#990000">,</font> <font color="#009900">int</font> col <font color="#990000">=</font> <font color="#993399">75</font><font color="#990000">&gt;</font>
+<b><font color="#0000FF">class</font></b>  Plot_Function <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 儲存點矩陣圖形</font></i>
+    string  bitmap<font color="#990000">[</font>row<font color="#990000">+</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 圖式顯示位置</font></i>
+    Position  caption_location <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 儲存函式</font></i>
+    <font color="#009900">double</font>  <font color="#990000">(*</font>fn<font color="#990000">)(</font><font color="#009900">double</font><font color="#990000">)</font> <font color="#990000">;</font>
+    string   fn_name <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// X 的最大值與最小值   f(X) 的最大值與最小值</font></i>
+    <font color="#009900">double</font>  xmax <font color="#990000">,</font> xmin <font color="#990000">;</font>
+    <font color="#009900">double</font>  ymax <font color="#990000">,</font> ymin <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 產生點矩陣圖形</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">plot_bitmap</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 設定 X 與 Y 的最大值與最小值</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">setup_caption</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+    
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Plot_Function</font></b><font color="#990000">(</font> <font color="#009900">double</font> <font color="#990000">(*</font>f<font color="#990000">)(</font><font color="#009900">double</font><font color="#990000">)</font> <font color="#990000">,</font> string name <font color="#990000">,</font> 
+                   <font color="#009900">double</font> a <font color="#990000">,</font> <font color="#009900">double</font> b <font color="#990000">,</font> 
+                   Position loc <font color="#990000">=</font> upperleft <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 重新設定 X 的最小值與最大值, 即 X 在 [a,b] 之間, </font></i>
+    <i><font color="#9A1900">// 同時也可以設定輸出的位置</font></i>
+    <font color="#009900">void</font> <b><font color="#000000">assign</font></b><font color="#990000">(</font> <font color="#009900">double</font> a <font color="#990000">,</font> <font color="#009900">double</font> b <font color="#990000">,</font> Position loc <font color="#990000">=</font> upperleft <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 覆載輸出運算子</font></i>
+    <b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><font color="#009900">int</font> r<font color="#990000">,</font> <font color="#009900">int</font> c<font color="#990000">&gt;</font>
+    <b><font color="#0000FF">friend</font></b> ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                                  <b><font color="#0000FF">const</font></b> Plot_Function<font color="#990000">&lt;</font>r<font color="#990000">,</font>c<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 在 17 列 61 行的格點上畫出函數 g(x) = sin(x)/x 在 [-10,10] </font></i>
+    <i><font color="#9A1900">// 之間的圖形</font></i>
+    Plot_Function<font color="#990000">&lt;</font><font color="#993399">17</font><font color="#990000">,</font><font color="#993399">61</font><font color="#990000">&gt;</font>  <b><font color="#000000">plot</font></b><font color="#990000">(</font> g <font color="#990000">,</font> <font color="#FF0000">"sin(x)/x"</font> <font color="#990000">,</font> <font color="#990000">-</font><font color="#993399">10</font> <font color="#990000">,</font> <font color="#993399">10</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 繪圖</font></i>
+    cout <font color="#990000">&lt;&lt;</font> plot <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 設定 X 在 [-3,20] 的圖, 且將圖示放在左上角</font></i>
+    plot<font color="#990000">.</font><b><font color="#000000">assign</font></b><font color="#990000">(-</font><font color="#993399">3</font><font color="#990000">,</font><font color="#993399">20</font><font color="#990000">,</font>upperright<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 繪圖</font></i>
+    cout <font color="#990000">&lt;&lt;</font> plot <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 建構函式</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><font color="#009900">int</font> row <font color="#990000">,</font> <font color="#009900">int</font> col<font color="#990000">&gt;</font>
+Plot_Function<font color="#990000">&lt;</font>row<font color="#990000">,</font>col<font color="#990000">&gt;::</font><b><font color="#000000">Plot_Function</font></b><font color="#990000">(</font> <font color="#009900">double</font> <font color="#990000">(*</font>f<font color="#990000">)(</font><font color="#009900">double</font><font color="#990000">)</font> <font color="#990000">,</font> 
+              string name <font color="#990000">,</font> <font color="#009900">double</font> a <font color="#990000">,</font> <font color="#009900">double</font> b <font color="#990000">,</font> Position loc <font color="#990000">)</font> 
+    <font color="#990000">:</font> <b><font color="#000000">fn</font></b><font color="#990000">(</font>f<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">xmin</font></b><font color="#990000">(</font>a<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">xmax</font></b><font color="#990000">(</font>b<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">caption_location</font></b><font color="#990000">(</font>loc<font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 轉成大寫</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> name<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> name<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&gt;=</font> <font color="#FF0000">'a'</font> <font color="#990000">&amp;&amp;</font> name<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;=</font> <font color="#FF0000">'z'</font> <font color="#990000">)</font> 
+            name<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> name<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">-</font> <font color="#FF0000">'a'</font> <font color="#990000">+</font> <font color="#FF0000">'A'</font> <font color="#990000">;</font>
+    
+    fn_name <font color="#990000">=</font> <font color="#FF0000">"F(X)  =  "</font> <font color="#990000">+</font> name <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 產生點矩形圖</font></i>
+    <b><font color="#000000">plot_bitmap</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 產生圖示</font></i>
+    <b><font color="#000000">setup_caption</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 重新設定 X 的最小值與最大值, 即 X 在 [a,b] 之間, 同時也可以</font></i>
+<i><font color="#9A1900">// 設定輸出的位置</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><font color="#009900">int</font> row <font color="#990000">,</font> <font color="#009900">int</font> col<font color="#990000">&gt;</font>
+<font color="#009900">void</font>  Plot_Function<font color="#990000">&lt;</font>row<font color="#990000">,</font>col<font color="#990000">&gt;::</font><b><font color="#000000">assign</font></b><font color="#990000">(</font> <font color="#009900">double</font> a <font color="#990000">,</font> <font color="#009900">double</font> b <font color="#990000">,</font> 
+                                      Position loc <font color="#990000">)</font> <font color="#FF0000">{</font>
+    xmin <font color="#990000">=</font> a <font color="#990000">;</font>
+    xmax <font color="#990000">=</font> b <font color="#990000">;</font>
+    caption_location <font color="#990000">=</font> loc <font color="#990000">;</font>
+    <b><font color="#000000">plot_bitmap</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+    <b><font color="#000000">setup_caption</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+
+<i><font color="#9A1900">// 產生點矩陣圖形</font></i>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#009900">int</font> row<font color="#990000">,</font> <font color="#009900">int</font> col<font color="#990000">&gt;</font>
+<font color="#009900">void</font>  Plot_Function<font color="#990000">&lt;</font>row<font color="#990000">,</font>col<font color="#990000">&gt;::</font><b><font color="#000000">plot_bitmap</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font>  i <font color="#990000">,</font> r <font color="#990000">,</font> c <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 起始設定 bitmap 字串陣列</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> r <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> r <font color="#990000">&lt;</font> row<font color="#990000">+</font><font color="#993399">2</font> <font color="#990000">;</font> <font color="#990000">++</font>r <font color="#990000">)</font> bitmap<font color="#990000">[</font>r<font color="#990000">].</font><b><font color="#000000">assign</font></b><font color="#990000">(</font>col<font color="#990000">+</font><font color="#993399">2</font><font color="#990000">,</font><font color="#FF0000">' '</font><font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// nx , ny : x 與 y 軸的區間數</font></i>
+    <font color="#009900">int</font>     nx <font color="#990000">=</font> col<font color="#990000">-</font><font color="#993399">1</font> <font color="#990000">,</font> ny <font color="#990000">=</font> row<font color="#990000">-</font><font color="#993399">1</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// dx : x 軸上的每一個區間大小</font></i>
+    <font color="#009900">double</font>  dx <font color="#990000">=</font> <font color="#990000">(</font>xmax<font color="#990000">-</font>xmin<font color="#990000">)/</font>nx <font color="#990000">;</font>
+
+    <font color="#009900">double</font>  x <font color="#990000">,</font> y<font color="#990000">[</font>col<font color="#990000">]</font> <font color="#990000">;</font>
+
+    ymin <font color="#990000">=</font> <font color="#993399">1</font><font color="#990000">.</font>e20 <font color="#990000">;</font>
+    ymax <font color="#990000">=</font> <font color="#990000">-</font>ymin <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 計算函數值並找出函數的最大值與最小值</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> col <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        x    <font color="#990000">=</font> xmin<font color="#990000">+</font>i<font color="#990000">*</font>dx <font color="#990000">;</font>
+        y<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#000000">fn</font></b><font color="#990000">(</font>x<font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> y<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&gt;</font> ymax <font color="#990000">)</font> ymax <font color="#990000">=</font> y<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> y<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;</font> ymin <font color="#990000">)</font> ymin <font color="#990000">=</font> y<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// dy : y 軸上的每一個區間的大小</font></i>
+    <font color="#009900">double</font> dy <font color="#990000">=</font> <font color="#990000">(</font>ymax<font color="#990000">-</font>ymin<font color="#990000">)/</font>ny <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// ic : y 軸的下標值</font></i>
+    <i><font color="#9A1900">// ir : x 軸的下標值</font></i>
+    <font color="#009900">int</font>  ic <font color="#990000">=</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(-</font>xmin<font color="#990000">/</font>dx<font color="#990000">+</font><font color="#993399">0.5</font><font color="#990000">)</font> <font color="#990000">;</font> 
+    <font color="#009900">int</font>  ir <font color="#990000">=</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(-</font>ymin<font color="#990000">/</font>dy<font color="#990000">+</font><font color="#993399">0.5</font><font color="#990000">)</font> <font color="#990000">;</font> 
+
+    <i><font color="#9A1900">// 畫出 x 軸</font></i>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#993399">0</font> <font color="#990000">&lt;=</font> ir <font color="#990000">&amp;&amp;</font> ir <font color="#990000">&lt;</font> row <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> c <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> c <font color="#990000">&lt;</font> col <font color="#990000">;</font> <font color="#990000">++</font>c <font color="#990000">)</font> bitmap<font color="#990000">[</font>ir<font color="#990000">][</font>c<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">'-'</font> <font color="#990000">;</font>
+        bitmap<font color="#990000">[</font>ir<font color="#990000">][</font>col<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">'&gt;'</font> <font color="#990000">;</font>
+        bitmap<font color="#990000">[</font>ir<font color="#990000">][</font>col<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">'X'</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+        
+    <i><font color="#9A1900">// 畫出 y 軸</font></i>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#993399">0</font> <font color="#990000">&lt;=</font> ic <font color="#990000">&amp;&amp;</font> ic <font color="#990000">&lt;</font> col <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> r <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> r <font color="#990000">&lt;</font> row <font color="#990000">;</font> <font color="#990000">++</font>r <font color="#990000">)</font> bitmap<font color="#990000">[</font>r<font color="#990000">][</font>ic<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">'|'</font> <font color="#990000">;</font>
+        bitmap<font color="#990000">[</font>row<font color="#990000">][</font>ic<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">'^'</font> <font color="#990000">;</font>
+        bitmap<font color="#990000">[</font>row<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">][</font>ic<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">'Y'</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#993399">0</font> <font color="#990000">&lt;=</font> ic <font color="#990000">&amp;&amp;</font> ic <font color="#990000">&lt;</font> col <font color="#990000">)</font> bitmap<font color="#990000">[</font>ir<font color="#990000">][</font>ic<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">'+'</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+        
+    <i><font color="#9A1900">// 產生函數點</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font>  c <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> c <font color="#990000">&lt;</font> col <font color="#990000">;</font> <font color="#990000">++</font>c <font color="#990000">)</font> <font color="#FF0000">{</font>
+        bitmap<font color="#990000">[</font><b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;((</font>y<font color="#990000">[</font>c<font color="#990000">]-</font>ymin<font color="#990000">)/</font>dy<font color="#990000">+</font><font color="#993399">0.5</font><font color="#990000">)][</font>c<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">'*'</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font>
+
+
+<i><font color="#9A1900">// 設定 X 與 Y 的最大值與最小值</font></i>
+<b><font color="#0000FF">template</font></b><font color="#990000">&lt;</font><font color="#009900">int</font> row<font color="#990000">,</font> <font color="#009900">int</font> col<font color="#990000">&gt;</font>
+<font color="#009900">void</font>  Plot_Function<font color="#990000">&lt;</font>row<font color="#990000">,</font>col<font color="#990000">&gt;::</font><b><font color="#000000">setup_caption</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font> r <font color="#990000">,</font> c <font color="#990000">;</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> caption_location <font color="#990000">==</font> upperleft <font color="#990000">)</font> <font color="#FF0000">{</font>
+        r <font color="#990000">=</font> row <font color="#990000">;</font>
+        c <font color="#990000">=</font> <font color="#993399">2</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> caption_location <font color="#990000">==</font> upperright <font color="#990000">)</font> <font color="#FF0000">{</font>
+        r <font color="#990000">=</font> row <font color="#990000">;</font>
+        c <font color="#990000">=</font> col<font color="#990000">-</font><font color="#993399">18</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> caption_location <font color="#990000">==</font> lowerleft <font color="#990000">)</font> <font color="#FF0000">{</font>
+        r <font color="#990000">=</font> <font color="#993399">4</font> <font color="#990000">;</font>
+        c <font color="#990000">=</font> <font color="#993399">2</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+        r <font color="#990000">=</font> <font color="#993399">4</font> <font color="#990000">;</font>
+        c <font color="#990000">=</font> col<font color="#990000">-</font><font color="#993399">18</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+        
+    bitmap<font color="#990000">[</font>r<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">].</font><b><font color="#000000">replace</font></b><font color="#990000">(</font> c <font color="#990000">,</font> fn_name<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">,</font> fn_name <font color="#990000">)</font> <font color="#990000">;</font>
+
+    ostringstream  ostr <font color="#990000">;</font>
+
+    ostr <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Max Y = "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setprecision</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> 
+         <font color="#990000">&lt;&lt;</font> right <font color="#990000">&lt;&lt;</font> scientific <font color="#990000">&lt;&lt;</font> ymax <font color="#990000">;</font>
+    bitmap<font color="#990000">[</font>r<font color="#990000">].</font><b><font color="#000000">replace</font></b><font color="#990000">(</font>c<font color="#990000">,</font>ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">().</font><b><font color="#000000">size</font></b><font color="#990000">(),</font>ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">())</font> <font color="#990000">;</font>
+    
+    ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">(</font><font color="#FF0000">""</font><font color="#990000">)</font> <font color="#990000">;</font>
+    ostr <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Min Y = "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setprecision</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> 
+         <font color="#990000">&lt;&lt;</font> right <font color="#990000">&lt;&lt;</font> scientific <font color="#990000">&lt;&lt;</font> ymin <font color="#990000">;</font>
+    bitmap<font color="#990000">[</font>r<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">].</font><b><font color="#000000">replace</font></b><font color="#990000">(</font>c<font color="#990000">,</font>ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">().</font><b><font color="#000000">size</font></b><font color="#990000">(),</font>ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">())</font> <font color="#990000">;</font>
+    
+    ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">(</font><font color="#FF0000">""</font><font color="#990000">)</font> <font color="#990000">;</font>
+    ostr <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Max X = "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setprecision</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> 
+         <font color="#990000">&lt;&lt;</font> right <font color="#990000">&lt;&lt;</font> fixed <font color="#990000">&lt;&lt;</font> xmax <font color="#990000">;</font>
+    bitmap<font color="#990000">[</font>r<font color="#990000">-</font><font color="#993399">2</font><font color="#990000">].</font><b><font color="#000000">replace</font></b><font color="#990000">(</font>c<font color="#990000">,</font>ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">().</font><b><font color="#000000">size</font></b><font color="#990000">(),</font>ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">())</font> <font color="#990000">;</font>
+
+    ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">(</font><font color="#FF0000">""</font><font color="#990000">)</font> <font color="#990000">;</font>
+    ostr <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"Min X = "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setprecision</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> 
+         <font color="#990000">&lt;&lt;</font> right <font color="#990000">&lt;&lt;</font> fixed <font color="#990000">&lt;&lt;</font> xmin <font color="#990000">;</font>
+    bitmap<font color="#990000">[</font>r<font color="#990000">-</font><font color="#993399">3</font><font color="#990000">].</font><b><font color="#000000">replace</font></b><font color="#990000">(</font>c<font color="#990000">,</font>ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">().</font><b><font color="#000000">size</font></b><font color="#990000">(),</font>ostr<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">())</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+    
+<i><font color="#9A1900">// 覆載輸出運算子</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><font color="#009900">int</font> row<font color="#990000">,</font> <font color="#009900">int</font> col<font color="#990000">&gt;</font>
+ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                       <b><font color="#0000FF">const</font></b> Plot_Function<font color="#990000">&lt;</font>row<font color="#990000">,</font>col<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    out <font color="#990000">&lt;&lt;</font> <b><font color="#000000">string</font></b><font color="#990000">(</font>col<font color="#990000">+</font><font color="#993399">6</font><font color="#990000">,</font><font color="#FF0000">'='</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> j <font color="#990000">=</font> row<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">;</font> j <font color="#990000">&gt;=</font> <font color="#993399">0</font> <font color="#990000">;</font> <font color="#990000">--</font>j <font color="#990000">)</font> 
+        out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"I "</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font>bitmap<font color="#990000">[</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" I"</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    out <font color="#990000">&lt;&lt;</font> <b><font color="#000000">string</font></b><font color="#990000">(</font>col<font color="#990000">+</font><font color="#993399">6</font><font color="#990000">,</font><font color="#FF0000">'='</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> out <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

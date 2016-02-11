@@ -1,0 +1,74 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+
+<b><font color="#0000FF">using</font></b>  <b><font color="#0000FF">namespace</font></b>  std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 堆疊類別</font></i>
+<b><font color="#0000FF">template</font></b>  <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b>  T<font color="#990000">&gt;</font> 
+<b><font color="#0000FF">class</font></b>  Stack <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font>   data  <font color="#990000">;</font>  <i><font color="#9A1900">// 元素陣列</font></i>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <font color="#009900">void</font> <b><font color="#000000">pop</font></b><font color="#990000">()</font> <font color="#990000">;</font>                               <i><font color="#9A1900">// 從堆疊中取出元素</font></i>
+    <font color="#009900">void</font> <b><font color="#000000">push</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> item <font color="#990000">)</font> <font color="#990000">;</font>               <i><font color="#9A1900">// 將元素放入堆疊中</font></i>
+    T    <b><font color="#000000">top</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b>  data<font color="#990000">.</font><b><font color="#000000">back</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#FF0000">}</font> <i><font color="#9A1900">// 告知最上一個元素</font></i>
+    <font color="#009900">int</font>  <b><font color="#000000">size</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> data<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#FF0000">}</font> <i><font color="#9A1900">// 告知堆疊元素大小</font></i>
+        
+    <b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font> 
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font>  <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Stack<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 從堆疊中取出元素</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<font color="#009900">void</font>  Stack<font color="#990000">&lt;</font>T<font color="#990000">&gt;::</font><b><font color="#000000">pop</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font> data<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&gt;</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    data<font color="#990000">.</font><b><font color="#000000">pop_back</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 將元素放入堆疊中</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<font color="#009900">void</font>  Stack<font color="#990000">&lt;</font>T<font color="#990000">&gt;::</font><b><font color="#000000">push</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> item <font color="#990000">)</font> <font color="#FF0000">{</font> data<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font>item<font color="#990000">)</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+    
+<i><font color="#9A1900">// 列印堆疊物件</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Stack<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 堆疊共有 "</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 個元素"</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  頂端 [ "</font>  <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> foo<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()-</font><font color="#993399">1</font> <font color="#990000">;</font> i <font color="#990000">&gt;=</font><font color="#993399">0</font> <font color="#990000">;</font> <font color="#990000">--</font>i <font color="#990000">)</font> 
+        out <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font>data<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"] 末端"</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    Stack<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  foo <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 加入 1 , 2 , 3 , 8 至 堆疊</font></i>
+    foo<font color="#990000">.</font><b><font color="#000000">push</font></b><font color="#990000">(</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">;</font>  foo<font color="#990000">.</font><b><font color="#000000">push</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">;</font>  foo<font color="#990000">.</font><b><font color="#000000">push</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">;</font>  foo<font color="#990000">.</font><b><font color="#000000">push</font></b><font color="#990000">(</font><font color="#993399">8</font><font color="#990000">)</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 最頂端元素為 : "</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font><b><font color="#000000">top</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 元素個數為   : "</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 取出兩個元素後, 加入 9 , 7 , 5 </font></i>
+    foo<font color="#990000">.</font><b><font color="#000000">pop</font></b><font color="#990000">()</font> <font color="#990000">;</font>  foo<font color="#990000">.</font><b><font color="#000000">pop</font></b><font color="#990000">()</font> <font color="#990000">;</font>  foo<font color="#990000">.</font><b><font color="#000000">push</font></b><font color="#990000">(</font><font color="#993399">9</font><font color="#990000">)</font> <font color="#990000">;</font>  foo<font color="#990000">.</font><b><font color="#000000">push</font></b><font color="#990000">(</font><font color="#993399">7</font><font color="#990000">)</font> <font color="#990000">;</font>  
+    foo<font color="#990000">.</font><b><font color="#000000">push</font></b><font color="#990000">(</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> foo  <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+   
+</tt></pre>

@@ -1,0 +1,92 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;sstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;fstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;ctime&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstdlib&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<b><font color="#0000FF">const</font></b> <font color="#009900">int</font> MAX_NO <font color="#990000">=</font> <font color="#993399">42</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 產生一介於 [a,b] 之間的亂數</font></i>
+<b><font color="#0000FF">inline</font></b>  <font color="#009900">int</font>  <b><font color="#000000">random_no</font></b><font color="#990000">(</font> <font color="#009900">int</font> a <font color="#990000">,</font> <font color="#009900">int</font> b <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <b><font color="#0000FF">return</font></b>  <b><font color="#000000">rand</font></b><font color="#990000">()%(</font>b<font color="#990000">-</font>a<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">+</font> a <font color="#990000">;</font>   
+
+    <i><font color="#9A1900">// 或者使用以下較正確的方式產生亂數</font></i>
+    <i><font color="#9A1900">// return  a+static_cast&lt;int&gt;((b-a+1.)/(RAND_MAX+1.)*rand()) ;</font></i>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 對調 a 與 b 兩元素之值</font></i>
+<b><font color="#0000FF">inline</font></b>  <font color="#009900">void</font>  <b><font color="#000000">swap</font></b><font color="#990000">(</font> <font color="#009900">int</font><font color="#990000">&amp;</font> a <font color="#990000">,</font> <font color="#009900">int</font><font color="#990000">&amp;</font> b <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <font color="#009900">int</font>  tmp <font color="#990000">=</font> a <font color="#990000">;</font>
+    a <font color="#990000">=</font> b <font color="#990000">;</font>
+    b <font color="#990000">=</font> tmp <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+
+<i><font color="#9A1900">// 產生 7 個介於 [1,42] 之間的樂透號碼, 最後一個為特別號碼</font></i>
+<font color="#009900">void</font>  <b><font color="#000000">generate_lottery_number</font></b><font color="#990000">(</font> <font color="#009900">int</font> no<font color="#990000">[]</font> <font color="#990000">,</font> <font color="#009900">int</font> n <font color="#990000">=</font> <font color="#993399">7</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font>  i <font color="#990000">,</font> j <font color="#990000">,</font> tmp <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> MAX_NO <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> no<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> i<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 使用位置對調方式產生前 n 個樂透號碼 </font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        
+        <i><font color="#9A1900">// 隨機產生一欲對調元素的下標介於 [i,MAX_NO-1] 之間</font></i>
+        j <font color="#990000">=</font> <b><font color="#000000">random_no</font></b><font color="#990000">(</font>i<font color="#990000">,</font>MAX_NO<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 如果 i 與 j 下標不同, 則對調 no[i] 與 no[j] 之值</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> i <font color="#990000">!=</font> j <font color="#990000">)</font> <b><font color="#000000">swap</font></b><font color="#990000">(</font> no<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">,</font> no<font color="#990000">[</font>j<font color="#990000">]</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font> i <font color="#990000">,</font> j <font color="#990000">,</font> n <font color="#990000">=</font> <font color="#993399">10</font> <font color="#990000">;</font>
+    <font color="#009900">int</font> no<font color="#990000">[</font>MAX_NO<font color="#990000">]</font> <font color="#990000">;</font>
+
+    ofstream        outfile <font color="#990000">;</font>    
+    ostringstream   outstring <font color="#990000">;</font>    
+
+    <i><font color="#9A1900">// 設定亂數初值</font></i>
+    <b><font color="#000000">srand</font></b><font color="#990000">(</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">unsigned</font><font color="#990000">&gt;(</font> <b><font color="#000000">time</font></b><font color="#990000">(</font>NULL<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 依次輸出 n 個檔案</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font> i <font color="#990000">&lt;=</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <i><font color="#9A1900">// 建構每次輸出的檔案名稱</font></i>
+        outstring <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"lottery"</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font><font color="#FF0000">'0'</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> i <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 開啟檔案準備輸出</font></i>
+        outfile<font color="#990000">.</font><b><font color="#000000">open</font></b><font color="#990000">(</font> outstring<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">().</font><b><font color="#000000">c_str</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 產生樂透號碼</font></i>
+        <b><font color="#000000">generate_lottery_number</font></b><font color="#990000">(</font>no<font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 輸出中獎號碼到檔案</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> <font color="#993399">7</font> <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> outfile <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">4</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> no<font color="#990000">[</font>j<font color="#990000">]</font> <font color="#990000">;</font>
+        outfile <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 關閉檔案</font></i>
+        outfile<font color="#990000">.</font><b><font color="#000000">close</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 將字串串流物件 sout 重新設為空字串</font></i>
+        outstring<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">(</font><font color="#FF0000">""</font><font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+</tt></pre>

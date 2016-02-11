@@ -1,0 +1,58 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <font color="#009900">int</font>   i <font color="#990000">,</font> n <font color="#990000">;</font>
+    
+    <font color="#009900">char</font>  a<font color="#990000">[]</font> <font color="#990000">=</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+    <font color="#009900">char</font>  b<font color="#990000">[]</font> <font color="#990000">=</font> <font color="#FF0000">"123456"</font> <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 块せà计絃 : "</font> <font color="#990000">;</font>
+    cin  <font color="#990000">&gt;&gt;</font> n <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// せà计絃场</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font><font color="#FF0000">' '</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font>n<font color="#990000">-</font>i<font color="#990000">+</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+
+        a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> b<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">;</font>            
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font>b<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">])</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">*</font>i<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">&lt;&lt;</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+
+        a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> b<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">;</font>            
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font>b<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">])</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">*(</font>n<font color="#990000">-</font>i<font color="#990000">)-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">&lt;&lt;</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+
+        a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> b<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">;</font>            
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font>b<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">])</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">*</font>i<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font>
+
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// せà计絃场</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font><font color="#FF0000">' '</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">+</font>i<font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+
+        a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> b<font color="#990000">[</font><font color="#993399">5</font><font color="#990000">]</font> <font color="#990000">;</font>            
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font>b<font color="#990000">[</font><font color="#993399">5</font><font color="#990000">])</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">*(</font>n<font color="#990000">-</font>i<font color="#990000">)-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">&lt;&lt;</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+
+        a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> b<font color="#990000">[</font><font color="#993399">4</font><font color="#990000">]</font> <font color="#990000">;</font>            
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font>b<font color="#990000">[</font><font color="#993399">4</font><font color="#990000">])</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">*</font>i<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">&lt;&lt;</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+
+        a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> b<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">;</font>            
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setfill</font></b><font color="#990000">(</font>b<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">])</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">*(</font>n<font color="#990000">-</font>i<font color="#990000">)-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> <font color="#990000">;</font>
+        
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

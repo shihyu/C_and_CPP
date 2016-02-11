@@ -1,0 +1,55 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>               <i><font color="#9A1900">// 使用 sqrt 計算平方根</font></i>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font>  i <font color="#990000">,</font> n <font color="#990000">,</font> sqrtn <font color="#990000">;</font>
+    <font color="#009900">bool</font> is_prime_number <font color="#990000">;</font>
+
+    <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 請輸入一正整數 ( 輸入負數結束程式 ) : "</font> <font color="#990000">;</font>
+        cin <font color="#990000">&gt;&gt;</font> n <font color="#990000">;</font>
+
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> n <font color="#990000">&lt;</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <i><font color="#9A1900">// 輸入負數提早離開 while 迴圈</font></i>
+            <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> n <font color="#990000">&lt;=</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <i><font color="#9A1900">// 輸入的數字 &lt;= 1</font></i>
+            cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入的數字必須為大於 1 的自然數</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+            <b><font color="#0000FF">continue</font></b> <font color="#990000">;</font>
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> n <font color="#990000">==</font> <font color="#993399">2</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <i><font color="#9A1900">// 輸入的數字為 2, 2 為質數</font></i>
+            is_prime_number <font color="#990000">=</font> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> n <font color="#990000">%</font> <font color="#993399">2</font> <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <i><font color="#9A1900">// 輸入的數字為偶數, 則此數不是質數</font></i>
+            is_prime_number <font color="#990000">=</font> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+        <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+            <i><font color="#9A1900">// 輸入的數字為大於 2 的奇數</font></i>
+            is_prime_number <font color="#990000">=</font> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+            sqrtn <font color="#990000">=</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font> <b><font color="#000000">sqrt</font></b><font color="#990000">(</font> n <font color="#990000">*</font> <font color="#993399">1.0</font> <font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+            
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">3</font> <font color="#990000">;</font> i <font color="#990000">&lt;=</font> sqrtn <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> n <font color="#990000">%</font> i <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+                    <i><font color="#9A1900">// 若 i 為 n 的因數, 則 n 不是質數, </font></i>
+                    <i><font color="#9A1900">// 使用 break 提早脫離迴圈</font></i>
+                    is_prime_number <font color="#990000">=</font> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+                    <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>         
+                <font color="#FF0000">}</font>
+            <font color="#FF0000">}</font>
+        <font color="#FF0000">}</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; "</font> <font color="#990000">&lt;&lt;</font> n <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> is_prime_number <font color="#990000">?</font> <font color="#FF0000">" 是"</font> <font color="#990000">:</font> <font color="#FF0000">" 不是"</font> <font color="#990000">)</font> 
+             <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"質數</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

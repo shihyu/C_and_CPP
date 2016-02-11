@@ -1,0 +1,83 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 使用全域變數</font></i>
+
+<i><font color="#9A1900">// S : 棋盤大小 , queen : 皇后位置</font></i>
+<b><font color="#0000FF">const</font></b> <font color="#009900">int</font>  S <font color="#990000">=</font> <font color="#993399">8</font> <font color="#990000">;</font>
+<font color="#009900">bool</font>  queen<font color="#990000">[</font>S<font color="#990000">][</font>S<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#FF0000">{</font> <b><font color="#0000FF">false</font></b> <font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font> <b><font color="#0000FF">false</font></b> <font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font> <b><font color="#0000FF">false</font></b> <font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font> <b><font color="#0000FF">false</font></b> <font color="#FF0000">}</font><font color="#990000">,</font>
+                      <font color="#FF0000">{</font> <b><font color="#0000FF">false</font></b> <font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font> <b><font color="#0000FF">false</font></b> <font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font> <b><font color="#0000FF">false</font></b> <font color="#FF0000">}</font><font color="#990000">,</font> <font color="#FF0000">{</font> <b><font color="#0000FF">false</font></b> <font color="#FF0000">}</font> <font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 計算絕對值</font></i>
+<font color="#009900">int</font>  <b><font color="#000000">abs</font></b><font color="#990000">(</font> <font color="#009900">int</font> x <font color="#990000">)</font> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> x <font color="#990000">&gt;</font> <font color="#993399">0</font> <font color="#990000">?</font> x <font color="#990000">:</font> <font color="#990000">-</font>x <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 檢查新的皇后若擺放在 (r,c) 位置是否適當</font></i>
+<font color="#009900">bool</font>  <b><font color="#000000">valid_position</font></b><font color="#990000">(</font><font color="#009900">int</font> r <font color="#990000">,</font> <font color="#009900">int</font> c <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font> i <font color="#990000">,</font> j <font color="#990000">,</font> dx <font color="#990000">,</font> dy <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 檢查是否與已有的皇后在同一行, 同一列或在對角線上</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> c <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> 
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> S <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> queen<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+                dx <font color="#990000">=</font> <b><font color="#000000">abs</font></b><font color="#990000">(</font>r<font color="#990000">-</font>i<font color="#990000">)</font> <font color="#990000">;</font>
+                dy <font color="#990000">=</font> c <font color="#990000">-</font> j <font color="#990000">;</font>
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> dx <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">||</font> dy <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">||</font> dx <font color="#990000">==</font> dy <font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+        <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 列印所有的皇后位置</font></i>
+<font color="#009900">void</font>  <b><font color="#000000">print_queen</font></b><font color="#990000">(</font><font color="#009900">int</font> counter<font color="#990000">)</font> <font color="#FF0000">{</font>
+    <font color="#009900">int</font> i <font color="#990000">,</font> j <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">7</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"["</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> counter <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"]</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> S <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> S <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> 
+            cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> queen<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">?</font> <font color="#FF0000">"Q"</font> <font color="#990000">:</font> <font color="#FF0000">"+"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+
+
+<i><font color="#9A1900">// 遞迴找尋皇后位置</font></i>
+<font color="#009900">void</font>  <b><font color="#000000">locate_queen</font></b><font color="#990000">(</font> <font color="#009900">int</font> col <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font>  row <font color="#990000">;</font>
+    <b><font color="#0000FF">static</font></b> <font color="#009900">int</font>  counter <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> col <font color="#990000">==</font> S <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <b><font color="#000000">print_queen</font></b><font color="#990000">(++</font>counter<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font> <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> row <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> row <font color="#990000">&lt;</font> S <font color="#990000">;</font> <font color="#990000">++</font>row <font color="#990000">)</font> <font color="#FF0000">{</font>
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <b><font color="#000000">valid_position</font></b><font color="#990000">(</font>row<font color="#990000">,</font>col<font color="#990000">)</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+                queen<font color="#990000">[</font>row<font color="#990000">][</font>col<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+                <b><font color="#000000">locate_queen</font></b><font color="#990000">(</font>col<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">;</font>
+                queen<font color="#990000">[</font>row<font color="#990000">][</font>col<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+        <font color="#FF0000">}</font>
+
+    <font color="#FF0000">}</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 主函式</font></i>
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font>  col <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <b><font color="#000000">locate_queen</font></b><font color="#990000">(</font>col<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>		 
+</tt></pre>

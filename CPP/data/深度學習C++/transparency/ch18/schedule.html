@@ -1,0 +1,152 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;fstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;sstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;queue&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<b><font color="#0000FF">typedef</font></b>  string  Course  <font color="#990000">;</font>
+<b><font color="#0000FF">typedef</font></b>  <font color="#009900">int</font>     Section <font color="#990000">;</font>
+
+<b><font color="#0000FF">enum</font></b>  Weekday  <font color="#FF0000">{</font> Sun <font color="#990000">,</font> Mon <font color="#990000">,</font> Tue <font color="#990000">,</font> Wed <font color="#990000">,</font> Thu <font color="#990000">,</font> Fri <font color="#990000">,</font> Sat <font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 課程結構</font></i>
+<b><font color="#0000FF">struct</font></b>  Schedule <font color="#FF0000">{</font> 
+
+    Course    name <font color="#990000">;</font>  <i><font color="#9A1900">// 課程名稱</font></i>
+    Weekday   day  <font color="#990000">;</font>  <i><font color="#9A1900">// 授課日期</font></i>
+    Section   sct  <font color="#990000">;</font>  <i><font color="#9A1900">// 授課時間</font></i>
+
+    <i><font color="#9A1900">// 兩個建構函式</font></i>
+    <b><font color="#000000">Schedule</font></b><font color="#990000">()</font><font color="#FF0000">{}</font> <font color="#990000">;</font>
+    <b><font color="#000000">Schedule</font></b><font color="#990000">(</font> Course n <font color="#990000">,</font> Weekday d <font color="#990000">,</font> Section s <font color="#990000">)</font> 
+        <font color="#990000">:</font> <b><font color="#000000">name</font></b><font color="#990000">(</font>n<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">day</font></b><font color="#990000">(</font>d<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">sct</font></b><font color="#990000">(</font>s<font color="#990000">)</font> <font color="#FF0000">{}</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+
+<i><font color="#9A1900">// 設定 Schedule 結構的順序, 節數小的優先, 若相等, 則授課日小的優先</font></i>
+<font color="#009900">bool</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Schedule<font color="#990000">&amp;</font> a <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Schedule<font color="#990000">&amp;</font> b <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b> <font color="#990000">(</font> a<font color="#990000">.</font>sct <font color="#990000">==</font> b<font color="#990000">.</font>sct <font color="#990000">?</font> b<font color="#990000">.</font>day <font color="#990000">&lt;</font> a<font color="#990000">.</font>day <font color="#990000">:</font> b<font color="#990000">.</font>sct <font color="#990000">&lt;</font> a<font color="#990000">.</font>sct <font color="#990000">)</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+
+<b><font color="#0000FF">class</font></b>  Course_Schedule<font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 依 課程 Schedule 的順序, 儲存課程資料</font></i>
+    priority_queue<font color="#990000">&lt;</font>Schedule<font color="#990000">&gt;</font>  courses <font color="#990000">;</font>   
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 建構函式, 讀取資料</font></i>
+    <b><font color="#000000">Course_Schedule</font></b><font color="#990000">(</font> <font color="#009900">char</font><font color="#990000">*</font> datafile <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        ifstream        <b><font color="#000000">infile</font></b><font color="#990000">(</font>datafile<font color="#990000">)</font> <font color="#990000">;</font>
+        string          line <font color="#990000">;</font>
+        istringstream   strline <font color="#990000">;</font>
+
+        Course   cname <font color="#990000">;</font>
+        Weekday  wday <font color="#990000">;</font>
+        Section  sct <font color="#990000">;</font>
+        string   day <font color="#990000">;</font>
+        <font color="#009900">char</font>     colon <font color="#990000">;</font>
+        
+        <i><font color="#9A1900">// 讀入一行資料, 將每一授課時間存入 courses 優先序列</font></i>
+        <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <b><font color="#000000">getline</font></b><font color="#990000">(</font> infile <font color="#990000">,</font> line <font color="#990000">)</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+            strline<font color="#990000">.</font><b><font color="#000000">str</font></b><font color="#990000">(</font>line<font color="#990000">)</font> <font color="#990000">;</font>
+            strline <font color="#990000">&gt;&gt;</font> cname <font color="#990000">;</font>
+
+            <i><font color="#9A1900">// 讀入課程的授課日期</font></i>
+            <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> strline <font color="#990000">&gt;&gt;</font> day <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+                <i><font color="#9A1900">// 設定授課日變數</font></i>
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> day <font color="#990000">==</font> <font color="#FF0000">"Mon"</font> <font color="#990000">)</font>       wday <font color="#990000">=</font> Mon <font color="#990000">;</font>
+                <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> day <font color="#990000">==</font> <font color="#FF0000">"Tue"</font> <font color="#990000">)</font>  wday <font color="#990000">=</font> Tue <font color="#990000">;</font>
+                <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> day <font color="#990000">==</font> <font color="#FF0000">"Wed"</font> <font color="#990000">)</font>  wday <font color="#990000">=</font> Wed <font color="#990000">;</font>
+                <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> day <font color="#990000">==</font> <font color="#FF0000">"Thu"</font> <font color="#990000">)</font>  wday <font color="#990000">=</font> Thu <font color="#990000">;</font>
+                <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> day <font color="#990000">==</font> <font color="#FF0000">"Fri"</font> <font color="#990000">)</font>  wday <font color="#990000">=</font> Fri <font color="#990000">;</font>
+                <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> day <font color="#990000">==</font> <font color="#FF0000">"Sat"</font> <font color="#990000">)</font>  wday <font color="#990000">=</font> Sat <font color="#990000">;</font>
+                
+                <i><font color="#9A1900">// 讀取冒號</font></i>
+                strline <font color="#990000">&gt;&gt;</font> colon <font color="#990000">;</font>
+
+                <i><font color="#9A1900">// 讀入課程的授課時間, 直到發生讀入錯誤為止</font></i>
+                <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> strline <font color="#990000">&gt;&gt;</font> sct <font color="#990000">)</font> 
+                    courses<font color="#990000">.</font><b><font color="#000000">push</font></b><font color="#990000">(</font> <b><font color="#000000">Schedule</font></b><font color="#990000">(</font>cname<font color="#990000">,</font>wday<font color="#990000">,</font>sct<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+                <i><font color="#9A1900">// 清除讀入錯誤旗幟</font></i>
+                strline<font color="#990000">.</font><b><font color="#000000">clear</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+
+            <i><font color="#9A1900">// 清除讀入錯誤旗幟</font></i>
+            strline<font color="#990000">.</font><b><font color="#000000">clear</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+        <font color="#FF0000">}</font>
+
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印課程表</font></i>
+    <font color="#009900">void</font>  <b><font color="#000000">print_schedule</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+
+        <font color="#009900">char</font><font color="#990000">*</font>  weekday<font color="#990000">[]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#FF0000">"Sun"</font> <font color="#990000">,</font> <font color="#FF0000">"Mon"</font> <font color="#990000">,</font> <font color="#FF0000">"Tue"</font> <font color="#990000">,</font> <font color="#FF0000">"Wed"</font> <font color="#990000">,</font> <font color="#FF0000">"Thu"</font> <font color="#990000">,</font> 
+                             <font color="#FF0000">"Fri"</font> <font color="#990000">,</font> <font color="#FF0000">"Sat"</font> <font color="#FF0000">}</font><font color="#990000">;</font>
+
+        priority_queue<font color="#990000">&lt;</font>Schedule<font color="#990000">&gt;</font>  course <font color="#990000">=</font> courses <font color="#990000">;</font>
+        Schedule  foo <font color="#990000">;</font>
+        <font color="#009900">int</font>       i <font color="#990000">,</font> s <font color="#990000">,</font> d <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 靠左列印</font></i>
+        cout<font color="#990000">.</font><b><font color="#000000">setf</font></b><font color="#990000">(</font>ios<font color="#990000">::</font>adjustfield<font color="#990000">,</font>ios<font color="#990000">::</font>left<font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 列印非週末日標頭</font></i>
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> d <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font> d <font color="#990000">&lt;=</font> <font color="#993399">5</font> <font color="#990000">;</font> <font color="#990000">++</font>d <font color="#990000">)</font> cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">14</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> weekday<font color="#990000">[</font>d<font color="#990000">]</font> <font color="#990000">;</font>
+        cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 取出最優先的課程</font></i>
+        foo <font color="#990000">=</font> course<font color="#990000">.</font><b><font color="#000000">top</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 列印課表, 採用橫排節數, 直排日期</font></i>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> s <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font> s <font color="#990000">&lt;=</font> <font color="#993399">8</font> <font color="#990000">;</font> <font color="#990000">++</font>s <font color="#990000">)</font> <font color="#FF0000">{</font>
+            cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> s <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font><font color="#990000">;</font>
+
+            <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> d <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font> d <font color="#990000">&lt;=</font> <font color="#993399">5</font> <font color="#990000">;</font> <font color="#990000">++</font>d <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+                <i><font color="#9A1900">// 如果此日此節有課, 則在列印後, </font></i>
+                <i><font color="#9A1900">// 再由優先佇列取出一筆資料</font></i>
+                <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> foo<font color="#990000">.</font>day <font color="#990000">==</font> d <font color="#990000">&amp;&amp;</font> foo<font color="#990000">.</font>sct <font color="#990000">==</font> s <font color="#990000">)</font> <font color="#FF0000">{</font>
+                    cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">14</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font>name<font color="#990000">.</font><b><font color="#000000">c_str</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+                    course<font color="#990000">.</font><b><font color="#000000">pop</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+                    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <font color="#990000">!</font> course<font color="#990000">.</font><b><font color="#000000">empty</font></b><font color="#990000">()</font> <font color="#990000">)</font> foo <font color="#990000">=</font> course<font color="#990000">.</font><b><font color="#000000">top</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+                <font color="#FF0000">}</font>
+                <b><font color="#0000FF">else</font></b> 
+                    cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">14</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+            <font color="#FF0000">}</font>
+            cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        
+    <font color="#FF0000">}</font>
+    
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 主函式</font></i>
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    Course_Schedule  <b><font color="#000000">courses</font></b><font color="#990000">(</font><font color="#FF0000">"class.db"</font><font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 列印課表</font></i>
+    courses<font color="#990000">.</font><b><font color="#000000">print_schedule</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+</tt></pre>

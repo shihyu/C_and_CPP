@@ -1,0 +1,146 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;set&gt;</font>
+
+<b><font color="#0000FF">using</font></b>  <b><font color="#0000FF">namespace</font></b>  std <font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<b><font color="#0000FF">class</font></b>  Set <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    set<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font>  data <font color="#990000">;</font>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+ 
+    <i><font color="#9A1900">// 兩種建構函式</font></i>
+    <b><font color="#000000">Set</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+
+    <b><font color="#000000">Set</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T a<font color="#990000">[]</font> <font color="#990000">,</font> <font color="#009900">int</font> s <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> s <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> data<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font>a<font color="#990000">[</font>i<font color="#990000">])</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 集合元素個數</font></i>
+    <b><font color="#0000FF">inline</font></b>  <font color="#009900">int</font>  <b><font color="#000000">size</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> data<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 加入元素</font></i>
+    <b><font color="#0000FF">inline</font></b>  <font color="#009900">void</font>  <b><font color="#000000">insert</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> a <font color="#990000">)</font> <font color="#FF0000">{</font> data<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font>a<font color="#990000">)</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 去除元素, 回傳去除的個數</font></i>
+    <b><font color="#0000FF">inline</font></b>  <font color="#009900">int</font>  <b><font color="#000000">erase</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> a <font color="#990000">)</font> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b>  data<font color="#990000">.</font><b><font color="#000000">erase</font></b><font color="#990000">(</font>a<font color="#990000">)</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 交集</font></i>
+    <b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+    <b><font color="#0000FF">friend</font></b>  Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">*</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> 
+                                 <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> b <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 聯集</font></i>
+    <b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+    <b><font color="#0000FF">friend</font></b>  Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">+</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> 
+                                 <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> b <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 差集 : a 集合去除掉與 b 集合相同的元素</font></i>
+    <b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+    <b><font color="#0000FF">friend</font></b>  Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">-</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> 
+                                 <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> b <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 列印</font></i>
+    <b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                                   <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 交集</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">*</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> b <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;</font>                      foo  <font color="#990000">;</font>
+    <b><font color="#0000FF">typename</font></b>  set<font color="#990000">&lt;</font>S<font color="#990000">&gt;::</font>iterator  iter <font color="#990000">;</font>   <i><font color="#9A1900">// 這裡須要 typename</font></i>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> iter <font color="#990000">=</font> a<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">;</font> iter <font color="#990000">!=</font> a<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>iter <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> b<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">count</font></b><font color="#990000">(*</font>iter<font color="#990000">)</font> <font color="#990000">)</font> foo<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(*</font>iter<font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b>  foo <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 聯集</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">+</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> b <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;</font>  <b><font color="#000000">foo</font></b><font color="#990000">(</font>a<font color="#990000">)</font> <font color="#990000">;</font>
+    foo<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">insert</font></b><font color="#990000">(</font>b<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">(),</font>b<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">())</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  foo <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 差集</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;</font>  <b><font color="#0000FF">operator</font></b> <font color="#990000">-</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> b <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;</font>                      <b><font color="#000000">foo</font></b><font color="#990000">(</font>a<font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">typename</font></b>  set<font color="#990000">&lt;</font>S<font color="#990000">&gt;::</font>iterator  iter   <font color="#990000">;</font>    <i><font color="#9A1900">// 這裡須要 typename</font></i>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> iter <font color="#990000">=</font> a<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">;</font> iter <font color="#990000">!=</font> a<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>iter <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> b<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">count</font></b><font color="#990000">(*</font>iter<font color="#990000">)</font> <font color="#990000">)</font> foo<font color="#990000">.</font><b><font color="#000000">erase</font></b><font color="#990000">(*</font>iter<font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b>  foo <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 列印</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Set<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+    
+    <i><font color="#9A1900">// 這裡須要 typename</font></i>
+    <b><font color="#0000FF">typename</font></b>  set<font color="#990000">&lt;</font>S<font color="#990000">&gt;::</font>const_iterator  iter <font color="#990000">;</font>  
+
+    out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"{  "</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> iter <font color="#990000">=</font> foo<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">;</font> iter <font color="#990000">!=</font> foo<font color="#990000">.</font>data<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">;</font> 
+          <font color="#990000">++</font>iter <font color="#990000">)</font> out <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>iter <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  "</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"}"</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <font color="#009900">int</font>  a<font color="#990000">[</font><font color="#993399">10</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#993399">3</font> <font color="#990000">,</font> <font color="#993399">2</font> <font color="#990000">,</font> <font color="#993399">2</font> <font color="#990000">,</font> <font color="#993399">3</font> <font color="#990000">,</font> <font color="#993399">7</font> <font color="#990000">,</font> <font color="#993399">3</font> <font color="#990000">,</font> <font color="#993399">2</font> <font color="#990000">,</font> <font color="#993399">9</font> <font color="#990000">,</font> <font color="#993399">8</font> <font color="#990000">,</font> <font color="#993399">5</font> <font color="#FF0000">}</font> <font color="#990000">;</font>
+    <font color="#009900">int</font>  b<font color="#990000">[</font><font color="#993399">10</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#993399">1</font> <font color="#990000">,</font> <font color="#993399">2</font> <font color="#990000">,</font> <font color="#993399">6</font> <font color="#990000">,</font> <font color="#993399">2</font> <font color="#990000">,</font> <font color="#993399">5</font> <font color="#990000">,</font> <font color="#993399">5</font> <font color="#990000">,</font> <font color="#993399">7</font> <font color="#990000">,</font> <font color="#993399">3</font> <font color="#990000">,</font> <font color="#993399">4</font> <font color="#990000">,</font> <font color="#993399">1</font> <font color="#FF0000">}</font> <font color="#990000">;</font>
+    
+    Set<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  <b><font color="#000000">m</font></b><font color="#990000">(</font>a<font color="#990000">,</font><font color="#993399">10</font><font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">n</font></b><font color="#990000">(</font>b<font color="#990000">,</font><font color="#993399">10</font><font color="#990000">)</font> <font color="#990000">;</font>
+    
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; m = "</font> <font color="#990000">&lt;&lt;</font> m <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> 
+         <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; n = "</font> <font color="#990000">&lt;&lt;</font> n <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"m * n = "</font> <font color="#990000">&lt;&lt;</font> m <font color="#990000">*</font> n <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"m + n = "</font> <font color="#990000">&lt;&lt;</font> m <font color="#990000">+</font> n <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"m - n = "</font> <font color="#990000">&lt;&lt;</font> m <font color="#990000">-</font> n <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    <font color="#009900">char</font>  c<font color="#990000">[</font><font color="#993399">8</font><font color="#990000">]</font>  <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#FF0000">'s'</font> <font color="#990000">,</font> <font color="#FF0000">'t'</font> <font color="#990000">,</font> <font color="#FF0000">'a'</font> <font color="#990000">,</font> <font color="#FF0000">'r'</font> <font color="#990000">,</font> <font color="#FF0000">'t'</font> <font color="#990000">,</font> <font color="#FF0000">'r'</font> <font color="#990000">,</font> <font color="#FF0000">'e'</font> <font color="#990000">,</font> <font color="#FF0000">'k'</font> <font color="#FF0000">}</font><font color="#990000">;</font>
+    <font color="#009900">char</font>  d<font color="#990000">[</font><font color="#993399">10</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#FF0000">'e'</font> <font color="#990000">,</font> <font color="#FF0000">'n'</font> <font color="#990000">,</font> <font color="#FF0000">'t'</font> <font color="#990000">,</font> <font color="#FF0000">'e'</font> <font color="#990000">,</font> <font color="#FF0000">'r'</font> <font color="#990000">,</font> <font color="#FF0000">'p'</font> <font color="#990000">,</font> <font color="#FF0000">'r'</font> <font color="#990000">,</font> <font color="#FF0000">'i'</font> <font color="#990000">,</font> 
+                    <font color="#FF0000">'s'</font> <font color="#990000">,</font> <font color="#FF0000">'e'</font> <font color="#FF0000">}</font><font color="#990000">;</font>
+
+    Set<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;</font>  <b><font color="#000000">s</font></b><font color="#990000">(</font>c<font color="#990000">,</font><font color="#993399">8</font><font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">t</font></b><font color="#990000">(</font>d<font color="#990000">,</font><font color="#993399">10</font><font color="#990000">)</font> <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; s = "</font> <font color="#990000">&lt;&lt;</font> s <font color="#990000">&lt;&lt;</font> <font color="#FF0000">'</font><font color="#CC33CC">\n</font><font color="#FF0000">'</font> 
+         <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; t = "</font> <font color="#990000">&lt;&lt;</font> t <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"s * t = "</font> <font color="#990000">&lt;&lt;</font> s <font color="#990000">*</font> t <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"s + t = "</font> <font color="#990000">&lt;&lt;</font> s <font color="#990000">+</font> t <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"s - t = "</font> <font color="#990000">&lt;&lt;</font> s <font color="#990000">-</font> t <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+            
+        
+</tt></pre>

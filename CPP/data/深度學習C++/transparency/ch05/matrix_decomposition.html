@@ -1,0 +1,114 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cstdlib&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;ctime&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <font color="#009900">int</font> i <font color="#990000">,</font> j <font color="#990000">,</font> n <font color="#990000">;</font>
+    <font color="#009900">int</font> <font color="#990000">**</font>s <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 块よ皚计 (斗案计) : "</font> <font color="#990000">;</font>
+    cin <font color="#990000">&gt;&gt;</font> n <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    s <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">*[</font>n<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> s<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">[</font>n<font color="#990000">]</font> <font color="#990000">;</font>
+
+    <b><font color="#000000">srand</font></b><font color="#990000">(</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">unsigned</font> <font color="#009900">int</font><font color="#990000">&gt;(</font><b><font color="#000000">time</font></b><font color="#990000">(</font>NULL<font color="#990000">))</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 纗 [0..9] 睹计</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> s<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#000000">rand</font></b><font color="#990000">()%</font><font color="#993399">10</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">//  S 痻皚</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; S : "</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> cout <font color="#990000">&lt;&lt;</font> s<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// よ皚︽计ㄓよ皚</font></i>
+    <font color="#009900">int</font> m <font color="#990000">=</font> n<font color="#990000">/</font><font color="#993399">2</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// だ皌丁倒よ皚 </font></i>
+    <font color="#009900">int</font> <font color="#990000">**</font>a <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">*[</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#009900">int</font> <font color="#990000">**</font>b <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">*[</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#009900">int</font> <font color="#990000">**</font>c <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">*[</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#009900">int</font> <font color="#990000">**</font>d <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">*[</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        a<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">[</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+        b<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">[</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+        c<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">[</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+        d<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <font color="#009900">int</font><font color="#990000">[</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+
+    <i><font color="#9A1900">// 砞﹚籔 A 痻皚</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; A : "</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            a<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">=</font> s<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">;</font>
+            cout <font color="#990000">&lt;&lt;</font> a<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 砞﹚籔 B 痻皚</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; B : "</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            b<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">=</font> s<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">+</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+            cout <font color="#990000">&lt;&lt;</font> b<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 砞﹚籔 C 痻皚</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; C : "</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            c<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">=</font> s<font color="#990000">[</font>i<font color="#990000">+</font>m<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">;</font>
+            cout <font color="#990000">&lt;&lt;</font> c<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 砞﹚籔 D 痻皚</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; D : "</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> j <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> j <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>j <font color="#990000">)</font> <font color="#FF0000">{</font>
+            d<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">=</font> s<font color="#990000">[</font>i<font color="#990000">+</font>m<font color="#990000">][</font>j<font color="#990000">+</font>m<font color="#990000">]</font> <font color="#990000">;</font>
+            cout <font color="#990000">&lt;&lt;</font> d<font color="#990000">[</font>i<font color="#990000">][</font>j<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" "</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> s<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> s <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> m <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> a<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>  <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> b<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> c<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>  <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> d<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+    <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> a <font color="#990000">;</font>
+    <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> b <font color="#990000">;</font>
+    <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> c <font color="#990000">;</font>
+    <b><font color="#0000FF">delete</font></b> <font color="#990000">[]</font> d <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

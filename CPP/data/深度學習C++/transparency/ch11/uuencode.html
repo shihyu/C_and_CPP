@@ -1,0 +1,97 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;fstream&gt;</font>
+<b><font color="#000080">#include</font></b>  <font color="#FF0000">&lt;string&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <i><font color="#9A1900">// 轉碼後的每一橫行字元數最多為 45 個字元</font></i>
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font>     max_char_per_line <font color="#990000">=</font> <font color="#993399">45</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 轉碼文字的起始字元</font></i>
+    <font color="#009900">char</font>          starting_char     <font color="#990000">=</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+
+    <font color="#009900">int</font>           i <font color="#990000">,</font> no <font color="#990000">,</font> total_char  <font color="#990000">;</font>
+    <font color="#009900">unsigned</font> <font color="#009900">int</font>  a <font color="#990000">,</font> num<font color="#990000">[</font><font color="#993399">4</font><font color="#990000">]</font> <font color="#990000">;</font>
+    string        infile <font color="#990000">,</font> line <font color="#990000">;</font>
+
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入二位元檔名 : "</font> <font color="#990000">;</font>
+    cin  <font color="#990000">&gt;&gt;</font> infile <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">&gt; encoded  output :"</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 開啟二位元資料檔    </font></i>
+    ifstream  <b><font color="#000000">in</font></b><font color="#990000">(</font> infile<font color="#990000">.</font><b><font color="#000000">c_str</font></b><font color="#990000">()</font> <font color="#990000">,</font> ios<font color="#990000">::</font>in <font color="#990000">|</font> ios<font color="#990000">::</font>binary <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// num 為預定位元陣列用於作位元運算</font></i>
+    <i><font color="#9A1900">// num[3] = 111111              </font></i>
+    <i><font color="#9A1900">// num[2] = 111111000000</font></i>
+    <i><font color="#9A1900">// num[1] = 111111000000000000  </font></i>
+    <i><font color="#9A1900">// num[0] = 111111000000000000000000</font></i>
+
+    num<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">63</font>                 <font color="#990000">;</font>   num<font color="#990000">[</font><font color="#993399">2</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#990000">(</font> num<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#993399">6</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    num<font color="#990000">[</font><font color="#993399">1</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#990000">(</font> num<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#993399">12</font> <font color="#990000">)</font>   <font color="#990000">;</font>   num<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#990000">(</font> num<font color="#990000">[</font><font color="#993399">3</font><font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#993399">18</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        
+        line <font color="#990000">=</font> <font color="#FF0000">""</font> <font color="#990000">;</font>
+        total_char <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">do</font></b> <font color="#FF0000">{</font>
+
+            <i><font color="#9A1900">// 讀取 3 位元組資料到一整數 a</font></i>
+            a <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+            in<font color="#990000">.</font><b><font color="#000000">read</font></b><font color="#990000">(</font> <b><font color="#0000FF">reinterpret_cast</font></b><font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">*&gt;(&amp;</font>a<font color="#990000">)</font> <font color="#990000">,</font> <font color="#993399">3</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+            <i><font color="#9A1900">// 如果使用 MOTOROLA 的中央處理器 :  </font></i>
+            <i><font color="#9A1900">// 由於只讀了三個位元組的資料, 且讀入的資料被放在</font></i>
+            <i><font color="#9A1900">// 整數左邊三個位元組的位置, 因此須讓整數資料向往</font></i>
+            <i><font color="#9A1900">// 右移八個位元位置</font></i>
+            <i><font color="#9A1900">// a &gt;&gt;= 8  ;</font></i>
+
+            <i><font color="#9A1900">// 如果使用英代爾 (INTEL) 的中央處理器 :</font></i>
+            <i><font color="#9A1900">// 則須將上一行程式碼以下行程式碼取代, </font></i>
+            <i><font color="#9A1900">// 目的在將讀入的第 1 個與第 3 個位元組資料對調</font></i>
+            a <font color="#990000">=</font> <font color="#990000">(</font> <font color="#990000">(</font> <font color="#990000">(</font> a <font color="#990000">&amp;</font> <font color="#993399">255</font> <font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> <font color="#993399">16</font> <font color="#990000">)</font> <font color="#990000">|</font> <font color="#990000">(</font> a <font color="#990000">&amp;</font> <font color="#990000">(</font><font color="#993399">255</font><font color="#990000">&lt;&lt;</font><font color="#993399">8</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">|</font> 
+                  <font color="#990000">(</font> a <font color="#990000">&gt;&gt;</font> <font color="#993399">16</font> <font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+            
+            <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> in<font color="#990000">.</font><b><font color="#000000">gcount</font></b><font color="#990000">()</font> <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> 
+
+                <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>         <i><font color="#9A1900">// 如果沒讀到任何資料, 則離開</font></i>
+
+            <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+
+                <i><font color="#9A1900">// 計算讀入的字元數相當於多少六個位元為切割單位</font></i>
+                no <font color="#990000">=</font> in<font color="#990000">.</font><b><font color="#000000">gcount</font></b><font color="#990000">()</font> <font color="#990000">+</font> <font color="#993399">1</font> <font color="#990000">;</font>
+                
+                <i><font color="#9A1900">// 以六位元為一單位, 開始轉碼</font></i>
+                <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+                    line  <font color="#990000">+=</font> <font color="#990000">(</font> <font color="#990000">(</font> a <font color="#990000">&amp;</font> num<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">)</font> <font color="#990000">&gt;&gt;</font> <font color="#990000">((</font><font color="#993399">3</font><font color="#990000">-</font>i<font color="#990000">)*</font><font color="#993399">6</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">+</font> 
+                             starting_char <font color="#990000">;</font>
+
+                <i><font color="#9A1900">// 計算所讀入的字元數</font></i>
+                total_char <font color="#990000">+=</font> in<font color="#990000">.</font><b><font color="#000000">gcount</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+        
+            <font color="#FF0000">}</font>
+            
+        <font color="#FF0000">}</font> <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> total_char <font color="#990000">&lt;</font> max_char_per_line <font color="#990000">)</font> <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 列印總字元數及轉碼後字串</font></i>
+        cout <font color="#990000">&lt;&lt;</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;(</font>total_char<font color="#990000">+</font>starting_char<font color="#990000">)</font> 
+             <font color="#990000">&lt;&lt;</font> line<font color="#990000">.</font><b><font color="#000000">c_str</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+        <i><font color="#9A1900">// 檔案末尾</font></i>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> in<font color="#990000">.</font><b><font color="#000000">gcount</font></b><font color="#990000">()</font> <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+            
+    <font color="#FF0000">}</font>
+
+    in<font color="#990000">.</font><b><font color="#000000">close</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+</tt></pre>

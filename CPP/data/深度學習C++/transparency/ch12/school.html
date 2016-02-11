@@ -1,0 +1,127 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+
+<b><font color="#0000FF">using</font></b>  <b><font color="#0000FF">namespace</font></b>  std <font color="#990000">;</font>
+
+<b><font color="#0000FF">const</font></b>  <font color="#009900">int</font>  MAX_CLASS  <font color="#990000">=</font> <font color="#993399">3</font>  <font color="#990000">;</font>   <i><font color="#9A1900">// 班別最大數目</font></i>
+<b><font color="#0000FF">const</font></b>  <font color="#009900">int</font>  MAX_STUDENT <font color="#990000">=</font> <font color="#993399">10</font> <font color="#990000">;</font>  <i><font color="#9A1900">// 每個班別學生最大數目</font></i>
+
+<i><font color="#9A1900">// 學生資料結構 : 姓名與學號</font></i>
+<b><font color="#0000FF">struct</font></b>  Student <font color="#FF0000">{</font>
+    string  name <font color="#990000">;</font>
+    <font color="#009900">int</font>     id   <font color="#990000">;</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 覆載學生資料型別的輸入運算子</font></i>
+istream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&gt;&gt;</font> <font color="#990000">(</font> istream<font color="#990000">&amp;</font> in  <font color="#990000">,</font> Student<font color="#990000">&amp;</font> s <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b>  in <font color="#990000">&gt;&gt;</font> s<font color="#990000">.</font>name <font color="#990000">&gt;&gt;</font> s<font color="#990000">.</font>id <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 覆載資料型別的輸出運算子</font></i>
+ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Student<font color="#990000">&amp;</font> s <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">6</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> s<font color="#990000">.</font>name<font color="#990000">.</font><b><font color="#000000">c_str</font></b><font color="#990000">()</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" ["</font> <font color="#990000">&lt;&lt;</font>  s<font color="#990000">.</font>id 
+                <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"]"</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 班別類別</font></i>
+<b><font color="#0000FF">class</font></b>  Class <font color="#FF0000">{</font>
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+    
+    <i><font color="#9A1900">// 班別內的學生名單與人數</font></i>
+    Student   student<font color="#990000">[</font>MAX_STUDENT<font color="#990000">]</font> <font color="#990000">;</font>
+    <font color="#009900">int</font>       student_no <font color="#990000">;</font>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+    
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Class</font></b><font color="#990000">()</font> <font color="#990000">:</font> <b><font color="#000000">student_no</font></b><font color="#990000">(</font><font color="#993399">0</font><font color="#990000">)</font> <font color="#FF0000">{}</font>
+    
+    <i><font color="#9A1900">// 加入一個學生到班別內</font></i>
+    <font color="#009900">bool</font>  <b><font color="#000000">insert_student</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Student<font color="#990000">&amp;</font> s <font color="#990000">)</font> <font color="#FF0000">{</font> 
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> student_no <font color="#990000">==</font> MAX_STUDENT <font color="#990000">)</font>
+            <b><font color="#0000FF">return</font></b>  <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+        <b><font color="#0000FF">else</font></b> <font color="#FF0000">{</font>
+            student<font color="#990000">[</font>student_no<font color="#990000">++]</font> <font color="#990000">=</font> s <font color="#990000">;</font>  
+            <b><font color="#0000FF">return</font></b>  <b><font color="#0000FF">true</font></b> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 班別現在的學生人數</font></i>
+    <font color="#009900">int</font>  <b><font color="#000000">current_student_no</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> student_no <font color="#990000">;</font> <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 覆載班別類別的輸出運算子</font></i>
+    <b><font color="#0000FF">friend</font></b> ostream<font color="#990000">&amp;</font> <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Class<font color="#990000">&amp;</font> foo <font color="#990000">)</font><font color="#FF0000">{</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> foo<font color="#990000">.</font>student_no <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            out <font color="#990000">&lt;&lt;</font> i<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" : "</font> <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font>student<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        <b><font color="#0000FF">return</font></b> out <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 課程類別</font></i>
+<b><font color="#0000FF">class</font></b>  Course <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 每一課程的班別陣列</font></i>
+    Class  classes<font color="#990000">[</font>MAX_CLASS<font color="#990000">]</font> <font color="#990000">;</font>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 加入一個學生對某一個班別</font></i>
+    <font color="#009900">bool</font>  <b><font color="#000000">add_student</font></b><font color="#990000">(</font> <font color="#009900">int</font> c <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Student<font color="#990000">&amp;</font> s <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> c <font color="#990000">&lt;</font> <font color="#993399">1</font> <font color="#990000">||</font> c <font color="#990000">&gt;</font> MAX_CLASS <font color="#990000">)</font> <b><font color="#0000FF">return</font></b> <b><font color="#0000FF">false</font></b> <font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">(</font> classes<font color="#990000">[</font>c<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">].</font><b><font color="#000000">insert_student</font></b><font color="#990000">(</font>s<font color="#990000">)</font> <font color="#990000">?</font> <b><font color="#0000FF">true</font></b> <font color="#990000">:</font> <b><font color="#0000FF">false</font></b> <font color="#990000">)</font> <font color="#990000">;</font> 
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 覆載課程的輸出運算子</font></i>
+    <b><font color="#0000FF">friend</font></b>  ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> 
+                                   <b><font color="#0000FF">const</font></b> Course<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        <font color="#009900">int</font>  total_student_no <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> MAX_CLASS <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+            total_student_no <font color="#990000">+=</font> foo<font color="#990000">.</font>classes<font color="#990000">[</font>i<font color="#990000">].</font><b><font color="#000000">current_student_no</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+            out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"第 "</font> <font color="#990000">&lt;&lt;</font> i<font color="#990000">+</font><font color="#993399">1</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 班"</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font>
+                <font color="#990000">&lt;&lt;</font> left <font color="#990000">&lt;&lt;</font> foo<font color="#990000">.</font>classes<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"總修課人數 : "</font> <font color="#990000">&lt;&lt;</font> total_student_no <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+        
+        <b><font color="#0000FF">return</font></b> out <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    Course   foo <font color="#990000">;</font>  <i><font color="#9A1900">// 課程物件</font></i>
+    <font color="#009900">int</font>      c <font color="#990000">;</font>    <i><font color="#9A1900">// 班別</font></i>
+    Student  s <font color="#990000">;</font>    <i><font color="#9A1900">// 學生</font></i>
+
+    <i><font color="#9A1900">// 輸入班別與學生資料到課程物件內, 鍵入 0 結束輸入</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 輸入班別, 姓名, 學號 : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+        cin <font color="#990000">&gt;&gt;</font> c <font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> c <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font> <b><font color="#0000FF">break</font></b> <font color="#990000">;</font>
+        cin <font color="#990000">&gt;&gt;</font> s <font color="#990000">;</font>
+        foo<font color="#990000">.</font><b><font color="#000000">add_student</font></b><font color="#990000">(</font>c<font color="#990000">,</font>s<font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印全部修課班別學生</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">&lt;&lt;</font> foo <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+        
+    
+    
+</tt></pre>

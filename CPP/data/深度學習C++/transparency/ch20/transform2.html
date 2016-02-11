@@ -1,0 +1,29 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iterator&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;fstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;functional&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+
+    <i><font color="#9A1900">// data1 : 2 7 3 9 4 5 ,  data2 : 2 0 3 8 4 3</font></i>
+    ifstream  <b><font color="#000000">file1</font></b><font color="#990000">(</font><font color="#FF0000">"data1"</font><font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">file2</font></b><font color="#990000">(</font><font color="#FF0000">"data2"</font><font color="#990000">)</font> <font color="#990000">;</font>
+    ofstream  <b><font color="#000000">file3</font></b><font color="#990000">(</font><font color="#FF0000">"data3"</font><font color="#990000">)</font> <font color="#990000">;</font>
+ 
+    <i><font color="#9A1900">// 取出 data1 與 data2 檔案內整數, 直接將相乘後數字存入檔案 data3</font></i>
+    <b><font color="#000000">transform</font></b><font color="#990000">(</font> istream_iterator<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>file1<font color="#990000">)</font> <font color="#990000">,</font> istream_iterator<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;()</font> <font color="#990000">,</font>
+               istream_iterator<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>file2<font color="#990000">)</font> <font color="#990000">,</font> 
+               ostream_iterator<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;(</font>file3<font color="#990000">,</font><font color="#FF0000">" "</font><font color="#990000">)</font> <font color="#990000">,</font> multiplies<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+</tt></pre>

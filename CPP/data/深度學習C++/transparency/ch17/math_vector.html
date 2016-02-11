@@ -1,0 +1,97 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;sstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cassert&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<b><font color="#0000FF">class</font></b> Vec <font color="#FF0000">{</font>
+    
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+    
+    vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font>  dat <font color="#990000">;</font>     <i><font color="#9A1900">// 用向量陣列儲存向量的元素</font></i>
+    
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <b><font color="#000000">Vec</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+    
+    <b><font color="#000000">Vec</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">dat</font></b><font color="#990000">(</font>foo<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <i><font color="#9A1900">// 向量元素個數</font></i>
+    <font color="#009900">int</font> <b><font color="#000000">size</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> dat<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 下標運算子</font></i>
+    T<font color="#990000">&amp;</font>          <b><font color="#0000FF">operator</font></b><font color="#990000">[]</font> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">)</font>       <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b> dat<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+    <b><font color="#0000FF">const</font></b>  T<font color="#990000">&amp;</font>   <b><font color="#0000FF">operator</font></b><font color="#990000">[]</font> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b> dat<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 定義 += 運算子</font></i>
+    Vec<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">-=</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Vec<font color="#990000">&amp;</font> a <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#000000">assert</font></b><font color="#990000">(</font> dat<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">==</font> a<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> dat<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> dat<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">-=</font> a<font color="#990000">.</font>dat<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b>  <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 定義 Vec 專用的輸入運算子</font></i>
+    <b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+    <b><font color="#0000FF">friend</font></b>  istream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&gt;&gt;</font> <font color="#990000">(</font> istream<font color="#990000">&amp;</font> in <font color="#990000">,</font> Vec<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+        string  line <font color="#990000">;</font>
+        <b><font color="#000000">getline</font></b><font color="#990000">(</font> in <font color="#990000">,</font> line <font color="#990000">)</font> <font color="#990000">;</font>
+        istringstream  <b><font color="#000000">istr</font></b><font color="#990000">(</font>line<font color="#990000">)</font> <font color="#990000">;</font>
+        S  tmp <font color="#990000">;</font>
+        <b><font color="#0000FF">while</font></b> <font color="#990000">(</font> istr <font color="#990000">&gt;&gt;</font> tmp <font color="#990000">)</font> foo<font color="#990000">.</font>dat<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font>tmp<font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b>  in <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 定義 Vec 專用的輸出運算子</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> S<font color="#990000">&gt;</font>
+ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Vec<font color="#990000">&lt;</font>S<font color="#990000">&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+    out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"( "</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> foo<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> out <font color="#990000">&lt;&lt;</font> foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> <font color="#FF0000">' '</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">")"</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 計算兩向量的加法</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+Vec<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">+</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Vec<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Vec<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> b <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font> a<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">==</font> b<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 定義一向量陣列  後將兩向量物件的元素合成到向量陣列中</font></i>
+    vector<font color="#990000">&lt;</font>T<font color="#990000">&gt;</font>  <b><font color="#000000">foo</font></b><font color="#990000">(</font>a<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">())</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> foo<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> a<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">+</font> b<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  Vec<font color="#990000">&lt;</font>T<font color="#990000">&gt;(</font>foo<font color="#990000">)</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 計算兩向量的內積和</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+T  <b><font color="#0000FF">operator</font></b><font color="#990000">*</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Vec<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Vec<font color="#990000">&lt;</font>T<font color="#990000">&gt;&amp;</font> b <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#000000">assert</font></b><font color="#990000">(</font> a<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">==</font> b<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    T  sum <font color="#990000">=</font> <b><font color="#0000FF">static_cast</font></b><font color="#990000">&lt;</font>T<font color="#990000">&gt;(</font><font color="#993399">0</font><font color="#990000">.)</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> a<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> sum <font color="#990000">+=</font> a<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">*</font> b<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  sum <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+        
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    Vec<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  a <font color="#990000">,</font> b <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 分別輸入兩個向量 (元素個數相同) : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"a = "</font> <font color="#990000">;</font>    cin  <font color="#990000">&gt;&gt;</font> a <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"b = "</font> <font color="#990000">;</font>    cin  <font color="#990000">&gt;&gt;</font> b <font color="#990000">;</font>
+    
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"a + b  =&gt; "</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">+</font> b  <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"a * b  =&gt; "</font> <font color="#990000">&lt;&lt;</font> a <font color="#990000">*</font> b  <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"a -= b =&gt; "</font> <font color="#990000">&lt;&lt;</font> <font color="#990000">(</font>a <font color="#990000">-=</font> b<font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+        
+    
+</tt></pre>

@@ -1,0 +1,39 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iterator&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// abc:2 , def:3 , ghi:4 , jkl:5 , mno:6 , pqrs:7 , tuv:8 , wxyz:9</font></i>
+<font color="#009900">void</font>  <b><font color="#000000">decoding</font></b><font color="#990000">(</font> <font color="#009900">char</font><font color="#990000">&amp;</font> c <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> c <font color="#990000">&gt;=</font> <font color="#FF0000">'a'</font> <font color="#990000">&amp;&amp;</font> c <font color="#990000">&lt;=</font> <font color="#FF0000">'o'</font> <font color="#990000">)</font> 
+        c <font color="#990000">=</font> <font color="#990000">(</font> c <font color="#990000">-</font> <font color="#FF0000">'a'</font> <font color="#990000">)</font> <font color="#990000">/</font> <font color="#993399">3</font> <font color="#990000">+</font> <font color="#FF0000">'2'</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> c <font color="#990000">&gt;=</font> <font color="#FF0000">'p'</font> <font color="#990000">&amp;&amp;</font> c <font color="#990000">&lt;=</font> <font color="#FF0000">'s'</font> <font color="#990000">)</font> 
+        c <font color="#990000">=</font> <font color="#FF0000">'7'</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">else</font></b> <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> c <font color="#990000">&gt;=</font> <font color="#FF0000">'t'</font> <font color="#990000">&amp;&amp;</font> c <font color="#990000">&lt;=</font> <font color="#FF0000">'v'</font> <font color="#990000">)</font> 
+        c <font color="#990000">=</font> <font color="#FF0000">'8'</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">else</font></b> 
+        c <font color="#990000">=</font> <font color="#FF0000">'9'</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    string  phone <font color="#990000">=</font> <font color="#FF0000">"startrek"</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> phone <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" --&gt; "</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 將英文字轉為字元數字號碼</font></i>
+    <b><font color="#000000">for_each</font></b><font color="#990000">(</font> phone<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">,</font> phone<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">,</font> decoding <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 列印字元數字號碼</font></i>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> phone<font color="#990000">.</font><b><font color="#000000">begin</font></b><font color="#990000">()</font> <font color="#990000">,</font> phone<font color="#990000">.</font><b><font color="#000000">end</font></b><font color="#990000">()</font> <font color="#990000">,</font> ostream_iterator<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;(</font>cout<font color="#990000">,</font><font color="#FF0000">""</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

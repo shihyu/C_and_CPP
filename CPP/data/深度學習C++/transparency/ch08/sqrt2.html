@@ -1,0 +1,47 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;cmath&gt;</font>             <i><font color="#9A1900">// 根號函式 </font></i>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">double</font>  <b><font color="#000000">r</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;&amp;</font> a <font color="#990000">,</font> <font color="#009900">int</font> i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font>  n <font color="#990000">=</font> a<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()-</font><font color="#993399">1</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> i <font color="#990000">==</font> <font color="#993399">0</font> <font color="#990000">)</font>
+        <b><font color="#0000FF">return</font></b>  a<font color="#990000">[</font>n<font color="#990000">]</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">else</font></b> 
+        <b><font color="#0000FF">return</font></b>  a<font color="#990000">[</font>n<font color="#990000">-</font>i<font color="#990000">]</font> <font color="#990000">+</font> <font color="#993399">1</font><font color="#990000">./</font><b><font color="#000000">r</font></b><font color="#990000">(</font>a<font color="#990000">,</font>i<font color="#990000">-</font><font color="#993399">1</font><font color="#990000">)</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">double</font>  approx <font color="#990000">;</font>                     <i><font color="#9A1900">// 儲存估算值</font></i>
+    <font color="#009900">double</font>  sqrt2 <font color="#990000">=</font> <b><font color="#000000">sqrt</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">.)</font> <font color="#990000">;</font>           <i><font color="#9A1900">// 計算根號 2</font></i>
+    
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 連分數估算 sqrt(2) : </font><font color="#CC33CC">\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;=</font> <font color="#993399">15</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+        vector<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font>  <b><font color="#000000">a</font></b><font color="#990000">(</font>i<font color="#990000">+</font><font color="#993399">1</font><font color="#990000">,</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">;</font>          <i><font color="#9A1900">// 設定連分數係數</font></i>
+        a<font color="#990000">[</font><font color="#993399">0</font><font color="#990000">]</font> <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font>                       <i><font color="#9A1900">// 第一個元素改為 1</font></i>
+
+        approx <font color="#990000">=</font> <b><font color="#000000">r</font></b><font color="#990000">(</font>a<font color="#990000">,</font>i<font color="#990000">)</font> <font color="#990000">;</font>                <i><font color="#9A1900">// 連分數估算 </font></i>
+
+        cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"c_"</font> <font color="#990000">&lt;&lt;</font> left <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">2</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> i <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" : "</font> 
+             <font color="#990000">&lt;&lt;</font> fixed <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">10</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> approx 
+             <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  誤差 : "</font> <font color="#990000">&lt;&lt;</font> right <font color="#990000">&lt;&lt;</font> scientific 
+             <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">14</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> sqrt2<font color="#990000">-</font>approx <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <font color="#FF0000">}</font>
+    
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

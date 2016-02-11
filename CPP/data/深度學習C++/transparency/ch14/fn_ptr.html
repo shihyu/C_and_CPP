@@ -1,0 +1,80 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iomanip&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 平方函式</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+T <b><font color="#000000">square</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> i <font color="#990000">)</font> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b> <font color="#990000">(</font> i <font color="#990000">*</font> i  <font color="#990000">)</font> <font color="#990000">;</font>  <font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 立方函式</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+T <b><font color="#000000">cubic</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> i <font color="#990000">)</font> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b> <font color="#990000">(</font> i <font color="#990000">*</font> i <font color="#990000">*</font> i <font color="#990000">)</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 階乘函式</font></i>
+<font color="#009900">int</font> <b><font color="#000000">factorial</font></b><font color="#990000">(</font> <font color="#009900">int</font> n <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <font color="#009900">int</font>  p <font color="#990000">=</font> <font color="#993399">1</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">2</font> <font color="#990000">;</font> i <font color="#990000">&lt;=</font> n <font color="#990000">;</font> i<font color="#990000">++</font> <font color="#990000">)</font>  p <font color="#990000">*=</font> i <font color="#990000">;</font>
+    <b><font color="#0000FF">return</font></b>  p <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 變號</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+T  <b><font color="#000000">negative</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T<font color="#990000">&amp;</font> i <font color="#990000">)</font> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b>  <font color="#990000">-</font>i <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 複製陣列 : 將 a 陣列的前 S 個元素複製到 b 陣列</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<font color="#009900">void</font>  <b><font color="#000000">copy_array</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> T a<font color="#990000">[]</font> <font color="#990000">,</font> T  b<font color="#990000">[]</font> <font color="#990000">,</font> <font color="#009900">int</font> S <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> S <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> b<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> a<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 轉換函式</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> Function <font color="#990000">,</font> <b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<font color="#009900">void</font>  <b><font color="#000000">transform </font></b><font color="#990000">(</font> Function f <font color="#990000">,</font> T foo<font color="#990000">[]</font> <font color="#990000">,</font> <font color="#009900">int</font> size <font color="#990000">)</font> <font color="#FF0000">{</font> 
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font>  foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <b><font color="#000000">f</font></b><font color="#990000">(</font> foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">)</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 列印陣列 : </font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">class</font></b> T<font color="#990000">&gt;</font>
+<font color="#009900">void</font>  <b><font color="#000000">print_array</font></b><font color="#990000">(</font> T array<font color="#990000">[]</font> <font color="#990000">,</font> <font color="#009900">int</font> size <font color="#990000">,</font> <font color="#009900">char</font> <font color="#990000">*</font>header <font color="#990000">=</font> <font color="#FF0000">""</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+    cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">8</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> header <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" :"</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> size <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> cout <font color="#990000">&lt;&lt;</font> <b><font color="#000000">setw</font></b><font color="#990000">(</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> array<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font>  <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font>     S <font color="#990000">=</font> <font color="#993399">5</font> <font color="#990000">;</font>
+    <font color="#009900">int</font>        a<font color="#990000">[</font>S<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#993399">1</font> <font color="#990000">,</font> <font color="#993399">2</font> <font color="#990000">,</font> <font color="#993399">3</font> <font color="#990000">,</font> <font color="#993399">4</font> <font color="#990000">,</font> <font color="#993399">5</font> <font color="#FF0000">}</font> <font color="#990000">,</font> b<font color="#990000">[</font>S<font color="#990000">]</font> <font color="#990000">;</font>
+
+    <b><font color="#000000">print_array</font></b><font color="#990000">(</font> a <font color="#990000">,</font> S <font color="#990000">,</font><font color="#FF0000">"原始陣列"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 平方 b 陣列的每個元素</font></i>
+    <b><font color="#000000">copy_array</font></b><font color="#990000">(</font> a <font color="#990000">,</font> b <font color="#990000">,</font> S <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">transform</font></b><font color="#990000">(</font> square<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font> <font color="#990000">,</font> b <font color="#990000">,</font> S <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">print_array</font></b><font color="#990000">(</font> b <font color="#990000">,</font> S <font color="#990000">,</font><font color="#FF0000">"平方"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 立方 b 陣列的每個元素</font></i>
+    <b><font color="#000000">copy_array</font></b><font color="#990000">(</font> a <font color="#990000">,</font> b <font color="#990000">,</font> S <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">transform</font></b><font color="#990000">(</font> cubic<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font> <font color="#990000">,</font> b <font color="#990000">,</font> S <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">print_array</font></b><font color="#990000">(</font> b <font color="#990000">,</font> S <font color="#990000">,</font> <font color="#FF0000">"立方"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 將 b 陣列每個元素變換正負號</font></i>
+    <b><font color="#000000">copy_array</font></b><font color="#990000">(</font> a <font color="#990000">,</font> b <font color="#990000">,</font> S <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">transform</font></b><font color="#990000">(</font> negative<font color="#990000">&lt;</font><font color="#009900">int</font><font color="#990000">&gt;</font> <font color="#990000">,</font> b <font color="#990000">,</font> S <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">print_array</font></b><font color="#990000">(</font> b <font color="#990000">,</font> S <font color="#990000">,</font> <font color="#FF0000">"變號"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 將 b 陣列的每個元素改換為其階乘值</font></i>
+    <b><font color="#000000">copy_array</font></b><font color="#990000">(</font> a <font color="#990000">,</font> b <font color="#990000">,</font> S <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">transform</font></b><font color="#990000">(</font> factorial <font color="#990000">,</font> b <font color="#990000">,</font> S <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#000000">print_array</font></b><font color="#990000">(</font> b <font color="#990000">,</font> S <font color="#990000">,</font> <font color="#FF0000">"階乘"</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+</tt></pre>

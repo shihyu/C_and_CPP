@@ -1,0 +1,169 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;vector&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;string&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<b><font color="#0000FF">typedef</font></b>  string  Name <font color="#990000">;</font>
+<b><font color="#0000FF">typedef</font></b>  string  Location <font color="#990000">;</font>
+
+
+<i><font color="#9A1900">// 汽車類別</font></i>
+<b><font color="#0000FF">class</font></b>  Car <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">protected</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 乘客人數</font></i>
+    <font color="#009900">int</font>  passenger_no <font color="#990000">;</font>                   
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Car</font></b><font color="#990000">(</font> <font color="#009900">int</font> n <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">)</font>  <font color="#990000">:</font> <b><font color="#000000">passenger_no</font></b><font color="#990000">(</font>n<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 指定虛擬運算子與列印虛擬函式</font></i>
+    <b><font color="#0000FF">virtual</font></b> Car<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">=(</font> <b><font color="#0000FF">const</font></b> Car<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">virtual</font></b> ostream<font color="#990000">&amp;</font>  <b><font color="#000000">print</font></b><font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 乘客數目</font></i>
+    <font color="#009900">int</font>  <b><font color="#000000">passenger</font></b><font color="#990000">()</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>  <b><font color="#0000FF">return</font></b> passenger_no <font color="#990000">;</font>  <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 虛擬解構函式</font></i>
+    <b><font color="#0000FF">virtual</font></b> <font color="#990000">~</font><b><font color="#000000">Car</font></b><font color="#990000">()</font> <font color="#FF0000">{}</font>
+
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 覆載輸出運算子</font></i>
+ostream<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">&lt;&lt;</font> <font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">,</font> <b><font color="#0000FF">const</font></b> Car<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+    <b><font color="#0000FF">return</font></b>  foo<font color="#990000">.</font><b><font color="#000000">print</font></b><font color="#990000">(</font>out<font color="#990000">)</font> <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 休旅車類別 </font></i>
+<b><font color="#0000FF">class</font></b>  RV <font color="#990000">:</font>  <b><font color="#0000FF">public</font></b>  Car <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    Location   place <font color="#990000">;</font>   <i><font color="#9A1900">// 探勘處所</font></i>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">RV</font></b><font color="#990000">(</font> Location p <font color="#990000">,</font> <font color="#009900">int</font> no <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">Car</font></b><font color="#990000">(</font>no<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">place</font></b><font color="#990000">(</font>p<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <i><font color="#9A1900">// 指定建構函式</font></i>
+    RV<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">=</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> RV<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+        place        <font color="#990000">=</font> foo<font color="#990000">.</font>place <font color="#990000">;</font>
+        passenger_no <font color="#990000">=</font> foo<font color="#990000">.</font>passenger_no <font color="#990000">;</font>
+        <b><font color="#0000FF">return</font></b>  <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 指定建構函式</font></i>
+    RV<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">=</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Car<font color="#990000">&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  <b><font color="#0000FF">operator</font></b><font color="#990000">=(</font> <b><font color="#0000FF">dynamic_cast</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">const</font></b> RV<font color="#990000">&amp;&gt;(</font>foo<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+    <i><font color="#9A1900">// 列印</font></i>
+    ostream<font color="#990000">&amp;</font>  <b><font color="#000000">print</font></b><font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 休旅車   </font><font color="#CC33CC">\t</font><font color="#FF0000">"</font>
+                    <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  乘客   : "</font> <font color="#990000">&lt;&lt;</font> passenger_no <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 人</font><font color="#CC33CC">\t\t</font><font color="#FF0000">"</font> 
+                    <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  旅遊地 : "</font> <font color="#990000">&lt;&lt;</font> place <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font> <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 豪華禮車類別</font></i>
+<b><font color="#0000FF">class</font></b>  Limousine <font color="#990000">:</font> <b><font color="#0000FF">public</font></b>  Car <font color="#FF0000">{</font>
+
+  <b><font color="#0000FF">private</font></b> <font color="#990000">:</font>
+
+    Name   driver <font color="#990000">;</font>      <i><font color="#9A1900">// 司機</font></i>
+
+  <b><font color="#0000FF">public</font></b> <font color="#990000">:</font>
+
+    <i><font color="#9A1900">// 建構函式</font></i>
+    <b><font color="#000000">Limousine</font></b><font color="#990000">(</font> Name d <font color="#990000">,</font> <font color="#009900">int</font> no <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">)</font> <font color="#990000">:</font> <b><font color="#000000">Car</font></b><font color="#990000">(</font>no<font color="#990000">)</font> <font color="#990000">,</font> <b><font color="#000000">driver</font></b><font color="#990000">(</font>d<font color="#990000">)</font> <font color="#FF0000">{}</font>
+
+    <i><font color="#9A1900">// 指定建構函式 : 另一種處理方式</font></i>
+    Limousine<font color="#990000">&amp;</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">=</font> <font color="#990000">(</font> <b><font color="#0000FF">const</font></b> Car<font color="#990000">&amp;</font> car <font color="#990000">)</font> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">const</font></b> Limousine  <font color="#990000">*</font>lm <font color="#990000">=</font> 
+            <b><font color="#0000FF">dynamic_cast</font></b><font color="#990000">&lt;</font><b><font color="#0000FF">const</font></b> Limousine<font color="#990000">*&gt;(&amp;</font>car<font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> lm <font color="#990000">)</font> <font color="#FF0000">{</font>
+            driver <font color="#990000">=</font> lm<font color="#990000">-&gt;</font>driver <font color="#990000">;</font>
+            passenger_no <font color="#990000">=</font> lm<font color="#990000">-&gt;</font>Car<font color="#990000">::</font>passenger_no <font color="#990000">;</font>
+        <font color="#FF0000">}</font>
+        <b><font color="#0000FF">return</font></b> <font color="#990000">*</font><b><font color="#0000FF">this</font></b> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+    <i><font color="#9A1900">// 列印</font></i>
+    ostream<font color="#990000">&amp;</font>  <b><font color="#000000">print</font></b><font color="#990000">(</font> ostream<font color="#990000">&amp;</font> out <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font>
+        <b><font color="#0000FF">return</font></b>  out <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 豪華禮車 </font><font color="#CC33CC">\t</font><font color="#FF0000">"</font> 
+                    <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  乘客   : "</font> <font color="#990000">&lt;&lt;</font> passenger_no <font color="#990000">&lt;&lt;</font> <font color="#FF0000">" 人</font><font color="#CC33CC">\t\t</font><font color="#FF0000">"</font> 
+                    <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"  司機   : "</font> <font color="#990000">&lt;&lt;</font> driver <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<i><font color="#9A1900">// 所有的乘座 RV 的乘客總數</font></i>
+<font color="#009900">int</font>  <b><font color="#000000">total_RV_passengers</font></b><font color="#990000">(</font> <b><font color="#0000FF">const</font></b> vector<font color="#990000">&lt;</font>Car<font color="#990000">*&gt;&amp;</font> foo <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    RV<font color="#990000">*</font>  rv <font color="#990000">;</font>
+    <font color="#009900">int</font>  no <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 檢查陣列, 若為指向 RV, 則將其人數加入</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> foo<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        rv <font color="#990000">=</font> <b><font color="#0000FF">dynamic_cast</font></b><font color="#990000">&lt;</font>RV<font color="#990000">*&gt;(</font>foo<font color="#990000">[</font>i<font color="#990000">])</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> rv <font color="#990000">)</font> no <font color="#990000">+=</font> rv<font color="#990000">-&gt;</font><b><font color="#000000">passenger</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    <b><font color="#0000FF">return</font></b>  no <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+<i><font color="#9A1900">// 將陣列中所有的 RV 資料重新設定</font></i>
+<font color="#009900">void</font>  <b><font color="#000000">setup_RV_data</font></b><font color="#990000">(</font> vector<font color="#990000">&lt;</font>Car<font color="#990000">*&gt;&amp;</font>  foo <font color="#990000">,</font> Location  place <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    Car  <font color="#990000">*</font>new_rv <font color="#990000">=</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">RV</font></b><font color="#990000">(</font>place<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 將是 RV 的資料取出, 重新設定</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> foo<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#990000">*</font>foo<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">=</font> <font color="#990000">*</font>new_rv <font color="#990000">;</font>
+
+    <b><font color="#0000FF">delete</font></b>  new_rv <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">int</font>  i <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 指標向量陣列</font></i>
+    vector<font color="#990000">&lt;</font>Car<font color="#990000">*&gt;</font>  cars <font color="#990000">;</font>     
+
+    cars<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">RV</font></b><font color="#990000">(</font><font color="#FF0000">"花蓮"</font><font color="#990000">,</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cars<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Limousine</font></b><font color="#990000">(</font><font color="#FF0000">"張三"</font><font color="#990000">,</font><font color="#993399">4</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cars<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">RV</font></b><font color="#990000">(</font><font color="#FF0000">"墾丁"</font><font color="#990000">,</font><font color="#993399">5</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cars<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">RV</font></b><font color="#990000">(</font><font color="#FF0000">"淡水"</font><font color="#990000">,</font><font color="#993399">3</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cars<font color="#990000">.</font><b><font color="#000000">push_back</font></b><font color="#990000">(</font> <b><font color="#0000FF">new</font></b> <b><font color="#000000">Limousine</font></b><font color="#990000">(</font><font color="#FF0000">"李四"</font><font color="#990000">,</font><font color="#993399">8</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 列印所有汽車資料</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> cars<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>cars<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 列印 RV 總乘客人數</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; RV 總乘客人數 : "</font> <font color="#990000">&lt;&lt;</font> <b><font color="#000000">total_RV_passengers</font></b><font color="#990000">(</font>cars<font color="#990000">)</font> 
+         <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"</font><font color="#CC33CC">\n\n</font><font color="#FF0000">"</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 重新設定 RV 資料, 與列印</font></i>
+    <b><font color="#000000">setup_RV_data</font></b><font color="#990000">(</font> cars <font color="#990000">,</font> <font color="#FF0000">""</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> cars<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> 
+        cout <font color="#990000">&lt;&lt;</font> <font color="#990000">*</font>cars<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 清除所有動態資料</font></i>
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> cars<font color="#990000">.</font><b><font color="#000000">size</font></b><font color="#990000">()</font> <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <b><font color="#0000FF">delete</font></b>  cars<font color="#990000">[</font>i<font color="#990000">]</font> <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+    
+<font color="#FF0000">}</font>
+</tt></pre>

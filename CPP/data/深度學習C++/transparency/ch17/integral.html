@@ -1,0 +1,87 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;math.h&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;functional&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<i><font color="#9A1900">// 定義 X 平方, 立方與 Sin 函數</font></i>
+<b><font color="#0000FF">struct</font></b>  Square <font color="#FF0000">{</font>
+    <font color="#009900">double</font>  <b><font color="#0000FF">operator</font></b><font color="#990000">()(</font> <font color="#009900">double</font> x <font color="#990000">)</font> <b><font color="#0000FF">const</font></b> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> x <font color="#990000">*</font> x <font color="#990000">;</font> <font color="#FF0000">}</font>
+<font color="#FF0000">}</font><font color="#990000">;</font>
+
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> T<font color="#990000">&gt;</font>
+T  <b><font color="#000000">Cubic </font></b><font color="#990000">(</font> T x <font color="#990000">)</font> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> x <font color="#990000">*</font> x <font color="#990000">*</font> x <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> T<font color="#990000">&gt;</font>
+<font color="#009900">double</font> <b><font color="#000000">Sin</font></b><font color="#990000">(</font> T x <font color="#990000">)</font> <font color="#FF0000">{</font> <b><font color="#0000FF">return</font></b> <b><font color="#000000">sin</font></b><font color="#990000">(</font>x<font color="#990000">)</font> <font color="#990000">;</font> <font color="#FF0000">}</font>
+
+
+<i><font color="#9A1900">// 計算函數 fn 在 [a,b] 區間的定積分, </font></i>
+<i><font color="#9A1900">// 積分以切割為 n 個平均等份的長條形面積計算</font></i>
+<i><font color="#9A1900">//</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font><b><font color="#0000FF">typename</font></b> Function<font color="#990000">&gt;</font>
+<font color="#009900">double</font>  <b><font color="#000000">integral</font></b><font color="#990000">(</font> Function fn <font color="#990000">,</font> <font color="#009900">double</font> a <font color="#990000">,</font> <font color="#009900">double</font> b <font color="#990000">,</font> 
+                  <font color="#009900">int</font> n <font color="#990000">=</font> <font color="#993399">1000000</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">double</font>  area <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font>  <font color="#990000">;</font>
+    <font color="#009900">double</font>  dx <font color="#990000">=</font> <font color="#990000">(</font> b <font color="#990000">-</font> a <font color="#990000">)</font> <font color="#990000">/</font> n <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> area <font color="#990000">+=</font> <b><font color="#000000">fn</font></b><font color="#990000">(</font>a<font color="#990000">+</font>dx<font color="#990000">*</font>i<font color="#990000">)</font> <font color="#990000">;</font>
+    
+    <b><font color="#0000FF">return</font></b>  dx <font color="#990000">*</font> area <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+
+<i><font color="#9A1900">// 計算函數 fn 在 [a,b] 區間且函數值滿足某個設定條件的定積分, </font></i>
+<i><font color="#9A1900">// 積分以切割為 n 個平均等份的長條形面積計算</font></i>
+<i><font color="#9A1900">//</font></i>
+<b><font color="#0000FF">template</font></b> <font color="#990000">&lt;</font> <b><font color="#0000FF">typename</font></b> Fn1 <font color="#990000">,</font> <b><font color="#0000FF">typename</font></b> Fn2 <font color="#990000">&gt;</font>
+<font color="#009900">double</font>  <b><font color="#000000">integral</font></b><font color="#990000">(</font> Fn1 fn <font color="#990000">,</font> <font color="#009900">double</font> a <font color="#990000">,</font> <font color="#009900">double</font> b <font color="#990000">,</font> 
+                  <b><font color="#0000FF">const</font></b> Fn2<font color="#990000">&amp;</font> fn2 <font color="#990000">,</font> <font color="#009900">int</font> n <font color="#990000">=</font> <font color="#993399">1000000</font> <font color="#990000">)</font> <font color="#FF0000">{</font>
+
+    <font color="#009900">double</font>  area <font color="#990000">=</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">,</font> tmp <font color="#990000">;</font>
+    <font color="#009900">double</font>  dx <font color="#990000">=</font> <font color="#990000">(</font> b <font color="#990000">-</font> a <font color="#990000">)</font> <font color="#990000">/</font> n <font color="#990000">;</font>
+
+    <b><font color="#0000FF">for</font></b> <font color="#990000">(</font> <font color="#009900">int</font> i <font color="#990000">=</font> <font color="#993399">0</font> <font color="#990000">;</font> i <font color="#990000">&lt;</font> n <font color="#990000">;</font> <font color="#990000">++</font>i <font color="#990000">)</font> <font color="#FF0000">{</font>
+        tmp <font color="#990000">=</font> <b><font color="#000000">fn</font></b><font color="#990000">(</font>a<font color="#990000">+</font>dx<font color="#990000">*</font>i<font color="#990000">)</font> <font color="#990000">;</font>
+        <b><font color="#0000FF">if</font></b> <font color="#990000">(</font> <b><font color="#000000">fn2</font></b><font color="#990000">(</font>tmp<font color="#990000">)</font> <font color="#990000">)</font> area <font color="#990000">+=</font> tmp <font color="#990000">;</font>
+    <font color="#FF0000">}</font>
+    
+    <b><font color="#0000FF">return</font></b>  dx <font color="#990000">*</font> area <font color="#990000">;</font>
+<font color="#FF0000">}</font>
+
+    
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+    
+    <b><font color="#0000FF">const</font></b> <font color="#009900">double</font> PI <font color="#990000">=</font> <font color="#993399">3.141592654</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 計算平方函數在 [0,1] 區間的定積分</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 平方函數在 [0,1] 區間的定積分 = "</font>
+         <font color="#990000">&lt;&lt;</font> <b><font color="#000000">integral</font></b><font color="#990000">(</font> <b><font color="#000000">Square</font></b><font color="#990000">()</font> <font color="#990000">,</font> <font color="#993399">0</font> <font color="#990000">,</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 計算平方函數在 [0,1] 且函數值須小於 0.25 的定積分</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 平方函數在 [0,1] 且函數值須小於 0.25 的定積分 = "</font> 
+         <font color="#990000">&lt;&lt;</font> <b><font color="#000000">integral</font></b><font color="#990000">(</font> <b><font color="#000000">Square</font></b><font color="#990000">()</font> <font color="#990000">,</font> <font color="#993399">0</font> <font color="#990000">,</font>  <font color="#993399">1</font><font color="#990000">,</font> 
+                      <b><font color="#000000">bind2nd</font></b><font color="#990000">(</font> less<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;()</font> <font color="#990000">,</font> <font color="#993399">0.25</font> <font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 計算立方函數在 [0,1] 區間的定積分</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; 立方函數在 [0,1] 區間的定積分 = "</font>
+         <font color="#990000">&lt;&lt;</font> <b><font color="#000000">integral</font></b><font color="#990000">(</font> Cubic<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;</font> <font color="#990000">,</font> <font color="#993399">0</font> <font color="#990000">,</font> <font color="#993399">1</font> <font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 計算 sin 函數在 [0,PI] 區間的定積分</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; sin(x) 在 [0,PI] 區間的定積分 = "</font>
+         <font color="#990000">&lt;&lt;</font> <b><font color="#000000">integral</font></b><font color="#990000">(</font> Sin<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;</font> <font color="#990000">,</font> <font color="#993399">0</font> <font color="#990000">,</font> PI <font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 計算 sin 函數在 [0,PI] 且 sin(x) 須大於零的定積分</font></i>
+    cout <font color="#990000">&lt;&lt;</font> <font color="#FF0000">"&gt; sin(x) 在 [0,PI] 且 sin(x) 須大於零的定積分 = "</font> 
+         <font color="#990000">&lt;&lt;</font> <b><font color="#000000">integral</font></b><font color="#990000">(</font> Sin<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;</font> <font color="#990000">,</font> <font color="#993399">0</font> <font color="#990000">,</font> <font color="#993399">2</font><font color="#990000">*</font>PI <font color="#990000">,</font> 
+                      <b><font color="#000000">bind2nd</font></b><font color="#990000">(</font> greater<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;()</font> <font color="#990000">,</font> <font color="#993399">0</font><font color="#990000">.</font> <font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+</tt></pre>

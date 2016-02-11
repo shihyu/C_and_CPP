@@ -1,0 +1,113 @@
+<HTML><TITLE>瞏厩策C++</TITLE>
+<BODY bgcolor=#BBDD88>
+<PRE>
+#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+#include &lt;ctime&gt;
+
+using namespace std ;
+
+int main() {
+    
+    int i , j , n ;
+    int **s ;
+
+    cout &lt;&lt; "&gt; 块よ皚计 (斗案计) : " ;
+    cin &gt;&gt; n ;
+    cout &lt;&lt; endl ;
+    
+    s = new int*[n] ;
+    for ( i = 0 ; i &lt; n ; ++i ) s[i] = new int[n] ;
+
+    srand( static_cast&lt;unsigned int&gt;(time(NULL)) ) ;
+    
+    // 纗 [0..9] 睹计
+    for ( i = 0 ; i &lt; n ; ++i ) 
+        for ( j = 0 ; j &lt; n ; ++j ) s[i][j] = rand()%10 ;
+
+    //  S 痻皚
+    cout &lt;&lt; "&gt; S : " &lt;&lt; endl ;
+    for ( i = 0 ; i &lt; n ; ++i ) {
+        for ( j = 0 ; j &lt; n ; ++j ) cout &lt;&lt; s[i][j] &lt;&lt; " " ;
+        cout &lt;&lt; "\n" ;
+    }
+    cout &lt;&lt; endl ;
+    
+    // よ皚︽计ㄓよ皚
+    int m = n/2 ;
+
+    // だ皌丁倒よ皚 
+    int **a = new int*[m] ;
+    int **b = new int*[m] ;
+    int **c = new int*[m] ;
+    int **d = new int*[m] ;
+    
+    for ( i = 0 ; i &lt; m ; ++i ) {
+        a[i] = new int[m] ;
+        b[i] = new int[m] ;
+        c[i] = new int[m] ;
+        d[i] = new int[m] ;
+    }
+    
+
+    // 砞﹚籔 A 痻皚
+    cout &lt;&lt; "&gt; A : " &lt;&lt; endl ;
+    for ( i = 0 ; i &lt; m ; ++i ) {
+        for ( j = 0 ; j &lt; m ; ++j ) {
+            a[i][j] = s[i][j] ;
+            cout &lt;&lt; a[i][j] &lt;&lt; " " ;
+        }
+        cout &lt;&lt; "\n" ;
+    }
+    cout &lt;&lt; endl ;
+
+    // 砞﹚籔 B 痻皚
+    cout &lt;&lt; "&gt; B : " &lt;&lt; endl ;
+    for ( i = 0 ; i &lt; m ; ++i ) {
+        for ( j = 0 ; j &lt; m ; ++j ) {
+            b[i][j] = s[i][j+m] ;
+            cout &lt;&lt; b[i][j] &lt;&lt; " " ;
+        }
+        cout &lt;&lt; "\n" ;
+    }
+    cout &lt;&lt; endl ;
+
+    // 砞﹚籔 C 痻皚
+    cout &lt;&lt; "&gt; C : " &lt;&lt; endl ;
+    for ( i = 0 ; i &lt; m ; ++i ) {
+        for ( j = 0 ; j &lt; m ; ++j ) {
+            c[i][j] = s[i+m][j] ;
+            cout &lt;&lt; c[i][j] &lt;&lt; " " ;
+        }
+        cout &lt;&lt; "\n" ;
+    }
+    cout &lt;&lt; endl ;
+
+    // 砞﹚籔 D 痻皚
+    cout &lt;&lt; "&gt; D : " &lt;&lt; endl ;
+    for ( i = 0 ; i &lt; m ; ++i ) {
+        for ( j = 0 ; j &lt; m ; ++j ) {
+            d[i][j] = s[i+m][j+m] ;
+            cout &lt;&lt; d[i][j] &lt;&lt; " " ;
+        }
+        cout &lt;&lt; "\n" ;
+    }
+    cout &lt;&lt; endl ;
+
+    for ( i = 0 ; i &lt; n ; ++i ) delete [] s[i] ;
+    delete [] s ;
+    
+    for ( i = 0 ; i &lt; m ; ++i ) {
+        delete [] a[i] ;  delete [] b[i] ;
+        delete [] c[i] ;  delete [] d[i] ;
+    }
+    
+    delete [] a ;
+    delete [] b ;
+    delete [] c ;
+    delete [] d ;
+
+    return 0 ;
+    
+}
+</PRE></BODY></HTML>

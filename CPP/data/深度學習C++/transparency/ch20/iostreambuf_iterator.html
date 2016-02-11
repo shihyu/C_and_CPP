@@ -1,0 +1,51 @@
+<!-- Generator: GNU source-highlight 2.3
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iostream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;fstream&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;iterator&gt;</font>
+<b><font color="#000080">#include</font></b> <font color="#FF0000">&lt;algorithm&gt;</font>
+
+<b><font color="#0000FF">using</font></b> <b><font color="#0000FF">namespace</font></b> std <font color="#990000">;</font>
+
+<font color="#009900">int</font> <b><font color="#000000">main</font></b><font color="#990000">()</font> <font color="#FF0000">{</font>
+
+    <b><font color="#0000FF">const</font></b> <font color="#009900">int</font>  S <font color="#990000">=</font> <font color="#993399">5</font> <font color="#990000">;</font>
+    <font color="#009900">double</font>     no<font color="#990000">[</font>S<font color="#990000">]</font> <font color="#990000">=</font> <font color="#FF0000">{</font> <font color="#993399">3.5</font> <font color="#990000">,</font> <font color="#990000">-</font><font color="#993399">2</font> <font color="#990000">,</font> <font color="#993399">5.75</font> <font color="#990000">,</font> <font color="#990000">-</font><font color="#993399">4</font> <font color="#990000">,</font> <font color="#993399">8.25</font> <font color="#FF0000">}</font><font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 開啟檔案準備輸出</font></i>
+    ofstream                   <b><font color="#000000">outfile</font></b><font color="#990000">(</font><font color="#FF0000">"number.db"</font><font color="#990000">,</font>ios<font color="#990000">::</font>out<font color="#990000">)</font> <font color="#990000">;</font>
+    ostreambuf_iterator<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;</font>  <b><font color="#000000">out</font></b><font color="#990000">(</font>outfile<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 字元指標 p 指向 no 陣列的起始</font></i>
+    <font color="#009900">char</font> <font color="#990000">*</font>p <font color="#990000">=</font> <b><font color="#0000FF">reinterpret_cast</font></b><font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">*&gt;(</font>no<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 以字元的方式直接將 no 陣列輸出到檔案 number.db</font></i>
+    <i><font color="#9A1900">// number.db 為二進位檔</font></i>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> p <font color="#990000">,</font> p <font color="#990000">+</font> S <font color="#990000">*</font> <b><font color="#0000FF">sizeof</font></b><font color="#990000">(</font><font color="#009900">double</font><font color="#990000">)</font> <font color="#990000">,</font> ostreambuf_iterator<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;(</font>out<font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+
+    outfile<font color="#990000">.</font><b><font color="#000000">close</font></b><font color="#990000">()</font> <font color="#990000">;</font>
+
+
+    <i><font color="#9A1900">// 開啟檔案準備讀入</font></i>
+    ifstream                   <b><font color="#000000">infile</font></b><font color="#990000">(</font><font color="#FF0000">"number.db"</font><font color="#990000">,</font>ios<font color="#990000">::</font>in<font color="#990000">)</font> <font color="#990000">;</font>
+    istreambuf_iterator<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;</font>  <b><font color="#000000">in</font></b><font color="#990000">(</font>infile<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <font color="#009900">double</font>  no2<font color="#990000">[</font>S<font color="#990000">]</font> <font color="#990000">;</font>
+    
+    <i><font color="#9A1900">// 字元指標 p 指向 no2 陣列的起始</font></i>
+    p <font color="#990000">=</font> <b><font color="#0000FF">reinterpret_cast</font></b><font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">*&gt;(</font>no2<font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 以字元的方式直接將檔案 number.db 的資料存入 no2 陣列內</font></i>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> in <font color="#990000">,</font> istreambuf_iterator<font color="#990000">&lt;</font><font color="#009900">char</font><font color="#990000">&gt;()</font> <font color="#990000">,</font> p <font color="#990000">)</font> <font color="#990000">;</font>
+
+    <i><font color="#9A1900">// 列印 no2 陣列</font></i>
+    <b><font color="#000000">copy</font></b><font color="#990000">(</font> no2 <font color="#990000">,</font> no2<font color="#990000">+</font>S <font color="#990000">,</font> ostream_iterator<font color="#990000">&lt;</font><font color="#009900">double</font><font color="#990000">&gt;(</font>cout<font color="#990000">,</font><font color="#FF0000">"  "</font><font color="#990000">)</font> <font color="#990000">)</font> <font color="#990000">;</font>
+    cout <font color="#990000">&lt;&lt;</font> endl <font color="#990000">;</font>
+
+    <b><font color="#0000FF">return</font></b> <font color="#993399">0</font> <font color="#990000">;</font>
+
+<font color="#FF0000">}</font>
+
+</tt></pre>
