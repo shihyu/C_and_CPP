@@ -1,0 +1,32 @@
+import os
+
+Import(['GTEST_HOME', 'MPLABC_INCLUDE', 'testableCode', 'testCode'])
+BUILD_DIR = 'build-test'
+
+VariantDir(BUILD_DIR, 'src')
+
+GTEST_INCLUDE = os.path.join(GTEST_HOME, 'include')
+
+testEnv = Environment(
+    ENV = os.environ,
+    CCFLAGS='-ggdb -Wall -iquote %s -I %s' % (MPLABC_INCLUDE, GTEST_INCLUDE), 
+    CFLAGS='-fprofile-arcs -ftest-coverage',
+    LINKFLAGS='-fprofile-arcs -ftest-coverage',
+    LIBPATH=GTEST_HOME,
+    LIBS=['libgtest', 'pthread' ]
+)
+
+def toVariant(f):
+    return os.path.join(BUILD_DIR, f)
+
+testProg = testEnv.Program('a.out', map(toVariant, testableCode + testCode))
+testReport = testEnv.Command(
+  ['test_report.xml', 'valgrindReport.xml'],
+  testProg,
+  "valgrind --xml=yes --xml-file=valgrindReport.xml ./${SOURCE} --gtest_output=xml:test_report.xml"
+)
+test = testEnv.Command('coverage.xml', testReport, "gcovr -x -r %s -o ${TARGET}" % BUILD_DIR)
+
+testEnv.Clean(testProg, BUILD_DIR)
+
+Return('test')

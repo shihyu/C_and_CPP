@@ -1,0 +1,53 @@
+import os
+import sys, traceback
+import usbcdc
+
+Import([
+    'MPLINK', 'MPLABC_INCLUDE', 'MPLABC_LIB', 'DEVICE', 'USB_LIB_INCLUDE',
+    'MPLABC_INCLUDE', 'MPLABC_BIN', 'MP2COD', 'PK2CMD_HOME',
+    'testableCode', 'nonTestableCode'
+])
+BUILD_DIR = 'build'
+
+VariantDir(BUILD_DIR, 'src')
+
+prodEnv = Environment(
+    CCFLAGS='-p%s -I%s -I%s -k' % (DEVICE, USB_LIB_INCLUDE, MPLABC_INCLUDE),
+    CC=os.path.join(MPLABC_BIN, 'mcc18'),
+    CCCOM='$CC -fo $TARGET $CFLAGS $CCFLAGS $_CCCOMCOM $SOURCES',
+    LINK=MPLINK,
+    LINKCOM='$LINK src/rm18F14K50.lkr -p%s -mprod.map -l%s -z__MPLAB_BUILD=1 -u_CRUNTIME -o $TARGET $LINKFLAGS $SOURCES $_LIBDIRFLAGS $_LIBFLAGS' % (DEVICE, MPLABC_LIB)
+)
+
+def toVariant(f):
+    return os.path.join(BUILD_DIR, f)
+
+cof = prodEnv.Program(
+    ['prod.cof', 'prod.hex', 'prod.map'],
+    map(toVariant, nonTestableCode + testableCode)
+)
+prod = prodEnv.Command(['prod.cod', 'prod.lst'], cof, '%s -p %s prod.cof' % (MP2COD, DEVICE))
+prog = prodEnv.Command('prog', prod, '%s/pk2cmd -B%s -Ppic%s -Fprod.hex -M -R -T' % (PK2CMD_HOME, PK2CMD_HOME, DEVICE))
+
+def smokeTester(target, source, env):
+  def st0returns1(ser):
+    ser.write('ST0\n')
+    ret = ser.readline()
+    assert ret == "1\r\n", "Unexpected response '" + ret + "'"
+
+  try:
+    usbcdc.workWithPort('/dev/ttyACM0', usbcdc.dummyRead)
+    usbcdc.workWithPort('/dev/ttyACM0', st0returns1)
+    return 0
+  except:
+    traceback.print_exc(file=sys.stdout)
+    return 1
+
+smokeTestBuilder = Builder(action = smokeTester)
+prodEnv.Append(BUILDERS = {'SmokeTest': smokeTestBuilder})
+
+prodEnv.SmokeTest('smokeTest', prod)
+
+prodEnv.Clean(cof, BUILD_DIR)
+
+Return('prod')

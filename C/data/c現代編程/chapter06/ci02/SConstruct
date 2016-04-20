@@ -1,0 +1,29 @@
+GTEST_HOME = '/home/turing/oss/gtest -1.7.0'
+MPLABC_HOME = '/home/shanai/pic/mplabc'
+USB_LIB = '/home/shanai/pic/microchip-application-library'
+PK2CMD_HOME = '/home/shanai/pic/pk2cmdv1-20Linux2-6'
+DEVICE = '18f14k50'
+
+import os
+
+MPLABC_INCLUDE = os.path.join(MPLABC_HOME, 'h')
+USB_LIB_INCLUDE = os.path.join(USB_LIB, 'Microchip/Include')
+
+MPLABC_LIB = os.path.join(MPLABC_HOME, 'lib')
+MPLABC_BIN = os.path.join(MPLABC_HOME, 'bin')
+MPLINK = os.path.join(MPLABC_BIN, 'mplink')
+MP2COD = os.path.join(MPLABC_BIN, 'mp2cod')
+
+nonTestableCode = ['main.c', 'usb_device.c', 'usb_function_cdc.c', 'usb_descriptors.c']
+testableCode = ['state_machine.c']
+testCode = ['state_machine_test.cpp']
+
+test = SConscript('SConstruct.test', exports = [
+    'GTEST_HOME', 'MPLABC_INCLUDE', 'testableCode', 'testCode'
+])
+prod = SConscript('SConstruct.prod', exports = [
+    'MPLINK', 'MPLABC_INCLUDE', 'MPLABC_LIB', 'DEVICE', 'USB_LIB_INCLUDE', 'MPLABC_INCLUDE', 
+    'MPLABC_BIN', 'MP2COD', 'PK2CMD_HOME', 'testableCode', 'nonTestableCode'
+])
+
+Default(test)

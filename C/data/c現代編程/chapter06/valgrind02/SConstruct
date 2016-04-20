@@ -1,0 +1,29 @@
+import os
+
+VariantDir('build', 'src')
+GTEST_HOME = '/home/turing/oss/gtest -1.7.0'
+GTEST_INCLUDE = os.path.join(GTEST_HOME, 'include')
+
+testEnv = Environment(
+    ENV = os.environ,
+    CCFLAGS='-O0 -ggdb -Wall -I %s' % (GTEST_INCLUDE),
+    CFLAGS='-fprofile-arcs -ftest-coverage -std=c99',
+    LINKFLAGS='-fprofile-arcs -ftest-coverage',
+    LIBPATH=GTEST_HOME,
+    LIBS=['libgtest', 'pthread' ]
+)
+
+utProg = testEnv.Program(
+    'ut',
+    [Glob('build/*.c'), Glob('build/*.cc')]
+)
+
+valgrindReport = testEnv.Command(
+    'valgrindReport.xml', utProg,
+    "valgrind --xml=yes --xml-file=${TARGET} ./${SOURCE} --gtest_output=xml:testreport.xml"
+)
+
+coverageReport = testEnv.Command('coverage.xml', valgrindReport, "gcovr -x -r build -o ${TARGET}")
+
+testEnv.Clean(utProg, 'build')
+Default(coverageReport)
