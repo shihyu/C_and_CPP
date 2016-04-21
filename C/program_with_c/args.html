@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>變動參數 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_54">變動參數</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="變動參數" class="calibre11">變動參數</h1>
+<h3 id="範例：印出整數串列" class="calibre12">範例：印出整數串列</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdarg.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printList</span><span class="hljs-built_in">(<span class="hljs-keyword">int</span> head, ... )</span> </span>{
+  va_list va;
+  va_start(va, head);
+  <span class="hljs-keyword">int</span> i;
+  <span class="hljs-keyword">for</span>(i=head ; i != -<span class="hljs-built_in">1</span>; i=va_arg(va,<span class="hljs-keyword">int</span>)) {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d "</span>, i);
+  }
+  va_end(va);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">( <span class="hljs-keyword">void</span> )</span> </span>{
+  printList(<span class="hljs-built_in">3</span>, <span class="hljs-built_in">7</span>, <span class="hljs-built_in">2</span>, <span class="hljs-built_in">5</span>, <span class="hljs-built_in">4</span>, -<span class="hljs-built_in">1</span>);
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc vaarg.c -o vaarg
+
+D:\cp&gt;vaarg
+3 7 2 5 4
+</code></pre><h3 id="範例" class="calibre12">範例</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">debug</span><span class="hljs-built_in">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *fmt, ...)</span>
+</span>{
+  va_list args;
+  va_start(args, fmt);
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">vprintf</span>(fmt, args);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  debug(<span class="hljs-string">"pi=%6.2f\n"</span>, <span class="hljs-built_in">3.14159</span>);
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc debug.c -o debug
+
+D:\cp&gt;debug
+pi=  3.14
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

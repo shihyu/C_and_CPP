@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>條件編譯 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_87">條件編譯</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="條件編譯--if-else-endif-ifdef-ifndef-" class="calibre11">條件編譯 -- #if, #else, #endif, #ifdef, #ifndef, ….</h1>
+<p class="calibre7"><strong class="calibre24">條件編譯的語法</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">    #if constant_expression
+    #elif constant_expression
+    ...
+    #else
+    #endif
+</code></pre><p class="calibre7"><strong class="calibre24">程式範例</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">    #include &lt;stdio.h&gt;
+
+    int main() {
+    #ifdef Linux
+      printf("OS=LINUX\n");
+    #elif defined(Windows)
+      printf("OS=Microsoft Windows\n");
+    #elif defined(OS)
+      printf("OS=%s", OS);
+    #else 
+      printf("OS=Unknown\n");
+    #endif
+    }
+</code></pre><p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc macroIf.c -o macroIf
+
+D:\cp&gt;macroIf
+OS=Unknown
+
+D:\cp&gt;gcc -DWindows macroIf.c -o macroIf
+
+D:\cp&gt;macroIf
+OS=Microsoft Windows
+
+D:\cp&gt;gcc -DLinux macroIf.c -o macroIf
+
+D:\cp&gt;macroIf
+OS=LINUX
+
+D:\cp&gt;gcc -DOS=\"Sun Solaris\" macroIf.c -o macroIf
+gcc: Solaris": Invalid argument
+macroIf.c: In function `main':
+macroIf.c:9: error: missing terminating " character
+macroIf.c:9: error: syntax error before ')' token
+
+D:\cp&gt;gcc -DOS=\"Solaris\" macroIf.c -o macroIf
+
+D:\cp&gt;macroIf
+OS=Solaris
+D:\cp&gt;
+</code></pre><p class="calibre7"><strong class="calibre24">參考文獻</strong></p>
+<p class="calibre7">　　Wikipedia:C preprocessor --<a target="_blank" href="http://en.wikipedia.org/wiki/C_preprocessor" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://en.wikipedia.org/wiki/C_preprocessor</a></p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

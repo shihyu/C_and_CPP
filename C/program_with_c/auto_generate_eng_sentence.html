@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>自動產生英文語句 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_31">自動產生英文語句</h1>
+        
+            <div class="section" id="section-">
+            
+                <p class="calibre7">習題：自動產生英文語句</p>
+<p class="calibre7">提示：先用簡單的幾個字加上基本語法就行了，不用一下企圖心太大。</p>
+<p class="calibre7">簡易語法</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">S = NP VP
+NP = DET N
+VP = V NP
+N = dog | cat
+V = chase | eat
+DET = a | the
+</code></pre><p class="calibre7">產生過程的範例</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">S = NP VP = (DET N) (V NP) 
+  = (a dog) (chase DET N) 
+  = a dog chase a cat
+</code></pre><p class="calibre7">解答：</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rand</span>(<span class="hljs-built_in">a,b</span>) </span>{ 
+    <span class="hljs-keyword">return</span> a+<span class="hljs-built_in">Math</span>.random()*(b-a); 
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">randInt</span>(<span class="hljs-built_in">a,b</span>) </span>{ 
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.floor(a+<span class="hljs-built_in">Math</span>.random()*(b-a)); 
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">randSelect</span>(<span class="hljs-built_in">a</span>) </span>{ 
+    <span class="hljs-keyword">return</span> a[randInt(<span class="hljs-built_in">0</span>,a.length)]; 
+}
+<span class="hljs-title">/*
+for (var i=0; i&lt;10; i++) {
+    var animal = randSelect(['dog', 'cat']);
+    console.log("%s", animal);
+}
+*/</span>
+<span class="hljs-title">/*
+S = NP VP
+NP = DET N
+VP = V NP
+N = dog | cat
+V = chase | eat
+DET = a | the
+*/</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">S</span>(<span class="hljs-built_in"></span>) </span>{
+    <span class="hljs-keyword">return</span> NP()+<span class="hljs-string">" "</span>+VP();
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">NP</span>(<span class="hljs-built_in"></span>) </span>{
+    <span class="hljs-keyword">return</span> DET()+<span class="hljs-string">" "</span>+N();
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">VP</span>(<span class="hljs-built_in"></span>) </span>{
+    <span class="hljs-keyword">return</span> V()+<span class="hljs-string">" "</span>+NP();
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">N</span>(<span class="hljs-built_in"></span>) </span>{
+    <span class="hljs-keyword">return</span> randSelect([<span class="hljs-string">"dog"</span>, <span class="hljs-string">"cat"</span>]);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">V</span>(<span class="hljs-built_in"></span>) </span>{
+    <span class="hljs-keyword">return</span> randSelect([<span class="hljs-string">"chase"</span>, <span class="hljs-string">"eat"</span>]);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DET</span>(<span class="hljs-built_in"></span>) </span>{
+    <span class="hljs-keyword">return</span> randSelect([<span class="hljs-string">"a"</span>, <span class="hljs-string">"the"</span>]);
+}
+
+<span class="hljs-built_in">console</span>.log(S());
+</code></pre>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

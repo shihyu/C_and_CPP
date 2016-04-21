@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>中翻英系統 -- c2e.js | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_29">中翻英系統 -- c2e.js</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="習題：中翻英系統" class="calibre11">習題：中翻英系統</h1>
+<p class="calibre7">這題和 <a href="mt__js.html" class="pcalibre2 calibre8 pcalibre1 pcalibre">英翻中系統</a> 有個差別，因為中文的詞彙間沒有空白，因此要查詢詞彙需要一些技巧。</p>
+<p class="calibre7">由於中文詞彙通常在四個字以下，所以可以嘗試從 4 字，3 字，2 字，1 字 這樣一直查下來，查到就進行翻譯動作。</p>
+<p class="calibre7">這種方法隱含了長詞優先規則。</p>
+<p class="calibre7">用法範例：</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">$ node c2e.js 一隻狗追一隻貓
+
+a dog chase a cat
+</code></pre><h3 id="解答-1：-c2ejs" class="calibre12">解答 1： c2e.js</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-keyword">var</span> log = <span class="hljs-built_in">console</span>.log;
+
+<span class="hljs-keyword">var</span> dic = { <span class="hljs-string">"狗"</span>:<span class="hljs-string">"dog"</span>, <span class="hljs-string">"貓"</span>:<span class="hljs-string">"cat"</span>, <span class="hljs-string">"一隻"</span>:<span class="hljs-string">"a"</span>, <span class="hljs-string">"追"</span>:<span class="hljs-string">"chase"</span>, <span class="hljs-string">"吃"</span>:<span class="hljs-string">"eat"</span> };
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mt</span>(<span class="hljs-built_in">s</span>) </span>{
+  <span class="hljs-keyword">var</span> array = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i=<span class="hljs-built_in">0</span>; i&lt;s.length; i++) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> len=<span class="hljs-built_in">4</span>; len&gt;<span class="hljs-built_in">0</span>; len--) {
+      <span class="hljs-keyword">var</span> str = s.substr(i, len);
+      <span class="hljs-keyword">var</span> toWord = dic[str];
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> toWord !== <span class="hljs-string">"undefined"</span>) {
+        array.push(toWord);
+        <span class="hljs-keyword">break</span>;
+      }
+    }
+  }
+  <span class="hljs-keyword">return</span> array;
+}
+
+<span class="hljs-keyword">var</span> a = mt(process.argv[<span class="hljs-built_in">2</span>]);
+log(a);
+</code></pre>
+<p class="calibre7">上面版本會列出所有詞的翻譯，但有可能重疊，所以我又改成了下列版本:</p>
+<h3 id="解答-2：-c2e2js" class="calibre12">解答 2： c2e2.js</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-keyword">var</span> log = <span class="hljs-built_in">console</span>.log;
+
+<span class="hljs-keyword">var</span> dic = { <span class="hljs-string">"狗"</span>:<span class="hljs-string">"dog"</span>, <span class="hljs-string">"貓"</span>:<span class="hljs-string">"cat"</span>, <span class="hljs-string">"一隻"</span>:<span class="hljs-string">"a"</span>, <span class="hljs-string">"追"</span>:<span class="hljs-string">"chase"</span>, <span class="hljs-string">"吃"</span>:<span class="hljs-string">"eat"</span> };
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mt</span>(<span class="hljs-built_in">s</span>) </span>{
+  <span class="hljs-keyword">var</span> array = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i=<span class="hljs-built_in">0</span>; i&lt;s.length; ) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> len=<span class="hljs-built_in">4</span>; len&gt;<span class="hljs-built_in">0</span>; len--) {
+      <span class="hljs-keyword">var</span> str = s.substr(i, len);
+      <span class="hljs-keyword">var</span> toWord = dic[str];
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> toWord !== <span class="hljs-string">"undefined"</span>) {
+        array.push(toWord);
+        <span class="hljs-keyword">break</span>;
+      }
+    }
+    i=i+<span class="hljs-built_in">Math</span>.max(<span class="hljs-built_in">1</span>,len);
+  }
+  <span class="hljs-keyword">return</span> array
+}
+
+<span class="hljs-keyword">var</span> a = mt(process.argv[<span class="hljs-built_in">2</span>]);
+log(a);
+</code></pre>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>sscanf 函數 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_41">sscanf 函數</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="sscanf-函數" class="calibre11">sscanf 函數</h1>
+<p class="calibre7">Sscanf 是很好用的字串剖析工具，並且支援類似 Regular Expression 的功能。</p>
+<p class="calibre7">C 語言中的 scanf 函數，是初學者都會使用的，但也是大部分人都會誤用，或者是無法充分發揮其功能的。</p>
+<p class="calibre7">C 語言的 sscanf() 與 ssprintf() 這兩個函數，採用的是一種既創新又好用的設計法，</p>
+<p class="calibre7">事實上，函數 sscanf() 比 scanf() 更為好用，sscanf() 甚至支援了類似 Regular Expression 的功能，可以讓我們輕易的剖析格式化的字串。</p>
+<p class="calibre7">sscanf 的函數原形如下，其中的 format 格式字串具有複雜的格式指定功能，以下我們將詳細說明這些格式的用途。</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sscanf</span> <span class="hljs-built_in">( <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> * str, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> * format, ...)</span></span>;
+
+str : 被剖析的字串
+format: 剖析格式
+
+
+在 format 字串中，以 % 起頭者為剖析段落，通常在剖析完成後會指定給後面的變數，其格式語法如下：
+
+剖析段落的語法：%[*][width][modifiers]type
+
+  % 代表變數開始
+
+  * 代表省略不放入變數中
+
+  width 代表最大讀取寬度
+
+  modifier 可以是 {h|I|L} 之一
+  說明 : 其中 h 代表 <span class="hljs-built_in">2</span> byte 的變數 (像 <span class="hljs-keyword">short</span> <span class="hljs-keyword">int</span>)，
+         I 代表 <span class="hljs-built_in">4</span> byte 的變數 (像 <span class="hljs-keyword">long</span> <span class="hljs-keyword">int</span>)，
+         L 是 <span class="hljs-built_in">8</span> byte 的變數 (像 <span class="hljs-keyword">long</span> <span class="hljs-keyword">double</span>)
+
+  type 則可以是 c, d,e,E,f,g,G,o, s, u, x, X 等基本型態，
+       也可以是類似 Regular Expression 的表達式。
+  說明: c : 字元 (<span class="hljs-keyword">char</span>); 
+        d : 整數 (Decimal integer); 
+        f : 浮點數 (Floating Point); 
+        e,E : 科學記號 (Scientific notation); 
+        g,G : 取浮點數或科學記號當中短的那個; 
+        o : 八進位 (Octal Integer); 
+        u : 無號數 (<span class="hljs-keyword">unsigned</span> integer); 
+        x, X : 十六進位 (Hexadecimal integer)
+</code></pre>
+<p class="calibre7">為了說明 sscanf 函數的用法，我們寫了以下程式，以示範 format 欄位的各種寫法。</p>
+<p class="calibre7"><strong class="calibre24">檔案：sscanf.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">char</span> name[<span class="hljs-built_in">20</span>], tel[<span class="hljs-built_in">50</span>], field[<span class="hljs-built_in">20</span>], areaCode[<span class="hljs-built_in">20</span>], code[<span class="hljs-built_in">20</span>];
+  <span class="hljs-keyword">int</span> age;
+  <span class="hljs-built_in">sscanf</span>(<span class="hljs-string">"name:john age:40 tel:082-313530"</span>, <span class="hljs-string">"%s"</span>, name);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s\n"</span>, name);
+  <span class="hljs-built_in">sscanf</span>(<span class="hljs-string">"name:john age:40 tel:082-313530"</span>, <span class="hljs-string">"%8s"</span>, name);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s\n"</span>, name);
+  <span class="hljs-built_in">sscanf</span>(<span class="hljs-string">"name:john age:40 tel:082-313530"</span>, <span class="hljs-string">"%[^:]"</span>, name);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s\n"</span>, name);
+  <span class="hljs-built_in">sscanf</span>(<span class="hljs-string">"name:john age:40 tel:082-313530"</span>, <span class="hljs-string">"%[^:]:%s"</span>, field, name);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s %s\n"</span>, field, name);
+  <span class="hljs-built_in">sscanf</span>(<span class="hljs-string">"name:john age:40 tel:082-313530"</span>, <span class="hljs-string">"name:%s age:%d tel:%s"</span>, name, &amp;age, tel);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s %d %s\n"</span>, name, age, tel);
+  <span class="hljs-built_in">sscanf</span>(<span class="hljs-string">"name:john age:40 tel:082-313530"</span>, <span class="hljs-string">"%*[^:]:%s %*[^:]:%d %*[^:]:%s"</span>, name, &amp;age, tel);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s %d %s\n"</span>, name, age, tel);
+
+  <span class="hljs-keyword">char</span> protocol[<span class="hljs-built_in">10</span>], site[<span class="hljs-built_in">50</span>], path[<span class="hljs-built_in">50</span>];
+  <span class="hljs-built_in">sscanf</span>(<span class="hljs-string">"http://ccckmit.wikidot.com/cp/list/hello.txt"</span>, 
+     <span class="hljs-string">"%[^:]:%*2[/]%[^/]/%[a-zA-Z0-9._/-]"</span>, 
+        protocol, site, path);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"protocol=%s site=%s path=%s\n"</span>, protocol, site, path);
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">1</span>;
+}
+</code></pre>
+<p class="calibre7">其編譯執行結果如下所示。</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\oc&gt;gcc sscanf.c -o sscanf
+
+D:\oc&gt;sscanf
+name:john
+name:joh
+name
+name john
+john 40 082-313530
+john 40 082-313530
+protocol=http site=ccckmit.wikidot.com path=cp/list/hello.txt
+</code></pre><h3 id="參考文獻" class="calibre12">參考文獻</h3>
+<ul class="calibre13">
+<li class="calibre14"><a target="_blank" href="http://www.cplusplus.com/reference/clibrary/cstdio/sprintf/" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.cplusplus.com/reference/clibrary/cstdio/sprintf/</a></li>
+<li class="calibre14"><a target="_blank" href="http://www.cplusplus.com/reference/clibrary/cstdio/sscanf/" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.cplusplus.com/reference/clibrary/cstdio/sscanf/</a></li>
+</ul>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

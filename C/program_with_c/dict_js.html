@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>字典 -- dict.js | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_23">字典 -- dict.js</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="字典-物件" class="calibre11">字典 (物件)</h1>
+<p class="calibre7">雖然上述這些 JavaScript 的語法很像 C 語言，但是 JavaScript 本質上仍然是個動態語言，其特性比較像 Python、 Ruby 等語言，因此預設就有提供更高階的資料結構，其中最重要的一個就是字典 (dictonary)，字典中的基本元素是 (key, value) 的配對，我們只要將 key 傳入就可以取得 value 的値，以下是一個 JavaScript 的字典範例。</p>
+<p class="calibre7"><strong class="calibre24">檔案：dict.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"> <span class="hljs-keyword">var</span> dict={ 
+   name:<span class="hljs-string">"john"</span>, 
+   age:<span class="hljs-built_in">30</span> 
+ };
+
+dict[<span class="hljs-string">"email"</span>] = <span class="hljs-string">"john@gmail.com"</span>;
+dict.tel = <span class="hljs-string">"02-12345678"</span>;
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> dict) {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"key="</span>, key, <span class="hljs-string">" value="</span>, dict[key]);
+}
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"age="</span>, dict.age);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"birthday="</span>, dict[<span class="hljs-string">"birthday"</span>]);
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\js\code&gt;node dict.js
+key= name  value= john
+key= age  value= 30
+key= email  value= john@gmail.com
+key= tel  value= 02-12345678
+age= 30
+birthday= undefined
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

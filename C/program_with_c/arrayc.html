@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>array.c | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_14">array.c</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="範例：陣列--arrayc" class="calibre11">範例：陣列 -- array.c</h1>
+<p class="calibre7">C 語言的宣告陣列時，通常必須給定陣列大小，除非是將整個陣列初始值宣告進去時，才能交由編譯器自動決定大小。</p>
+<p class="calibre7"><strong class="calibre24">檔案：array.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">int</span> i;
+  <span class="hljs-keyword">int</span> a[]={<span class="hljs-built_in">1</span>,<span class="hljs-built_in">6</span>,<span class="hljs-built_in">2</span>,<span class="hljs-built_in">5</span>,<span class="hljs-built_in">3</span>,<span class="hljs-built_in">6</span>,<span class="hljs-built_in">1</span>};
+  <span class="hljs-keyword">for</span> (i=<span class="hljs-built_in">0</span>;i&lt;<span class="hljs-built_in">7</span>;i++) {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"a[%d]=%d\n"</span>, i, a[i]);
+  }
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc array.c -o array
+
+D:\Dropbox\cccwd\db\c\code&gt;array
+a[0]=1
+a[1]=6
+a[2]=2
+a[3]=5
+a[4]=3
+a[5]=6
+a[6]=1
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

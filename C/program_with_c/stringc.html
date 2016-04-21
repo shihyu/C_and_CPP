@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>string.c | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_16">string.c</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="範例：字串--stringc" class="calibre11">範例：字串 -- string.c</h1>
+<p class="calibre7">C 語言宣告的字串，其實只是一種以 ASCII 編碼 0 的字母作為結果的字元陣列而已。(不像 javascript 的字串是一個物件，C 語言沒有物件的概念)。</p>
+<p class="calibre7"><strong class="calibre24">檔案：string.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">int</span> i;
+  <span class="hljs-keyword">char</span> s[]=<span class="hljs-string">"hello!"</span>; 
+  <span class="hljs-keyword">for</span> (i=<span class="hljs-built_in">0</span>;i&lt;<span class="hljs-built_in">strlen</span>(s)+<span class="hljs-built_in">1</span>;i++) {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"s[%d]=%c ascii=%d\n"</span>, i, s[i], s[i]);
+   }
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc string.c -o string
+
+D:\Dropbox\cccwd\db\c\code&gt;string
+s[0]=h ascii=104
+s[1]=e ascii=101
+s[2]=l ascii=108
+s[3]=l ascii=108
+s[4]=o ascii=111
+s[5]=! ascii=33
+s[6]=
+</code></pre><p class="calibre7">說明： C 語言編譯器會自動在結尾多補一個 ASCII 代號 0 的字元，所以 s[6] 才會印出空的內容。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>函數指標型態 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_53">函數指標型態</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="函數指標型態--function-pointer-type-用-typedef-將函數指標宣告成一種型態" class="calibre11">函數指標型態 -- (function pointer type) 用 typedef 將函數指標宣告成一種型態</h1>
+<p class="calibre7">我們希望定義一個具有一個參數的函數指標形態，則可以採用下列方式。</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">void</span><span class="hljs-built_in">(F1)</span><span class="hljs-built_in">(<span class="hljs-keyword">void</span>)</span></span>;
+</code></pre>
+<h3 id="程式範例：函數指標的型態" class="calibre12">程式範例：函數指標的型態</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">int</span><span class="hljs-built_in">(*OP)</span><span class="hljs-built_in">(<span class="hljs-keyword">int</span>,<span class="hljs-keyword">int</span>)</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">add</span><span class="hljs-built_in">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
+  <span class="hljs-keyword">return</span> a+b;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">mult</span><span class="hljs-built_in">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
+  <span class="hljs-keyword">return</span> a*b;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  OP op = add;
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"op(3,5)=%d\n"</span>, op(<span class="hljs-built_in">3</span>,<span class="hljs-built_in">5</span>));
+  op = mult;
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"op(3,5)=%d\n"</span>, op(<span class="hljs-built_in">3</span>,<span class="hljs-built_in">5</span>));
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc fpointertype.c -o fpointertype
+
+D:\cp&gt;fpointertype
+op(3,5)=8
+op(3,5)=15
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

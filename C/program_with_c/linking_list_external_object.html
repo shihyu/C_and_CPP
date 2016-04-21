@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>鏈結串列：外包物件版 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_61">鏈結串列：外包物件版</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="鏈結串列：外包物件版-—-嵌入式的鏈結串列，是模仿-linux-核心的作法。" class="calibre11">鏈結串列：外包物件版 — 嵌入式的鏈結串列，是模仿 Linux 核心的作法。</h1>
+<p class="calibre7">本範例的實作靈感來自 Linux 核心中的雙向鏈結串列，為了簡單起見，我們改為單向鏈結串列，以便讓讀者容易理解。</p>
+<h3 id="程式範例：" class="calibre12">程式範例：</h3>
+<p class="calibre7"><strong class="calibre24">檔案：LinkedListEmbed.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> offsetof(type, member) ((size_t) &amp;((type *)<span class="hljs-built_in">0</span>)-&gt;member)</span>
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> ListEntry(ptr,type,member) ((type *)((char *)(ptr)-(unsigned long)(&amp;((type *)<span class="hljs-built_in">0</span>)-&gt;member)))</span>
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> ListNew(head) ((head)-&gt;next=NULL)</span>
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> ListAdd(head, node) { (node)-&gt;next=(head)-&gt;next; (head)-&gt;next = (node); }</span>
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> ListEach(head, pos) for (pos = (head)-&gt;next; pos != NULL; pos = pos-&gt;next)</span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> listnode { 
+  <span class="hljs-keyword">struct</span> listnode *next;
+} ListNode;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> {
+    <span class="hljs-keyword">char</span> *name;
+    <span class="hljs-keyword">int</span> age;
+    ListNode node;
+} Person;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PersonListPrint</span><span class="hljs-built_in">(ListNode *head)</span> </span>{
+  ListNode *ptr;
+  ListEach(head, ptr) {
+    Person *person = ListEntry(ptr, Person, node);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s is %d years old\n"</span>, person-&gt;name, person-&gt;age);
+  }
+}
+
+<span class="hljs-title">// 請注意，在本程式中，ListEach 會忽略表頭節點，因此 head 不應該包在 Person 裡面。</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+    ListNode head;
+    Person john = {
+      .name = <span class="hljs-string">"John"</span>,
+      .age = <span class="hljs-built_in">40</span>,
+    };
+    Person mary = {
+      .name = <span class="hljs-string">"Mary"</span>,
+      .age = <span class="hljs-built_in">32</span>,
+    };
+    Person george = {
+      .name = <span class="hljs-string">"George"</span>,
+      .age = <span class="hljs-built_in">26</span>,
+    };
+    ListNew(&amp;head);
+    ListAdd(&amp;head, &amp;john.node);
+    ListAdd(&amp;head, &amp;mary.node);
+    ListAdd(&amp;head, &amp;george.node);
+    PersonListPrint(&amp;head);
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">0</span>;
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc LinkedListEmbed.c -o LinkedListEmbed
+
+D:\cp&gt;LinkedListEmbed
+George is 26 years old
+Mary is 32 years old
+John is 40 years old
+</code></pre><ul class="calibre13">
+<li class="calibre14"><strong class="calibre24">來自 jserv 的建議</strong><blockquote class="calibre28">
+<p class="calibre7">=&gt; 內文沒提到將資料搬出 list 結構的優勢，建議提供 for_each 的使用案例:</p>
+</blockquote>
+</li>
+</ul>
+<blockquote class="calibre28">
+<p class="calibre7"><a target="_blank" href="http://stackoverflow.com/questions/15754236/how-do-i-use-the-list-for-each-macro-in-list-h-from-the-linux-kernel-properly" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://stackoverflow.com/questions/15754236/how-do-i-use-the-list-for-each-macro-in-list-h-from-the-linux-kernel-properly</a>
+對於《將資料搬出 list 結構的優勢》這個問題，除了巨集展開不需要進函數， 速度可能會比較快之外，我也想不出其他的優勢了，所以就請大家自己想想，或者問 jserv 。</p>
+</blockquote>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

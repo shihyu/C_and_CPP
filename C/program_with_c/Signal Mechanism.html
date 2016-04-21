@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>訊號機制 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_82">訊號機制</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="訊號機制--signal-攔截中斷訊號的處理機制" class="calibre11">訊號機制 -- (signal) 攔截中斷訊號的處理機制</h1>
+<p class="calibre7"><strong class="calibre24">程式範例</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">    #include &lt;signal.h&gt;
+    #include &lt;stdio.h&gt;
+    #include &lt;windows.h&gt;
+
+    void sigdump(int sig) {
+        printf("catch a signal:%d\n", sig);
+    }
+
+    int main(int argc, void *argv[]) {
+        signal(SIGABRT, &amp;sigdump);    // Process abort signal.
+        signal(SIGFPE, &amp;sigdump);    // Erroneous arithmetic operation.
+        signal(SIGILL, &amp;sigdump);    // Illegal instruction.
+        signal(SIGINT, &amp;sigdump);    // Terminal interrupt signal. Ctrl-C
+        signal(SIGSEGV, &amp;sigdump);    // Invalid memory reference.
+        signal(SIGTERM, &amp;sigdump);    // Termination signal.
+        int a=7, b=0, result;
+        if (strcmp(argv[1], "FPE")==0)
+          result = a/b;
+        else if (strcmp(argv[1], "SEGV")==0) {
+          * (int*) (10000) = 1;
+        }
+        Sleep(1000*10);
+        return 0;
+    }
+</code></pre><p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc signal.c -o signal
+
+D:\cp&gt;signal FPE
+catch a signal:8
+
+D:\cp&gt;signal SEGV
+catch a signal:11
+
+D:\cp&gt;signal
+catch a signal:11
+
+D:\cp&gt;signal X     // 執行後請在 10 秒鐘內按下 Ctrl-C，就會出現 catch a signal:2 的訊息
+catch a signal:2  
+</code></pre><p class="calibre7"><strong class="calibre24">來自 jserv 的建議</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">=&gt; 這個案例不好，第一個因為 &lt;windows.h&gt;，另外沒有闡述 UNIX signal 和 Windows 對於 POSIX 的支援狀況
+</code></pre><p class="calibre7"><strong class="calibre24">參考文獻</strong></p>
+<p class="calibre7">C语言编程技巧-signal(信号), 2008-12-08 来源：网络 -- <a target="_blank" href="http://www.uml.org.cn/c++/200812083.asp" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.uml.org.cn/c++/200812083.asp</a></p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

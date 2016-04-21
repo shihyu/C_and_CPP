@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dc:language>zh</dc:language>
+    <dc:title>高等C語言</dc:title>
+    <dc:publisher>GitBook</dc:publisher>
+    <meta name="cover" content="cover"/>
+    <dc:identifier id="uuid_id" opf:scheme="uuid">4f33611f-9f4c-44f3-ba7e-35a03c5b85d4</dc:identifier>
+    <dc:description>金門大學 陳鍾誠教授所編著之高等C語言教材</dc:description>
+    <dc:creator opf:file-as="Unknown" opf:role="aut">Shengwen Cheng</dc:creator>
+    <dc:contributor opf:role="bkp">GitBook</dc:contributor>
+    <meta name="calibre:timestamp" content="2016-03-28T00:24:12.796439+00:00"/>
+  </metadata>
+  <manifest>
+    <item href="cover.jpg" id="cover" media-type="image/jpeg"/>
+    <item href="Analog try _. catch.html" id="html83" media-type="application/xhtml+xml"/>
+    <item href="C Execution Environment.html" id="html69" media-type="application/xhtml+xml"/>
+    <item href="C_module.html" id="html34" media-type="application/xhtml+xml"/>
+    <item href="C_struct.html" id="html36" media-type="application/xhtml+xml"/>
+    <item href="Compile-time function.html" id="html89" media-type="application/xhtml+xml"/>
+    <item href="Compile-time variable.html" id="html88" media-type="application/xhtml+xml"/>
+    <item href="Conditional compilation.html" id="html87" media-type="application/xhtml+xml"/>
+    <item href="Directory Management.html" id="html75" media-type="application/xhtml+xml"/>
+    <item href="Error Message List.html" id="html78" media-type="application/xhtml+xml"/>
+    <item href="Error codes and messages.html" id="html77" media-type="application/xhtml+xml"/>
+    <item href="File Error.html" id="html74" media-type="application/xhtml+xml"/>
+    <item href="Long-range jump.html" id="html81" media-type="application/xhtml+xml"/>
+    <item href="Pragma.html" id="html90" media-type="application/xhtml+xml"/>
+    <item href="Processing File Error.html" id="html79" media-type="application/xhtml+xml"/>
+    <item href="References Protection.html" id="html86" media-type="application/xhtml+xml"/>
+    <item href="SUMMARY.html" id="html" media-type="application/xhtml+xml"/>
+    <item href="Short jump.html" id="html80" media-type="application/xhtml+xml"/>
+    <item href="Signal Mechanism.html" id="html82" media-type="application/xhtml+xml"/>
+    <item href="Stringification.html" id="html91" media-type="application/xhtml+xml"/>
+    <item href="Temporary file.html" id="html73" media-type="application/xhtml+xml"/>
+    <item href="The function of the macro.html" id="html85" media-type="application/xhtml+xml"/>
+    <item href="args.html" id="html54" media-type="application/xhtml+xml"/>
+    <item href="array_js.html" id="html13" media-type="application/xhtml+xml"/>
+    <item href="array_size_issue.html" id="html51" media-type="application/xhtml+xml"/>
+    <item href="arrayc.html" id="html14" media-type="application/xhtml+xml"/>
+    <item href="auto_generate_eng_sentence.html" id="html31" media-type="application/xhtml+xml"/>
+    <item href="basic.html" id="html4" media-type="application/xhtml+xml"/>
+    <item href="basic_linking_list.html" id="html59" media-type="application/xhtml+xml"/>
+    <item href="c2e__js.html" id="html29" media-type="application/xhtml+xml"/>
+    <item href="c2ec.html" id="html30" media-type="application/xhtml+xml"/>
+    <item href="chapter1.html" id="html3" media-type="application/xhtml+xml"/>
+    <item href="class_structure.html" id="html67" media-type="application/xhtml+xml"/>
+    <item href="df_js.html" id="html17" media-type="application/xhtml+xml"/>
+    <item href="dfc.html" id="html18" media-type="application/xhtml+xml"/>
+    <item href="dict_js.html" id="html23" media-type="application/xhtml+xml"/>
+    <item href="dictc.html" id="html24" media-type="application/xhtml+xml"/>
+    <item href="dynamic_array_object.html" id="html50" media-type="application/xhtml+xml"/>
+    <item href="dynamic_string.html" id="html44" media-type="application/xhtml+xml"/>
+    <item href="e1d1887f.jpg" id="added2" media-type="image/jpeg"/>
+    <item href="encapsulation.html" id="html64" media-type="application/xhtml+xml"/>
+    <item href="error_handling.html" id="html76" media-type="application/xhtml+xml"/>
+    <item href="file_buffer.html" id="html72" media-type="application/xhtml+xml"/>
+    <item href="file_system.html" id="html71" media-type="application/xhtml+xml"/>
+    <item href="fsum_js.html" id="html9" media-type="application/xhtml+xml"/>
+    <item href="fsumc.html" id="html10" media-type="application/xhtml+xml"/>
+    <item href="genenc.html" id="html32" media-type="application/xhtml+xml"/>
+    <item href="hello_js.html" id="html5" media-type="application/xhtml+xml"/>
+    <item href="helloc.html" id="html6" media-type="application/xhtml+xml"/>
+    <item href="index.html" id="html1" media-type="application/xhtml+xml"/>
+    <item href="inheritance.html" id="html65" media-type="application/xhtml+xml"/>
+    <item href="integral_js.html" id="html19" media-type="application/xhtml+xml"/>
+    <item href="integralc.html" id="html20" media-type="application/xhtml+xml"/>
+    <item href="jian_jie.html" id="html2" media-type="application/xhtml+xml"/>
+    <item href="js-module.html" id="html33" media-type="application/xhtml+xml"/>
+    <item href="js_oop.html" id="html35" media-type="application/xhtml+xml"/>
+    <item href="linking_list_external_object.html" id="html61" media-type="application/xhtml+xml"/>
+    <item href="linking_list_with_object.html" id="html60" media-type="application/xhtml+xml"/>
+    <item href="macro.html" id="html84" media-type="application/xhtml+xml"/>
+    <item href="max_js.html" id="html11" media-type="application/xhtml+xml"/>
+    <item href="maxc.html" id="html12" media-type="application/xhtml+xml"/>
+    <item href="memory leak.html" id="html70" media-type="application/xhtml+xml"/>
+    <item href="memory.html" id="html68" media-type="application/xhtml+xml"/>
+    <item href="mt2__js.html" id="html27" media-type="application/xhtml+xml"/>
+    <item href="mt2c.html" id="html28" media-type="application/xhtml+xml"/>
+    <item href="mt__js.html" id="html25" media-type="application/xhtml+xml"/>
+    <item href="mtc.html" id="html26" media-type="application/xhtml+xml"/>
+    <item href="oop.html" id="html62" media-type="application/xhtml+xml"/>
+    <item href="oop_basic_concept.html" id="html63" media-type="application/xhtml+xml"/>
+    <item href="page_styles.css" id="page_css" media-type="text/css"/>
+    <item href="pointer.html" id="html48" media-type="application/xhtml+xml"/>
+    <item href="pointer_arithmetic.html" id="html49" media-type="application/xhtml+xml"/>
+    <item href="pointer_function_pointer.html" id="html52" media-type="application/xhtml+xml"/>
+    <item href="pointer_function_pointer_type.html" id="html53" media-type="application/xhtml+xml"/>
+    <item href="polymorphism.html" id="html66" media-type="application/xhtml+xml"/>
+    <item href="recursive_js.html" id="html21" media-type="application/xhtml+xml"/>
+    <item href="recursivec.html" id="html22" media-type="application/xhtml+xml"/>
+    <item href="sprintf.html" id="html40" media-type="application/xhtml+xml"/>
+    <item href="sscanf.html" id="html41" media-type="application/xhtml+xml"/>
+    <item href="std_string_library.html" id="html42" media-type="application/xhtml+xml"/>
+    <item href="string.html" id="html37" media-type="application/xhtml+xml"/>
+    <item href="string_bewares.html" id="html43" media-type="application/xhtml+xml"/>
+    <item href="string_format.html" id="html39" media-type="application/xhtml+xml"/>
+    <item href="string_js.html" id="html15" media-type="application/xhtml+xml"/>
+    <item href="string_size.html" id="html38" media-type="application/xhtml+xml"/>
+    <item href="string_wrong_using.html" id="html47" media-type="application/xhtml+xml"/>
+    <item href="stringc.html" id="html16" media-type="application/xhtml+xml"/>
+    <item href="struct_bit_field.html" id="html57" media-type="application/xhtml+xml"/>
+    <item href="struct_init.html" id="html56" media-type="application/xhtml+xml"/>
+    <item href="structure.html" id="html55" media-type="application/xhtml+xml"/>
+    <item href="structure_and_pointer.html" id="html58" media-type="application/xhtml+xml"/>
+    <item href="stylesheet.css" id="css" media-type="text/css"/>
+    <item href="sum_js.html" id="html7" media-type="application/xhtml+xml"/>
+    <item href="sumc.html" id="html8" media-type="application/xhtml+xml"/>
+    <item href="titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+    <item href="wide_narrow_transform.html" id="html46" media-type="application/xhtml+xml"/>
+    <item href="wide_string.html" id="html45" media-type="application/xhtml+xml"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="titlepage"/>
+    <itemref idref="html"/>
+    <itemref idref="html1"/>
+    <itemref idref="html2"/>
+    <itemref idref="html3"/>
+    <itemref idref="html4"/>
+    <itemref idref="html5"/>
+    <itemref idref="html6"/>
+    <itemref idref="html7"/>
+    <itemref idref="html8"/>
+    <itemref idref="html9"/>
+    <itemref idref="html10"/>
+    <itemref idref="html11"/>
+    <itemref idref="html12"/>
+    <itemref idref="html13"/>
+    <itemref idref="html14"/>
+    <itemref idref="html15"/>
+    <itemref idref="html16"/>
+    <itemref idref="html17"/>
+    <itemref idref="html18"/>
+    <itemref idref="html19"/>
+    <itemref idref="html20"/>
+    <itemref idref="html21"/>
+    <itemref idref="html22"/>
+    <itemref idref="html23"/>
+    <itemref idref="html24"/>
+    <itemref idref="html25"/>
+    <itemref idref="html26"/>
+    <itemref idref="html27"/>
+    <itemref idref="html28"/>
+    <itemref idref="html29"/>
+    <itemref idref="html30"/>
+    <itemref idref="html31"/>
+    <itemref idref="html32"/>
+    <itemref idref="html33"/>
+    <itemref idref="html34"/>
+    <itemref idref="html35"/>
+    <itemref idref="html36"/>
+    <itemref idref="html37"/>
+    <itemref idref="html38"/>
+    <itemref idref="html39"/>
+    <itemref idref="html40"/>
+    <itemref idref="html41"/>
+    <itemref idref="html42"/>
+    <itemref idref="html43"/>
+    <itemref idref="html44"/>
+    <itemref idref="html45"/>
+    <itemref idref="html46"/>
+    <itemref idref="html47"/>
+    <itemref idref="html48"/>
+    <itemref idref="html49"/>
+    <itemref idref="html50"/>
+    <itemref idref="html51"/>
+    <itemref idref="html52"/>
+    <itemref idref="html53"/>
+    <itemref idref="html54"/>
+    <itemref idref="html55"/>
+    <itemref idref="html56"/>
+    <itemref idref="html57"/>
+    <itemref idref="html58"/>
+    <itemref idref="html59"/>
+    <itemref idref="html60"/>
+    <itemref idref="html61"/>
+    <itemref idref="html62"/>
+    <itemref idref="html63"/>
+    <itemref idref="html64"/>
+    <itemref idref="html65"/>
+    <itemref idref="html66"/>
+    <itemref idref="html67"/>
+    <itemref idref="html68"/>
+    <itemref idref="html69"/>
+    <itemref idref="html70"/>
+    <itemref idref="html71"/>
+    <itemref idref="html72"/>
+    <itemref idref="html73"/>
+    <itemref idref="html74"/>
+    <itemref idref="html75"/>
+    <itemref idref="html76"/>
+    <itemref idref="html77"/>
+    <itemref idref="html78"/>
+    <itemref idref="html79"/>
+    <itemref idref="html80"/>
+    <itemref idref="html81"/>
+    <itemref idref="html82"/>
+    <itemref idref="html83"/>
+    <itemref idref="html84"/>
+    <itemref idref="html85"/>
+    <itemref idref="html86"/>
+    <itemref idref="html87"/>
+    <itemref idref="html88"/>
+    <itemref idref="html89"/>
+    <itemref idref="html90"/>
+    <itemref idref="html91"/>
+  </spine>
+  <guide>
+    <reference href="titlepage.xhtml" title="Cover" type="cover"/>
+  </guide>
+</package>

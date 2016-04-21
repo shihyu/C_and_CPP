@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>mt.c | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_26">mt.c</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="英翻中系統" class="calibre11">英翻中系統</h1>
+<p class="calibre7"><strong class="calibre24">程式： mt.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
+
+<span class="hljs-keyword">char</span> *e[] = {<span class="hljs-string">"dog"</span>, <span class="hljs-string">"cat"</span>, <span class="hljs-string">"a"</span>,    <span class="hljs-string">"chase"</span>,  <span class="hljs-string">"eat"</span>, <span class="hljs-built_in">NULL</span>};
+<span class="hljs-keyword">char</span> *c[] = {<span class="hljs-string">"狗"</span>,  <span class="hljs-string">"貓"</span>,  <span class="hljs-string">"一隻"</span>, <span class="hljs-string">"追"</span>,     <span class="hljs-string">"吃"</span> , <span class="hljs-built_in">NULL</span>};
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-built_in">(<span class="hljs-keyword">char</span> *nameArray[], <span class="hljs-keyword">char</span> *name)</span> </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-built_in">0</span>; nameArray[i] != <span class="hljs-built_in">NULL</span>; i++) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">strcmp</span>(nameArray[i], name)==<span class="hljs-built_in">0</span>)
+    <span class="hljs-keyword">return</span> i;
+  }
+  <span class="hljs-keyword">return</span> -<span class="hljs-built_in">1</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">mt</span><span class="hljs-built_in">(<span class="hljs-keyword">char</span> *words[], <span class="hljs-keyword">int</span> len)</span> </span>{
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-built_in">0</span>; i&lt;len; i++) {
+    <span class="hljs-keyword">int</span> ei = find(e, words[i]);
+    <span class="hljs-keyword">if</span> (ei &lt; <span class="hljs-built_in">0</span>)
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">" _ "</span>);
+    <span class="hljs-keyword">else</span>
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">" %s "</span>, c[ei]);
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span> </span>{
+  mt(&amp;argv[<span class="hljs-built_in">1</span>], argc-<span class="hljs-built_in">1</span>);
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">$ gcc mt.c -std=c99 -o mt
+
+$ ./mt a dog chase a cat
+ 一隻  狗  追  一隻  貓
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

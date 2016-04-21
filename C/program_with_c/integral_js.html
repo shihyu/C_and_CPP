@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>回呼 -- 積分 integral.js | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_19">回呼 -- 積分 integral.js</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="微分" class="calibre11">微分</h1>
+<p class="calibre7"><strong class="calibre24">檔案： df.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">df</span>(<span class="hljs-built_in">f, x</span>) </span>{
+  <span class="hljs-keyword">var</span> dx = <span class="hljs-built_in">0.001</span>;
+  <span class="hljs-keyword">var</span> dy = f(x+dx) - f(x);
+  <span class="hljs-keyword">return</span> dy/dx;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">square</span>(<span class="hljs-built_in">x</span>) </span>{
+  <span class="hljs-keyword">return</span> x*x;
+}
+</code></pre>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">console.log('df(x^2,2)='+df(square, 2));
+console.log('df(x^2,2)='+df(function(x){ return x*x; }, 2));
+console.log('df(sin(x/4),pi/4)='+df(Math.sin, 3.14159/4));
+</code></pre><p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccweb\db\js\code&gt;node df.js
+df(x^2,2)=4.000999999999699
+df(x^2,2)=4.000999999999699
+df(sin(x/4),pi/4)=0.7067535793015001
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

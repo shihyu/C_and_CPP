@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>recursive.c | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_22">recursive.c</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="c-的遞迴函數" class="calibre11">C 的遞迴函數</h1>
+<h3 id="用遞迴計算-sn1n" class="calibre12">用遞迴計算 s(n)=1+..+n</h3>
+<p class="calibre7"><strong class="calibre24">檔案： s10.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">s</span><span class="hljs-built_in">(<span class="hljs-keyword">int</span> n)</span> </span>{
+  <span class="hljs-keyword">if</span> (n==<span class="hljs-built_in">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">1</span>;
+  <span class="hljs-keyword">int</span> sn = s(n-<span class="hljs-built_in">1</span>)+n;
+  <span class="hljs-keyword">return</span> sn;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"s(10)=%d"</span>, s(<span class="hljs-built_in">10</span>));
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc s10.c -o s10
+
+D:\Dropbox\cccwd\db\c\code&gt;s10
+s(10)=55
+</code></pre><h3 id="印出中間過程" class="calibre12">印出中間過程</h3>
+<p class="calibre7"><strong class="calibre24">檔案： recursive.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">s</span><span class="hljs-built_in">(<span class="hljs-keyword">int</span> n)</span> </span>{
+  <span class="hljs-keyword">if</span> (n==<span class="hljs-built_in">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">1</span>;
+  <span class="hljs-keyword">int</span> sn = s(n-<span class="hljs-built_in">1</span>)+n;
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"s(%d)=%d\n"</span>, n, sn);
+  <span class="hljs-keyword">return</span> sn;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"s(10)=%d"</span>, s(<span class="hljs-built_in">10</span>));
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc recursive.c -o recursive
+
+D:\Dropbox\cccwd\db\c\code&gt;recursive
+s(2)=3
+s(3)=6
+s(4)=10
+s(5)=15
+s(6)=21
+s(7)=28
+s(8)=36
+s(9)=45
+s(10)=55
+s(10)=55
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

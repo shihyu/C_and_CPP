@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>英翻中系統 -- mt.js | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_25">英翻中系統 -- mt.js</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="英翻中系統" class="calibre11">英翻中系統</h1>
+<p class="calibre7"><strong class="calibre24">程式： mt.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-keyword">var</span> e2c = { dog:<span class="hljs-string">"狗"</span>, cat:<span class="hljs-string">"貓"</span>, a: <span class="hljs-string">"一隻"</span>, chase:<span class="hljs-string">"追"</span>, eat:<span class="hljs-string">"吃"</span> };
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mt</span>(<span class="hljs-built_in">e</span>) </span>{
+  <span class="hljs-keyword">var</span> c = [];
+  <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> e) {
+    <span class="hljs-keyword">var</span> eword = e[i];
+    <span class="hljs-keyword">var</span> cword = e2c[eword];
+    c.push(cword);
+  }
+  <span class="hljs-keyword">return</span> c;
+}
+
+<span class="hljs-keyword">var</span> c = mt(process.argv.slice(<span class="hljs-built_in">2</span>)); 
+<span class="hljs-built_in">console</span>.log(c);
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">$ node mt a dog chase a cat
+[ '一隻', '狗', '追', '一隻', '貓' ]
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

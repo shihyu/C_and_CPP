@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>英中互翻系統 -- mt2.js | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_27">英中互翻系統 -- mt2.js</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="英中互翻" class="calibre11">英中互翻</h1>
+<p class="calibre7"><strong class="calibre24">檔案： mt2.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">var <span class="hljs-built_in">log</span> = console.<span class="hljs-built_in">log</span>;
+
+var dic = { dog:<span class="hljs-string">"狗"</span>, cat:<span class="hljs-string">"貓"</span>, a: <span class="hljs-string">"一隻"</span>, chase:<span class="hljs-string">"追"</span>, eat:<span class="hljs-string">"吃"</span>,
+        <span class="hljs-string">"狗"</span>:<span class="hljs-string">"dog"</span>, <span class="hljs-string">"貓"</span>:<span class="hljs-string">"cat"</span>, <span class="hljs-string">"一隻"</span>:<span class="hljs-string">"a"</span>, <span class="hljs-string">"追"</span>:<span class="hljs-string">"chase"</span>, <span class="hljs-string">"吃"</span>:<span class="hljs-string">"eat"</span> };
+
+<span class="hljs-function">function <span class="hljs-title">mt</span><span class="hljs-built_in">(w)</span> </span>{
+  var <span class="hljs-built_in">array</span> = [];
+  <span class="hljs-keyword">for</span> (i in w) {
+    var word = w[i];
+    var toWord = dic[word];
+    <span class="hljs-built_in">array</span>.push(toWord);
+  }
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">array</span>;
+}
+
+var a = mt(process.argv.slice(<span class="hljs-built_in">2</span>));
+<span class="hljs-built_in">log</span>(a);
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">nqu-192-168-61-142:code mac020$ node mt2.js a dog chase a cat
+[ '一隻', '狗', '追', '一隻', '貓' ]
+nqu-192-168-61-142:code mac020$ node mt2.js 一隻 狗 追 一隻 貓
+[ 'a', 'dog', 'chase', 'a', 'cat' ]
+nqu-192-168-61-142:code mac020$ node mt2.js 一隻 狗 chase  一隻 貓
+[ 'a', 'dog', '追', 'a', 'cat' ]
+nqu-192-168-61-142:code mac020$ node mt2.js 一隻 狗 咬  一隻 貓
+[ 'a', 'dog', undefined, 'a', 'cat' ]
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

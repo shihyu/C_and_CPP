@@ -1,0 +1,561 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="zh">
+  <head>
+    <meta content="4f33611f-9f4c-44f3-ba7e-35a03c5b85d4" name="dtb:uid"/>
+    <meta content="4" name="dtb:depth"/>
+    <meta content="calibre (2.41.0)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>高等C語言</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="u4cd3e09c-ae98-4539-9aa0-0108f49aa40f" playOrder="1">
+      <navLabel>
+        <text>Introduction</text>
+      </navLabel>
+      <content src="index.html"/>
+    </navPoint>
+    <navPoint id="uc2db386c-be4f-4976-bcb0-49212c96cec0" playOrder="2">
+      <navLabel>
+        <text>簡介</text>
+      </navLabel>
+      <content src="jian_jie.html"/>
+    </navPoint>
+    <navPoint id="u8a96ce15-d45d-4da6-9baa-d7dbef221fcb" playOrder="3">
+      <navLabel>
+        <text>目錄</text>
+      </navLabel>
+      <content src="chapter1.html"/>
+    </navPoint>
+    <navPoint id="ubbdc0b12-cb80-482f-814a-3d431efbe548" playOrder="4">
+      <navLabel>
+        <text>語言基礎</text>
+      </navLabel>
+      <content src="basic.html"/>
+      <navPoint id="ua39d2aef-0c8a-4fb3-bdeb-35fe94f4b41f" playOrder="5">
+        <navLabel>
+          <text>第一個程式 -- hello.js</text>
+        </navLabel>
+        <content src="hello_js.html"/>
+      </navPoint>
+      <navPoint id="u0647c100-0dd7-4737-b3c6-2dd0caab1464" playOrder="6">
+        <navLabel>
+          <text>hello.c</text>
+        </navLabel>
+        <content src="helloc.html"/>
+      </navPoint>
+      <navPoint id="u5c105fc0-32d7-49f7-902d-c2dfd9bfbed5" playOrder="7">
+        <navLabel>
+          <text>加總 -- sum.js</text>
+        </navLabel>
+        <content src="sum_js.html"/>
+      </navPoint>
+      <navPoint id="u77f80064-a590-44be-b8bd-2344ac47b2c7" playOrder="8">
+        <navLabel>
+          <text>sum.c</text>
+        </navLabel>
+        <content src="sumc.html"/>
+      </navPoint>
+      <navPoint id="u1c3b2839-ae0c-45a4-b5d7-b89a47330435" playOrder="9">
+        <navLabel>
+          <text>函數 -- fsum.js</text>
+        </navLabel>
+        <content src="fsum_js.html"/>
+      </navPoint>
+      <navPoint id="u091afc33-5f98-4fca-a0b3-a65192d18170" playOrder="10">
+        <navLabel>
+          <text>fsum.c</text>
+        </navLabel>
+        <content src="fsumc.html"/>
+      </navPoint>
+      <navPoint id="uc928c043-594a-4651-b4e0-50b93f3a5c35" playOrder="11">
+        <navLabel>
+          <text>函數 -- max.js</text>
+        </navLabel>
+        <content src="max_js.html"/>
+      </navPoint>
+      <navPoint id="u466c0a96-1ce5-44b0-b6c4-9c6699ad1736" playOrder="12">
+        <navLabel>
+          <text>max.c</text>
+        </navLabel>
+        <content src="maxc.html"/>
+      </navPoint>
+      <navPoint id="ub6675758-0798-4043-87b7-c032db5beed4" playOrder="13">
+        <navLabel>
+          <text>陣列 -- array.js</text>
+        </navLabel>
+        <content src="array_js.html"/>
+      </navPoint>
+      <navPoint id="u10789c6e-3d97-4727-ba05-b314c4215685" playOrder="14">
+        <navLabel>
+          <text>array.c</text>
+        </navLabel>
+        <content src="arrayc.html"/>
+      </navPoint>
+      <navPoint id="u3675d789-ee25-4b24-ac0f-3d6d2f6d9bd6" playOrder="15">
+        <navLabel>
+          <text>字串 -- string.js</text>
+        </navLabel>
+        <content src="string_js.html"/>
+      </navPoint>
+      <navPoint id="uabd4ff0b-afed-4b56-b4c5-26a6939af8d9" playOrder="16">
+        <navLabel>
+          <text>string.c</text>
+        </navLabel>
+        <content src="stringc.html"/>
+      </navPoint>
+      <navPoint id="u810c2961-b8d3-4216-b69b-f485fc8e91a3" playOrder="17">
+        <navLabel>
+          <text>回呼 -- 微分 df.js</text>
+        </navLabel>
+        <content src="df_js.html"/>
+      </navPoint>
+      <navPoint id="u9eba3be7-05ae-4458-a988-c9c97f5e55e3" playOrder="18">
+        <navLabel>
+          <text>df.c</text>
+        </navLabel>
+        <content src="dfc.html"/>
+      </navPoint>
+      <navPoint id="udaa93e75-3fa2-42d6-9a0c-4b92b51eb877" playOrder="19">
+        <navLabel>
+          <text>回呼 -- 積分 integral.js</text>
+        </navLabel>
+        <content src="integral_js.html"/>
+      </navPoint>
+      <navPoint id="u30c7e666-10f1-48c5-b399-fe36a2b3c29c" playOrder="20">
+        <navLabel>
+          <text>integral.c</text>
+        </navLabel>
+        <content src="integralc.html"/>
+      </navPoint>
+      <navPoint id="u15c0156d-0056-4664-b98d-75a7c265c4f3" playOrder="21">
+        <navLabel>
+          <text>遞迴 -- recursive.js</text>
+        </navLabel>
+        <content src="recursive_js.html"/>
+      </navPoint>
+      <navPoint id="u89173524-4ab7-4059-b510-0a1ef929c911" playOrder="22">
+        <navLabel>
+          <text>recursive.c</text>
+        </navLabel>
+        <content src="recursivec.html"/>
+      </navPoint>
+      <navPoint id="u982679ab-334c-45c5-9f5d-edec26546e5f" playOrder="23">
+        <navLabel>
+          <text>字典 -- dict.js</text>
+        </navLabel>
+        <content src="dict_js.html"/>
+      </navPoint>
+      <navPoint id="u1fc8f42c-13bd-473b-a6c9-bb47df30aceb" playOrder="24">
+        <navLabel>
+          <text>dict.c</text>
+        </navLabel>
+        <content src="dictc.html"/>
+      </navPoint>
+      <navPoint id="uf5d9ca58-2fee-48ff-94f5-4c3dcc33cd9d" playOrder="25">
+        <navLabel>
+          <text>英翻中系統 -- mt.js</text>
+        </navLabel>
+        <content src="mt__js.html"/>
+      </navPoint>
+      <navPoint id="uae937f99-ef88-4276-8728-dacf2bcc1ebc" playOrder="26">
+        <navLabel>
+          <text>mt.c</text>
+        </navLabel>
+        <content src="mtc.html"/>
+      </navPoint>
+      <navPoint id="u9de97343-623f-4dce-9f0b-b528769c5a93" playOrder="27">
+        <navLabel>
+          <text>英中互翻系統 -- mt2.js</text>
+        </navLabel>
+        <content src="mt2__js.html"/>
+      </navPoint>
+      <navPoint id="ufb565ed0-ab5a-4792-9c56-7864f2e9c349" playOrder="28">
+        <navLabel>
+          <text>mt2.c</text>
+        </navLabel>
+        <content src="mt2c.html"/>
+      </navPoint>
+      <navPoint id="uace562c4-941f-4fcf-b36a-7c6326ca19a0" playOrder="29">
+        <navLabel>
+          <text>中翻英系統 -- c2e.js</text>
+        </navLabel>
+        <content src="c2e__js.html"/>
+      </navPoint>
+      <navPoint id="u35e77133-8664-491b-8b87-bd47594074d3" playOrder="30">
+        <navLabel>
+          <text>c2e.c</text>
+        </navLabel>
+        <content src="c2ec.html"/>
+      </navPoint>
+      <navPoint id="ua7a06b59-ce9c-49ee-afb4-c79bd9719ee4" playOrder="31">
+        <navLabel>
+          <text>自動產生英文語句</text>
+        </navLabel>
+        <content src="auto_generate_eng_sentence.html"/>
+      </navPoint>
+      <navPoint id="ue1e10b17-a490-4630-bbe5-91bfc9d285a9" playOrder="32">
+        <navLabel>
+          <text>genen.c</text>
+        </navLabel>
+        <content src="genenc.html"/>
+      </navPoint>
+      <navPoint id="u55d083b4-40b4-499a-a116-3439ae82dfb6" playOrder="33">
+        <navLabel>
+          <text>JS的模組化</text>
+        </navLabel>
+        <content src="js-module.html"/>
+      </navPoint>
+      <navPoint id="ufdfbb7a9-aaa5-49cd-a563-b0f4b415ea3f" playOrder="34">
+        <navLabel>
+          <text>C 的模組化</text>
+        </navLabel>
+        <content src="C_module.html"/>
+      </navPoint>
+      <navPoint id="u49f282da-e3f0-4f6c-b10a-893a54ea956a" playOrder="35">
+        <navLabel>
+          <text>JS的物件導向</text>
+        </navLabel>
+        <content src="js_oop.html"/>
+      </navPoint>
+      <navPoint id="uac64819d-84a5-48fc-a147-e92b0b5f937d" playOrder="36">
+        <navLabel>
+          <text>C的結構</text>
+        </navLabel>
+        <content src="C_struct.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ucefabc2d-3c92-4ff4-903e-c2af5c2ffcee" playOrder="37">
+      <navLabel>
+        <text>字串處理</text>
+      </navLabel>
+      <content src="string.html"/>
+      <navPoint id="u89e60151-adc0-457a-8d01-d97415421ca6" playOrder="38">
+        <navLabel>
+          <text>字串大小的問題</text>
+        </navLabel>
+        <content src="string_size.html"/>
+      </navPoint>
+      <navPoint id="u22ff32ff-f601-4aab-be37-67d5eb0a0637" playOrder="39">
+        <navLabel>
+          <text>字串的格式化</text>
+        </navLabel>
+        <content src="string_format.html"/>
+      </navPoint>
+      <navPoint id="ucd640ed1-fed9-49d6-8c02-d8bf9bf51983" playOrder="40">
+        <navLabel>
+          <text>sprintf 函數</text>
+        </navLabel>
+        <content src="sprintf.html"/>
+      </navPoint>
+      <navPoint id="u5cbb03fe-d1dd-471d-a06d-c43529392277" playOrder="41">
+        <navLabel>
+          <text>sscanf 函數</text>
+        </navLabel>
+        <content src="sscanf.html"/>
+      </navPoint>
+      <navPoint id="u69675623-e464-4eef-8f42-0270c62849c8" playOrder="42">
+        <navLabel>
+          <text>標準字串函式庫</text>
+        </navLabel>
+        <content src="std_string_library.html"/>
+      </navPoint>
+      <navPoint id="ue556f337-11b3-4fd4-a014-2ca0a4643f07" playOrder="43">
+        <navLabel>
+          <text>字串的誤用</text>
+        </navLabel>
+        <content src="string_bewares.html"/>
+      </navPoint>
+      <navPoint id="ud73cae28-7a9f-4716-bf9a-b1e4054f2367" playOrder="44">
+        <navLabel>
+          <text>動態字串物件</text>
+        </navLabel>
+        <content src="dynamic_string.html"/>
+      </navPoint>
+      <navPoint id="udac8b2ea-8c78-4b4b-939a-1932866c7dc6" playOrder="45">
+        <navLabel>
+          <text>寬字串函數</text>
+        </navLabel>
+        <content src="wide_string.html"/>
+      </navPoint>
+      <navPoint id="ud44c52c3-e1bd-4621-a54d-2ab9ad51667e" playOrder="46">
+        <navLabel>
+          <text>寬窄字串間的轉換</text>
+        </navLabel>
+        <content src="wide_narrow_transform.html"/>
+      </navPoint>
+      <navPoint id="uaa8e2726-d7f9-4e4e-a3fd-a6676db25dac" playOrder="47">
+        <navLabel>
+          <text>字串的誤用</text>
+        </navLabel>
+        <content src="string_wrong_using.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="u10ace1c3-5687-49b5-b9a2-9eafda256755" playOrder="48">
+      <navLabel>
+        <text>指標</text>
+      </navLabel>
+      <content src="pointer.html"/>
+      <navPoint id="ufee0b1d0-2a0c-4f8d-abe1-722456d64824" playOrder="49">
+        <navLabel>
+          <text>指標算術</text>
+        </navLabel>
+        <content src="pointer_arithmetic.html"/>
+      </navPoint>
+      <navPoint id="u98d2419c-5885-40f2-b24b-f5b8a3025b56" playOrder="50">
+        <navLabel>
+          <text>動態陣列物件</text>
+        </navLabel>
+        <content src="dynamic_array_object.html"/>
+      </navPoint>
+      <navPoint id="ue89f947b-6df0-4684-8c9f-b4006a5aee7f" playOrder="51">
+        <navLabel>
+          <text>陣列大小的問題</text>
+        </navLabel>
+        <content src="array_size_issue.html"/>
+      </navPoint>
+      <navPoint id="u5ce4b6e4-fd53-48e6-a071-8a76c223712f" playOrder="52">
+        <navLabel>
+          <text>函數指標</text>
+        </navLabel>
+        <content src="pointer_function_pointer.html"/>
+      </navPoint>
+      <navPoint id="u6167cd92-4a6c-443b-a4c8-ccf311b9f357" playOrder="53">
+        <navLabel>
+          <text>函數指標型態</text>
+        </navLabel>
+        <content src="pointer_function_pointer_type.html"/>
+      </navPoint>
+      <navPoint id="u2f95edf6-2c66-49d9-a717-d4ece5a57856" playOrder="54">
+        <navLabel>
+          <text>變動參數</text>
+        </navLabel>
+        <content src="args.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ub71e797a-473c-4f3b-bfff-5fe71bdc074b" playOrder="55">
+      <navLabel>
+        <text>結構</text>
+      </navLabel>
+      <content src="structure.html"/>
+      <navPoint id="u4fbaaac4-b367-4304-817b-b551650b6b28" playOrder="56">
+        <navLabel>
+          <text>結構的初始化</text>
+        </navLabel>
+        <content src="struct_init.html"/>
+      </navPoint>
+      <navPoint id="ub94e7638-1510-44c2-86fa-04101dc4a4bf" playOrder="57">
+        <navLabel>
+          <text>結構中的位元欄</text>
+        </navLabel>
+        <content src="struct_bit_field.html"/>
+      </navPoint>
+      <navPoint id="ub9f8e622-ccfd-41b9-a48b-17f44efab206" playOrder="58">
+        <navLabel>
+          <text>結構的指標算術</text>
+        </navLabel>
+        <content src="structure_and_pointer.html"/>
+        <navPoint id="u750ef14d-1343-4f7f-b2d4-dc862675b5c4" playOrder="59">
+          <navLabel>
+            <text>鏈結串列-基礎版</text>
+          </navLabel>
+          <content src="basic_linking_list.html"/>
+        </navPoint>
+        <navPoint id="u59eeab1b-4387-4c39-9faf-01b732626f26" playOrder="60">
+          <navLabel>
+            <text>鏈結串列：內含物件版</text>
+          </navLabel>
+          <content src="linking_list_with_object.html"/>
+        </navPoint>
+        <navPoint id="u943094bc-ca4e-43c3-9267-c95751a154fc" playOrder="61">
+          <navLabel>
+            <text>鏈結串列：外包物件版</text>
+          </navLabel>
+          <content src="linking_list_external_object.html"/>
+        </navPoint>
+      </navPoint>
+    </navPoint>
+    <navPoint id="u55c8e9b1-0472-47ab-899d-ee10ca214b84" playOrder="62">
+      <navLabel>
+        <text>物件導向</text>
+      </navLabel>
+      <content src="oop.html"/>
+      <navPoint id="u74dea9d2-c596-455d-93f2-b1f32e088ca4" playOrder="63">
+        <navLabel>
+          <text>物件導向的基本概念 -- 封裝，繼承，多型</text>
+        </navLabel>
+        <content src="oop_basic_concept.html"/>
+      </navPoint>
+      <navPoint id="u2539446f-e10a-46e3-b84b-28450dc89d17" playOrder="64">
+        <navLabel>
+          <text>封裝 — (Encapsulation)</text>
+        </navLabel>
+        <content src="encapsulation.html"/>
+      </navPoint>
+      <navPoint id="u68c732ba-0615-4238-9b47-5703b83c069d" playOrder="65">
+        <navLabel>
+          <text>繼承 — (Inheritance)</text>
+        </navLabel>
+        <content src="inheritance.html"/>
+      </navPoint>
+      <navPoint id="u628be585-8db1-4e52-84b2-abfe743b077b" playOrder="66">
+        <navLabel>
+          <text>多型 — (Polymorphism)</text>
+        </navLabel>
+        <content src="polymorphism.html"/>
+      </navPoint>
+      <navPoint id="u60e3fef4-5b19-407e-8e0d-ef9b2c45922a" playOrder="67">
+        <navLabel>
+          <text>類別結構 — (Define Class)</text>
+        </navLabel>
+        <content src="class_structure.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="ud35b837c-8895-4a0a-9d59-a791f33291b5" playOrder="68">
+      <navLabel>
+        <text>記憶體管理</text>
+      </navLabel>
+      <content src="memory.html"/>
+      <navPoint id="ue9bf484b-3ed2-4570-8c6a-99930fb7b903" playOrder="69">
+        <navLabel>
+          <text>C 語言的執行環境</text>
+        </navLabel>
+        <content src="C%20Execution%20Environment.html"/>
+      </navPoint>
+      <navPoint id="u5cd8637d-7d32-425c-b102-ad58d89bc5d0" playOrder="70">
+        <navLabel>
+          <text>記憶體漏洞</text>
+        </navLabel>
+        <content src="memory%20leak.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="udee76b48-0072-49da-95a9-1227bfb7c129" playOrder="71">
+      <navLabel>
+        <text>檔案系統</text>
+      </navLabel>
+      <content src="file_system.html"/>
+      <navPoint id="u89f633cc-f2a3-4b84-b359-fa81cbfd4f52" playOrder="72">
+        <navLabel>
+          <text>檔案緩衝區</text>
+        </navLabel>
+        <content src="file_buffer.html"/>
+      </navPoint>
+      <navPoint id="uc6c588e3-ee36-4fa8-84c9-9076cc3b34da" playOrder="73">
+        <navLabel>
+          <text>臨時暫存檔</text>
+        </navLabel>
+        <content src="Temporary%20file.html"/>
+      </navPoint>
+      <navPoint id="ud8cb0380-0848-4893-a30d-195f888d5383" playOrder="74">
+        <navLabel>
+          <text>檔案錯誤</text>
+        </navLabel>
+        <content src="File%20Error.html"/>
+      </navPoint>
+      <navPoint id="ub0f3cfd2-3eae-4f3d-8b52-ad9a066fe4f1" playOrder="75">
+        <navLabel>
+          <text>目錄管理</text>
+        </navLabel>
+        <content src="Directory%20Management.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="u9b0821b3-d56e-4477-81c9-1f74bec93887" playOrder="76">
+      <navLabel>
+        <text>錯誤處理</text>
+      </navLabel>
+      <content src="error_handling.html"/>
+      <navPoint id="u5fcbfb56-9510-420a-936d-9bae259283b1" playOrder="77">
+        <navLabel>
+          <text>錯誤代號與訊息</text>
+        </navLabel>
+        <content src="Error%20codes%20and%20messages.html"/>
+      </navPoint>
+      <navPoint id="ube64d244-27a5-4745-b569-7bc0123612b9" playOrder="78">
+        <navLabel>
+          <text>錯誤訊息列表</text>
+        </navLabel>
+        <content src="Error%20Message%20List.html"/>
+      </navPoint>
+      <navPoint id="u02d52ef1-48df-4413-a640-c4f4a17c372b" playOrder="79">
+        <navLabel>
+          <text>檔案錯誤</text>
+        </navLabel>
+        <content src="Processing%20File%20Error.html"/>
+      </navPoint>
+      <navPoint id="u4afe6d5f-2539-4231-bbd8-59721550d05c" playOrder="80">
+        <navLabel>
+          <text>短程跳躍</text>
+        </navLabel>
+        <content src="Short%20jump.html"/>
+      </navPoint>
+      <navPoint id="ucd701283-7ea6-4fdb-8aa0-645759e35057" playOrder="81">
+        <navLabel>
+          <text>長程跳躍</text>
+        </navLabel>
+        <content src="Long-range%20jump.html"/>
+      </navPoint>
+      <navPoint id="u436457f2-f86c-4701-8a4d-3f35d51d7ba9" playOrder="82">
+        <navLabel>
+          <text>訊號機制</text>
+        </navLabel>
+        <content src="Signal%20Mechanism.html"/>
+      </navPoint>
+      <navPoint id="u2d5a4cce-641b-412b-8500-ae1251b423c7" playOrder="83">
+        <navLabel>
+          <text>模擬 try ... catch</text>
+        </navLabel>
+        <content src="Analog%20try%20_.%20catch.html"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="u13679d3e-f1ae-4189-b783-bc4b51013e67" playOrder="84">
+      <navLabel>
+        <text>巨集處理</text>
+      </navLabel>
+      <content src="macro.html"/>
+      <navPoint id="u7a806195-5771-4fca-8a3f-075e2ff051c4" playOrder="85">
+        <navLabel>
+          <text>將函數巨集化</text>
+        </navLabel>
+        <content src="The%20function%20of%20the%20macro.html"/>
+      </navPoint>
+      <navPoint id="uc18cd225-5681-4255-b5ca-14449bb07411" playOrder="86">
+        <navLabel>
+          <text>引用防護</text>
+        </navLabel>
+        <content src="References%20Protection.html"/>
+      </navPoint>
+      <navPoint id="uec7c701c-ba0a-4386-95a9-e8dffe7a3d57" playOrder="87">
+        <navLabel>
+          <text>條件編譯</text>
+        </navLabel>
+        <content src="Conditional%20compilation.html"/>
+      </navPoint>
+      <navPoint id="u008543b1-cc4e-449b-8ca3-3109f4a102a4" playOrder="88">
+        <navLabel>
+          <text>編譯時期變數</text>
+        </navLabel>
+        <content src="Compile-time%20variable.html"/>
+      </navPoint>
+      <navPoint id="u9a311ee9-eec5-4a19-b3ef-259d090f167b" playOrder="89">
+        <navLabel>
+          <text>編譯時期函數</text>
+        </navLabel>
+        <content src="Compile-time%20function.html"/>
+      </navPoint>
+      <navPoint id="u64ecee1a-74e1-4213-a9dc-398f1b7d09dd" playOrder="90">
+        <navLabel>
+          <text>編譯指示</text>
+        </navLabel>
+        <content src="Pragma.html"/>
+      </navPoint>
+      <navPoint id="ua148817a-9b7d-4b71-b567-c37336f1dba7" playOrder="91">
+        <navLabel>
+          <text>字串化</text>
+        </navLabel>
+        <content src="Stringification.html"/>
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>

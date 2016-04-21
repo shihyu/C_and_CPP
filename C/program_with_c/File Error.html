@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>檔案錯誤 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_74">檔案錯誤</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="檔案錯誤--如何處理檔案的錯誤狀況" class="calibre11">檔案錯誤 -- 如何處理檔案的錯誤狀況</h1>
+<p class="calibre7"><strong class="calibre24">程式範例</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">    #include &lt;stdio.h&gt;
+    #include &lt;stdlib.h&gt;
+
+    int main(int argc, char *argv[]) {
+      FILE *in, *out;
+      char ch;
+
+      if((in=fopen(argv[1], "rb")) == NULL) {
+        perror("Error");
+        exit(1);
+      }
+
+      while(!feof(in)) {
+        ch = getc(in);
+        if(ferror(in)) {
+          perror("Error");
+          clearerr(in);
+          break;
+        }
+        putchar(ch);
+      }
+      fclose(in);
+      return 0;
+    }
+</code></pre><p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc ferror.c -o ferror
+
+D:\cp&gt;ferror
+Error: No such file or directory
+
+D:\cp&gt;ferror exist.not
+Error: No such file or directory
+
+D:\cp&gt;ferror ferror.c
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char *argv[]) {
+  FILE *in, *out;
+  char ch;
+
+  if((in=fopen(argv[1], "rb")) == NULL) {
+    perror("Error");
+    exit(1);
+  }
+
+  while(!feof(in)) {
+    ch = getc(in);
+    if(ferror(in)) {
+      perror("Error");
+      clearerr(in);
+      break;
+    }
+    putchar(ch);
+  }
+  fclose(in);
+  return 0;
+}
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

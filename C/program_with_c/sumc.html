@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>sum.c | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_8">sum.c</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="範例--加總-sumc" class="calibre11">範例 -- 加總 (sum.c)</h1>
+<h3 id="使用-while-迴圈" class="calibre12">使用 while 迴圈</h3>
+<p class="calibre7"><strong class="calibre24">檔案： wsum.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">int</span> i=<span class="hljs-built_in">1</span>, sum=<span class="hljs-built_in">0</span>;
+  <span class="hljs-keyword">while</span> (i&lt;=<span class="hljs-built_in">10</span>) {
+    sum = sum + i;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"i=%d sum=%d\n"</span>, i, sum);
+    i = i + <span class="hljs-built_in">1</span>;
+  }
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc wsum.c -o wsum
+
+D:\Dropbox\cccwd\db\c\code&gt;wsum
+i=1 sum=1
+i=2 sum=3
+i=3 sum=6
+i=4 sum=10
+i=5 sum=15
+i=6 sum=21
+i=7 sum=28
+i=8 sum=36
+i=9 sum=45
+i=10 sum=55
+</code></pre><h3 id="使用-for-迴圈" class="calibre12">使用 for 迴圈</h3>
+<p class="calibre7"><strong class="calibre24">檔案：sum.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">int</span> i, sum=<span class="hljs-built_in">0</span>;
+  <span class="hljs-keyword">for</span> (i=<span class="hljs-built_in">1</span>;i&lt;=<span class="hljs-built_in">10</span>;i++) {
+    sum = sum + i;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"i=%d sum=%d\n"</span>, i, sum);
+  }    
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc sum.c -o sum
+
+D:\Dropbox\cccwd\db\c\code&gt;sum
+i=1 sum=1
+i=2 sum=3
+i=3 sum=6
+i=4 sum=10
+i=5 sum=15
+i=6 sum=21
+i=7 sum=28
+i=8 sum=36
+i=9 sum=45
+i=10 sum=55
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

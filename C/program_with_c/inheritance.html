@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>繼承 — (Inheritance) | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_65">繼承 — (Inheritance)</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="以-c-語言實作繼承" class="calibre11">以 C 語言實作繼承</h1>
+<p class="calibre7">在物件導向當中，子類別繼承父類別時，會同時繼承所有父類別的內容，我們可以在程式中加入</p>
+<h3 id="程式範例：以-c-語言實作繼承-circle-繼承-shape" class="calibre12">程式範例：以 C 語言實作繼承 (Circle 繼承 Shape)</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> ShapeMembers(TYPE) void (*new)(struct TYPE*);float (*area)(struct TYPE*)</span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> _Shape { <span class="hljs-title">// Shape 物件，沒有欄位</span>
+  ShapeMembers(_Shape);
+} Shape;
+
+
+<span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">ShapeArea</span><span class="hljs-built_in">(Shape *obj)</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">0</span>; }
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ShapeNew</span><span class="hljs-built_in">(Shape *obj)</span> </span>{
+  obj-&gt;<span class="hljs-keyword">new</span> = ShapeNew;
+  obj-&gt;area = ShapeArea;
+}
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> _Circle {
+  ShapeMembers(_Circle);
+  <span class="hljs-keyword">float</span> r;
+} Circle;
+
+<span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">CircleArea</span><span class="hljs-built_in">(Circle *obj)</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">3.14</span> * obj-&gt;r * obj-&gt;r;     }
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CircleNew</span><span class="hljs-built_in">(Circle *obj)</span> </span>{
+  obj-&gt;<span class="hljs-keyword">new</span> = CircleNew;
+  obj-&gt;area = CircleArea;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  Shape s;
+  ShapeNew(&amp;s);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"s.area()=%G\n"</span>, s.area(&amp;s));
+
+  Circle c;
+  CircleNew(&amp;c);
+  c.r = <span class="hljs-built_in">3.0</span>;
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"c.area()=%G\n"</span>, c.area(&amp;c));
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc inherit.c -o inherit
+
+D:\cp&gt;inherit
+s.area()=0
+c.area()=28.26
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

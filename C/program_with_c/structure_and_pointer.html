@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>結構的指標算術 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_58">結構的指標算術</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="c-語言結構中的指標算術" class="calibre11">C 語言結構中的指標算術</h1>
+<p class="calibre7">在 C 語言當中，指標的內容就是記憶體位址，於是我們可以利用指標的算術，計算出某些具有特殊價值的數字，然後進行位址操作，以便定址到我們想要的內容上。</p>
+<p class="calibre7">舉例而言，在 Linux 的鏈結串列中，就定義了下列的 offsetof() 巨集函數，可以讓我們計算出一個結構與其欄位間的距離，</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">define</span> offsetof(TYPE, MEMBER) ((size_t) &amp;((TYPE *)<span class="hljs-built_in">0</span>)-&gt;MEMBER)</span>
+</code></pre>
+<p class="calibre7">事實上，offsetof() 這個巨集已經被納入到 ANSI C 的 表頭中，您也可以引用該表頭，而不需要自己實作。</p>
+<p class="calibre7">如果我們要從欄位指標反求其母結構位址，則可參考下列 Linux 核心中的原始碼，使用 container_of() 函數</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">define</span> container_of(ptr, type, member) ({    \
+    const typeof( ((type *)<span class="hljs-built_in">0</span>)-&gt;member ) *__mptr = (ptr);    \
+    (type *)( (char *)__mptr - offsetof(type,member) );})</span>
+</code></pre>
+<p class="calibre7">這樣的巨集函數要如何使用呢？請參考下列範例。</p>
+<h3 id="程式範例：結構中的指標運算" class="calibre12">程式範例：結構中的指標運算</h3>
+<p class="calibre7"><strong class="calibre24">檔案：structptr.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> offsetof(TYPE, MEMBER) ((size_t) &amp;((TYPE *)<span class="hljs-built_in">0</span>)-&gt;MEMBER)</span>
+
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> container_of(ptr, type, member) ({    \
+    const typeof( ((type *)<span class="hljs-built_in">0</span>)-&gt;member ) *__mptr = (ptr);    \
+    (type *)( (char *)__mptr - offsetof(type,member) );})</span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> {
+  <span class="hljs-keyword">char</span> name[<span class="hljs-built_in">20</span>];
+  <span class="hljs-keyword">int</span> age;
+} Person;
+
+<span class="hljs-title">// 以 Person 中的 age 欄位為例，說明 container_of() 函數的作法</span>
+<span class="hljs-title">//  container_of(&amp;p.age, Person, age)</span>
+<span class="hljs-title">//    typeof( ((Person *)0)-&gt;age ) is int</span>
+<span class="hljs-title">//    int *__mptr = (&amp;p.age); </span>
+<span class="hljs-title">//    (Person *) ((char *) __mptr - offsetof(Person, age))</span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  Person p = {
+    .name=<span class="hljs-string">"John"</span>,
+    .age=<span class="hljs-built_in">40</span>
+  };
+
+  <span class="hljs-keyword">size_t</span> offset = offsetof(Person, age);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"offset=0x%x\n"</span>, offset);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"offsetof(Person,age)=0x%x\n"</span>, offsetof(Person, age));
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"&amp;p=%p\n"</span>, &amp;p);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"&amp;p.age=%p\n"</span>, &amp;p.age);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"p.age=%d\n"</span>, *(&amp;p.age));
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"&amp;p+1=%p\n"</span>, &amp;p+<span class="hljs-built_in">1</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"&amp;((Person*)&amp;p)[1]=%p\n"</span>, &amp;((Person*)&amp;p)[<span class="hljs-built_in">1</span>]);
+  <span class="hljs-keyword">char</span> *cptr = (<span class="hljs-keyword">char</span>*) &amp;p;
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"cptr+1=%p\n"</span>, cptr+<span class="hljs-built_in">1</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"cptr+20=%p\n"</span>, cptr+<span class="hljs-built_in">20</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"*(int *)(cptr+20)=%d\n"</span>, *(<span class="hljs-keyword">int</span> *)(cptr+<span class="hljs-built_in">20</span>));
+  <span class="hljs-keyword">int</span> *mptr = (&amp;p.age);
+  Person *pptr = (Person *) ((<span class="hljs-keyword">char</span> *) mptr-<span class="hljs-built_in">20</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"*pptr=%p\n"</span>, pptr);
+<span class="hljs-title">//  int **agePtr;</span>
+<span class="hljs-title">//  agePtr  = (int**) (&amp;p+offset);</span>
+<span class="hljs-title">//  printf("agePtr=%p\n", agePtr);</span>
+<span class="hljs-title">//  printf("*(&amp;p+offset)=%d\n", *agePtr);</span>
+<span class="hljs-title">//  printf("&amp;p+offsetof(Person,age)=%p\n", &amp;p+offset);</span>
+<span class="hljs-title">//  printf("container_of(&amp;p.age,Person,age)=%p\n",        container_of(&amp;p.age, Person, age));</span>
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc structptr.c -o structptr
+
+D:\cp&gt;structptr
+offset=0x14
+offsetof(Person,age)=0x14
+&amp;p=0022FF50
+&amp;p.age=0022FF64
+p.age=40
+&amp;p+1=0022FF68
+&amp;((Person*)&amp;p)[1]=0022FF68
+cptr+1=0022FF51
+cptr+20=0022FF64
+*(int *)(cptr+20)=40
+*pptr=0022FF50
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

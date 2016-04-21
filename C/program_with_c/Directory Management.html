@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>目錄管理 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_75">目錄管理</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="c語言--目錄管理函式庫" class="calibre11">C語言 -- 目錄管理函式庫</h1>
+<p class="calibre7"><strong class="calibre24">程式範例</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">    #include &lt;stdio.h&gt;
+    #include &lt;sys/stat.h&gt;
+
+    int main() {
+      char path[100];
+      size_t size;
+      getcwd(path, sizeof(path));
+      printf("path=%s\n", path);
+      mkdir("/temp1", S_IWRITE);
+      chdir("/temp1");
+      getcwd(path);
+      printf("path=%s\n", path);  
+    }
+</code></pre><p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\ccc\ca&gt;gcc dirapi.c -o dirapi
+
+D:\ccc\ca&gt;dirapi
+path=D:\ccc\ca
+path=D:\temp1
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

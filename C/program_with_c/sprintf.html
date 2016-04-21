@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>sprintf 函數 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_40">sprintf 函數</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="sprintf-函數-—-sprintf-是很好用的格式化工具。" class="calibre11">sprintf 函數 — sprintf 是很好用的格式化工具。</h1>
+<p class="calibre7">sprintf() 函數是C 語言用來格式化的主要方法，其函數原形如下所示。由於其中的格式化參數稍微複雜，因此很多學習者並不知道該如何正確的使用這些格式化參數。</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sprintf</span> <span class="hljs-built_in">( <span class="hljs-keyword">char</span> * str, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> * format, ... )</span></span>;
+
+str: 格式化後的輸出字串
+format：格式化的規格字串
+
+在 format 字串中，以 % 起頭者為格式段落，其格式語法如下：
+
+格式段落的語法：%[flags][width][.precision][length]specifier
+
+  % 代表變數開始
+
+  [flag] 
+    -:靠左
+    +:輸出正負號
+    (space):當不輸出正負號時，就輸出空白
+    <span class="hljs-built_in">#:在 <span class="hljs-built_in">8</span> 或 <span class="hljs-built_in">16</span> 進位 (o,x,X) 時，強制輸出 <span class="hljs-built_in">0</span>x 作為開頭，</span>
+      在浮點數 (e, E, f) 時，強制輸出小數點，
+      在浮點數 (g, G) 時，強制輸出小數點，但尾端的 <span class="hljs-built_in">0</span> 會被去掉。
+    <span class="hljs-built_in">0</span>:在開頭處(左側) 補 <span class="hljs-built_in">0</span>，而非補空白。
+
+  [width] 
+  最小輸出寬度 (或 *)
+
+  [.precision]
+  精確度，小數點之後的輸出位數
+
+  [length]
+  長度符號 h, I, L
+
+  [specifier]
+  型態描述元，可以是 c, d, e, E, f, g, G, o, s, u, x, X 等基本型態。
+  <span class="hljs-built_in">sprintf</span>() 函數的用法與 <span class="hljs-built_in">printf</span>() 很類似，只是第一個參數為輸出字串 str 而已，為了說明這些格式的意義，我們寫了以下程式，以示範 format 欄位的各種寫法。
+</code></pre>
+<p class="calibre7"><strong class="calibre24">檔案：printf.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span>
+</span>{
+   <span class="hljs-built_in">printf</span> (<span class="hljs-string">"Characters: %c %c \n"</span>, <span class="hljs-string">'a'</span>, <span class="hljs-built_in">65</span>);
+   <span class="hljs-built_in">printf</span> (<span class="hljs-string">"Decimals: %d %ld\n"</span>, <span class="hljs-built_in">1977</span>, <span class="hljs-built_in">650000L</span>);
+   <span class="hljs-built_in">printf</span> (<span class="hljs-string">"Preceding with blanks: %10d \n"</span>, <span class="hljs-built_in">1977</span>);
+   <span class="hljs-built_in">printf</span> (<span class="hljs-string">"Preceding with zeros: %010d \n"</span>, <span class="hljs-built_in">1977</span>);
+   <span class="hljs-built_in">printf</span> (<span class="hljs-string">"Some different radixes: %d %x %o %#x %#o \n"</span>, <span class="hljs-built_in">100</span>, <span class="hljs-built_in">100</span>, <span class="hljs-built_in">100</span>, <span class="hljs-built_in">100</span>, <span class="hljs-built_in">100</span>);
+   <span class="hljs-built_in">printf</span> (<span class="hljs-string">"floats: %4.2f %+.0e %E \n"</span>, <span class="hljs-built_in">3.1416</span>, <span class="hljs-built_in">3.1416</span>, <span class="hljs-built_in">3.1416</span>);
+   <span class="hljs-built_in">printf</span> (<span class="hljs-string">"Width trick: %*d \n"</span>, <span class="hljs-built_in">5</span>, <span class="hljs-built_in">10</span>);
+   <span class="hljs-built_in">printf</span> (<span class="hljs-string">"%s \n"</span>, <span class="hljs-string">"A string"</span>);
+   <span class="hljs-keyword">return</span> <span class="hljs-built_in">0</span>;
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">以上程式的輸出結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp\code&gt;gcc printf.c -o printf
+
+D:\cp\code&gt;printf
+Characters: a A
+Decimals: 1977 650000
+Preceding with blanks:       1977
+Preceding with zeros: 0000001977
+Some different radixes: 100 64 144 0x64 0144
+floats: 3.14 +3e+000 3.141600E+000
+Width trick:    10
+A string
+</code></pre><h3 id="參考文獻" class="calibre12">參考文獻</h3>
+<ul class="calibre13">
+<li class="calibre14"><a target="_blank" href="http://www.cplusplus.com/reference/clibrary/cstdio/sprintf/" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.cplusplus.com/reference/clibrary/cstdio/sprintf/</a></li>
+</ul>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

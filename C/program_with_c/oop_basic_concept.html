@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>物件導向的基本概念 -- 封裝，繼承，多型 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_63">物件導向的基本概念 -- 封裝，繼承，多型</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="物件導向的基本概念--封裝，繼承，多型" class="calibre11">物件導向的基本概念 -- 封裝，繼承，多型</h1>
+<p class="calibre7">C 語言雖然不是一種物件導向的語言，但是由於具有函數指標 (function pointer) 與結構 (struct)，因此可以讓我們模擬出類似物件導向的語法。在本章中，我們將說明如何用 C 語言設計物件導向的程式。</p>
+<p class="calibre7">物件導向語言大致上具有三個主要的特徵 -- 「封裝、繼承與多型」，以下是這三種特徵的基本描述與範例。</p>
+<p class="calibre7">封裝：將資料與函數放在一種稱為物件的結構中。</p>
+<p class="calibre7">繼承：子物件可以繼承父物件的所有欄位與屬性，並且可以新增欄位或修改函數。</p>
+<p class="calibre7">多型：多種不同的子物件繼承同一種上層物件時，我們可以用上層物件容納之，在呼叫時仍然會根據真實物件型態呼叫對應的子物件函數。</p>
+<p class="calibre7">物件導向的三種基本特徵</p>
+<p class="calibre7"><strong class="calibre24">封裝：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Shape</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">area</span><span class="hljs-built_in">()</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">0.0</span>; }
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">繼承：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Shape</span> </span>{
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> r;
+  Circle(<span class="hljs-keyword">double</span> pr) { r = pr; }
+  <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">area</span><span class="hljs-built_in">()</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">3.14</span>*r*r; }
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">多型：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">Shape s[] = { <span class="hljs-keyword">new</span> Shape(), <span class="hljs-keyword">new</span> Circle(<span class="hljs-built_in">3.0</span>) };
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-built_in">0</span>; i&lt;s.length; i++)
+  System.out.println(<span class="hljs-string">"area()="</span>+s[i].area());
+</code></pre>
+<h3 id="完整程式範例" class="calibre12">完整程式範例</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Shape</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">area</span><span class="hljs-built_in">()</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">0.0</span>; }
+
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-built_in">(String[] argv)</span> </span>{
+    Shape s[] = { <span class="hljs-keyword">new</span> Shape(), <span class="hljs-keyword">new</span> Circle(<span class="hljs-built_in">3.0</span>) };
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-built_in">0</span>; i&lt;s.length; i++)
+      System.out.println(<span class="hljs-string">"area()="</span>+s[i].area());
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Shape</span> </span>{
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> r;
+  Circle(<span class="hljs-keyword">double</span> pr) { r = pr; }
+  <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">area</span><span class="hljs-built_in">()</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">3.14</span>*r*r; }
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;javac Shape.java
+
+D:\cp&gt;java Shape
+area()=0.0
+area()=28.259999999999998
+</code></pre><p class="calibre7">在本文中，我們介紹了如何實作封裝、繼承、多型等三種物件導向的基本特性，在本章的後續小節中，我們將同樣以 Shape 這個範例，說明如何用 C 語言實作出這些物件導向功能。</p>
+<h1 id="來自-jserv-的建議" class="calibre11">來自 jserv 的建議</h1>
+<blockquote class="calibre28">
+<p class="calibre7">"""
+C 語言雖然不是一種物件導向的語言，但是由於具有函數指標 (function pointer) 與結構
+(struct)，因此可以讓我們模擬出類似物件導向的語法。在本章中，我們將說明如何用 C 語言設計物件導向的程式。
+"""</p>
+<p class="calibre7">=&gt; 說法不精確，object-oriented programming (OOP) [1] 是種 programming
+paradigm，用淺顯的話語，就是「物件導向是一種程式開發的態度」，請不要把 OOP 和 OOPL 混淆了，後者是程式語言層面提供 OO
+思維。我建議改為以下:
+"""
+C 語言一開始並非針對物件導向程式開發而設計的程式語言，但我們可藉由函式指標和結構體，將物件導向落實在 C 程式中。
+"""
+注意: C 語言規格書出現 "object" 字樣近八百次！</p>
+<p class="calibre7">另外，內文還提到:
+"""
+物件導向語言大致上具有三個主要的特徵 — 「封裝、繼承與多型」，以下是這三種特徵的基本描述與範例。
+"""
+=&gt; 這個說法不正確，不該把「落實物件導向的機制」當作物件導向，這樣因果錯位實在不好。OOP 的落實有兩種方向：
+(a) object-based: 如 Java, C++
+(b) prototype-based: 如 JavaScript</p>
+<p class="calibre7">後者在 C 語言的落實機制可見拙作: <a target="_blank" href="http://blog.linux.org.tw/~jserv/archives/002057.html" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://blog.linux.org.tw/~jserv/archives/002057.html</a></p>
+<p class="calibre7">[1] OOP: <a target="_blank" href="https://en.wikipedia.org/wiki/Object-oriented_programming" class="pcalibre2 calibre8 pcalibre1 pcalibre">https://en.wikipedia.org/wiki/Object-oriented_programming</a></p>
+</blockquote>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

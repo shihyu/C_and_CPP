@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>臨時暫存檔 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_73">臨時暫存檔</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="臨時暫存檔--如何建立暫存檔案" class="calibre11">臨時暫存檔 -- 如何建立暫存檔案</h1>
+<p class="calibre7"><strong class="calibre24">程式範例</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">    #include &lt;stdio.h&gt;
+
+    int main(void){
+      FILE *file;
+      if((file=tmpfile())==NULL) {
+        printf("Cannot open temporary work file.\n");
+        exit(1);
+      }
+      fprintf(file, "Hello! How are you.");
+      fflush(file);
+
+      char msg[10];
+      fseek(file, 0, SEEK_SET);
+      fscanf(file, "%s", msg);
+      printf("msg=%s", msg);
+      fclose(file);  
+    }
+</code></pre><p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc tmpfile.c -o tmpfile
+
+D:\cp&gt;tmpfile
+msg=Hello!
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

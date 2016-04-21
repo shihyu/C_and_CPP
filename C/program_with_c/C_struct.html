@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>C的結構 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_36">C的結構</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="c-的結構與物件" class="calibre11">C 的結構與物件</h1>
+<h3 id="整個結構傳遞" class="calibre12">整個結構傳遞</h3>
+<p class="calibre7">C 語言沒有物件導向，只有一種稱為《結構》(struct) 的組織模式，可以讓你把很多個欄位放在一起，形成一種《多欄位結構》。</p>
+<p class="calibre7">舉例而言，假如我們要表達《複數》，可以將《實部 r 和虛部 i》組合之後，形成一個《複數結構》，以下是其程式範例：</p>
+<p class="calibre7"><strong class="calibre24">檔案： complex.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> {
+  <span class="hljs-keyword">double</span> r, i;
+} Complex;
+
+<span class="hljs-function">Complex <span class="hljs-title">add</span><span class="hljs-built_in">(Complex c1, Complex c2)</span> </span>{
+  Complex c;
+  c.r = c1.r+c2.r;
+  c.i = c1.i+c2.i;
+  <span class="hljs-keyword">return</span> c;
+}
+
+<span class="hljs-function">Complex <span class="hljs-title">sub</span><span class="hljs-built_in">(Complex c1, Complex c2)</span> </span>{
+  Complex c;
+  c.r = c1.r-c2.r;
+  c.i = c1.i-c2.i;
+  <span class="hljs-keyword">return</span> c;
+}
+
+<span class="hljs-function">Complex <span class="hljs-title">mul</span><span class="hljs-built_in">(Complex c1, Complex c2)</span> </span>{
+  Complex c;
+  c.r = c1.r*c2.r-c1.i*c2.i;
+  c.i = c1.r*c2.i+c1.i*c2.r;
+  <span class="hljs-keyword">return</span> c;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-built_in">(<span class="hljs-keyword">char</span> *name, Complex c)</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s=%6.2f+%6.2fi\n"</span>, name, c.r, c.i);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  Complex o1={ .r=<span class="hljs-built_in">1.0</span>, .i=<span class="hljs-built_in">2.0</span> };
+  Complex o2={ .r=<span class="hljs-built_in">2.0</span>, .i=<span class="hljs-built_in">1.0</span> };
+
+  print(<span class="hljs-string">"o1"</span>, o1);
+  print(<span class="hljs-string">"o2"</span>, o2);
+
+  Complex add12 = add(o1, o2);
+  Complex sub12 = sub(o1, o2);
+  Complex mul12 = mul(o1, o2);
+
+  print(<span class="hljs-string">"add(o1,o2)"</span>, add12);
+  print(<span class="hljs-string">"sub(o1,o2)"</span>, sub12);
+  print(<span class="hljs-string">"mul(o1,o2)"</span>, mul12);
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc complex.c -o complex
+
+D:\Dropbox\cccwd\db\c\code&gt;complex
+o1=  1.00+  2.00i
+o2=  2.00+  1.00i
+add(o1,o2)=  3.00+  3.00i
+sub(o1,o2)= -1.00+  1.00i
+mul(o1,o2)=  0.00+  5.00i
+</code></pre><h3 id="只有傳遞指標，不須複製內容" class="calibre12">只有傳遞指標，不須複製內容</h3>
+<p class="calibre7"><strong class="calibre24">檔案： complex.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> {
+ <span class="hljs-keyword">double</span> r, i;
+} Complex;
+
+<span class="hljs-function">Complex <span class="hljs-title">add</span><span class="hljs-built_in">(Complex *c1, Complex *c2)</span> </span>{
+  Complex c;
+  c.r = c1-&gt;r+c2-&gt;r;
+  c.i = c1-&gt;i+c2-&gt;i;
+  <span class="hljs-keyword">return</span> c;
+}
+
+<span class="hljs-function">Complex <span class="hljs-title">sub</span><span class="hljs-built_in">(Complex *c1, Complex *c2)</span> </span>{
+  Complex c;
+  c.r = c1-&gt;r-c2-&gt;r;
+  c.i = c1-&gt;i-c2-&gt;i;
+  <span class="hljs-keyword">return</span> c;
+}
+
+<span class="hljs-function">Complex <span class="hljs-title">mul</span><span class="hljs-built_in">(Complex *c1, Complex *c2)</span> </span>{
+  Complex c;
+  c.r = c1-&gt;r*c2-&gt;r-c1-&gt;i*c2-&gt;i;
+  c.i = c1-&gt;r*c2-&gt;i+c1-&gt;i*c2-&gt;r;
+  <span class="hljs-keyword">return</span> c;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">print</span><span class="hljs-built_in">(<span class="hljs-keyword">char</span> *name, Complex *c)</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s=%6.2f+%6.2fi\n"</span>, name, c-&gt;r, c-&gt;i);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  Complex o1={ .r=<span class="hljs-built_in">1.0</span>, .i=<span class="hljs-built_in">2.0</span> };
+  Complex o2={ .r=<span class="hljs-built_in">2.0</span>, .i=<span class="hljs-built_in">1.0</span> };
+
+  print(<span class="hljs-string">"o1"</span>, &amp;o1);
+  print(<span class="hljs-string">"o2"</span>, &amp;o2);
+
+  Complex add12 = add(&amp;o1, &amp;o2);
+  Complex sub12 = sub(&amp;o1, &amp;o2);
+  Complex mul12 = mul(&amp;o1, &amp;o2);
+
+  print(<span class="hljs-string">"add(o1,o2)"</span>, &amp;add12);
+  print(<span class="hljs-string">"sub(o1,o2)"</span>, &amp;sub12);
+  print(<span class="hljs-string">"mul(o1,o2)"</span>, &amp;mul12);
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc complex2.c -o complex2
+
+D:\Dropbox\cccwd\db\c\code&gt;complex2
+o1=  1.00+  2.00i
+o2=  2.00+  1.00i
+add(o1,o2)=  3.00+  3.00i
+sub(o1,o2)= -1.00+  1.00i
+mul(o1,o2)=  0.00+  5.00i
+</code></pre><p class="calibre7">問題是，到底指標是甚麼？ 接下來我們將花比較多的時間，講述這個 C 語言當中令人又愛又恨的奇特概念！</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

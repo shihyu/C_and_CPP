@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>max.c | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_12">max.c</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="函數：取大值-maxab" class="calibre11">函數：取大值 max(a,b)</h1>
+<h3 id="採用函數的作法" class="calibre12">採用函數的作法</h3>
+<p class="calibre7"><strong class="calibre24">檔案： max.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">max</span><span class="hljs-built_in">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span> </span>{
+  <span class="hljs-keyword">if</span> (a&gt;b)
+    <span class="hljs-keyword">return</span> a;
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-keyword">return</span> b;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">int</span> m = max(<span class="hljs-built_in">9</span>,<span class="hljs-built_in">5</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"max(9,5)=%d\n"</span>, m);
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc max.c -o max
+
+D:\Dropbox\cccwd\db\c\code&gt;max
+max(9,5)=9
+</code></pre><h3 id="採用巨集的作法" class="calibre12">採用巨集的作法</h3>
+<p class="calibre7">C 語言屬於靜態語言，所有變數都要宣告型態，這樣編譯器才能正確進行編譯。</p>
+<p class="calibre7">但是如果你想寫一個《通用的函數》，不想綁訂在某些型態上，在 C 語言裡應該怎麼辦呢？</p>
+<p class="calibre7">一個可能的方法是使用巨集！</p>
+<p class="calibre7">巨集和函數不同，會被事先展開，然後在進行編譯，以下是一個用 C 語言設計通用的 max(a,b) 巨集的範例！</p>
+<p class="calibre7"><strong class="calibre24">檔案： maxMacro.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> max(a,b) ((a&gt;b)?a:b)</span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">int</span> m = max(<span class="hljs-built_in">9</span>,<span class="hljs-built_in">5</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"max(9,5)=%d\n"</span>, m);
+
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"max(3,8)=%d\n"</span>, max(<span class="hljs-built_in">3</span>,<span class="hljs-built_in">8</span>));
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc maxMacro.c -o maxMacro
+
+D:\Dropbox\cccwd\db\c\code&gt;maxMacro
+max(9,5)=9
+max(3,8)=8
+</code></pre><p class="calibre7">這種巨集會被先展開成沒有巨集的程式，方法是在每次呼叫時都《將整段程式碼貼上並取代參數》。</p>
+<p class="calibre7">我們可以透過 gcc 的 -E 參數，來觀察展開的情況，指令如下：</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc -E maxMacro.c -o maxMacro.i
+</code></pre><p class="calibre7">以下是展開後的程式碼</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-title">// ... 前面有一大堆註解</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">int</span> m = ((<span class="hljs-built_in">9</span>&gt;<span class="hljs-built_in">5</span>)?<span class="hljs-built_in">9</span>:<span class="hljs-built_in">5</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"max(9,5)=%d\n"</span>, m);
+
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"max(3,8)=%d\n"</span>, ((<span class="hljs-built_in">3</span>&gt;<span class="hljs-built_in">8</span>)?<span class="hljs-built_in">3</span>:<span class="hljs-built_in">8</span>));
+}
+</code></pre>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>字串的格式化 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_39">字串的格式化</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="字串的格式化" class="calibre11">字串的格式化</h1>
+<p class="calibre7">在 C 語言當中，輸出格式化依賴 printf() 類的指令，而輸入的格式化則仰賴 scanf 類的指令。這兩個函數都用到的 format 字串，這是 C 語言字串輸出入的核心。</p>
+<p class="calibre7">事實上，這兩類指令當中最重要的函數是 sscanf() 與 sprintf()，sprintf() 可以將複雜的參數格式化成字串，而 sscanf() 函數則是 C 語言版本的正規表達式，幾乎可以做到大部分 Regular Expression 能做到的功能。</p>
+<p class="calibre7">在這些函數當中，都會有一個 char *format 這樣的格式化參數，其中以 % 開頭的稱為格式描述區 (Format specifiers)，格式描述區有複雜的參數型態，稱為描述元 (specifier)，下表說明了描述元當中符號的意義，並列出其使用範例。</p>
+<table class="calibre17">
+<thead class="calibre18">
+<tr class="calibre19">
+<th class="calibre20">符號</th>
+<th class="calibre20">說明</th>
+<th class="calibre20">範例</th>
+</tr>
+</thead>
+<tbody class="calibre21">
+<tr class="calibre19">
+<td class="calibre22">c</td>
+<td class="calibre22">字元 (char)</td>
+<td class="calibre22">a</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">d</td>
+<td class="calibre22">整數 (Decimal integer)</td>
+<td class="calibre22">372</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">i</td>
+<td class="calibre22">整數 (Decimal integer) (同 d)</td>
+<td class="calibre22">372</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">f</td>
+<td class="calibre22">浮點數 (Floating Point)</td>
+<td class="calibre22">372.56</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">e</td>
+<td class="calibre22">科學記號 (Scientific notation)</td>
+<td class="calibre22">3.7256e+2</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">E</td>
+<td class="calibre22">科學記號 (Scientific notation)</td>
+<td class="calibre22">3.7256E+2</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">g</td>
+<td class="calibre22">取浮點數或科學記號當中短的那個</td>
+<td class="calibre22">372.56</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">G</td>
+<td class="calibre22">取浮點數或科學記號當中短的那個</td>
+<td class="calibre22">372.56</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">o</td>
+<td class="calibre22">八進位 (Octal Integer)</td>
+<td class="calibre22">735</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">s</td>
+<td class="calibre22">字串 (String)</td>
+<td class="calibre22">372</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">u</td>
+<td class="calibre22">無號數 (unsigned integer)</td>
+<td class="calibre22">372</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">x</td>
+<td class="calibre22">十六進位 (Hexadecimal integer)</td>
+<td class="calibre22">3fb</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">X</td>
+<td class="calibre22">十六進位 (Hexadecimal integer)</td>
+<td class="calibre22">3FB</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">p</td>
+<td class="calibre22">指標位址</td>
+<td class="calibre22">B800:0000</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">n</td>
+<td class="calibre22">不列印, 用來取得目前輸出長度</td>
+<td class="calibre22">%n</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">%</td>
+<td class="calibre22">印出 % 符號</td>
+<td class="calibre22">%%</td>
+</tr>
+</tbody>
+</table>
+<p class="calibre7">另外，有時在格式描述區當中還會指定變數長度欄位，說明取出後的變數長度，數字類型的欄位才會需要這樣指定，欄位的內容可能為 h, l 或 L，其意義如下所示。</p>
+<table class="calibre17">
+<thead class="calibre18">
+<tr class="calibre19">
+<th class="calibre20">長度符號</th>
+<th class="calibre20">說明</th>
+</tr>
+</thead>
+<tbody class="calibre21">
+<tr class="calibre19">
+<td class="calibre22">h</td>
+<td class="calibre22">2 byte 短整數 short int (針對 i, d, o, u, x and X)</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">l</td>
+<td class="calibre22">4 byte 長整數 int , long (針對 i, d, o, u, x and X)</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">L</td>
+<td class="calibre22">8 byte 浮點數 double (e, E, f, g and G)</td>
+</tr>
+</tbody>
+</table>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

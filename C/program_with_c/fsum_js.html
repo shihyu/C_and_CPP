@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>函數 -- fsum.js | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_9">函數 -- fsum.js</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="計算總和的函數" class="calibre11">計算總和的函數</h1>
+<p class="calibre7"><strong class="calibre24">檔案： fsum.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-built_in">n</span>) </span>{
+  s=<span class="hljs-built_in">0</span>;
+  <span class="hljs-keyword">for</span> (i=<span class="hljs-built_in">1</span>; i&lt;=n; i++) {
+    s = s+i;
+  }
+  <span class="hljs-keyword">return</span> s;
+}
+
+
+sum10 = sum(<span class="hljs-built_in">10</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"1+...+10="</span>+sum10);
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">nqu-192-168-61-142:code mac020$ node fsum.js
+1+...+10=55
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

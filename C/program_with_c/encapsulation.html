@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>封裝 — (Encapsulation) | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_64">封裝 — (Encapsulation)</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="以-c-語言實作物件封裝-encapsulation" class="calibre11">以 C 語言實作物件封裝 (Encapsulation)</h1>
+<p class="calibre7">物件導向中的封裝，是指將資料與函數封裝在一個稱為物件的結構當中，我們可以使用 C 語言的結構，將資料與函數指標一起放入結構中，就形成了一個類似物件的結構。</p>
+<h3 id="程式範例：實作-circle-物件" class="calibre12">程式範例：實作 Circle 物件</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-keyword">struct</span> Circle {
+  <span class="hljs-keyword">void</span> (*<span class="hljs-keyword">new</span>)(<span class="hljs-keyword">struct</span> Circle*, <span class="hljs-keyword">float</span>); 
+  <span class="hljs-keyword">float</span> (*area)(<span class="hljs-keyword">struct</span> Circle*);
+  <span class="hljs-keyword">float</span> r;
+};
+
+<span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">CircleArea</span><span class="hljs-built_in">(<span class="hljs-keyword">struct</span> Circle *obj)</span> </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">3.14</span> * obj-&gt;r * obj-&gt;r; }
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">CircleNew</span><span class="hljs-built_in">(<span class="hljs-keyword">struct</span> Circle *obj, <span class="hljs-keyword">float</span> r)</span> </span>{
+  obj-&gt;<span class="hljs-keyword">new</span> = CircleNew;
+  obj-&gt;area = CircleArea;
+  obj-&gt;r = r;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">struct</span> Circle c;
+  CircleNew(&amp;c, <span class="hljs-built_in">3.0</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"area() = %G\n"</span>, c.area(&amp;c));
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc Circle.c -o Circle
+
+D:\cp&gt;Circle
+area() = 28.26
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

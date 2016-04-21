@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>錯誤訊息列表 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_78">錯誤訊息列表</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="錯誤訊息列表--用-strerror-列出所有內建的錯誤訊息" class="calibre11">錯誤訊息列表 -- 用 strerror 列出所有內建的錯誤訊息</h1>
+<p class="calibre7"><strong class="calibre24">程式範例</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">    #include &lt;stdio.h&gt;
+    #include &lt;errno.h&gt;
+
+    int main ()
+    {
+      FILE * file;
+      file=fopen ("exist.not","rb");
+      if (file==NULL) {
+        perror("perror");
+        printf("strerror(errno)=%s\n", strerror(errno));
+      }
+      else
+        fclose (file);
+      return 0;
+    }
+</code></pre><p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc perror.c -o perror
+
+D:\cp&gt;perror
+perror: No such file or directory
+strerror(errno)=No such file or directory
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

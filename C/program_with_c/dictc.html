@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>dict.c | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_24">dict.c</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="範例：字典--dictc" class="calibre11">範例：字典 -- dict.c</h1>
+<p class="calibre7">C 語言沒有物件，也沒有字典結構與對應的函式庫。</p>
+<p class="calibre7">C 語言可以說是高階語言裡面的低階語言，很多東西你都要自己來實作，或者採用其他人所寫的函式庫。</p>
+<p class="calibre7">人員查詢 -- 姓名年齡分成兩個陣列</p>
+<p class="calibre7">以下是一個實現用《姓名》搜尋《年齡》的範例，這種搜尋法是線性搜尋，比較慢但程式相對簡單！</p>
+<p class="calibre7">檔案：dict.c</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
+
+<span class="hljs-keyword">int</span>  size    = <span class="hljs-built_in">3</span>;
+<span class="hljs-keyword">char</span> *name[] = { <span class="hljs-string">"john"</span>, <span class="hljs-string">"mary"</span>, <span class="hljs-string">"george"</span> };
+<span class="hljs-keyword">int</span>  age[]   = { <span class="hljs-built_in">20</span>,     <span class="hljs-built_in">30</span>,     <span class="hljs-built_in">40</span>       };
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findPeople</span><span class="hljs-built_in">(<span class="hljs-keyword">char</span> *pName, <span class="hljs-keyword">int</span> pSize)</span> </span>{
+  <span class="hljs-keyword">int</span> i;
+  <span class="hljs-keyword">for</span> (i=<span class="hljs-built_in">0</span>; i&lt;size; i++) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">strcmp</span>(name[i], pName)==<span class="hljs-built_in">0</span>) {
+      <span class="hljs-keyword">return</span> i;
+    }
+  }
+  <span class="hljs-keyword">return</span> -<span class="hljs-built_in">1</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">int</span> mi = findPeople(<span class="hljs-string">"mary"</span>, size);
+  <span class="hljs-keyword">if</span> (mi &lt; <span class="hljs-built_in">0</span>) {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"not found!\n"</span>);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"people[%d]: name=%s, age=%d\n"</span>, mi, name[mi], age[mi]);
+  }
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc dict.c -o dict
+
+D:\Dropbox\cccwd\db\c\code&gt;dict
+people[1]: name=mary, age=30
+</code></pre><h3 id="人員查詢--使用結構-struct" class="calibre12">人員查詢 -- 使用結構 (struct)</h3>
+<p class="calibre7">以下改使用結構 struct 來儲存人的姓名和年齡，結構和物件有點像，可以用 object.data 存取資料，但是通常不會將函數宣告在結構裡面。(因為 C 沒有支援物件的觀念，所以試圖模仿物件導向時，寫起來會很囉唆且麻煩)。</p>
+<p class="calibre7"><strong class="calibre24">檔案：dict2.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
+
+<span class="hljs-built_in">#<span class="hljs-keyword">define</span> SIZE <span class="hljs-built_in">3</span></span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> {
+  <span class="hljs-keyword">char</span> *name;
+  <span class="hljs-keyword">int</span>  age;
+} People;
+
+People peoples[] = {
+  { .name=<span class="hljs-string">"john"</span>, .age=<span class="hljs-built_in">20</span>}, 
+  { .name=<span class="hljs-string">"mary"</span>, .age=<span class="hljs-built_in">30</span>}, 
+  { .name=<span class="hljs-string">"george"</span>, .age=<span class="hljs-built_in">40</span>}
+};
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findPeople</span><span class="hljs-built_in">(<span class="hljs-keyword">char</span> *pName, <span class="hljs-keyword">int</span> pSize)</span> </span>{
+  <span class="hljs-keyword">int</span> i;
+  <span class="hljs-keyword">for</span> (i=<span class="hljs-built_in">0</span>; i&lt;pSize; i++) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">strcmp</span>(peoples[i].name, pName)==<span class="hljs-built_in">0</span>) {
+      <span class="hljs-keyword">return</span> i;
+    }
+  }
+  <span class="hljs-keyword">return</span> -<span class="hljs-built_in">1</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  <span class="hljs-keyword">int</span> mi = findPeople(<span class="hljs-string">"mary"</span>, SIZE);
+  <span class="hljs-keyword">if</span> (mi &lt; <span class="hljs-built_in">0</span>) {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"not found!\n"</span>);
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"people[%d]: name=%s, age=%d\n"</span>, mi, peoples[mi].name, peoples[mi].age);
+  }
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc dict2.c -o dict2
+
+D:\Dropbox\cccwd\db\c\code&gt;dict2
+people[1]: name=mary, age=30
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

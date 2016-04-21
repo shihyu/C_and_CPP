@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>integral.c | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_20">integral.c</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="積分" class="calibre11">積分</h1>
+<p class="calibre7"><strong class="calibre24">檔案： integral.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+#define dx 0.001
+
+double integral(double (*f)(double), double a, double b) {
+  double x, area = 0.0;
+  for (x=a; x&lt;b; x=x+dx) {
+    area = area + f(x)*dx;
+  }
+  return area;
+}
+
+double square(double x) {
+  return x*x;
+}
+
+int main() {
+  printf("integral(x^2,0,1)=%f\n", integral(square,0,1));
+  printf("integral(sin(x),0,pi)=%f\n", integral(sin,0,3.14159));
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc integral.c -o integral
+
+D:\Dropbox\cccwd\db\c\code&gt;integral
+integral(x^2,0,1)=0.332834
+integral(sin(x),0,pi)=2.000000
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

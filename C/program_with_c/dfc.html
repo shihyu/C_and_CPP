@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>df.c | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_18">df.c</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="微分" class="calibre11">微分</h1>
+<p class="calibre7"><strong class="calibre24">檔案： df.c</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+
+double dx = 0.001;
+
+double df(double (*Fx)(double), double x) {
+  double dy = f(x+dx) - f(x);
+  return dy/dx;
+}
+
+double square(double x) {
+  return x*x;
+}
+
+int main() {
+  printf("df(x^2,2)=%f\n", df(square, 2.0));
+  printf("df(sin(x),pi/4)=%f\n", df(sin, 3.14159/4));
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\cccwd\db\c\code&gt;gcc df.c -o df
+
+D:\Dropbox\cccwd\db\c\code&gt;df
+df(x^2,2)=4.001000
+df(sin(x/4),pi/4)=0.706754
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

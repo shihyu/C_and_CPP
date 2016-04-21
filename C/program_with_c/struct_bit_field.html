@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>結構中的位元欄 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_57">結構中的位元欄</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="結構中的位元欄-—-bits-field-讓您為每個位元取名字" class="calibre11">結構中的位元欄 — (Bits Field) 讓您為每個位元取名字</h1>
+<p class="calibre7">為了展示 C 語言中位元欄位的用途，筆者將拙著《系統程式》中 CPU0 處理器的狀態暫存器 (Status Word) 拿來做為範例，該狀態暫存器的位元配置如下圖所示。</p>
+<p class="calibre7">圖一、CPU0 的狀態暫存器 (SW) 之位元配置</p>
+<p class="calibre7"><strong class="calibre24">程式範例：結構中的位元欄位</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-title">// 請注意，寫在前面的欄位會被編在低位元部份，因此通常我們必須倒著寫，也就是將圖從右看到左。</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> 
+{               
+   <span class="hljs-keyword">unsigned</span> lo:<span class="hljs-built_in">4</span>; <span class="hljs-title">// 像是 unsigned hi, lo:4;</span>
+   <span class="hljs-keyword">unsigned</span> hi:<span class="hljs-built_in">4</span>; <span class="hljs-title">// 請注意，不能把兩個欄位寫在同一行</span>
+} byte;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span>
+{ 
+   <span class="hljs-keyword">unsigned</span> m:<span class="hljs-built_in">1</span>;
+   <span class="hljs-keyword">unsigned</span> b2:<span class="hljs-built_in">5</span>;
+   <span class="hljs-keyword">unsigned</span> t:<span class="hljs-built_in">1</span>;
+   <span class="hljs-keyword">unsigned</span> i:<span class="hljs-built_in">1</span>;
+   <span class="hljs-keyword">unsigned</span> b1:<span class="hljs-built_in">20</span>;
+   <span class="hljs-keyword">unsigned</span> v:<span class="hljs-built_in">1</span>;
+   <span class="hljs-keyword">unsigned</span> c:<span class="hljs-built_in">1</span>;
+   <span class="hljs-keyword">unsigned</span> z:<span class="hljs-built_in">1</span>;
+   <span class="hljs-keyword">unsigned</span> n:<span class="hljs-built_in">1</span>;
+} StatusWord;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  byte b = { .hi=<span class="hljs-built_in">0x0F</span>, .lo=<span class="hljs-built_in">0x0C</span> };
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span> *bp = (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">char</span>*) &amp;b;
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"byte=%02x\n"</span>, *bp);  
+
+  StatusWord sw = { .n=<span class="hljs-built_in">1</span>,.z=<span class="hljs-built_in">0</span>,.c=<span class="hljs-built_in">1</span>,.v=<span class="hljs-built_in">0</span>,.i=<span class="hljs-built_in">1</span>,.t=<span class="hljs-built_in">1</span>,.m=<span class="hljs-built_in">0</span>,.b1=<span class="hljs-built_in">0</span>,.b2=<span class="hljs-built_in">0</span> };
+  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> *psw = (<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span>*) &amp;sw;
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"SW=%08x\n"</span>, *psw);  
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc structBits.c -o structBits
+
+D:\cp&gt;structBits
+byte=fc
+SW=a00000c0
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

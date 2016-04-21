@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>鏈結串列-基礎版 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_59">鏈結串列-基礎版</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="範例程式：鏈結串列" class="calibre11">範例程式：鏈結串列</h1>
+<h3 id="檔案：linkedlistc" class="calibre12">檔案：LinkedList.c</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> lnode { 
+  <span class="hljs-keyword">struct</span> lnode *next;
+} ListNode;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ListNodePrint</span><span class="hljs-built_in">(ListNode *node)</span> </span>{
+  ListNode *p;
+  <span class="hljs-keyword">for</span> (p = node; p != <span class="hljs-built_in">NULL</span>; p=p-&gt;next)
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%p--&gt;"</span>, p);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+  ListNode node1, node2, node3;
+  node1.next = &amp;node2;
+  node2.next = &amp;node3;
+  node3.next = <span class="hljs-built_in">NULL</span>;
+  ListNodePrint(&amp;node1);
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc LinkedList.c -o LinkedList
+
+D:\cp&gt;LinkedList
+0022FF74--&gt;0022FF70--&gt;0022FF6C--&gt;
+</code></pre><h3 id="參考文獻" class="calibre12">參考文獻</h3>
+<ul class="calibre13">
+<li class="calibre14">深入分析 Linux 内核链表 -- <a target="_blank" href="http://www.ibm.com/developerworks/cn/linux/kernel/l-chain/index.html" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.ibm.com/developerworks/cn/linux/kernel/l-chain/index.html</a></li>
+</ul>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

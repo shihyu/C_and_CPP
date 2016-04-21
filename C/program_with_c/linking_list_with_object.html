@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>鏈結串列：內含物件版 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_60">鏈結串列：內含物件版</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="鏈結串列：內含物件版-—-通用性鏈結串列，一般性的寫法。" class="calibre11">鏈結串列：內含物件版 — 通用性鏈結串列，一般性的寫法。</h1>
+<h3 id="程式範例：鏈結串列--內含物件版" class="calibre12">程式範例：鏈結串列 -- 內含物件版</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> lnode { 
+  <span class="hljs-keyword">struct</span> lnode *next;
+  <span class="hljs-keyword">void</span> *obj;
+} ListNode;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> {
+  ListNode *head;
+} List;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ListNew</span><span class="hljs-built_in">(List *<span class="hljs-built_in">list</span>)</span> </span>{
+  <span class="hljs-built_in">list</span>-&gt;head = <span class="hljs-built_in">NULL</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ListAdd</span><span class="hljs-built_in">(List *<span class="hljs-built_in">list</span>, ListNode *node)</span> </span>{
+  <span class="hljs-keyword">if</span> (node == <span class="hljs-built_in">NULL</span>) <span class="hljs-keyword">return</span>;
+  node-&gt;next = <span class="hljs-built_in">list</span>-&gt;head;
+  <span class="hljs-built_in">list</span>-&gt;head = node;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">typedef</span> <span class="hljs-title">void</span><span class="hljs-built_in">(*F1)</span><span class="hljs-built_in">(<span class="hljs-keyword">void</span>*)</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ListPrint</span><span class="hljs-built_in">(List *<span class="hljs-built_in">list</span>, F1 f)</span> </span>{
+  ListNode *p;
+  <span class="hljs-keyword">for</span> (p = <span class="hljs-built_in">list</span>-&gt;head; p != <span class="hljs-built_in">NULL</span>; p=p-&gt;next)
+    f(p-&gt;obj);
+}
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> {
+    <span class="hljs-keyword">char</span> *name;
+    <span class="hljs-keyword">int</span> age;
+} Person;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">PersonPrint</span><span class="hljs-built_in">(Person *p)</span> </span>{
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s is %d years old\n"</span>, p-&gt;name, p-&gt;age);  
+}
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">()</span> </span>{
+    Person john = {
+      .name = <span class="hljs-string">"John"</span>,
+      .age = <span class="hljs-built_in">40</span>
+    };
+    Person mary = {
+      .name = <span class="hljs-string">"Mary"</span>,
+      .age = <span class="hljs-built_in">32</span>
+    };
+    Person george = {
+      .name = <span class="hljs-string">"George"</span>,
+      .age = <span class="hljs-built_in">26</span>
+    };
+    ListNode jnode = { .obj=&amp;john, .next=<span class="hljs-built_in">NULL</span> };
+    ListNode mnode = { .obj=&amp;mary, .next=<span class="hljs-built_in">NULL</span> };
+    ListNode gnode = { .obj=&amp;george, .next=<span class="hljs-built_in">NULL</span> };
+    List <span class="hljs-built_in">list</span>;
+    ListNew(&amp;<span class="hljs-built_in">list</span>);
+    ListAdd(&amp;<span class="hljs-built_in">list</span>, &amp;jnode);
+    ListAdd(&amp;<span class="hljs-built_in">list</span>, &amp;mnode);
+    ListAdd(&amp;<span class="hljs-built_in">list</span>, &amp;gnode);
+    ListPrint(&amp;<span class="hljs-built_in">list</span>, (F1) PersonPrint);
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">0</span>;
+}
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc LinkedListObj.c -o LinkedListObj
+
+D:\cp&gt;LinkedListObj
+George is 26 years old
+Mary is 32 years old
+John is 40 years old
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

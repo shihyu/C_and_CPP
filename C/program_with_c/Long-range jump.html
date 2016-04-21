@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>長程跳躍 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_81">長程跳躍</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="長程跳躍--setjump-與-longjump-在錯誤發生時，儲存行程狀態，執行特定程式的方法" class="calibre11">長程跳躍 -- (setjump 與 longjump) 在錯誤發生時，儲存行程狀態，執行特定程式的方法</h1>
+<p class="calibre7"><strong class="calibre24">程式範例： setjump 與 longjump</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">    #include &lt;stdio.h&gt;
+    #include &lt;setjmp.h&gt;
+
+    jmp_buf jumper;
+
+    int div(int a, int b) {
+      if (b == 0) { // can't divide by 0
+        longjmp(jumper, -3);
+      }
+      return a / b;
+    }
+
+    int main(int argc, char *argv[]) {
+      int jstatus = setjmp(jumper);
+      if (jstatus == 0) {
+        int a = atoi(argv[1]);
+        int b = atoi(argv[2]);
+        printf("%d/%d", a, b);
+        int result = div(a, b);
+        printf("=%d\n", result);
+      } 
+      else if (jstatus == -3)
+        printf(" --&gt; Error:divide by zero\n");
+      else
+        printf("Unhandled Error Case");
+    }
+</code></pre><p class="calibre7"><strong class="calibre24">執行結果
+</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc jump.c -o jump
+
+D:\cp&gt;jump 7 2
+7/2=3
+
+D:\cp&gt;jump 7 0
+7/0 --&gt; Error:divide by zero
+</code></pre><p class="calibre7"><strong class="calibre24">來自 jserv 的建議</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">=&gt; 請提及 C 語言作例外處理的重要性，以及如何用 setjump/longjump 實做 user-level thread 和 coroutine
+
+可參見拙作: http://blog.linux.org.tw/~jserv/archives/001848.html
+</code></pre><p class="calibre7"><strong class="calibre24">參考文獻</strong></p>
+<p class="calibre7">Java2s (C / ANSI-C) » setjmp.h » longjmp, <a target="_blank" href="http://www.java2s.com/Code/C/setjmp.h/longjmplongjump.htm" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.java2s.com/Code/C/setjmp.h/longjmplongjump.htm</a><br class="calibre30"/>Exception Handling in C without C++ -- Clean error handling without overhead, by Tom Schotland and Peter Petersen <a target="_blank" href="http://www.on-time.com/ddj0011.htm" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.on-time.com/ddj0011.htm</a><br class="calibre30"/>第16集 C语言中一种更优雅的异常处理机制, 作者：王胜祥　来源：希赛网　<a target="_blank" href="http://www.csai.cn" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.csai.cn</a>　2005年5月19日<br class="calibre30"/>第17集 全面了解setjmp与longjmp的使用, 作者：王胜祥　来源：希赛网　<a target="_blank" href="http://www.csai.cn" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.csai.cn</a>　2005年5月21日</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

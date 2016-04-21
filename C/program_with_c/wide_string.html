@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>寬字串函數 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_45">寬字串函數</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="c-語言中的寬字串--包含-unicode" class="calibre11">C 語言中的寬字串 -- 包含 Unicode</h1>
+<p class="calibre7">要在 C 語言中使用 Unicode 字串，假如您用的是 gcc 編譯器或 Linux，您可以使用寬字元 wchar_t 這個形態，以取代 char，然後用對應的函數取代原本的字串函數，以下是常見字串函數的寬字元版對應表。</p>
+<table class="calibre17">
+<thead class="calibre18">
+<tr class="calibre19">
+<th class="calibre20">窄字元</th>
+<th class="calibre20">寬字元</th>
+<th class="calibre20">說明</th>
+</tr>
+</thead>
+<tbody class="calibre21">
+<tr class="calibre19">
+<td class="calibre22">strlen()</td>
+<td class="calibre22">wcslen()</td>
+<td class="calibre22">字串長度</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">strcat()</td>
+<td class="calibre22">wcscat</td>
+<td class="calibre22">字串連接</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">strcmp()</td>
+<td class="calibre22">wcscmp()</td>
+<td class="calibre22">字串比較</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">strcoll()</td>
+<td class="calibre22">wcscoll()</td>
+<td class="calibre22">字串比較 (不分大小寫)</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">strcpy()</td>
+<td class="calibre22">wcscpy()</td>
+<td class="calibre22">字串複製</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">strchr()</td>
+<td class="calibre22">wcschr()</td>
+<td class="calibre22">尋找字元</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">strstr()</td>
+<td class="calibre22">wcswcs()</td>
+<td class="calibre22">尋找字串</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">strtok()</td>
+<td class="calibre22">wcstok()</td>
+<td class="calibre22">字串分割</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">strcspn()</td>
+<td class="calibre22">wcscspn()</td>
+<td class="calibre22">傳回字串中第一個符合字元集的位置</td>
+</tr>
+<tr class="calibre23">
+<td class="calibre22">strpbrk()</td>
+<td class="calibre22">wcspbrk()</td>
+<td class="calibre22">傳回字串中第一個符合字元集的指標</td>
+</tr>
+<tr class="calibre19">
+<td class="calibre22">strxfrm()</td>
+<td class="calibre22">wcsxfrm()</td>
+<td class="calibre22">根據區域設定 locale() 轉換字元集</td>
+</tr>
+</tbody>
+</table>
+<p class="calibre7">根據區域設定 locale() 轉換字元集
+簡而言之，就是將原本 strXXX() 函數，轉換成 wcsXXX() 函數，然後照著原本的方法使用，只是對象從 char<em class="calibre25"> 改為 wchar_t </em> 即可，請看下列範例。</p>
+<h4 id="程式範例：unicode-寬字串處理函數" class="calibre26">程式範例：Unicode 寬字串處理函數</h4>
+<p class="calibre7">檔案：unicode.c</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-built_in">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;locale.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-built_in">(<span class="hljs-keyword">void</span>)</span>
+</span>{
+    <span class="hljs-keyword">if</span> (!setlocale(LC_CTYPE, <span class="hljs-string">""</span>)) {
+        <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">"Error:Please check LANG, LC_CTYPE, LC_ALL.\n"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">1</span>;
+    }
+    <span class="hljs-keyword">wchar_t</span> *str1=<span class="hljs-string">L"Hi!你好"</span>; <span class="hljs-title">// 輸出結果 (範例)</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"str1=%ls\n"</span>, str1); <span class="hljs-title">// str1=Hi!你好</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"wcslen(str1)=%d\n"</span>, wcslen(str1)); <span class="hljs-title">// wcslen(str1)=5</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"wcschr(str1,%lc)=%d\n"</span>, L<span class="hljs-string">'好'</span>, wcschr(str1, L<span class="hljs-string">'好'</span>)); <span class="hljs-title">// wcschr(str1,好)=4206648</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"wcswcs(str1,%ls)=%d\n"</span>, <span class="hljs-string">L"你好"</span>, wcsstr(str1, <span class="hljs-string">L"你好"</span>)); <span class="hljs-title">// wcswcs(str1,你好)=4206646</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"wcsspn(str1,aeiou)=%d\n"</span>, wcsspn(str1, <span class="hljs-string">L"aeiou"</span>)); <span class="hljs-title">// wcsspn(str1,aeiou)=0</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"wcsspn(str1,EFGH)=%d\n"</span>, wcsspn(str1, <span class="hljs-string">L"EFGH"</span>)); <span class="hljs-title">// wcsspn(str1,EFGH)=1</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"address(str1)=%p\n"</span>, str1); <span class="hljs-title">// address(str1)=00403030</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"wcssbrk(str1,aeiou)=%p\n"</span>, wcspbrk(str1, <span class="hljs-string">L"aeiou"</span>)); <span class="hljs-title">// wcssbrk(str1,aeiou)=00403032</span>
+    <span class="hljs-keyword">wchar_t</span> str2[<span class="hljs-built_in">20</span>];
+    wcscpy(str2, str1);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"str2=%ls\n"</span>, str2); <span class="hljs-title">// str2=Hi!你好</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"wcscmp(str1,str2)=%d\n"</span>, wcscmp(str1, str2)); <span class="hljs-title">// wcscmp(str1,str2)=0</span>
+    wcscat(str2, <span class="hljs-string">L",我是John"</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"str2=%ls\n"</span>, str2); <span class="hljs-title">// str2=Hi!你好,我是John</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">0</span>;
+}
+</code></pre>
+<h4 id="執行結果" class="calibre26">執行結果</h4>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\cp&gt;gcc unicode.c -o unicode
+
+D:\cp&gt;unicode
+str1=Hi!你好
+wcslen(str1)=5
+wcschr(str1,好)=4206648
+wcswcs(str1,你好)=4206646
+wcsspn(str1,aeiou)=0
+wcsspn(str1,EFGH)=1
+address(str1)=00403030
+wcssbrk(str1,aeiou)=00403032
+str2=Hi!你好
+wcscmp(str1,str2)=0
+str2=Hi!你好,我是John
+</code></pre><h4 id="後記" class="calibre26">後記</h4>
+<p class="calibre7">寬字串的處理函數有很多，並不限於上列的函數，幾乎所有具有字串的標準 C 函數都有寬版，關於更多的寬版函數請參考下列網頁。</p>
+<blockquote class="calibre27">
+<p class="calibre7"><a target="_blank" href="http://www.java2s.com/Tutorial/C/0300__Wide-Character-String/WideCharacterFunctions.htm" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.java2s.com/Tutorial/C/0300__Wide-Character-String/WideCharacterFunctions.htm</a></p>
+</blockquote>
+<h4 id="來自-jserv-的建議" class="calibre26">來自 jserv 的建議</h4>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">"""
+寬字串函數 — 寬字串的處理，在 C 語言中，通常寬字串指的是 Unicode (但不限定於 Unicode)
+"""
+
+wide-character 翻譯為「寬字串」，我覺得有本質的問題。
+
+以下摘錄 CLDP:
+http://linux.org.tw/CLDP/OLD/doc/i18n-introduction.html
+
+"wcs" 是 "wide-chararater string" 的縮寫，而 "mbs" 是 "multi-byte string"
+的縮寫，二者分別代表字串的表現方式。所謂的 multi-byte 是指數個 char 組成 一個字 (如全形字或中文字是由兩個 char
+組成)，而 wide-char 是指一個 wchar_t type 就是一個字, 而 sizeof(wchar_t)
+的大小與系統有關，一般而言是 4 bytes。 一般我們可以直接看、輸出輸入等都是 multi-byte, 如:
+    char *str = "這是一個句子: abcd";
+
+但我們會建議在程式內部，用 mbstowcs() 將它轉成 wchar_t 來統一處理，這個 轉換其實是根據 locale 中的
+LC_CTYPE 的機制，它定義了 multi-byte 與 wide- char
+值二者間的對應關係。做這樣轉換的好處是，您不用擔心全形、半形的問題， 因為一個 wchar_t 矩陣元就是一個字。
+
+wchar_t 有一組與 string.h 中相對應的字串處理函式，就定義在 wchar.h 中，讓我們可以如同處理 (char *) 那樣
+地處理 (wchar_t *), 其部分的對應關係如下，其他的可以直接看 wchar.h 的內容:
+
+    wcscpy()        &lt;====&gt;          strcpy()
+    wcsncpy()       &lt;====&gt;          strncpy()
+    wcslen()        &lt;====&gt;          strlen()
+    wcsdup()        &lt;====&gt;          strdup()
+    wcscmp()        &lt;====&gt;          strcmp()
+    wcsncmp()       &lt;====&gt;          strncmp()
+    ........................................
+
+由於 mbs 碼與 wcs 碼的對應關係是由該 locale 的 LC_CTYPE 來決定的，也就是不 同的 locale
+寫法其對應關係可能會不一樣。就我們的 glibc2, zh_TW.Big5 locale 而言，由 mbs 轉成的 wcs 即為
+unicode (有關 unicode 的資訊可以在 http://www.unicode.org/
+中找到)，但不能保證在其他的系統或環境下也是如此。 故最保險的做法，是將字串儲存成 multi-byte, 然後在 run-time 時才用
+mbstowcs() 轉成 wide-char 來運作。
+
+==&gt; 可以看出重點不在於字串 (C 語言的 string 只是一個寫法，本質上仍是連續記憶體) 的「寬度」，而是 character 與
+character set 的「範圍寬度」
+==&gt; 建議保留原文 "wide character"，真要翻譯的話，可寫「擴充字元」
+</code></pre><h4 id="參考文獻" class="calibre26">參考文獻</h4>
+<ul class="calibre13">
+<li class="calibre14">简明手册:使你的C/C++代码支持Unicode -- <a target="_blank" href="http://www.i18nguy.com/unicode/c-unicode.zh-CN.html" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.i18nguy.com/unicode/c-unicode.zh-CN.html</a></li>
+<li class="calibre14">Programming with wide characters By Leslie P. Polzer on February 11, 2006 (8:00:00 AM) -- <a target="_blank" href="http://www.linux.com/archive/feature/51836" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.linux.com/archive/feature/51836</a></li>
+<li class="calibre14">[<a target="_blank" href="http://www.open-std.org/JTC1/SC22/WG14/www/docs/n1256.pdf" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.open-std.org/JTC1/SC22/WG14/www/docs/n1256.pdf</a> The current Standard (C99 with Technical corrigenda TC1, TC2, and TC3 included) (PDF)], (3.61 MB). Pages 397, 398 and 400.</li>
+</ul>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

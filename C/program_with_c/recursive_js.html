@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>遞迴 -- recursive.js | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_21">遞迴 -- recursive.js</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="遞迴範例-1" class="calibre11">遞迴範例 1</h1>
+<h3 id="範例：-recursivejs" class="calibre12">範例： recursive.js</h3>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(<span class="hljs-built_in">n</span>) </span>{
+    <span class="hljs-keyword">var</span> s=<span class="hljs-built_in">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i=<span class="hljs-built_in">1</span>; i&lt;=n; i++)
+        s += i;
+    <span class="hljs-keyword">return</span> s;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">s</span>(<span class="hljs-built_in">n</span>) </span>{
+    <span class="hljs-keyword">if</span> (n==<span class="hljs-built_in">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">1</span>;
+    <span class="hljs-keyword">return</span> s(n-<span class="hljs-built_in">1</span>)+n;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-built_in">n</span>) </span>{
+    <span class="hljs-keyword">if</span> (n==<span class="hljs-built_in">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">1</span>;
+    <span class="hljs-keyword">if</span> (n==<span class="hljs-built_in">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">1</span>;
+    <span class="hljs-keyword">return</span> f(n-<span class="hljs-built_in">1</span>)+f(n-<span class="hljs-built_in">2</span>);
+}
+
+<span class="hljs-keyword">var</span> log = <span class="hljs-built_in">console</span>.log;
+log(<span class="hljs-string">"f(5)=%d"</span>, f(<span class="hljs-built_in">5</span>));
+log(<span class="hljs-string">"sum(10)=%d"</span>, sum(<span class="hljs-built_in">10</span>));
+log(<span class="hljs-string">"s(10)=%d"</span>, s(<span class="hljs-built_in">10</span>));
+</code></pre>
+<h3 id="簡化後的版本" class="calibre12">簡化後的版本</h3>
+<p class="calibre7"><strong class="calibre24">檔案： s10.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">s</span>(<span class="hljs-built_in">n</span>) </span>{
+    <span class="hljs-keyword">if</span> (n==<span class="hljs-built_in">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">1</span>;
+    <span class="hljs-keyword">var</span> sn = s(n-<span class="hljs-built_in">1</span>)+n;
+    <span class="hljs-keyword">return</span> sn;
+}
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"s(10)=%d"</span>, s(<span class="hljs-built_in">10</span>));
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">nqu-192-168-61-142:code mac020$ node s10
+s(10)=55
+</code></pre><h3 id="追蹤遞迴過程" class="calibre12">追蹤遞迴過程</h3>
+<p class="calibre7">將函數 s(n) 修改如下以印出中間結果，並觀察執行過程：</p>
+<p class="calibre7"><strong class="calibre24">檔案： sum_recursive.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function">function <span class="hljs-title">s</span><span class="hljs-built_in">(n)</span> </span>{
+    <span class="hljs-keyword">if</span> (n==<span class="hljs-built_in">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">1</span>;
+    var sn = s(n-<span class="hljs-built_in">1</span>)+n;
+    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"s(%d)=%d"</span>, n, sn);
+    <span class="hljs-keyword">return</span> sn;
+}
+
+console.<span class="hljs-built_in">log</span>(<span class="hljs-string">"s(10)=%d"</span>, s(<span class="hljs-built_in">10</span>));
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">$ node sum_recursive
+s(2)=3
+s(3)=6
+s(4)=10
+s(5)=15
+s(6)=21
+s(7)=28
+s(8)=36
+s(9)=45
+s(10)=55
+s(10)=55
+</code></pre>
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

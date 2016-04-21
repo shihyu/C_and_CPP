@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>JS的模組化 | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_33">JS的模組化</h1>
+        
+            <div class="section" id="section-">
+            
+                <p class="calibre7"><strong class="calibre24">模組定義：math.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-keyword">var</span> math = {
+    PI:<span class="hljs-built_in">3.14</span>,
+    square:<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-built_in">n</span>) </span>{
+        <span class="hljs-keyword">return</span> n*n;
+    }
+}
+
+<span class="hljs-built_in">module</span>.exports = math;
+</code></pre>
+<p class="calibre7">接著您可以使用 require 這個指令動態的引入該模組，注意 require 必須採用相對路徑，即使在同一個資料夾底下，也要加上 ./ 的前置符號，代表在目前資料夾之下。以下是一個引用上述模組的範例。</p>
+<p class="calibre7"><strong class="calibre24">模組使用：mathTest.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-keyword">var</span> m=<span class="hljs-built_in">require</span>(<span class="hljs-string">"./math"</span>);
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"PI=%d square(3)=%d"</span>, m.PI, m.square(<span class="hljs-built_in">3</span>));
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\Dropbox\Public\pmag\201306\code&gt;node mathTest
+PI=3.14 square(3)=9
+</code></pre><h3 id="動態模組：匯出建構函數" class="calibre12">動態模組：匯出建構函數</h3>
+<p class="calibre7">以下是一個定義圓形 circle 的物件。</p>
+<p class="calibre7"><strong class="calibre24">模組定義：circle.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-keyword">var</span> PI = <span class="hljs-built_in">3.14</span>;
+Circle = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-built_in">radius</span>) </span>{
+    <span class="hljs-keyword">this</span>.radius = radius
+    <span class="hljs-keyword">this</span>.area = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-built_in"></span>) </span>{
+        <span class="hljs-keyword">return</span> PI * <span class="hljs-keyword">this</span>.radius * <span class="hljs-keyword">this</span>.radius;
+    }
+};
+
+<span class="hljs-built_in">module</span>.exports = Circle;
+<span class="hljs-built_in">module</span>.exports.PI = PI;
+</code></pre>
+<p class="calibre7">在引用「匯出建構函數」的程式當中，由於取得的是建構函數，因此必須再使用 new 的方式建立物件之後才能使用 (例如以下的 c = new cir(5) 這個指令，就是在透過建構函數 cir() 建立物件。</p>
+<p class="calibre7"><strong class="calibre24">模組使用：CircleTest.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-keyword">var</span> cir = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./circle'</span>);              <span class="hljs-title">// 注意，./ 代表 circle 與此程式放在同一個資料夾底下。</span>
+<span class="hljs-keyword">var</span> c = <span class="hljs-keyword">new</span> cir(<span class="hljs-built_in">5</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"cir.PI="</span>+cir.PI);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"c.PI="</span>+c.PI);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"c.area()="</span>+c.area());
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">D:\code\node&gt;node circleTest.js
+cir.PI=3.14
+c.PI=undefined
+c.area()=78.5
+</code></pre><p class="calibre7">您現在應該可以理解為何我們要將 Circle 定義為一個函數了吧！這只不過 Circle 類別的建構函數而已， 當他被 module.exports = Circle 這個指令匯出時，就可以在 var cir = require('./circle') 這個指令 接收到建構函數，然後再利用像 var c = new cir(5) 這樣的指令，呼叫該建構函數，以建立出物件。</p>
+<p class="calibre7">然後，您也應該可以看懂為何我們要用 module.exports.PI = PI 將 PI 獨立塞到 module.exports 裏了吧！ 因為只有這樣才能讓外面的模組在不執行物件建構函數 (不建立物件) 的情況之下就能存取 PI。</p>
+<p class="calibre7">跨平台模組：定義各種平台均能使用的 JavaScript 模組</p>
+<p class="calibre7">在很多開放原始碼的 JavaScript 專案模組中，我們會看到模組的最後有一段很複雜的匯出動作。舉例而言， 在 marked.js 這個將 Markdown 語法轉為 HTML 的模組最後，我們看到了下列這段感覺匪夷所思的匯出橋段， 這種寫法其實只是為了要讓這個模組能夠順利的在「瀏覽器、node.js、CommonJS 與其 Asynchronous Module Definition (AMD) 實作版的 RequireJS」等平台當中都能順利的使用這個模組而寫的程式碼而已。</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-title">/**
+ * Expose
+ */</span>
+
+marked.Parser = Parser;
+marked.parser = Parser.parse;
+
+marked.Lexer = Lexer;
+marked.lexer = Lexer.lex;
+
+marked.InlineLexer = InlineLexer;
+marked.inlineLexer = InlineLexer.output;
+
+marked.parse = marked;
+
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> exports === <span class="hljs-string">'object'</span>) {
+  <span class="hljs-built_in">module</span>.exports = marked;
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
+  define(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-built_in"></span>) </span>{ <span class="hljs-keyword">return</span> marked; });
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-keyword">this</span>.marked = marked;
+}
+
+}).call(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-built_in"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span> || (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">window</span> !== <span class="hljs-string">'undefined'</span> ? <span class="hljs-built_in">window</span> : global);
+}());
+</code></pre>
+<p class="calibre7">對這個超複雜匯出程式有興趣的朋友可以看看以下的文章，應該就可以大致理解這種寫法的來龍去脈了。</p>
+<ul class="calibre13">
+<li class="calibre14"><a target="_blank" href="http://www.angrycoding.com/2012/10/cross-platform-wrapper-function-for.html" class="pcalibre2 calibre8 pcalibre1 pcalibre">http://www.angrycoding.com/2012/10/cross-platform-wrapper-function-for.html</a></li>
+</ul>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>

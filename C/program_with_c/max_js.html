@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-tw" xml:lang="zh-tw">
+  <head>
+    <title>函數 -- max.js | 高等C語言</title>
+    <meta name="description" content=""/>
+    <meta name="generator" content="GitBook 2.6.7"/>
+    <meta name="author" content="Shengwen Cheng"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="stylesheet.css" rel="stylesheet" type="text/css"/>
+<link href="page_styles.css" rel="stylesheet" type="text/css"/>
+</head>
+  <body class="dir">
+        
+        
+<div class="page">
+    
+        <h1 class="book-chapter" id="calibre_toc_11">函數 -- max.js</h1>
+        
+            <div class="section" id="section-">
+            
+                <h1 id="函數：取大值-maxab" class="calibre11">函數：取大值 max(a,b)</h1>
+<p class="calibre7"><strong class="calibre24">檔案： max.js</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">max</span>(<span class="hljs-built_in">a,b</span>) </span>{
+  <span class="hljs-keyword">if</span> (a&gt;b)
+    <span class="hljs-keyword">return</span> a;
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-keyword">return</span> b;
+}
+
+m = max(<span class="hljs-built_in">9</span>,<span class="hljs-built_in">5</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"max(9,5)="</span>+m);
+</code></pre>
+<p class="calibre7"><strong class="calibre24">執行結果：</strong></p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">$ node max.js
+max(9,5)=9
+</code></pre><p class="calibre7">在此必須說明一點，函數呼叫時，參數的傳遞與名稱無關，而是與參數的位置有關。</p>
+<p class="calibre7">舉例而言，上面我們用 max(9,5) 呼叫 max 函數，此時 a, b 分別會帶入 a=9, b=5 的值進去，因此判斷式會得到 if (9&gt;5) return 9; 於是會傳回 9.</p>
+<p class="calibre7">但是如果我們用下列的呼叫方式，那麼就會得到 z=7。</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">x=<span class="hljs-built_in">3</span>; y=<span class="hljs-built_in">7</span>;
+z = max(x,y); <span class="hljs-title">// 此時 x 會代入 a, y 會代入 b 於是得到 max(x,y) = max(3,7) = 7</span>
+</code></pre>
+<p class="calibre7">假如呼叫時有 a, b 等變數，也不會因為名稱相同而代入，而是按照位置填入，舉例而言，在以下程式中，</p>
+<pre class="calibre9"><code class="calibre10 pcalibre3 pcalibre4">a=<span class="hljs-built_in">8</span>; b=<span class="hljs-built_in">2</span>;
+c = max(b,a); <span class="hljs-title">// 此時 b=2 會代入參數 a, 而 a=8 會代入參數 b 於是得到 max(b,a) = max(2,8) = 8</span>
+</code></pre>
+<p class="calibre7">總而言之，函數是根據呼叫時的位置代入的，而非根據名字。</p>
+
+            
+            </div>
+        
+    
+</div>
+
+        
+        
+    
+    
+
+</body></html>
